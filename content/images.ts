@@ -7,7 +7,7 @@
  */
 import type { StaticImageData } from "next/image";
 
-import founderPhuong from "@/public/placeholders/founder-phuong.webp";
+import founderPhuong from "@/public/images/founder-phuong.webp";
 import pathwayUniversity from "@/public/placeholders/pathway-university.webp";
 import pathwayVocational from "@/public/placeholders/pathway-vocational.webp";
 import gallery1 from "@/public/placeholders/gallery-1.webp";
@@ -30,7 +30,7 @@ export const images = {
   founderPhuong: {
     src: founderPhuong,
     alt: "Chân dung Phương, giám đốc NaNu NaNa",
-    placeholder: true,
+    placeholder: false,
   },
   pathwayUniversity: {
     src: pathwayUniversity,

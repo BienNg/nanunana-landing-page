@@ -3,7 +3,6 @@ import { Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { site } from "@/content/site";
 import { courses } from "@/content/courses";
 import { careersHref, privacyHref, sectionIds } from "@/content/nav";
-import { CourseBadge } from "@/components/ui/CourseBadge";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { isVisible } from "@/content/verify";
 import { SocialIcon } from "@/components/icons/SocialIcon";
@@ -56,7 +55,6 @@ export function Footer() {
               {courses.map((c) => (
                 <li key={c.id}>
                   <PrefillLink course={c.formValue} className={linkClass}>
-                    <CourseBadge level={c.level} className="min-w-11 justify-center px-2" />
                     {c.name}
                   </PrefillLink>
                 </li>

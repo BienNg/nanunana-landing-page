@@ -34,20 +34,6 @@ export function Founder() {
               <p className="text-label-md text-brand-teal-dark">{founder.role} NaNu NaNa</p>
             </figcaption>
           </div>
-          <ul
-            className="mx-auto mt-5 max-w-sm space-y-2 lg:max-w-none"
-            aria-label="Học vấn & kinh nghiệm"
-          >
-            {founder.bio.map((line) => (
-              <li
-                key={line}
-                className="flex gap-2.5 rounded-control border border-border-subtle bg-white px-4 py-2.5 text-body-sm text-ink"
-              >
-                <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-teal" />
-                {line}
-              </li>
-            ))}
-          </ul>
         </figure>
 
         {/* Story */}

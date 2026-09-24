@@ -1,7 +1,6 @@
 /**
  * Founder section — text from docs/old-site-content.md (spelling fixed only:
  * "nghành" → "ngành", "Sachen Anhalt" → "Sachsen-Anhalt").
- * Credentials come from content/team.ts (founder.bio).
  */
 export const founderSection = {
   eyebrow: "Về Phương",
@@ -14,7 +13,5 @@ export const founderSection = {
   ],
   quote:
     "Không ai dốt đến mức không học được ngoại ngữ cả, chỉ là các bạn chưa được chỉ đúng cách thôi!",
-  /** Short credential chips shown on the portrait card. */
-  highlights: ["Cử nhân ĐH Magdeburg", "Bằng giảng dạy xuất sắc Goethe Frankfurt", "11 năm ở Đức"],
-  cta: "Đăng Ký Tư Vấn Cùng Phương",
+  cta: "Đăng Ký Tư Vấn",
 };

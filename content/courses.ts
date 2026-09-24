@@ -1,11 +1,10 @@
 /**
  * German courses (CEFR A1–C1 + conversation class).
- * Descriptions are neutral drafts; durations, outcomes and bullet points are
- * unconfirmed and therefore wrapped in verify().
+ * Card copy is confirmed.
  */
 import type { CourseLevel } from "@/components/ui/CourseBadge";
 import type { CourseValue } from "./form-options";
-import { verify, type Claim } from "./verify";
+import { ok, type Claim } from "./verify";
 
 export type Course = {
   id: string;
@@ -18,7 +17,6 @@ export type Course = {
   description: Claim;
   duration: Claim;
   bullets: Claim<string[]>;
-  outcome?: Claim;
   /** Highlighted card (B1). */
   highlight?: string;
 };
@@ -28,15 +26,31 @@ export const coursesSection = {
   title: "Khoá Học Tiếng Đức",
   // Old site: "Hãy khám phá thế giới tiếng Đức cùng NANU NANA!" block.
   lead: "Hãy khám phá thế giới tiếng Đức cùng NANU NANA!",
-  intro: [
+  intro:
     "Bằng sự cống hiến và cách tư duy làm việc thông minh, chúng tôi mang đến một hành trình giúp các bạn học tiếng Đức theo cách mới.",
-    "Chúng tôi xây dựng một môi trường học tập thân thiện và sáng tạo, nơi bạn có cơ hội học hỏi từ đội ngũ giáo viên giỏi, chuyên nghiệp có nhiều năm học tập, sinh sống và làm việc tại Đức. Chúng tôi tin rằng việc học tiếng Đức không chỉ dừng lại là việc học một ngôn ngữ mà còn là cơ hội để mở rộng tầm nhìn và kết nối với một thế giới mới.",
-    "Bạn đang ấp ủ ước mơ được học tập, làm việc và có một khoảng thời gian trải nghiệm và ý nghĩa tại Đức, chúng tôi ở đây và xin được đồng hành cùng bạn trên hành trình này!",
-  ],
+  closer: {
+    points: [
+      {
+        id: "moi-truong",
+        title: "Môi trường thân thiện",
+        text: "Không gian học tập sáng tạo, nơi bạn được học hỏi và tiến bộ mỗi ngày.",
+      },
+      {
+        id: "giao-vien",
+        title: "Giáo viên từng sống tại Đức",
+        text: "Đội ngũ giỏi, chuyên nghiệp, có nhiều năm học tập, sinh sống và làm việc tại Đức.",
+      },
+      {
+        id: "tam-nhin",
+        title: "Mở ra một thế giới mới",
+        text: "Học tiếng Đức không chỉ là học một ngôn ngữ, mà còn là cơ hội mở rộng tầm nhìn và kết nối.",
+      },
+    ],
+    invitation:
+      "Bạn đang ấp ủ ước mơ được học tập, làm việc và có một khoảng thời gian trải nghiệm ý nghĩa tại Đức. Chúng tôi ở đây và xin được đồng hành cùng bạn trên hành trình này.",
+  },
   cardCta: "Đăng ký tư vấn",
 };
-
-const d = (text: string) => verify(text, "Mô tả khoá học (bản nháp) — cần xác nhận");
 
 export const courses: Course[] = [
   {
@@ -45,15 +59,11 @@ export const courses: Course[] = [
     name: "Tiếng Đức A1",
     title: "Tiếng Đức Nhập Môn A1",
     formValue: "a1",
-    description: d(
+    description: ok(
       "Làm quen với tiếng Đức: phát âm, từ vựng và mẫu câu cơ bản để giới thiệu bản thân và giao tiếp trong các tình huống hằng ngày.",
     ),
-    duration: verify("8–10 tuần", "Thời lượng khoá A1?"),
-    bullets: verify(
-      ["Phát âm chuẩn ngay từ đầu", "Ngữ pháp nền tảng, dễ hiểu"],
-      "Nội dung chính khoá A1?",
-    ),
-    outcome: verify("Cam kết đầu ra", "Có cam kết đầu ra không? Điều kiện?"),
+    duration: ok("40 buổi"),
+    bullets: ok(["Phát âm chuẩn ngay từ đầu", "Ngữ pháp nền tảng, dễ hiểu"]),
   },
   {
     id: "a2",
@@ -61,15 +71,11 @@ export const courses: Course[] = [
     name: "Tiếng Đức A2",
     title: "Tiếng Đức Sơ Cấp A2",
     formValue: "a2",
-    description: d(
+    description: ok(
       "Mở rộng từ vựng và ngữ pháp để trao đổi về công việc, gia đình, nơi ở và các tình huống quen thuộc trong cuộc sống.",
     ),
-    duration: verify("8–10 tuần", "Thời lượng khoá A2?"),
-    bullets: verify(
-      ["Thì quá khứ Perfekt & Präteritum", "Viết email, tin nhắn thông dụng"],
-      "Nội dung chính khoá A2?",
-    ),
-    outcome: verify("Cam kết đầu ra", "Có cam kết đầu ra không? Điều kiện?"),
+    duration: ok("42 buổi"),
+    bullets: ok(["Thì quá khứ Perfekt & Präteritum", "Viết email, tin nhắn thông dụng"]),
   },
   {
     id: "b1",
@@ -78,15 +84,14 @@ export const courses: Course[] = [
     title: "Tiếng Đức B1 & Luyện Thi",
     formValue: "b1",
     highlight: "Mục Tiêu Du Học",
-    description: d(
+    description: ok(
       "Trình độ quan trọng cho hồ sơ du học nghề và nhiều thủ tục tại Đức. Rèn luyện đủ 4 kỹ năng Nghe – Nói – Đọc – Viết theo format kỳ thi Goethe-Zertifikat.",
     ),
-    duration: verify("10–12 tuần", "Thời lượng khoá B1?"),
-    bullets: verify(
-      ["Luyện đề theo format Goethe-Zertifikat B1", "Chữa bài Nói & Viết cùng giáo viên"],
-      "Nội dung chính khoá B1?",
-    ),
-    outcome: verify("98% học viên đỗ ngay lần thi đầu", "Tỷ lệ đỗ B1 thực tế?"),
+    duration: ok("44 buổi"),
+    bullets: ok([
+      "Luyện đề theo format Goethe-Zertifikat B1",
+      "Chữa bài Nói & Viết cùng giáo viên",
+    ]),
   },
   {
     id: "b2",
@@ -94,14 +99,11 @@ export const courses: Course[] = [
     name: "Tiếng Đức B2",
     title: "Tiếng Đức Trung Cấp B2",
     formValue: "b2",
-    description: d(
+    description: ok(
       "Sử dụng tiếng Đức tự tin trong học tập và công việc: thảo luận, trình bày quan điểm và đọc hiểu văn bản chuyên sâu hơn.",
     ),
-    duration: verify("12 tuần", "Thời lượng khoá B2?"),
-    bullets: verify(
-      ["Thảo luận & trình bày quan điểm", "Văn phong học thuật và công sở"],
-      "Nội dung chính khoá B2?",
-    ),
+    duration: ok("58 buổi"),
+    bullets: ok(["Thảo luận & trình bày quan điểm", "Văn phong học thuật và công sở"]),
   },
   {
     id: "c1",
@@ -109,14 +111,11 @@ export const courses: Course[] = [
     name: "Tiếng Đức C1",
     title: "Tiếng Đức Cao Cấp C1",
     formValue: "c1",
-    description: d(
+    description: ok(
       "Tiếng Đức trình độ cao cho môi trường đại học và chuyên môn: hiểu văn bản học thuật, viết và trình bày mạch lạc.",
     ),
-    duration: verify("14 tuần", "Thời lượng khoá C1?"),
-    bullets: verify(
-      ["Chuẩn bị cho TestDaF / DSH / Goethe C1", "Viết và thuyết trình học thuật"],
-      "Nội dung chính khoá C1?",
-    ),
+    duration: ok("58 buổi"),
+    bullets: ok(["Chuẩn bị cho TestDaF / DSH / Goethe C1", "Viết và thuyết trình học thuật"]),
   },
   {
     id: "giao-tiep",
@@ -124,13 +123,10 @@ export const courses: Course[] = [
     name: "Lớp Giao Tiếp",
     title: "Lớp Giao Tiếp",
     formValue: "giao-tiep",
-    description: d(
+    description: ok(
       "Luyện phản xạ nghe – nói trong các tình huống đời sống, học tập và công việc — dành cho bạn muốn tự tin mở lời bằng tiếng Đức.",
     ),
-    duration: verify("Linh hoạt", "Thời lượng lớp giao tiếp?"),
-    bullets: verify(
-      ["Luyện nói theo tình huống thực tế", "Chuẩn bị phỏng vấn visa & xin việc"],
-      "Nội dung chính lớp giao tiếp?",
-    ),
+    duration: ok("Linh hoạt"),
+    bullets: ok(["Luyện nói theo tình huống thực tế", "Chuẩn bị phỏng vấn visa & xin việc"]),
   },
 ];

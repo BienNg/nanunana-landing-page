@@ -1,7 +1,15 @@
-import { Check, ChevronRight, Clock, Star } from "lucide-react";
+import {
+  Check,
+  ChevronRight,
+  Clock,
+  Globe,
+  GraduationCap,
+  HeartHandshake,
+  Star,
+  type LucideIcon,
+} from "lucide-react";
 import { courses, coursesSection, type Course } from "@/content/courses";
 import { sectionIds } from "@/content/nav";
-import { isVisible } from "@/content/verify";
 import { cn } from "@/lib/cn";
 import { Badge } from "@/components/ui/Badge";
 import { CourseBadge } from "@/components/ui/CourseBadge";
@@ -59,14 +67,7 @@ function CourseCard({ course }: { course: Course }) {
         )}
       </VerifyMark>
 
-      <footer className="mt-auto flex items-center justify-between gap-3 border-t border-border-subtle pt-4">
-        {course.outcome && isVisible(course.outcome) ? (
-          <span className="text-label-md text-trust-emerald-text">
-            <VerifyMark claim={course.outcome} />
-          </span>
-        ) : (
-          <span />
-        )}
+      <footer className="mt-auto flex items-center justify-end border-t border-border-subtle pt-4">
         <PrefillLink
           course={course.formValue}
           className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md text-brand-teal-dark hover:bg-surface-container-low"
@@ -80,6 +81,41 @@ function CourseCard({ course }: { course: Course }) {
   );
 }
 
+const closerIcons: Record<(typeof coursesSection.closer.points)[number]["id"], LucideIcon> = {
+  "moi-truong": HeartHandshake,
+  "giao-vien": GraduationCap,
+  "tam-nhin": Globe,
+};
+
+function CoursesCloser() {
+  return (
+    <div className="mt-14 overflow-hidden rounded-card border border-border-subtle bg-white shadow-tier-1">
+      <ul className="grid md:grid-cols-3">
+        {coursesSection.closer.points.map((point) => {
+          const Icon = closerIcons[point.id];
+          return (
+            <li
+              key={point.id}
+              className="flex gap-4 border-b border-border-subtle p-6 last:border-b-0 md:flex-col md:border-r md:border-b-0 md:p-8 md:last:border-r-0"
+            >
+              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface-container-low text-brand-teal-dark">
+                <Icon aria-hidden className="size-5" />
+              </span>
+              <div>
+                <h3 className="text-headline-sm text-ink">{point.title}</h3>
+                <p className="mt-1.5 text-body-md text-ink-muted">{point.text}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="border-t border-border-subtle bg-surface-container-low px-6 py-6 text-center text-body-md text-pretty text-ink md:px-12 md:py-8 md:text-body-lg">
+        {coursesSection.closer.invitation}
+      </p>
+    </div>
+  );
+}
+
 export function Courses() {
   return (
     <Section id={sectionIds.courses} tone="white">
@@ -90,7 +126,7 @@ export function Courses() {
         intro={
           <>
             <p className="font-semibold text-ink italic">{coursesSection.lead}</p>
-            <p className="mt-2">{coursesSection.intro[0]}</p>
+            <p className="mt-2">{coursesSection.intro}</p>
           </>
         }
       />
@@ -101,11 +137,7 @@ export function Courses() {
           </li>
         ))}
       </ul>
-      <div className="mx-auto mt-12 max-w-3xl space-y-3 text-center text-body-md text-ink-muted">
-        {coursesSection.intro.slice(1).map((p) => (
-          <p key={p}>{p}</p>
-        ))}
-      </div>
+      <CoursesCloser />
     </Section>
   );
 }

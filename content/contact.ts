@@ -1,7 +1,7 @@
-import { verify } from "./verify";
+import { ok, verify } from "./verify";
 
 export const contactSection = {
-  badge: verify("Hỗ trợ 24/7", "Có hỗ trợ 24/7 không?"),
+  badge: ok("Hỗ trợ 24/7"),
   title: "Liên hệ ngay",
   // Old site text.
   intro:
