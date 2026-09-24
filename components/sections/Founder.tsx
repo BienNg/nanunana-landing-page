@@ -4,7 +4,7 @@ import { founderSection } from "@/content/founder";
 import { founder } from "@/content/team";
 import { images } from "@/content/images";
 import { sectionIds } from "@/content/nav";
-import { buttonClasses } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/button-styles";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { Section } from "@/components/ui/Section";
 
@@ -76,7 +76,7 @@ export function Founder() {
           </blockquote>
 
           <div className="mt-8">
-            <PrefillLink goal="dinh-huong" className={buttonClasses({ size: "lg" })}>
+            <PrefillLink goal="dinh-huong" press className={buttonClasses({ size: "lg" })}>
               {founderSection.cta} <ArrowRight aria-hidden />
             </PrefillLink>
           </div>

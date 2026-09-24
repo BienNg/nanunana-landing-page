@@ -36,7 +36,10 @@ export function Process() {
               className="flex gap-5 lg:flex-col lg:items-center lg:gap-4 lg:text-center"
               data-process-step
             >
-              <span className="relative z-10 grid size-12 shrink-0 place-items-center rounded-full border-2 border-teal bg-white text-headline-sm text-brand-teal-dark shadow-tier-1">
+              <span
+                data-process-dot
+                className="relative z-10 grid size-12 shrink-0 place-items-center rounded-full border-2 border-teal bg-white text-headline-sm text-brand-teal-dark shadow-tier-1 transition-colors duration-300"
+              >
                 <span className="sr-only">Bước </span>
                 {i + 1}
               </span>

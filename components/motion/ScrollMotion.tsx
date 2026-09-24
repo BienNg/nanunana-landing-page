@@ -1,0 +1,84 @@
+"use client";
+
+import { gsap, MQ, ScrollTrigger, useGSAP } from "./gsap";
+
+const nf = new Intl.NumberFormat("vi-VN");
+
+/**
+ * Below-the-fold scroll effects (loaded lazily by MotionLoader):
+ * - stat numbers count up once ([data-countup])
+ * - the Process line draws as you scroll ([data-process], [data-process-line])
+ * - gentle parallax in the gallery ([data-gallery-item])
+ * Everything is attached to server-rendered markup; without JS or with
+ * reduced motion the final state is what's already in the HTML.
+ */
+export default function ScrollMotion() {
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add(MQ.motionOk, () => {
+      // Count-up
+      gsap.utils.toArray<HTMLElement>("[data-countup]").forEach((el) => {
+        const target = Number(el.dataset.countup);
+        const prefix = el.dataset.prefix ?? "";
+        const suffix = el.dataset.suffix ?? "";
+        if (!Number.isFinite(target)) return;
+        const counter = { v: 0 };
+        el.textContent = `${prefix}0${suffix}`;
+        gsap.to(counter, {
+          v: target,
+          duration: 1.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          onUpdate: () => {
+            el.textContent = `${prefix}${nf.format(Math.round(counter.v))}${suffix}`;
+          },
+        });
+      });
+
+      // Gallery parallax — alternate directions, small values
+      gsap.utils.toArray<HTMLElement>("[data-gallery-item] > div").forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { yPercent: i % 2 ? -4 : 4, scale: 1.08 },
+          {
+            yPercent: i % 2 ? 4 : -4,
+            scale: 1.08,
+            ease: "none",
+            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.8 },
+          },
+        );
+      });
+    });
+
+    // Process line: vertical on mobile, horizontal on desktop
+    const processLine = (axis: "x" | "y") => () => {
+      const section = document.querySelector<HTMLElement>("[data-process]");
+      const line = section?.querySelector<HTMLElement>("[data-process-line]");
+      if (!section || !line) return;
+      gsap.fromTo(line, axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, {
+        ...(axis === "x" ? { scaleX: 1 } : { scaleY: 1 }),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: axis === "x" ? "top 75%" : "top 70%",
+          end: axis === "x" ? "bottom 60%" : "bottom 55%",
+          scrub: 0.5,
+        },
+      });
+      section.querySelectorAll<HTMLElement>("[data-process-step]").forEach((step) => {
+        ScrollTrigger.create({
+          trigger: step,
+          start: axis === "x" ? "top 70%" : "top 65%",
+          toggleClass: { targets: step, className: "is-active" },
+        });
+      });
+    };
+    mm.add(`${MQ.motionOk} and ${MQ.desktop}`, processLine("x"));
+    mm.add(`${MQ.motionOk} and ${MQ.mobile}`, processLine("y"));
+
+    return () => mm.revert();
+  });
+
+  return null;
+}

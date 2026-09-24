@@ -200,6 +200,13 @@
     html {
       scroll-behavior: auto;
     }
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
   body {
     background-color: var(--color-surface-canvas);
@@ -214,6 +221,24 @@
     outline: 3px solid var(--color-teal);
     outline-offset: 2px;
     border-radius: 4px;
+  }
+  /*
+   * Hero entrance gate: hide hero items only while JS is expected to animate
+   * them in. An inline script in app/layout.tsx sets data-motion="pending" and
+   * falls back to showing everything after 2.5s if the animation never starts.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-motion="pending"] [data-hero-item],
+    html[data-motion="pending"] [data-hero-line],
+    html[data-motion="pending"] [data-hero-card] {
+      opacity: 0;
+    }
+  }
+  /* Process steps light up as the scroll-drawn line reaches them. */
+  [data-process-step].is-active [data-process-dot] {
+    background-color: var(--color-brand-teal-dark);
+    border-color: var(--color-brand-teal-dark);
+    color: var(--color-white);
   }
   ::selection {
     background-color: var(--color-primary-fixed);

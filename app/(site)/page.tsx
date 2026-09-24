@@ -12,6 +12,7 @@ import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
 import { ConsultationForm } from "@/components/form/ConsultationForm";
 import { serverEnv } from "@/lib/env";
+import { MotionLoader } from "@/components/motion/MotionLoader";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
       <Gallery />
       <Faq />
       <Contact form={<ConsultationForm turnstileSiteKey={serverEnv.turnstile()?.siteKey} />} />
+      <MotionLoader />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -43,8 +44,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={jakarta.variable} data-scroll-behavior="smooth">
+    <html
+      lang="vi"
+      className={jakarta.variable}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body className="min-h-dvh">
+        {/* Hero entrance gate (see globals.css). Never leaves content hidden for long. */}
+        <Script id="motion-gate" strategy="beforeInteractive">
+          {
+            "(function(d){d.dataset.motion='pending';setTimeout(function(){if(d.dataset.motion==='pending')d.dataset.motion='fallback'},2500)})(document.documentElement)"
+          }
+        </Script>
         <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />

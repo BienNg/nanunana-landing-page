@@ -7,6 +7,7 @@ import { isVisible } from "@/content/verify";
 import { Badge } from "@/components/ui/Badge";
 import { LinkButton } from "@/components/ui/Button";
 import { VerifyMark } from "@/components/ui/VerifyMark";
+import { HeroIntro } from "@/components/motion/HeroIntro";
 
 export function Hero() {
   const visibleChips = hero.card.chips.filter((c) => isVisible(c.value));
@@ -40,10 +41,13 @@ export function Hero() {
           <h1
             id="hero-title"
             className="mt-5 text-[40px] leading-[46px] font-extrabold tracking-[-0.025em] text-ink sm:text-display-hero lg:text-[56px] lg:leading-[64px]"
-            data-hero-item
           >
-            <span className="block text-brand-teal-dark">{hero.titleLines[0]}</span>
-            <span className="block">{hero.titleLines[1]}</span>
+            <span className="block text-brand-teal-dark" data-hero-line>
+              {hero.titleLines[0]}
+            </span>
+            <span className="block" data-hero-line>
+              {hero.titleLines[1]}
+            </span>
           </h1>
 
           <p className="mt-5 max-w-xl text-headline-sm text-ink md:text-headline-md" data-hero-item>
@@ -77,7 +81,7 @@ export function Hero() {
 
         {/* Brand visual card */}
         <div className="lg:col-span-5" data-hero-card>
-          <div className="relative mx-auto max-w-md lg:max-w-none">
+          <div className="relative mx-auto max-w-md lg:max-w-none" data-hero-parallax>
             <div
               aria-hidden
               className="absolute -inset-3 -z-10 rotate-2 rounded-media bg-gradient-to-br from-brand-teal-light/25 to-accent-coral/20 blur-[2px]"
@@ -113,6 +117,7 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <HeroIntro scope={`#${sectionIds.hero}`} />
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { pathways, pathwaysSection, type Pathway } from "@/content/pathways";
 import { sectionIds } from "@/content/nav";
 import { isVisible } from "@/content/verify";
 import { Badge } from "@/components/ui/Badge";
-import { buttonClasses } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/button-styles";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SiteImage } from "@/components/ui/SiteImage";
@@ -62,6 +62,7 @@ function PathwayCard({ p, index }: { p: Pathway; index: number }) {
         <div className="mt-auto pt-8">
           <PrefillLink
             goal={p.goal}
+            press
             className={buttonClasses({
               variant: index === 0 ? "secondary" : "primary",
               fullWidth: true,

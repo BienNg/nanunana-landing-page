@@ -1,47 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/cn";
+import { motion } from "motion/react";
+import { buttonClasses, pressMotion, type ButtonSize, type ButtonVariant } from "./button-styles";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "inverse";
-export type ButtonSize = "sm" | "md" | "lg";
-
-const base =
-  "inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-control font-sans text-label-lg font-semibold transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out active:translate-y-px disabled:pointer-events-none disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60 [&_svg]:size-[1.125em] [&_svg]:shrink-0";
-
-const variants: Record<ButtonVariant, string> = {
-  // Lead capture — coral
-  primary:
-    "bg-coral-fill text-white shadow-tier-1 hover:-translate-y-px hover:bg-coral-hover hover:shadow-glow-coral",
-  // Curriculum explorer — teal
-  secondary: "bg-brand-teal-dark text-white shadow-tier-1 hover:bg-teal-hover",
-  outline:
-    "border border-teal bg-white text-brand-teal-dark hover:border-brand-teal-dark hover:bg-surface-container-low",
-  ghost: "text-brand-teal-dark hover:bg-surface-container-low",
-  // On dark sections
-  inverse: "bg-white text-ink hover:bg-surface-container-low",
-};
-
-const sizes: Record<ButtonSize, string> = {
-  sm: "min-h-tap px-4 py-2 text-label-md",
-  md: "min-h-tap px-6 py-3",
-  lg: "min-h-13 px-7 py-3.5 text-[16px]",
-};
-
-export function buttonClasses({
-  variant = "primary",
-  size = "md",
-  fullWidth = false,
-  className,
-}: {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  fullWidth?: boolean;
-  className?: string;
-} = {}) {
-  return cn(base, variants[variant], sizes[size], fullWidth && "w-full", className);
-}
+export { buttonClasses, type ButtonSize, type ButtonVariant } from "./button-styles";
 
 type StyleProps = { variant?: ButtonVariant; size?: ButtonSize; fullWidth?: boolean };
+
+// Only pass through props that don't collide with Motion's own event typings.
+type Safe<T> = Omit<T, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart">;
+
+const MotionLink = motion.create(Link);
 
 export function Button({
   variant,
@@ -50,11 +21,12 @@ export function Button({
   className,
   type = "button",
   ...props
-}: ComponentProps<"button"> & StyleProps) {
+}: Safe<ComponentProps<"button">> & StyleProps) {
   return (
-    <button
+    <motion.button
       type={type}
       className={buttonClasses({ variant, size, fullWidth, className })}
+      {...pressMotion}
       {...props}
     />
   );
@@ -67,8 +39,14 @@ export function LinkButton({
   fullWidth,
   className,
   ...props
-}: ComponentProps<typeof Link> & StyleProps) {
-  return <Link className={buttonClasses({ variant, size, fullWidth, className })} {...props} />;
+}: Safe<ComponentProps<typeof Link>> & StyleProps) {
+  return (
+    <MotionLink
+      className={buttonClasses({ variant, size, fullWidth, className })}
+      {...pressMotion}
+      {...props}
+    />
+  );
 }
 
 /** External links (Zalo, Messenger, tel:). */
@@ -78,6 +56,12 @@ export function AnchorButton({
   fullWidth,
   className,
   ...props
-}: ComponentProps<"a"> & StyleProps) {
-  return <a className={buttonClasses({ variant, size, fullWidth, className })} {...props} />;
+}: Safe<ComponentProps<"a">> & StyleProps) {
+  return (
+    <motion.a
+      className={buttonClasses({ variant, size, fullWidth, className })}
+      {...pressMotion}
+      {...props}
+    />
+  );
 }

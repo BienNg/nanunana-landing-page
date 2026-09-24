@@ -1,24 +1,36 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, useSyncExternalStore } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 type Item = { id: string; question: string; answer: string; verifyNote?: string };
 
+const noop = () => () => {};
+/** false during SSR/hydration, true afterwards — before that every answer stays open (no-JS). */
+function useHydrated() {
+  return useSyncExternalStore(
+    noop,
+    () => true,
+    () => false,
+  );
+}
+
 /**
- * Accessible accordion (button + aria-expanded + region).
- * Answers are in the HTML (hidden attribute) so they work without JS for crawlers;
- * height animation is added in Phase 6.
+ * Accessible accordion (button + aria-expanded + region) with a Framer Motion
+ * height animation. Without JavaScript all answers are expanded.
  */
 export function FaqList({ items }: { items: Item[] }) {
   const [open, setOpen] = useState<string | null>(items[0]?.id ?? null);
+  const hydrated = useHydrated();
+  const reduce = useReducedMotion();
   const baseId = useId();
 
   return (
     <ul className="divide-y divide-border-subtle rounded-card border border-border-subtle bg-white shadow-tier-1">
       {items.map((item) => {
-        const expanded = open === item.id;
+        const expanded = !hydrated || open === item.id;
         const btnId = `${baseId}-${item.id}-q`;
         const panelId = `${baseId}-${item.id}-a`;
         return (
@@ -29,20 +41,34 @@ export function FaqList({ items }: { items: Item[] }) {
                 type="button"
                 aria-expanded={expanded}
                 aria-controls={panelId}
-                onClick={() => setOpen(expanded ? null : item.id)}
+                onClick={() => setOpen(open === item.id ? null : item.id)}
                 className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left text-headline-sm text-ink transition-colors hover:text-brand-teal-dark md:px-6"
               >
                 {item.question}
-                <ChevronDown
+                <motion.span
                   aria-hidden
-                  className={cn(
-                    "size-5 shrink-0 text-teal transition-transform duration-200",
-                    expanded && "rotate-180",
-                  )}
-                />
+                  animate={{ rotate: expanded ? 180 : 0 }}
+                  transition={{ duration: reduce ? 0 : 0.25 }}
+                  className="shrink-0 text-teal"
+                >
+                  <ChevronDown className="size-5" />
+                </motion.span>
               </button>
             </h3>
-            <div id={panelId} role="region" aria-labelledby={btnId} hidden={!expanded}>
+            <motion.div
+              id={panelId}
+              role="region"
+              aria-labelledby={btnId}
+              inert={!expanded}
+              initial={false}
+              animate={
+                expanded
+                  ? { height: "auto", opacity: 1, visibility: "visible" }
+                  : { height: 0, opacity: 0, transitionEnd: { visibility: "hidden" } }
+              }
+              transition={{ duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
               <p
                 className={cn(
                   "px-5 pb-5 text-body-md text-ink-muted md:px-6",
@@ -53,7 +79,7 @@ export function FaqList({ items }: { items: Item[] }) {
               >
                 {item.answer}
               </p>
-            </div>
+            </motion.div>
           </li>
         );
       })}

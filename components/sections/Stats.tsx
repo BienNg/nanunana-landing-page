@@ -35,7 +35,7 @@ export function Stats() {
                 <dd className="order-1 text-headline-lg text-brand-teal-dark tabular-nums md:text-headline-xl">
                   <VerifyMark claim={s.value}>
                     {(v) => (
-                      <span data-countup={v}>
+                      <span data-countup={v} data-prefix={s.prefix} data-suffix={s.suffix}>
                         {s.prefix}
                         {nf.format(v)}
                         {s.suffix}
