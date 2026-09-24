@@ -47,13 +47,9 @@ export default function RootLayout({
     <html lang="vi" className={jakarta.variable} data-scroll-behavior="smooth">
       <body className="min-h-dvh">
         <MotionProvider>{children}</MotionProvider>
-        {/* /_vercel/* scripts only exist on Vercel deployments */}
-        {process.env.VERCEL ? (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        ) : null}
+        {/* Scripts are served by Vercel (they 404 on a local `pnpm start`, which is harmless). */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
