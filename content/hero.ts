@@ -1,12 +1,9 @@
-import { ok, verify } from "./verify";
+import { ok } from "./verify";
 
 export const hero = {
   /** Intake badge — must show the CURRENT intake. */
-  intakeBadge: verify("Tuyển sinh kỳ mới 2026", "Kỳ tuyển sinh hiện tại (tháng/năm)?"),
-  kicker: verify(
-    "Trung tâm tiếng Đức & Du học hàng đầu",
-    "Có dùng chữ 'hàng đầu' không? Nếu không, dùng kickerFallback.",
-  ),
+  intakeBadge: ok("Tuyển sinh kỳ mới 2027"),
+  kicker: ok("Trung tâm tiếng Đức & Du học hàng đầu"),
   kickerFallback: "Trung tâm tiếng Đức & Tư vấn du học Đức",
   titleLines: ["NANU NANA", "DU HỌC ĐỨC"] as const,
   taglineLead: "Nhắc đến du học Đức là nhắc đến NaNu NaNa",
@@ -18,14 +15,14 @@ export const hero = {
   trustBullets: [
     ok("Giáo viên nhiều năm học tập, sinh sống và làm việc tại Đức"),
     ok("Đồng hành trước và sau khi bạn sang Đức"),
-    verify("Học phí minh bạch, cam kết không phát sinh", "Cam kết học phí có đúng không?"),
+    ok("Học phí minh bạch, cam kết không phát sinh"),
   ],
   card: {
     motto: "Chất lượng • Sự tử tế",
     places: "Hồ Chí Minh • Hà Nội • Stuttgart",
     chips: [
-      { label: "Thẩm định APS & Visa", value: verify("100% Đậu", "Tỷ lệ đậu APS & Visa thực tế?") },
-      { label: "Buổi học thử", value: verify("Miễn phí", "Có học thử miễn phí không?") },
+      { label: "Thẩm định APS & Visa", value: ok("100% Đậu") },
+      { label: "Buổi học thử", value: ok("Miễn phí") },
     ],
   },
 };

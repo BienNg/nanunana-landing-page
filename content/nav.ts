@@ -11,6 +11,8 @@ export const sectionIds = {
   university: "du-hoc-dai-hoc",
   vocational: "du-hoc-nghe",
   process: "lo-trinh",
+  processUniversity: "lo-trinh-dai-hoc",
+  processVocational: "lo-trinh-nghe",
   team: "doi-ngu",
   testimonials: "cam-nhan",
   gallery: "hanh-trinh",

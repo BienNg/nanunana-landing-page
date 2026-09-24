@@ -69,24 +69,25 @@ export default function ScrollMotion() {
 
     // Process line: vertical on mobile, horizontal on desktop
     const processLine = (axis: "x" | "y") => () => {
-      const section = document.querySelector<HTMLElement>("[data-process]");
-      const line = section?.querySelector<HTMLElement>("[data-process-line]");
-      if (!section || !line) return;
-      gsap.fromTo(line, axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, {
-        ...(axis === "x" ? { scaleX: 1 } : { scaleY: 1 }),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: axis === "x" ? "top 75%" : "top 70%",
-          end: axis === "x" ? "bottom 60%" : "bottom 55%",
-          scrub: 0.5,
-        },
-      });
-      section.querySelectorAll<HTMLElement>("[data-process-step]").forEach((step) => {
-        ScrollTrigger.create({
-          trigger: step,
-          start: axis === "x" ? "top 70%" : "top 65%",
-          toggleClass: { targets: step, className: "is-active" },
+      document.querySelectorAll<HTMLElement>("[data-process]").forEach((section) => {
+        const line = section.querySelector<HTMLElement>("[data-process-line]");
+        if (!line) return;
+        gsap.fromTo(line, axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, {
+          ...(axis === "x" ? { scaleX: 1 } : { scaleY: 1 }),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: axis === "x" ? "top 75%" : "top 70%",
+            end: axis === "x" ? "bottom 60%" : "bottom 55%",
+            scrub: 0.5,
+          },
+        });
+        section.querySelectorAll<HTMLElement>("[data-process-step]").forEach((step) => {
+          ScrollTrigger.create({
+            trigger: step,
+            start: axis === "x" ? "top 70%" : "top 65%",
+            toggleClass: { targets: step, className: "is-active" },
+          });
         });
       });
     };

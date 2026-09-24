@@ -79,8 +79,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.process}`} className={linkClass}>
-                  Lộ trình cùng NaNu NaNa
+                <Link href={`/#${sectionIds.processUniversity}`} className={linkClass}>
+                  Lộ trình du học đại học
+                </Link>
+              </li>
+              <li>
+                <Link href={`/#${sectionIds.processVocational}`} className={linkClass}>
+                  Lộ trình du học nghề
                 </Link>
               </li>
               <li>
