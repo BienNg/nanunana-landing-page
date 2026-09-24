@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-container":"#a36700","secondary":"#565e74","secondary-fixed-dim":"#bec6e0","surface-container-highest":"#d3e4fe","on-primary-fixed-variant":"#004e5c","on-secondary-container":"#5c647a","tertiary-fixed":"#ffddb8","primary":"#006577","brand-teal-light":"#00A3BF","surface-variant":"#d3e4fe","badge-a2-text":"#0F766E","secondary-container":"#dae2fd","surface-container-low":"#eff4ff","brand-teal-dark":"#0B7793","on-primary-container":"#f9fdff","background":"#f8f9ff","on-tertiary-container":"#fffbff","primary-fixed":"#acedff","on-error-container":"#93000a","on-surface-variant":"#3e494c","on-primary":"#ffffff","surface-dim":"#cbdbf5","badge-b2":"#FFEDD5","surface-container-lowest":"#ffffff","error-container":"#ffdad6","border-subtle":"#E2E8F0","badge-comm":"#DCFCE7","outline":"#6e797d","on-tertiary-fixed":"#2a1700","inverse-surface":"#213145","inverse-primary":"#6ed4ee","on-secondary":"#ffffff","on-surface":"#0b1c30","surface-container":"#e5eeff","surface-bright":"#f8f9ff","accent-coral":"#EE872A","on-secondary-fixed":"#131b2e","secondary-fixed":"#dae2fd","primary-fixed-dim":"#6ed4ee","on-error":"#ffffff","tertiary-fixed-dim":"#ffb95f","trust-emerald":"#10B981","badge-c1":"#F3E8FF","on-background":"#0b1c30","on-tertiary":"#ffffff","surface-canvas":"#F8FAFC","on-tertiary-fixed-variant":"#653e00","outline-variant":"#bdc8cc","on-secondary-fixed-variant":"#3f465c","surface-card":"#FFFFFF","badge-b1-text":"#B45309","primary-container":"#008096","error":"#ba1a1a","badge-comm-text":"#15803D","surface-card-subtle":"#F1F5F9","badge-b1":"#FEF3C7","badge-c1-text":"#7E22CE","badge-b2-text":"#C2410C","inverse-on-surface":"#eaf1ff","badge-a1":"#E0F2FE","badge-a2":"#CCFBF1","surface":"#f8f9ff","badge-a1-text":"#0369A1","surface-container-high":"#dce9ff","surface-tint":"#00687a","tertiary":"#825100","on-primary-fixed":"#001f26"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","margin":"2rem","space-xl":"2.5rem","space-xs":"0.25rem","space-sm":"0.5rem","gutter":"1.5rem","margin-mobile":"1.25rem","gutter-mobile":"1rem","space-md":"1rem"},"fontFamily":{"body-md":["Plus Jakarta Sans"],"display-hero-mobile":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-hero":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"]},"fontSize":{"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"display-hero-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"display-hero":["48px",{"lineHeight":"56px","letterSpacing":"-0.025em","fontWeight":"800"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"label-lg":["15px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-[1240px] mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-md shrink-0"><img alt="NaNu NaNa Logo (big transparent).png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WU7rKTqMp1u1NV-wo3G5SsQ0p7O4mS8xVqz1dizUy1G1yOLp4q5tNEiNH7brfa-GSBsVIA_DBgLy1Aa-bHLe2wIwANBZZXan--p1j8JTQS9K6a0szBHy6LAGLVB0bezpG69tPJ73VLzzfxUV6SzH2kJtjwtN6vYeRv3kmIoSGhdNAZV3YGpqjKXsntooxGp7BjKPciQ95VGNaM0xtcVXvbG1M9mWPmGJ9wE9_Y0XeoDMXd-s9ZClv4evcUfndoWIZXOmNZRZdBCF4"/><a class="flex flex-col" data-path="trang-chu" href="#"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">NaNu NaNa</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium tracking-wider uppercase">Du Học Đức</span></a></div><nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg px-3 py-1.5"><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors py-1.5" data-path="khoa-hoc" href="#">Khoá Học</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors py-1.5" data-path="du-hoc-dai-hoc" href="#">Du Học Đại Học</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors py-1.5" data-path="du-hoc-nghe" href="#">Du Học Nghề</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors py-1.5" data-path="doi-ngu" href="#">Đội Ngũ</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors py-1.5" data-path="ve-chung-toi" href="#">Về Chúng Tôi</a></nav><div class="flex items-center gap-space-md shrink-0"><a class="hidden md:flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors" href="tel:+84862934989"><span class="material-symbols-outlined text-[20px] text-primary">call</span><span class="font-label-md text-label-md font-semibold">+84 862 934 989</span></a><div class="hidden sm:flex items-center gap-space-xs"><a class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#" title="Zalo Tư Vấn"><span class="material-symbols-outlined text-[18px]">chat</span></a><a class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" href="#" title="Facebook Messenger"><span class="material-symbols-outlined text-[18px]">send</span></a></div><a class="inline-flex items-center justify-center px-space-md py-2.5 rounded-lg bg-accent-coral hover:bg-tertiary text-on-primary font-label-lg text-label-lg shadow-[0_4px_12px_-2px_rgba(238,135,42,0.3)] transition-all font-semibold" data-path="tu-van-mien-phi" href="#">Tư Vấn Miễn Phí</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- HERO SECTION -->
+<section class="relative w-full overflow-hidden bg-gradient-to-b from-surface-container-low via-surface to-background pb-space-xl pt-space-md">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<!-- Breadcrumb & Top Badges -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-lg">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high text-primary font-label-md text-label-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-trust-emerald animate-pulse"></span>
+<span>Tuyển sinh kỳ mới 2025 • Lộ trình Goethe &amp; Du học</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="inline-flex items-center gap-1 text-tertiary font-semibold">
+<span class="w-3 h-2 inline-block rounded-xs bg-[#111827]"></span>
+<span class="w-3 h-2 inline-block rounded-xs bg-[#DC2626]"></span>
+<span class="w-3 h-2 inline-block rounded-xs bg-[#FBBF24]"></span>
+            Đức &amp; Việt Nam
+          </span>
+<span>•</span>
+<span class="text-trust-emerald font-bold">100% Giảng viên Goethe &amp; Tốt nghiệp Đức</span>
+</div>
+</div>
+<!-- Main Hero Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-7 flex flex-col space-y-space-md">
+<div class="inline-flex items-center gap-space-xs self-start px-3 py-1 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+            Trung tâm tiếng Đức &amp; Du học hàng đầu
+          </div>
+<h1 class="font-display-hero text-display-hero text-on-surface tracking-tight">
+            NANU NANA <br/>
+<span class="text-primary bg-clip-text">DU HỌC ĐỨC</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            Nhắc đến du học Đức là nhắc đến <span class="text-primary font-semibold">NaNu NaNa</span> — 
+            <span class="text-accent-coral font-bold uppercase tracking-wide">Chất Lượng &amp; Sự Tử Tế</span>. Đồng hành trọn gói từ chứng chỉ ngoại ngữ A1–C1 đến tấm visa đại học &amp; du học nghề tại Cộng hòa Liên bang Đức.
+          </p>
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-accent-coral hover:bg-tertiary text-on-primary font-label-lg text-label-lg font-semibold shadow-md transition-all hover:-translate-y-0.5" href="#tu-van">
+<span>Đăng Ký Tư Vấn Miễn Phí</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-surface-card hover:bg-surface-container-high text-primary font-label-lg text-label-lg font-semibold shadow-sm transition-all" href="#khoa-hoc-chuan">
+<span class="material-symbols-outlined mr-2 text-[20px]">menu_book</span>
+<span>Khám Phá Các Khóa Học</span>
+</a>
+</div>
+<!-- Trust Badges List -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-sm">
+<div class="flex items-center gap-2 text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-trust-emerald text-[20px]">check_circle</span>
+<span>Học phí minh bạch, cam kết không phát sinh</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-trust-emerald text-[20px]">check_circle</span>
+<span>Đồng hành cả trước &amp; sau khi đặt chân tới Đức</span>
+</div>
+</div>
+</div>
+<!-- Hero Visual / Brand Emblem -->
+<div class="lg:col-span-5 relative flex justify-center">
+<div class="relative w-full max-w-[420px] aspect-square rounded-2xl bg-gradient-to-tr from-surface-container via-surface-card to-badge-a1 p-6 shadow-xl flex flex-col items-center justify-between text-center overflow-hidden">
+<div class="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+<div class="absolute -left-12 -bottom-12 w-48 h-48 rounded-full bg-accent-coral/10 blur-2xl pointer-events-none"></div>
+<div class="w-full flex items-center justify-between z-10">
+<span class="px-3 py-1 rounded-full bg-surface-card text-primary font-label-sm text-label-sm shadow-sm font-bold">Frankfurt • Leipzig • Sài Gòn</span>
+<span class="material-symbols-outlined text-accent-coral text-[24px]">flight_takeoff</span>
+</div>
+<!-- Big Logo Asset Injection -->
+<div class="relative my-auto flex flex-col items-center">
+<img alt="NaNu NaNa Du Học Đức" class="h-44 w-44 object-contain filter drop-shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkiTJFzFg6KIkXBRYLzoHR22X35wuyMDd31VUS_Z3Ic8cwleoFuDhKr3qAGQvslxv8w6FYQ6WyERCYC4YZlH-vx-RN-565INfrhjTBrsHvs9qP392sGp0NUKoTLts5dVh-n9oWJh2bNC4mqqoPhg2MwndHdf-u1TmGh0gajYoEjREd2BZf9rAWB-lvQ-_2yT6IyML6Kjcr0ThHyEh8_e9_VtkaXjKjqwr6jbO5m-iy2llg3zvBLqSqo8xxBjxz7H5t5mg"/>
+<div class="mt-4 px-4 py-1.5 rounded-full bg-surface-card/90 backdrop-blur-md shadow-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Tận Tâm • Chuẩn Châu Âu</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-2 gap-2 z-10 pt-2">
+<div class="bg-surface-card/80 backdrop-blur-sm p-2 rounded-lg text-left shadow-sm">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Thẩm định APS &amp; Visa</p>
+<p class="font-headline-sm text-headline-sm text-primary font-bold">100% Đậu</p>
+</div>
+<div class="bg-surface-card/80 backdrop-blur-sm p-2 rounded-lg text-left shadow-sm">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Lộ trình học thử</p>
+<p class="font-headline-sm text-headline-sm text-accent-coral font-bold">Miễn Phí 0Đ</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats Strip -->
+<div class="mt-space-xl grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-center">
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-xl text-headline-xl text-primary font-extrabold">1.000+</span>
+<span class="material-symbols-outlined text-brand-teal-light text-[28px]">school</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Học viên xuất sắc</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Đã &amp; đang học tập tại Đức</p>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-center">
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-xl text-headline-xl text-accent-coral font-extrabold">11+</span>
+<span class="material-symbols-outlined text-accent-coral text-[28px]">history_edu</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Năm kinh nghiệm</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sinh sống &amp; làm việc tại Đức</p>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-center">
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-xl text-headline-xl text-trust-emerald font-extrabold">98%</span>
+<span class="material-symbols-outlined text-trust-emerald text-[28px]">task_alt</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Tỷ lệ đỗ Visa &amp; B1</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ngay từ lần thi đầu tiên</p>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-center">
+<div class="flex items-center justify-between mb-1">
+<span class="font-headline-xl text-headline-xl text-primary font-extrabold">50+</span>
+<span class="material-symbols-outlined text-primary text-[28px]">apartment</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Đối tác đào tạo &amp; ĐH</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Các trường &amp; tập đoàn lớn tại Đức</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FOUNDER SPOTLIGHT: VỀ PHƯƠNG -->
+<section class="w-full py-space-xl bg-surface-container-low">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<div class="bg-surface-card rounded-2xl p-space-lg lg:p-space-xl shadow-md">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-4 flex flex-col items-center text-center">
+<div class="relative w-56 h-56 rounded-full overflow-hidden shadow-lg bg-surface-container mb-space-md">
+<img class="w-full h-full object-cover" data-alt="Chân dung cô Phương Nguyễn - Giám đốc sáng lập NaNu NaNa Du Học Đức, diện trang phục công sở hiện đại lịch thiệp màu trắng ngà, ánh mắt tự tin, nụ cười thân thiện, phông nền kiến trúc đại học châu Âu Magdeburg ánh sáng tự nhiên dịu nhẹ" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj8mlQ7tGclv1XgsjTRUAykNwX7Qk6_yhNyBuIow57kCbrOu_L8sr2skBrA89SS9EUSBF3WKYac2cKFOZvpraXTthw9Bl8hsH9pP6bH22K1FA6B1VXw2iqYM1s_P549QBz6LC9QOFk7EkakgE2dbiNiCvTTaSDmnXfIk9RTLN_KAUJ62pPkR7gI9RXLHdCQcaPSHzXrrOyrTEmkiykO-dSt-IolArhnTu6cNKfH6yURMJT6pgSO2oaWg"/>
+<div class="absolute bottom-2 inset-x-0 mx-auto w-fit px-3 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold shadow">
+                Founder &amp; Lead Mentor
+              </div>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">Phương Nguyễn</h3>
+<p class="font-label-md text-label-md text-primary font-semibold">Cử nhân ĐH Magdeburg • Giảng dạy Goethe Frankfurt</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">11 năm học tập, sinh sống &amp; công tác tại CHLB Đức</p>
+</div>
+<div class="lg:col-span-8 flex flex-col space-y-space-md">
+<div class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-badge-b2 text-badge-b2-text font-label-sm text-label-sm font-bold uppercase">
+<span class="material-symbols-outlined text-[16px]">local_library</span>
+              Người sáng lập &amp; Truyền cảm hứng
+            </div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-bold">
+              "Chào các bạn, mình là Phương!"
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Mình tốt nghiệp bằng cử nhân ngành Quản trị kinh doanh tại <strong class="text-on-surface">Đại học Magdeburg University (bang Sachsen-Anhalt, Đức)</strong> và tốt nghiệp chuyên môn giảng dạy với bằng xuất sắc tại <strong class="text-on-surface">Goethe Frankfurt</strong>.
+            </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Mình may mắn có cơ hội làm việc tại các trung tâm ngoại ngữ lớn ở Đức và trực tiếp công tác tại các tập đoàn công nghiệp hàng đầu thế giới như <strong class="text-primary font-semibold">BOSCH</strong> và <strong class="text-primary font-semibold">EBAY</strong>.
+            </p>
+<!-- Callout Quote Box -->
+<div class="p-space-md rounded-xl bg-surface-container-high border-l-4 border-l-primary flex flex-col space-y-2 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[28px]">format_quote</span>
+<p class="font-headline-sm text-headline-sm text-on-surface font-bold italic leading-snug">
+                "Học ngoại ngữ là một quá trình và mình biết cách giúp các bạn giỏi trong quá trình đó. KHÔNG AI DỐT ĐẾN MỨC KHÔNG HỌC ĐƯỢC NGOẠI NGỮ CẢ, CHỈ LÀ CÁC BẠN CHƯA ĐƯỢC CHỈ ĐÚNG CÁCH THÔI!"
+              </p>
+<span class="font-label-md text-label-md text-primary font-bold self-end">— Phương Nguyễn</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center px-6 py-2.5 rounded-lg bg-accent-coral hover:bg-tertiary text-on-primary font-label-lg text-label-lg font-semibold shadow-sm transition-all" href="#tu-van">
+                Kết nối &amp; Học thử cùng Phương
+              </a>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-trust-emerald text-[20px]">thumb_up</span>
+<span>Phương pháp phản xạ bản ngữ ứng dụng cao</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- COURSES SECTION: A1 to C1 & GIAO TIẾP -->
+<section class="w-full py-space-xl bg-surface" id="khoa-hoc-chuan">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-space-xl space-y-space-xs">
+<span class="px-3 py-1 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm uppercase font-bold tracking-wider">
+          Khung Chuẩn Châu Âu CEFR
+        </span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold">
+          KHOÁ HỌC TIẾNG ĐỨC CHUẨN
+        </h2>
+<p class="font-headline-sm text-headline-sm text-primary font-semibold italic">
+          "Hãy khám phá thế giới tiếng Đức cùng NANU NANA!"
+        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Bằng sự cống hiến và cách tư duy làm việc thông minh, chúng tôi mang đến một hành trình giúp các bạn học tiếng Đức theo cách mới mẻ, xóa tan rào cản ngữ pháp khô khan.
+        </p>
+</div>
+<!-- Course Level Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card A1 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm font-bold">Niveau A1</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">8–10 tuần</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Tiếng Đức Nhập Môn A1
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Xây nền móng phát âm chuẩn bản xứ, từ vựng sinh hoạt hàng ngày, tự giới thiệu và đối thoại các chủ đề cơ bản như mua sắm, gia đình, thời gian.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Phát âm chuẩn theo quy tắc ngữ âm Đức</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Làm quen cấu trúc ngữ pháp trọng điểm</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md border-t-0 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-trust-emerald font-bold">Cam kết đầu ra</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:text-accent-coral transition-colors" href="#tu-van">
+<span>Đăng ký học thử</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card A2 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-a2 text-badge-a2-text font-label-sm text-label-sm font-bold">Niveau A2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">8–10 tuần</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Tiếng Đức Sơ Cấp A2
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Mở rộng vốn từ vựng và củng cố ngữ pháp phức hợp, diễn đạt ý kiến cá nhân về công việc, môi trường sống và các tình huống giao tiếp đời thực.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Nắm vững các thì quá khứ Perfekt &amp; Präteritum</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Viết email, thư từ thông dụng tự tin</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-trust-emerald font-bold">Cam kết đầu ra</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:text-accent-coral transition-colors" href="#tu-van">
+<span>Đăng ký học thử</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card B1 (Key Highlight) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-md hover:shadow-xl transition-all flex flex-col justify-between relative ring-2 ring-accent-coral/30 group">
+<div class="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-accent-coral text-on-primary font-label-sm text-label-sm font-bold shadow">
+            Mục Tiêu Du Học
+          </div>
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-b1 text-badge-b1-text font-label-sm text-label-sm font-bold">Niveau B1 Goethe</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10–12 tuần</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Luyện Thi B1 Toàn Diện
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Trụ cột tiên quyết để nộp hồ sơ Du học Nghề (Ausbildung) và Đại học Đức. Rèn luyện 4 kỹ năng Nghe - Nói - Đọc - Viết bám sát format đề thi Goethe/ÖSD.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-coral text-[18px]">star</span>
+<span>98% học viên vượt qua ngay lần thi đầu</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Thực chiến giải đề thi thử 1:1 cùng giáo viên</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-accent-coral font-bold">Lớp Hot Nhất</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-accent-coral font-bold hover:underline" href="#tu-van">
+<span>Nhận Lộ Trình B1</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card B2 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-b2 text-badge-b2-text font-label-sm text-label-sm font-bold">Niveau B2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12 tuần</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Tiếng Đức Trung Cấp B2
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Định hướng chuyên ngành và phong thái học thuật/công sở chuyên nghiệp. Đạt tiêu chuẩn làm việc trực tiếp tại bệnh viện, nhà hàng khách sạn hay doanh nghiệp Đức.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Văn phong báo cáo và đàm phán thương mại</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Tranh luận phản biện chuyên sâu</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-trust-emerald font-bold">Chuẩn chuyên ngành</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:text-accent-coral transition-colors" href="#tu-van">
+<span>Đăng ký học thử</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card C1 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-c1 text-badge-c1-text font-label-sm text-label-sm font-bold">Niveau C1</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">14 tuần</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Tiếng Đức Cao Cấp C1
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Thấu hiểu và diễn giải các văn bản học thuật phức tạp. Đủ điều kiện nhập học thẳng vào các trường đại học nghiên cứu (Uni/TU) hàng đầu tại Đức mà không cần học dự bị.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Thành thạo TestDaF / DSH điểm cao</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Tư duy nghiên cứu &amp; luận giải chuẩn Đức</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-trust-emerald font-bold">Học thuật cao cấp</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:text-accent-coral transition-colors" href="#tu-van">
+<span>Đăng ký học thử</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card Giao Tiếp -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-comm text-badge-comm-text font-label-sm text-label-sm font-bold">Phản Xạ Thực Chiến</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Linh hoạt</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold group-hover:text-primary transition-colors">
+              Lớp Giao Tiếp Chuyên Sâu
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Dành riêng cho các bạn muốn phá vỡ nỗi sợ mở lời, cải thiện ngữ điệu, chuẩn bị phỏng vấn visa sứ quán, phỏng vấn xin việc cùng doanh nghiệp Đức.
+            </p>
+<ul class="space-y-2 pt-2 text-on-surface font-body-sm text-body-sm">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>100% tương tác trực tiếp với giáo viên bản xứ</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">done</span>
+<span>Xử lý tình huống đời sống &amp; công sở thực tế</span>
+</li>
+</ul>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-trust-emerald font-bold">Tự tin phản xạ</span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:text-accent-coral transition-colors" href="#tu-van">
+<span>Đăng ký học thử</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DUAL PATHWAYS SECTION: DU HỌC ĐẠI HỌC vs DU HỌC NGHỀ -->
+<section class="w-full py-space-xl bg-surface-container-low">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm uppercase font-bold tracking-wider">
+          Chọn Lựa Tương Lai
+        </span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold mt-2">
+          Hai Con Đường Vững Chắc Tới Nước Đức
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+          Dù bạn chọn giảng đường đại học danh giá hay chương trình đào tạo nghề có hưởng lương, NaNu NaNa luôn có lộ trình bài bản dành riêng cho bạn.
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Du học đại học -->
+<div class="bg-surface-card rounded-2xl p-space-lg lg:p-space-xl shadow-md flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm font-bold">Studium in Deutschland</span>
+<span class="material-symbols-outlined text-primary text-[28px]">account_balance</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+              Du Học Đại Học - Chúng Tôi Đồng Hành Cùng Bạn!
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Học tập tại Đức mở ra vô số cơ hội hấp dẫn, nhưng bạn nên bắt đầu từ đâu? Với sự hỗ trợ tận tâm của chúng tôi, bạn không chỉ tìm thấy chương trình học phù hợp mà còn được giải đáp mọi thắc mắc hồ sơ.
+            </p>
+<div class="relative w-full h-48 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Nữ sinh viên Việt Nam vui mừng cầm giấy báo trúng tuyển đại học Đức trước khuôn viên đại học cổ kính Leipzig tràn ngập nắng vàng, balo trẻ trung, phong cách hiện đại và đầy khát vọng tuổi trẻ" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1HmFIGR2tihl3Dm-giEhdel_vfUptKuLm3IAsKIEXUYCkJcnO9Jmfd4-mGv8jNIx6vGPTQLZkNvND7mmdkLvvAnZASKx77Ka2x2kClR2z64llbaHN2Ps_T7Y2I0uMbWgs4hokPKXsbKK50wXawyDY2hchbHx5ojHmp-rFN2oVlr7LOwpJsVcjBdp0m6x6S_6qxu4bCYWD47hiO7fiMiIuVH3UY607E7rBO6_QIdcJmKIfAPfMaeYhEA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-4">
+<span class="text-on-primary font-label-md text-label-md font-semibold">Miễn 100% Học Phí Tại Hầu Hết Các Bang</span>
+</div>
+</div>
+<div class="space-y-2 pt-2">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Hướng dẫn chi tiết quy trình thẩm định APS, luyện thi TestAS đạt điểm chuẩn cao.</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Đồng hành chọn trường, xin Zulassung (thư mời nhập học) và hỗ trợ hòa nhập sau khi sang Đức.</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Cơ hội định cư lâu dài và làm việc tại thị trường kinh tế số 1 châu Âu.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-lg">
+<a class="w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-brand-teal-dark text-on-primary font-label-lg text-label-lg font-semibold shadow-sm transition-all" href="#tu-van">
+<span>Khám Phá Du Học Đại Học</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Du học nghề Ausbildung -->
+<div class="bg-surface-card rounded-2xl p-space-lg lg:p-space-xl shadow-md flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-badge-b2 text-badge-b2-text font-label-sm text-label-sm font-bold">Ausbildung System</span>
+<span class="material-symbols-outlined text-accent-coral text-[28px]">engineering</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+              Du Học Nghề (Ausbildung) - Kỹ Năng &amp; Việc Làm Ngay!
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              Sự kết hợp hoàn hảo giữa kỹ năng thực tế và chất lượng đào tạo bài bản. Bạn được vừa học lý thuyết vừa thực hành tại các viện, nhà hàng, khách sạn lớn với mức trợ cấp hấp dẫn mỗi tháng.
+            </p>
+<div class="relative w-full h-48 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Học viên điều dưỡng và kỹ thuật viên người Việt Nam đang thực tập trong bệnh viện hiện đại tại Berlin CHLB Đức, nụ cười rạng rỡ, môi trường làm việc y tế chuyên nghiệp chuẩn quốc tế" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbzI8x_oDnUgf_jQuIeA5CcztW65LLoxc5Bq2Gt0yN_j8Y8eH8KbAiD9oMe2jGFV9JEeJo2SMqZG-90Aw3GhZP67MkJQceNlAyAwuQaaNFhrWXSgje5-xGk7SekqWyuLZV8hmQGSu_84ODR1OqRRW0QsyyNb5Ec4oOK0sVyP7tyainQvky59ni4St_e9HVB2ugLYW4Y6nbABVJO_3ZqZpjWJsqVkIkbKgqXIDaPVYruYSMVDsogjpLpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-4">
+<span class="text-on-primary font-label-md text-label-md font-semibold">Trợ Cấp 1.000€ – 1.400€ / Tháng Trong Khi Học</span>
+</div>
+</div>
+<div class="space-y-2 pt-2">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Đa dạng ngành nghề khát nhân lực: Điều dưỡng, Nhà hàng - Khách sạn, Cơ khí, CNTT,...</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Không cần chứng minh tài chính rườm rà, nhận lương đào tạo thực tập ngay từ tháng đầu.</p>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-trust-emerald text-[20px] shrink-0 mt-0.5">check_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface">Cam kết việc làm 100% sau tốt nghiệp với mức lương khởi điểm từ 2.800€ - 3.500€/tháng.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-lg">
+<a class="w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-accent-coral hover:bg-tertiary text-on-primary font-label-lg text-label-lg font-semibold shadow-sm transition-all" href="#tu-van">
+<span>Khám Phá Du Học Nghề</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- LIFE & COMMUNITY AT NANU NANA (Photo Collage Grid inspired by Reference) -->
+<section class="w-full py-space-xl bg-surface">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-space-sm">
+<div>
+<span class="px-3 py-1 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm uppercase font-bold tracking-wider">
+            Khoảnh Khắc NaNu NaNa
+          </span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold mt-2">
+            Hành Trình Chinh Phục Giấc Mơ Đức
+          </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+          Từ những giờ học say mê tại lớp học Sài Gòn tới giây phút cất cánh tại sân bay Tân Sơn Nhất và đặt chân tới giảng đường nước Đức.
+        </p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="relative h-64 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="Tập thể lớp học tiếng Đức tại trung tâm NaNu NaNa tươi cười cùng cô giáo Phương Nguyễn, trên bảng có ghi các mẫu câu tiếng Đức, không khí học tập tích cực, năng động" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwv4nOK_ozZm82TuDHrE2scMcF3bxYKGosWPiVWgHMa_zblR1VJd8EySlhmHDpuKcCpq9SLpMuSITojcL0tLoIlQLnZyiluyI4mncOuaLjb-6dZArI-1rMbQwSjupKRn1wcHL0SMgH9SPc0tlxDusqA9NRvltlIznxcbdmlf7H-yO_U3uLL0nufX4agDzwswqzXfxyjuccsw3DVuiD_A3moHe2Tq7ABuqlYqjLVwal2g49S3uVf_Enlw"/>
+</div>
+<div class="relative h-64 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="Học viên nhận visa du học Đức chụp ảnh lưu niệm cùng đại diện trung tâm NaNu NaNa tại văn phòng Cao Thắng Quận 10, biểu cảm tự hào và rạng rỡ" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiZtdgKLi-35uVtV9a6hlNumFFyzPIoM7Yb7HQ4F6ybLfMgMd9uBYvnOXcsSjPi3FUvxu9IqGK2xm5cTXyJaBYFY6Kzfno7VpEyVgQxEabNPRSaYouoLgMWSZD6R1dyYAx9cC0QUzsTqkJzHQdgscXprTNrmOf5q7kfIxnbAwVRIou-CquhzELgTXP1Z_6If3bshWADB-mQEbFDPQWcvXCEUPv4XDwa1dR2_TnORcoFXlXx1R5gpZgfQ"/>
+</div>
+<div class="relative h-64 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="Học viên NaNu NaNa tốt nghiệp khoá học tiếng Đức B1 vui mừng cầm bằng chứng chỉ Goethe-Zertifikat B1 trong trang phục lễ tốt nghiệp trẻ trung" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBodWhOAY1V4mjz5bMN3IqNw4AORw6bk7sGZRKl3FgAnVHd0W-dfO_SAsotAqQhj31mQ2ohWiadQ63BwZjAYKIZ85PBRvjwZHw8NLzEI0uJgjVPQTQAajgF7bQsEW4zNtlP6ZtbbdQe-9scb7vsaLYcXd0GZIcNuFSjNWM2rj9xSxqpVIK4t5e3RQ8sTxnSAaQ6XfvmlyYYmJhswJ2_muQ1WoagRLycA_145MdTwVLQWih5LGMAloOtsQ"/>
+</div>
+<div class="relative h-64 rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" data-alt="Khung cảnh đường phố thơ mộng tại Frankfurt và khu quảng trường lịch sử Đức, tàu điện hiện đại di chuyển, bầu trời trong xanh, khát vọng du học" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz7Q94-_28X7FUtneMlWwzFYyfttYUcGansEhA6ulkZpdKKWGYcyHCxAtguQSPg3oFg4I2eoTqMNp3UD0LDpC_er__4cBeRwk-WOpJ6s2ssYalyj2UyWBCQ3p8pUWKKzUA5_IDVuo5jPudmpBCeTJ4YVdQAx5VvxoY1c27HP5wpGWKnSEZLC-AVwv_3mG4tQ6uLwXQ9BB49JHhofqsklQcsfjdksLnaTjchvA8bSqSFscvyoib5qPAJA"/>
+</div>
+</div>
+</div>
+</section>
+<!-- LEAD CONSULTATION SECTION & CONTACT FORM -->
+<section class="w-full py-space-xl bg-inverse-surface text-on-primary" id="tu-van">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- Left: Intro & Direct Channels -->
+<div class="lg:col-span-5 space-y-space-md">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold uppercase">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+            Hỗ Trợ 24/7
+          </div>
+<h2 class="font-headline-xl text-headline-xl text-on-primary font-extrabold tracking-tight">
+            Liên hệ ngay với NaNu NaNa
+          </h2>
+<p class="font-body-md text-body-md text-surface-container-highest/90 leading-relaxed">
+            Nếu bạn muốn đăng ký khóa học, cần hỗ trợ để làm việc hoặc học tập tại Đức, hoặc có bất kỳ câu hỏi nào, hãy để lại thông tin hoặc nhắn tin trực tiếp trên Facebook/Zalo, đừng ngại nhé!
+          </p>
+<!-- Direct Chat Quick Actions -->
+<div class="space-y-space-sm pt-space-xs">
+<a class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-card/10 hover:bg-surface-card/20 transition-all text-on-primary" href="https://zalo.me/84862934989" target="_blank">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[20px]">chat</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-semibold">Nhắn tin Zalo trực tiếp</p>
+<p class="font-body-sm text-body-sm text-surface-container-highest/80">+84 862 934 989 (Ms. Phương)</p>
+</div>
+</a>
+<a class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-card/10 hover:bg-surface-card/20 transition-all text-on-primary" href="https://m.me/100573835262458" target="_blank">
+<div class="w-10 h-10 rounded-full bg-brand-teal-light flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[20px]">send</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-semibold">Facebook Messenger</p>
+<p class="font-body-sm text-body-sm text-surface-container-highest/80">m.me/NaNuNaNaDuHocDuc</p>
+</div>
+</a>
+<a class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-card/10 hover:bg-surface-card/20 transition-all text-on-primary" href="tel:+84862934989">
+<div class="w-10 h-10 rounded-full bg-accent-coral flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[20px]">call</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-semibold">Hotline Tư Vấn Nhanh</p>
+<p class="font-body-sm text-body-sm text-surface-container-highest/80">+84 (0) 862 934 989</p>
+</div>
+</a>
+</div>
+</div>
+<!-- Right: Lead Form Card -->
+<div class="lg:col-span-7">
+<div class="bg-surface-card text-on-surface rounded-2xl p-space-lg lg:p-space-xl shadow-xl">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mb-1">
+              Đăng Ký Nhận Lộ Trình &amp; Học Thử Miễn Phí
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+              Chuyên viên tư vấn học thuật NaNu NaNa sẽ liên hệ trong vòng 15 phút.
+            </p>
+<form class="space-y-space-sm" id="leadForm" onsubmit="event.preventDefault(); document.getElementById('formSuccess').classList.remove('hidden'); document.getElementById('leadForm').classList.add('hidden');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Họ và tên *</label>
+<input class="w-full h-12 px-3.5 rounded-lg bg-surface-card-subtle border border-border-subtle focus:outline-none focus:border-primary text-on-surface font-body-sm text-body-sm" placeholder="Ví dụ: Nguyễn Văn An" required="" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Số điện thoại / Zalo *</label>
+<input class="w-full h-12 px-3.5 rounded-lg bg-surface-card-subtle border border-border-subtle focus:outline-none focus:border-primary text-on-surface font-body-sm text-body-sm" placeholder="Ví dụ: 0988 123 456" required="" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Khóa học / Trình độ quan tâm *</label>
+<select class="w-full h-12 px-3 rounded-lg bg-surface-card-subtle border border-border-subtle focus:outline-none focus:border-primary text-on-surface font-body-sm text-body-sm">
+<option value="A1">Tiếng Đức Nhập môn A1</option>
+<option value="A2">Tiếng Đức Sơ cấp A2</option>
+<option selected="" value="B1">Luyện thi B1 Goethe (Cấp tốc)</option>
+<option value="B2">Tiếng Đức Trung cấp B2</option>
+<option value="On-thi-B1">Ôn thi riêng kỹ năng B1</option>
+<option value="On-thi-B2">Ôn thi riêng kỹ năng B2</option>
+<option value="Giao-tiep">Khoá Phản xạ Giao tiếp</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Mục tiêu &amp; Nguyện vọng du học</label>
+<select class="w-full h-12 px-3 rounded-lg bg-surface-card-subtle border border-border-subtle focus:outline-none focus:border-primary text-on-surface font-body-sm text-body-sm">
+<option value="dai-hoc">Du học Đại học / Thạc sĩ Đức</option>
+<option value="nghe-dieu-duong">Du học nghề Điều dưỡng</option>
+<option value="nghe-nha-hang">Du học nghề Khách sạn - F&amp;B</option>
+<option value="nghe-ky-thuat">Du học nghề Cơ khí - Kỹ thuật</option>
+<option value="tham-dinh-aps">Chỉ làm hồ sơ APS &amp; Visa Đức</option>
+<option value="chua-xac-dinh">Cần chuyên gia tư vấn định hướng</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface font-semibold mb-1">Mong muốn khác hoặc câu hỏi của bạn</label>
+<textarea class="w-full p-3 rounded-lg bg-surface-card-subtle border border-border-subtle focus:outline-none focus:border-primary text-on-surface font-body-sm text-body-sm" placeholder="Ví dụ: Em muốn tìm hiểu lộ trình học từ A1 lên B1 trong 6 tháng để kịp kỳ nhập học tháng 9..." rows="2"></textarea>
+</div>
+<button class="w-full h-12 rounded-lg bg-accent-coral hover:bg-tertiary text-on-primary font-label-lg text-label-lg font-bold shadow-md transition-all flex items-center justify-center gap-2" type="submit">
+<span>Gửi Yêu Cầu Tư Vấn Ngay</span>
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</form>
+<!-- Success State Message (hidden by default) -->
+<div class="hidden p-space-md rounded-xl bg-badge-comm text-badge-comm-text text-center space-y-2" id="formSuccess">
+<span class="material-symbols-outlined text-[40px] text-trust-emerald">task_alt</span>
+<h4 class="font-headline-sm text-headline-sm font-bold">Cảm ơn bạn đã quan tâm đến NaNu NaNa!</h4>
+<p class="font-body-sm text-body-sm">Chúng tôi đã nhận được thông tin và sẽ liên hệ hỗ trợ bạn sớm nhất có thể qua Zalo/Điện thoại!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- UNSER TEAM (OUR TEAM) SECTION -->
+<section class="w-full py-space-xl bg-surface">
+<div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-space-xl space-y-space-xs">
+<span class="px-3 py-1 rounded-full bg-badge-a2 text-badge-a2-text font-label-sm text-label-sm uppercase font-bold tracking-wider">
+          Đội Ngũ Giảng Viên &amp; Chuyên Gia
+        </span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold">
+          Unser Team
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Đội ngũ giảng viên tâm huyết, giàu kinh nghiệm thực tế, 100% tốt nghiệp các trường đại học danh tiếng tại CHLB Đức và sở hữu chứng chỉ giảng dạy chuẩn Goethe-Institut.
+        </p>
+</div>
+<!-- Team Members Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter">
+<!-- Julian -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung thầy Julian, giảng viên người Đức gốc Tây Đức, ngoại hình thông minh lịch thiệp, mắt sáng, nụ cười khuyến khích phong thái sư phạm thân thiện" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9lBa2NLOLxL2KUzGj0sFU6jeFI36mkMp-bLwOx9pQmemN4X-2Ro9vOWQ09hd26DgU4zkgHhYVpTf4nAg29E4gqyKzE-9SKqAuTRTnm2dpvi0SUkYzB94sZ1aZnCWT9S49URFUZEN4Or1jW1xYVkJc-haUwaFkmBzcnyYuZ9tKB8M6Vvzv8DfBn9m69i3BhpE_IoUVSw-Pnprb5rIimmuzIyks5Ns6HDv2Khh0EXT6KRVoaYOdzYsfdg"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Julian</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên bản ngữ</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2 border-t-0">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Bằng Thạc sĩ xuất sắc tại Hamburg.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>CT Quốc tế Ngôn ngữ &amp; Văn hóa.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Ngôn ngữ: Đức, Việt, Anh, Trung.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Sinh ra &amp; lớn lên ở Tây Đức.</span></li>
+</ul>
+</div>
+<!-- Nicole Bärlein -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung cô Nicole Bärlein, chuyên gia kết nối doanh nghiệp Đức, nét mặt chuyên nghiệp tự tin, tóc vàng thanh lịch, phong thái công sở hiện đại" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw7qjNqGJb-7BCWP3udzFyMiomkBEoYV7c7Ohkc2aXmjw9eu0Fridjo8EOw07wo5ugSK4yhukUS-vt1_iwKd1wTxiC5-OkinI8hbj6NRYpirf3HuTxoGayWUUl9Q2VplostpuESufNM12bpNGebr6TpeL77RdU9HlrPa2Myi_M_RhzEy4UyJlX40294vp3nKPeGYWKjIlKHgEUQP9rpn4RnnwIRPGvdgxagLmmNN6KgyNq0Jlv48Pf7w"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Nicole Bärlein</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Business Development</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Sinh ra và lớn lên ở CHLB Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Nhiều năm quản lý ngành F&amp;B &amp; Khách sạn.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Hỗ trợ doanh nghiệp Đức tuyển dụng học viên Việt Nam.</span></li>
+</ul>
+</div>
+<!-- Ben -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung thầy Ben, giảng viên tiếng Đức lai Đức Việt, thần thái hòa đồng, phong cách năng động, bối cảnh thư viện đại học Đức ấm áp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7mSuhF4IvYHuONKnn1BJURGn8kuYCvmC0jN-uRs-EtxGMNwPNxG-Nj8ogZFQvQZUS_pCShgIeLgLndq1f-RxNBpasHPAVF4wc3CzC2HAQGcOeyKKBVo3N0McQvZ_zO5T3gKLrBdFP8-ghmwuoaWrGfYmETE3R14WeQGPcatmX4f1HYSvtR7TXgmFOCpSlaP1Vz1EVPrYjzRHMGKatHDcrVC9nVtih-4ILOIsuUB3z9_AmcZyZKJrLcA"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Ben</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên tiếng Đức</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Thạc sĩ Nghiên cứu Xã hội, ĐH Tübingen.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Tiếng mẹ đẻ: Tiếng Đức &amp; Tiếng Việt.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Chứng chỉ Tiếng Anh C1 quốc tế.</span></li>
+</ul>
+</div>
+<!-- Lệ Phạm -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung cô Lệ Phạm, giảng viên tiếng Đức, nét mặt phúc hậu sắc sảo, phong cách sư phạm chuẩn mực châu Âu, bối cảnh Wiesbaden Đức" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCha2rX1fKtVezFn_ljyIAVfglN2y1x1vn40qca6rZtzENjMY3jAS6PshCziPmsglSmp8cWr8-LojM_TV8GeAAwi_76KrNfagfTgNPoZZy9irdaoBnCvt-IeSWGnL6M4zdjnJqul5P5t05L3AlzB7bp8Jim1mOJVHSIQauzDsQBfcGJrj3SzHK8yRD4TVLXcVxBl2iolAuKxQATycxXYFm6gCl7aG125fQNw1Y5NF2sghr5rgqMQFfbrA"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Lệ Phạm</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên tiếng Đức</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Thạc sĩ bằng Giỏi tại ĐH Darmstadt.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Cử nhân bằng Giỏi tại ĐH Hessen.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Thành thạo: Đức, Việt, Anh, Pháp, Trung.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Lớn lên &amp; đang sinh sống tại Wiesbaden.</span></li>
+</ul>
+</div>
+<!-- Mai Trang -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung cô Mai Trang, giáo viên tiếng Đức tại Leipzig, nụ cười dịu dàng truyền cảm hứng học tập, ánh sáng tươi sáng phong thái học giả" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNHoR24lZ9tw10ljevxyNqKlUswdeC-eMcc8sNpjBwr3drql3kkK0UYk4F5pdAoUF6azYiXQpAqv2Ua2fYM3Qzs9xa3K6LDRG1m3fdQa8LZN2XmTjGe60dGR6mL9ANzZ11jB9y8nqxga8grRh4uPocPcaff7KZc6QJ2nWaF102sRQ4RwdQWpn1bPAcisGjtckDqn_c9j1H-sCuWk2cZDjOTIf9qS1A4hlhMezJdrYOsPzjMaHARbv4-A"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Mai Trang</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên tiếng Đức</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Thạc sĩ &amp; Cử nhân tại ĐH Leipzig.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>11 năm sinh sống &amp; làm việc ở Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Chuyên gia luyện thi B1 &amp; B2 Goethe.</span></li>
+</ul>
+</div>
+<!-- Tuấn -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung thầy Tuấn, giáo viên tiếng Đức tốt nghiệp ĐH Leuphana, dáng vẻ trẻ trung năng động, nụ cười tự tin nhiệt huyết tuổi trẻ" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-cmzb993DkfrFzQnMwTVT1X5eb8tLn5DQEPAiAFaG-SIsocjqWsMH_fSjLhkKyTcnvt2ElMNYlWAlVrMUTc9ym4OrirWr7IHypjiELS9-6khrSdnf4uzdrjLutyJVE1WFrk7_-oxwwRpJrwNUg4GtHD85O_vtMGd0PgkbJNMZiA0JqRrFoeDoKPDDWtrmVNy_64gfbMcFpHWjm78iKvySb_2ubCuBXnzqIfDCgqfstg_vQHpo_Y4CPw"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Tuấn</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên tiếng Đức</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Cử nhân ĐH Leuphana - Nghiên cứu văn hoá.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>8 năm sống &amp; làm việc tại Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Phát âm chuẩn xác, lối dạy trực quan.</span></li>
+</ul>
+</div>
+<!-- Thanh Nam -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung thầy Thanh Nam, cử nhân ĐH Dresden, phong thái tri thức hiện đại, ánh mắt cởi mở và ấm áp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJvdu50Ywtkrw4YI6yHycVdRBax9a83ar4zaEbRxrJoQ4WT2UvP6WUdlQJES1bCUcIvoFVP5IwyCxeepDsVpw8W5gtmiGyxq4g0qSG1_64SDtr1Gso9f1l0UfNXTt4dUCNQrUgOtU-SoLozpJZxyg06KrcpnbLa8ryvVgEuSzO3hoZ_Qjvbsc8av0ar__i9p3egG2n3q7j2inSjuYtkuT5WAsVTcniMybSKgiOM7KY2D_oact0sctJbQ"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Thanh Nam</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Giáo viên tiếng Đức</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Cử nhân Đại học Dresden - Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Trao đổi học thuật sinh viên tại Hàn Quốc.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Ngôn ngữ: Đức, Việt, Anh.</span></li>
+</ul>
+</div>
+<!-- Biên -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-space-sm bg-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Chân dung anh Biên, Quản lý tại NaNu NaNa từng làm việc tại Mercedes Stuttgart Đức, phong cách lịch lãm, điềm đạm và đáng tin cậy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmFJAj-c6jF0Sn1uUzkvNuKmvg-5wipSve534A8L25J3DanTTFHl7cV6lff4BFp0FdA2Chfl-EVpLgvvXq9CzaF-lW3FflAN2NGOtZAx8p6ZP3PH22944JELwh5BcrRFkjBUBV-vD_1BpnzlxWXJBOQy4rBPd_uZVbZltgeYi6XaklgGnipD6Am8kgXKnx9TXV2UbVKDgge-5tZ0CIfpwxauIqTyL8lPrK8QWgxqZKDx2wAWr6-1sEJg"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Biên</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold mb-3">Quản lý đào tạo</span>
+<ul class="text-left font-body-sm text-body-sm text-on-surface-variant space-y-1 w-full pt-2">
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Tốt nghiệp Đại học Stuttgart - Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Sinh ra &amp; lớn lên tại CHLB Đức.</span></li>
+<li class="flex items-start gap-1.5"><span class="text-primary">•</span><span>Từng công tác tại tập đoàn Mercedes Stuttgart.</span></li>
+</ul>
+</div>
+</div>
+<!-- Additional Support Team Strip -->
+<div class="mt-space-lg p-space-md rounded-xl bg-surface-card-subtle flex flex-wrap items-center justify-around gap-space-md text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<span><strong>Trâm</strong>: HR &amp; Điều phối (Cử nhân ĐH Sài Gòn, Tiếng Đức B2)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">palette</span>
+<span><strong>Tuấn</strong>: Media &amp; Sáng tạo (Từng sống tại Leipzig, 8 năm kinh nghiệm)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">support_agent</span>
+<span><strong>Cẩm Vân</strong>: Chăm sóc học viên (Cử nhân ĐH KHXH&amp;NV, ĐHQGHN)</span>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl shadow-[0_-1px_12px_rgba(0,0,0,0.02)]"><div class="max-w-[1240px] mx-auto px-margin-mobile lg:px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl"><div class="space-y-space-md"><div class="flex items-center gap-space-sm"><img alt="NaNu NaNa Logo (big transparent).png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WU7rKTqMp1u1NV-wo3G5SsQ0p7O4mS8xVqz1dizUy1G1yOLp4q5tNEiNH7brfa-GSBsVIA_DBgLy1Aa-bHLe2wIwANBZZXan--p1j8JTQS9K6a0szBHy6LAGLVB0bezpG69tPJ73VLzzfxUV6SzH2kJtjwtN6vYeRv3kmIoSGhdNAZV3YGpqjKXsntooxGp7BjKPciQ95VGNaM0xtcVXvbG1M9mWPmGJ9wE9_Y0XeoDMXd-s9ZClv4evcUfndoWIZXOmNZRZdBCF4"/><span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">NaNu NaNa</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Học viện đào tạo tiếng Đức chuẩn khung tham chiếu Châu Âu (CEFR) &amp; Trung tâm tư vấn du học Đức hàng đầu Việt Nam.</p><div class="flex items-center gap-space-xs pt-space-xs"><a class="w-8 h-8 rounded-full bg-surface-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#" title="Facebook"><span class="material-symbols-outlined text-[18px]">public</span></a><a class="w-8 h-8 rounded-full bg-surface-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#" title="Zalo"><span class="material-symbols-outlined text-[18px]">forum</span></a><a class="w-8 h-8 rounded-full bg-surface-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#" title="TikTok"><span class="material-symbols-outlined text-[18px]">smart_display</span></a><a class="w-8 h-8 rounded-full bg-surface-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#" title="YouTube"><span class="material-symbols-outlined text-[18px]">play_circle</span></a><a class="w-8 h-8 rounded-full bg-surface-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#" title="Instagram"><span class="material-symbols-outlined text-[18px]">photo_camera</span></a></div></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Khóa Học Tiếng Đức</h4><ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-a1" href="#">Tiếng Đức Căn Bản A1</a><span class="px-2 py-0.5 rounded-full bg-badge-a1 text-badge-a1-text font-label-sm text-label-sm font-bold">A1</span></li><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-a2" href="#">Tiếng Đức Sơ Cấp A2</a><span class="px-2 py-0.5 rounded-full bg-badge-a2 text-badge-a2-text font-label-sm text-label-sm font-bold">A2</span></li><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-b1" href="#">Luyện Thi B1 Goethe</a><span class="px-2 py-0.5 rounded-full bg-badge-b1 text-badge-b1-text font-label-sm text-label-sm font-bold">B1</span></li><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-b2" href="#">Tiếng Đức Trung Cấp B2</a><span class="px-2 py-0.5 rounded-full bg-badge-b2 text-badge-b2-text font-label-sm text-label-sm font-bold">B2</span></li><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-c1" href="#">Tiếng Đức Cao Cấp C1</a><span class="px-2 py-0.5 rounded-full bg-badge-c1 text-badge-c1-text font-label-sm text-label-sm font-bold">C1</span></li><li class="flex items-center justify-between"><a class="hover:text-primary transition-colors" data-path="khoa-hoc-giao-tiep" href="#">Giao Tiếp Chuyên Sâu</a><span class="px-2 py-0.5 rounded-full bg-badge-comm text-badge-comm-text font-label-sm text-label-sm font-bold">Phản xạ</span></li></ul></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Lộ Trình Du Học</h4><ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><li><a class="hover:text-primary transition-colors" data-path="du-hoc-dai-hoc" href="#">Du học Đại học &amp; Cao học</a></li><li><a class="hover:text-primary transition-colors" data-path="du-hoc-nghe" href="#">Du học nghề Điều dưỡng Đức</a></li><li><a class="hover:text-primary transition-colors" data-path="du-hoc-nghe-nha-hang-khach-san" href="#">Du học nghề Nhà hàng - Khách sạn</a></li><li><a class="hover:text-primary transition-colors" data-path="du-hoc-nghe-co-khi-dien-tu" href="#">Du học nghề Cơ khí - Kỹ thuật</a></li><li><a class="hover:text-primary transition-colors" data-path="tham-dinh-aps" href="#">Dịch vụ thẩm định APS &amp; Visa Đức</a></li></ul></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Thông Tin Pháp Lý &amp; Liên Hệ</h4><div class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><p class="font-semibold text-on-surface">CÔNG TY TNHH TƯ VẤN DU HỌC QUỐC TẾ NANU NANA</p><p class="flex items-start gap-space-xs"><span class="material-symbols-outlined text-[16px] text-primary shrink-0 mt-1">location_on</span><span>181 Đ. Cao Thắng, Phường 12, Quận 10, TP. Hồ Chí Minh</span></p><p class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px] text-primary shrink-0">call</span><a class="hover:text-primary transition-colors" href="tel:+84862934989">+84 862 934 989</a></p><p class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px] text-primary shrink-0">mail</span><a class="hover:text-primary transition-colors" href="mailto:contact@nanunana-tiengduc.com">contact@nanunana-tiengduc.com</a></p><p class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px] text-primary shrink-0">badge</span><span>Founder: Phương Nguyễn</span></p></div></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-on-surface-variant"><p>© 2025 NaNu NaNa - Du Học Đức. Bản quyền đã được bảo lưu.</p><div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors" data-path="chinh-sach-bao-mat" href="#">Chính sách bảo mật</a><a class="hover:text-primary transition-colors" data-path="dieu-khoan-dich-vu" href="#">Điều khoản dịch vụ</a><a class="hover:text-primary transition-colors" data-path="giay-phep-hoat-dong" href="#">Giấy phép tư vấn du học</a></div></div></div></footer></body></html>
