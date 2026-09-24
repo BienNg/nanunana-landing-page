@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { ChevronRight, Phone, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { contactHref, mainNav } from "@/content/nav";
@@ -82,7 +82,7 @@ export function MobileNav({
     <AnimatePresence>
       {open ? (
         <div className="fixed inset-0 z-[60] xl:hidden">
-          <motion.div
+          <m.div
             className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -91,7 +91,7 @@ export function MobileNav({
             onClick={onClose}
             aria-hidden
           />
-          <motion.div
+          <m.div
             ref={panelRef}
             id="mobile-nav"
             role="dialog"
@@ -124,7 +124,7 @@ export function MobileNav({
                 {mainNav.map((item, i) => {
                   const current = isActive(item.href, item.spy);
                   return (
-                    <motion.li
+                    <m.li
                       key={item.href}
                       initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -142,7 +142,7 @@ export function MobileNav({
                         {item.label}
                         <ChevronRight aria-hidden className="size-5 text-ink-subtle" />
                       </Link>
-                    </motion.li>
+                    </m.li>
                   );
                 })}
               </ul>
@@ -182,7 +182,7 @@ export function MobileNav({
                 </a>
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       ) : null}
     </AnimatePresence>,

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ComponentProps } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { pressMotion } from "@/components/ui/button-styles";
 import { prefillHref, type CourseValue, type GoalValue } from "@/content/form-options";
 import { setPrefill } from "@/lib/prefill-store";
@@ -11,7 +11,7 @@ import { setPrefill } from "@/lib/prefill-store";
  * Link to the consultation form that pre-selects a course and/or goal.
  * Works without JS too: the URL carries ?khoa= / ?muc-tieu=.
  */
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 export function PrefillLink({
   course,

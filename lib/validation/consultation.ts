@@ -2,26 +2,14 @@
  * Consultation form schema — shared by the client (react-hook-form) and the
  * Server Action, so both validate with exactly the same rules and messages.
  */
-import { z } from "zod";
-import { parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js";
+import * as z from "zod/mini";
 import { channelValues, courseValues, goalValues } from "@/content/form-options";
+import { isAcceptedPhone } from "./phone";
 
-const ALLOWED_PHONE_COUNTRIES: CountryCode[] = ["VN", "DE"];
+export { toE164 } from "./phone";
 
-/** Parses a Vietnamese (0… / +84…) or German (+49…) number. */
-function parsePhone(input: string) {
-  const cleaned = input.replace(/[^\d+]/g, "").replace(/^00/, "+");
-  const parsed = parsePhoneNumberFromString(cleaned, "VN");
-  if (!parsed?.isValid() || !parsed.country || !ALLOWED_PHONE_COUNTRIES.includes(parsed.country)) {
-    return null;
-  }
-  return parsed;
-}
-
-/** E.164 form (e.g. +84988123456) or null if the number is not accepted. */
-export function toE164(input: string): string | null {
-  return parsePhone(input)?.number ?? null;
-}
+/** Pragmatic email check (same idea as Zod's default email pattern). */
+const EMAIL_RE = /^(?!\.)(?!.*\.\.)[\w'+\-.]*[\w+\-]@([a-z0-9][a-z0-9-]*\.)+[a-z]{2,}$/i;
 
 export const messages = {
   nameRequired: "Vui lòng nhập họ và tên của bạn.",
@@ -35,33 +23,38 @@ export const messages = {
   choose: "Vui lòng chọn một mục trong danh sách.",
 } as const;
 
-const optionalText = (max: number) => z.string().trim().max(max);
+const optionalText = (max: number) => z.string().check(z.trim(), z.maxLength(max));
 
+// zod/mini: same rules as full Zod, but tree-shakeable (much smaller in the browser).
 export const consultationSchema = z.object({
   name: z
     .string()
-    .trim()
-    .min(1, messages.nameRequired)
-    .min(2, messages.nameShort)
-    .max(80, messages.nameLong),
+    .check(
+      z.trim(),
+      z.minLength(1, messages.nameRequired),
+      z.minLength(2, messages.nameShort),
+      z.maxLength(80, messages.nameLong),
+    ),
   phone: z
     .string()
-    .trim()
-    .min(1, messages.phoneRequired)
-    .refine((v) => parsePhone(v) !== null, messages.phoneInvalid),
-  email: z
-    .string()
-    .trim()
-    .max(254, messages.emailInvalid)
-    .refine((v) => v === "" || z.email().safeParse(v).success, messages.emailInvalid),
+    .check(
+      z.trim(),
+      z.minLength(1, messages.phoneRequired),
+      z.refine(isAcceptedPhone, messages.phoneInvalid),
+    ),
+  email: z.string().check(
+    z.trim(),
+    z.maxLength(254, messages.emailInvalid),
+    z.refine((v) => v === "" || EMAIL_RE.test(v), messages.emailInvalid),
+  ),
   course: z.union([z.literal(""), z.enum(courseValues)], { error: messages.choose }),
   goal: z.union([z.literal(""), z.enum(goalValues)], { error: messages.choose }),
   channel: z.enum(channelValues, { error: messages.choose }),
-  message: z.string().trim().max(1000, messages.messageLong),
+  message: z.string().check(z.trim(), z.maxLength(1000, messages.messageLong)),
   // "yes" from FormData / checkbox value attribute, true/false from react-hook-form
   consent: z
     .union([z.string(), z.boolean()])
-    .refine((v): boolean => v === "yes" || v === true, messages.consent),
+    .check(z.refine((v): boolean => v === "yes" || v === true, messages.consent)),
   // Attribution (hidden fields)
   utm_source: optionalText(200),
   utm_medium: optionalText(200),

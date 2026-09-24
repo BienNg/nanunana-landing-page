@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { CircleCheck } from "lucide-react";
 import { site } from "@/content/site";
 import { AnchorButton } from "@/components/ui/Button";
@@ -20,14 +20,14 @@ export function FormSuccess({ onReset }: { onReset?: () => void }) {
 
   return (
     <div className="flex flex-col items-center py-6 text-center md:py-10">
-      <motion.span
+      <m.span
         initial={{ scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.1 }}
         className="grid size-16 place-items-center rounded-full bg-badge-comm text-trust-emerald-text"
       >
         <CircleCheck aria-hidden className="size-9" />
-      </motion.span>
+      </m.span>
       <h4 ref={headingRef} tabIndex={-1} className="mt-5 text-headline-md text-ink outline-none">
         Cảm ơn bạn đã quan tâm đến NaNu NaNa!
       </h4>

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -27,6 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "vi_VN",
+    url: "/",
     siteName: "NaNu NaNa – Du Học Đức",
   },
   twitter: { card: "summary_large_image" },
@@ -44,22 +44,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="vi"
-      className={jakarta.variable}
-      data-scroll-behavior="smooth"
-      suppressHydrationWarning
-    >
+    <html lang="vi" className={jakarta.variable} data-scroll-behavior="smooth">
       <body className="min-h-dvh">
-        {/* Hero entrance gate (see globals.css). Never leaves content hidden for long. */}
-        <Script id="motion-gate" strategy="beforeInteractive">
-          {
-            "(function(d){d.dataset.motion='pending';setTimeout(function(){if(d.dataset.motion==='pending')d.dataset.motion='fallback'},2500)})(document.documentElement)"
-          }
-        </Script>
         <MotionProvider>{children}</MotionProvider>
-        <Analytics />
-        <SpeedInsights />
+        {/* /_vercel/* scripts only exist on Vercel deployments */}
+        {process.env.VERCEL ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { CircleAlert, LoaderCircle, Phone, Send } from "lucide-react";
 import { submitConsultation } from "@/app/actions/consultation";
 import { channelOptions, courseOptions, goalOptions } from "@/content/form-options";
@@ -138,7 +138,7 @@ function ConsultationFormInner({
     <div aria-live="polite">
       <AnimatePresence mode="wait" initial={false}>
         {state.status === "success" ? (
-          <motion.div
+          <m.div
             key="success"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -146,9 +146,9 @@ function ConsultationFormInner({
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <FormSuccess onReset={onReset} />
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.form
+          <m.form
             key="form"
             ref={formRef}
             action={formAction}
@@ -371,7 +371,7 @@ function ConsultationFormInner({
                 </a>
               </p>
             </div>
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>
@@ -380,7 +380,7 @@ function ConsultationFormInner({
 
 function FormErrorBanner({ message }: { message: string }) {
   return (
-    <motion.div
+    <m.div
       role="alert"
       initial={{ opacity: 0, y: -6 }}
       animate={{ opacity: 1, y: 0 }}
@@ -404,6 +404,6 @@ function FormErrorBanner({ message }: { message: string }) {
           <Phone aria-hidden /> {site.phone.display}
         </AnchorButton>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

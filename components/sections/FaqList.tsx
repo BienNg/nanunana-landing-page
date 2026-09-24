@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState, useSyncExternalStore } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -45,17 +45,17 @@ export function FaqList({ items }: { items: Item[] }) {
                 className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left text-headline-sm text-ink transition-colors hover:text-brand-teal-dark md:px-6"
               >
                 {item.question}
-                <motion.span
+                <m.span
                   aria-hidden
                   animate={{ rotate: expanded ? 180 : 0 }}
                   transition={{ duration: reduce ? 0 : 0.25 }}
                   className="shrink-0 text-teal"
                 >
                   <ChevronDown className="size-5" />
-                </motion.span>
+                </m.span>
               </button>
             </h3>
-            <motion.div
+            <m.div
               id={panelId}
               role="region"
               aria-labelledby={btnId}
@@ -79,7 +79,7 @@ export function FaqList({ items }: { items: Item[] }) {
               >
                 {item.answer}
               </p>
-            </motion.div>
+            </m.div>
           </li>
         );
       })}

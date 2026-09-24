@@ -4,6 +4,7 @@ import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { AttributionCapture } from "@/components/analytics/AttributionCapture";
 import { TrackingScripts } from "@/components/analytics/TrackingScripts";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <MobileCtaBar />
       <AttributionCapture />
       <TrackingScripts />
+      <OrganizationJsonLd />
     </>
   );
 }

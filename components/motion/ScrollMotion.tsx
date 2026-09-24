@@ -5,7 +5,8 @@ import { gsap, MQ, ScrollTrigger, useGSAP } from "./gsap";
 const nf = new Intl.NumberFormat("vi-VN");
 
 /**
- * Below-the-fold scroll effects (loaded lazily by MotionLoader):
+ * Scroll effects (loaded lazily by MotionLoader, so GSAP never blocks first paint):
+ * - subtle parallax on the hero brand card ([data-hero-parallax])
  * - stat numbers count up once ([data-countup])
  * - the Process line draws as you scroll ([data-process], [data-process-line])
  * - gentle parallax in the gallery ([data-gallery-item])
@@ -17,6 +18,21 @@ export default function ScrollMotion() {
     const mm = gsap.matchMedia();
 
     mm.add(MQ.motionOk, () => {
+      // Hero card parallax (the hero entrance itself is CSS — see globals.css)
+      const hero = document.querySelector<HTMLElement>("[data-hero-parallax]");
+      if (hero) {
+        gsap.to(hero, {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero.closest("section"),
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.6,
+          },
+        });
+      }
+
       // Count-up
       gsap.utils.toArray<HTMLElement>("[data-countup]").forEach((el) => {
         const target = Number(el.dataset.countup);

@@ -1,8 +1,17 @@
 "use client";
 
-import { MotionConfig } from "motion/react";
+import { LazyMotion, MotionConfig } from "motion/react";
 
-/** Framer Motion defaults: honour the OS "reduce motion" setting everywhere. */
+const loadFeatures = () => import("./motion-features").then((mod) => mod.default);
+
+/**
+ * Framer Motion setup: features load lazily (use `m.*` components, not `motion.*` —
+ * `strict` enforces it) and the OS "reduce motion" setting is honoured everywhere.
+ */
 export function MotionProvider({ children }: { children: React.ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <LazyMotion features={loadFeatures} strict>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  );
 }

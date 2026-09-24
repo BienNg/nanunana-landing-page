@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { pressMotion } from "@/components/ui/button-styles";
@@ -79,7 +79,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
 
       {overflow ? (
         <div className="mt-6 flex items-center justify-center gap-4">
-          <motion.button
+          <m.button
             type="button"
             onClick={() => go(active - 1)}
             disabled={active === 0}
@@ -88,7 +88,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
             {...pressMotion}
           >
             <ChevronLeft aria-hidden className="size-5" />
-          </motion.button>
+          </m.button>
           <ol className="flex items-center gap-1" aria-label="Chọn câu chuyện">
             {slides.map((_, i) => (
               <li key={i}>
@@ -99,19 +99,20 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
                   aria-current={i === active ? "true" : undefined}
                   className="relative grid size-tap place-items-center"
                 >
-                  <span className="block h-2 w-2 rounded-full bg-border-control" />
-                  {i === active ? (
-                    <motion.span
-                      layoutId="testimonial-dot"
-                      className="absolute h-2 w-6 rounded-full bg-brand-teal-dark"
-                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                    />
-                  ) : null}
+                  <m.span
+                    className="block h-2 w-2 rounded-full"
+                    initial={false}
+                    animate={{
+                      scaleX: i === active ? 3 : 1,
+                      backgroundColor: i === active ? "#0b7793" : "#cbd5e1",
+                    }}
+                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                  />
                 </button>
               </li>
             ))}
           </ol>
-          <motion.button
+          <m.button
             type="button"
             onClick={() => go(active + 1)}
             disabled={active >= slides.length - 1}
@@ -122,7 +123,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
             {...pressMotion}
           >
             <ChevronRight aria-hidden className="size-5" />
-          </motion.button>
+          </m.button>
         </div>
       ) : null}
     </div>

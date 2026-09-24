@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { PenLine, Phone } from "lucide-react";
 import { useAnyInView } from "@/lib/hooks/useInView";
 import { contactHref, sectionIds } from "@/content/nav";
@@ -24,7 +24,7 @@ export function MobileCtaBar() {
   return (
     <AnimatePresence initial={false}>
       {!hide ? (
-        <motion.nav
+        <m.nav
           aria-label="Liên hệ nhanh"
           className="fixed inset-x-0 bottom-0 z-40 border-t border-border-subtle bg-white/95 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-tier-3 backdrop-blur md:hidden"
           initial={{ y: "100%" }}
@@ -63,7 +63,7 @@ export function MobileCtaBar() {
               </Link>
             </li>
           </ul>
-        </motion.nav>
+        </m.nav>
       ) : null}
     </AnimatePresence>
   );

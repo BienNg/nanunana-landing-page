@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ComponentProps } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { buttonClasses, pressMotion, type ButtonSize, type ButtonVariant } from "./button-styles";
 
 export { buttonClasses, type ButtonSize, type ButtonVariant } from "./button-styles";
@@ -12,7 +12,7 @@ type StyleProps = { variant?: ButtonVariant; size?: ButtonSize; fullWidth?: bool
 // Only pass through props that don't collide with Motion's own event typings.
 type Safe<T> = Omit<T, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart">;
 
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 export function Button({
   variant,
@@ -23,7 +23,7 @@ export function Button({
   ...props
 }: Safe<ComponentProps<"button">> & StyleProps) {
   return (
-    <motion.button
+    <m.button
       type={type}
       className={buttonClasses({ variant, size, fullWidth, className })}
       {...pressMotion}
@@ -58,7 +58,7 @@ export function AnchorButton({
   ...props
 }: Safe<ComponentProps<"a">> & StyleProps) {
   return (
-    <motion.a
+    <m.a
       className={buttonClasses({ variant, size, fullWidth, className })}
       {...pressMotion}
       {...props}

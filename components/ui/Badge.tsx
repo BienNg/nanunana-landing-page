@@ -5,7 +5,7 @@ export type BadgeTone = "teal" | "coral" | "emerald" | "neutral" | "inverse";
 
 const tones: Record<BadgeTone, string> = {
   teal: "bg-surface-container-low text-brand-teal-dark ring-1 ring-inset ring-surface-container-high",
-  coral: "bg-tertiary-fixed text-coral-hover",
+  coral: "bg-tertiary-fixed text-coral-ink",
   emerald: "bg-badge-comm text-trust-emerald-text",
   neutral: "bg-surface-card-subtle text-ink-muted",
   inverse: "bg-white/10 text-white ring-1 ring-inset ring-white/20",

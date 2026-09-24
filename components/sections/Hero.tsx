@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ArrowRight, BookOpen, CircleCheck, MapPin, Sparkles } from "lucide-react";
 import { hero } from "@/content/hero";
@@ -7,7 +8,9 @@ import { isVisible } from "@/content/verify";
 import { Badge } from "@/components/ui/Badge";
 import { LinkButton } from "@/components/ui/Button";
 import { VerifyMark } from "@/components/ui/VerifyMark";
-import { HeroIntro } from "@/components/motion/HeroIntro";
+
+/** Stagger position for the CSS hero entrance (see globals.css). */
+const order = (i: number) => ({ "--i": i }) as CSSProperties;
 
 export function Hero() {
   const visibleChips = hero.card.chips.filter((c) => isVisible(c.value));
@@ -25,7 +28,7 @@ export function Hero() {
       />
       <div className="relative container-page grid items-center gap-10 pt-10 pb-14 md:pt-14 md:pb-20 lg:grid-cols-12 lg:gap-gutter">
         <div className="lg:col-span-7" data-hero-copy>
-          <div className="flex flex-wrap items-center gap-2" data-hero-item>
+          <div className="flex flex-wrap items-center gap-2" data-hero-item style={order(0)}>
             <VerifyMark claim={hero.intakeBadge}>
               {(t) => (
                 <Badge tone="coral">
@@ -42,23 +45,31 @@ export function Hero() {
             id="hero-title"
             className="mt-5 text-[40px] leading-[46px] font-extrabold tracking-[-0.025em] text-ink sm:text-display-hero lg:text-[56px] lg:leading-[64px]"
           >
-            <span className="block text-brand-teal-dark" data-hero-line>
+            <span className="block text-brand-teal-dark" data-hero-line style={order(1)}>
               {hero.titleLines[0]}
             </span>
-            <span className="block" data-hero-line>
+            <span className="block" data-hero-line style={order(2)}>
               {hero.titleLines[1]}
             </span>
           </h1>
 
-          <p className="mt-5 max-w-xl text-headline-sm text-ink md:text-headline-md" data-hero-item>
+          <p
+            className="mt-5 max-w-xl text-headline-sm text-ink md:text-headline-md"
+            data-hero-item
+            style={order(3)}
+          >
             {hero.taglineLead} —{" "}
             <span className="font-bold text-coral-fill">{hero.taglineEmphasis}</span>
           </p>
-          <p className="mt-3 max-w-xl text-body-md text-ink-muted md:text-body-lg" data-hero-item>
+          <p
+            className="mt-3 max-w-xl text-body-md text-ink-muted md:text-body-lg"
+            data-hero-item
+            style={order(4)}
+          >
             {hero.supporting}
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-item>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-item style={order(5)}>
             <LinkButton href={`/#${sectionIds.contact}`} size="lg">
               {hero.primaryCta} <ArrowRight aria-hidden />
             </LinkButton>
@@ -67,7 +78,7 @@ export function Hero() {
             </LinkButton>
           </div>
 
-          <ul className="mt-7 grid gap-2.5 sm:grid-cols-2" data-hero-item>
+          <ul className="mt-7 grid gap-2.5 sm:grid-cols-2" data-hero-item style={order(6)}>
             {hero.trustBullets.map((b) =>
               isVisible(b) ? (
                 <li key={b.value} className="flex gap-2 text-body-sm text-ink-muted">
@@ -105,7 +116,7 @@ export function Hero() {
                 <dl className="mt-6 grid grid-cols-2 gap-3">
                   {visibleChips.map((c) => (
                     <div key={c.label} className="rounded-card bg-surface-card-subtle p-3.5">
-                      <dt className="text-label-sm text-ink-subtle uppercase">{c.label}</dt>
+                      <dt className="text-label-sm text-ink-muted uppercase">{c.label}</dt>
                       <dd className="mt-1 text-headline-sm text-ink">
                         <VerifyMark claim={c.value} />
                       </dd>
@@ -117,7 +128,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <HeroIntro scope={`#${sectionIds.hero}`} />
     </section>
   );
 }
