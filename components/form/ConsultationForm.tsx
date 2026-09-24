@@ -1,0 +1,409 @@
+"use client";
+
+import Link from "next/link";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "motion/react";
+import { CircleAlert, LoaderCircle, Phone, Send } from "lucide-react";
+import { submitConsultation } from "@/app/actions/consultation";
+import { channelOptions, courseOptions, goalOptions } from "@/content/form-options";
+import { privacyHref } from "@/content/nav";
+import { site } from "@/content/site";
+import { trackLead } from "@/lib/analytics";
+import { readAttribution } from "@/lib/attribution";
+import { prefillFromSearch, usePrefill } from "@/lib/prefill-store";
+import {
+  attributionFields,
+  consultationSchema,
+  emptyConsultation,
+  HONEYPOT_FIELD,
+  type ConsultationField,
+  type ConsultationInput,
+} from "@/lib/validation/consultation";
+import {
+  initialConsultationState,
+  type ConsultationState,
+} from "@/lib/validation/consultation-state";
+import { AnchorButton, Button } from "@/components/ui/Button";
+import { describedBy, Field, FieldError } from "@/components/ui/Field";
+import { Checkbox, Input, RadioGroup, Select, Textarea } from "@/components/ui/controls";
+import { MessengerIcon, ZaloIcon } from "@/components/icons/brand";
+import { FormSuccess } from "./FormSuccess";
+import { Turnstile } from "./Turnstile";
+
+const channelIcons = {
+  zalo: <ZaloIcon />,
+  "goi-dien": <Phone aria-hidden />,
+  messenger: <MessengerIcon />,
+  email: null,
+} as const;
+
+/** Wrapper: remounting the inner form (new key) resets the action state. */
+export function ConsultationForm({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
+  const [round, setRound] = useState(0);
+  return (
+    <ConsultationFormInner
+      key={round}
+      turnstileSiteKey={turnstileSiteKey}
+      onReset={() => setRound((r) => r + 1)}
+    />
+  );
+}
+
+function ConsultationFormInner({
+  turnstileSiteKey,
+  onReset,
+}: {
+  turnstileSiteKey?: string;
+  onReset: () => void;
+}) {
+  const [state, formAction, isPending] = useActionState<ConsultationState, FormData>(
+    submitConsultation,
+    initialConsultationState,
+  );
+  const formRef = useRef<HTMLFormElement>(null);
+  const prefill = usePrefill();
+
+  // Values echoed by the server (no-JS round trip) become the defaults.
+  const echoed = state.status === "invalid" || state.status === "error" ? state.values : undefined;
+  const defaults: ConsultationInput = {
+    ...emptyConsultation,
+    ...(echoed as Partial<ConsultationInput> | undefined),
+    consent: echoed?.consent === "yes",
+  };
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    getValues,
+    control,
+    formState: { errors, isSubmitted },
+  } = useForm<ConsultationInput>({
+    resolver: zodResolver(consultationSchema),
+    mode: "onTouched",
+    defaultValues: defaults,
+  });
+
+  // ?khoa= / ?muc-tieu= from the URL on mount.
+  useEffect(() => {
+    const fromUrl = prefillFromSearch(location.search);
+    if (fromUrl.course) setValue("course", fromUrl.course);
+    if (fromUrl.goal) setValue("goal", fromUrl.goal);
+  }, [setValue]);
+
+  // CTA clicks elsewhere on the page.
+  useEffect(() => {
+    if (prefill.nonce === 0) return;
+    if (prefill.course) setValue("course", prefill.course, { shouldDirty: true });
+    if (prefill.goal) setValue("goal", prefill.goal, { shouldDirty: true });
+  }, [prefill, setValue]);
+
+  // Server-side field errors (JS path) → react-hook-form.
+  useEffect(() => {
+    if (state.status !== "invalid") return;
+    for (const [field, message] of Object.entries(state.fieldErrors)) {
+      setError(field as ConsultationField, { type: "server", message }, { shouldFocus: true });
+    }
+  }, [state, setError]);
+
+  // Conversion events, once per success.
+  const tracked = useRef(false);
+  useEffect(() => {
+    if (state.status === "success" && !tracked.current) {
+      tracked.current = true;
+      trackLead({ course: state.course, goal: state.goal, channel: getValues("channel") });
+    }
+  }, [state, getValues]);
+
+  const onValid = () => {
+    if (!formRef.current) return;
+    const fd = new FormData(formRef.current);
+    // First-touch attribution captured on landing (sessionStorage).
+    const attribution = readAttribution();
+    for (const f of attributionFields) fd.set(f, attribution[f] ?? "");
+    startTransition(() => formAction(fd));
+  };
+
+  /** Client errors win; before any JS submit (no-JS round trip) show server errors. */
+  const errorFor = (f: ConsultationField): string | undefined =>
+    errors[f]?.message ??
+    (state.status === "invalid" && !isSubmitted ? state.fieldErrors[f] : undefined);
+
+  const messageLength = useWatch({ control, name: "message" })?.length ?? 0;
+
+  return (
+    <div aria-live="polite">
+      <AnimatePresence mode="wait" initial={false}>
+        {state.status === "success" ? (
+          <motion.div
+            key="success"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <FormSuccess onReset={onReset} />
+          </motion.div>
+        ) : (
+          <motion.form
+            key="form"
+            ref={formRef}
+            action={formAction}
+            onSubmit={(e) => handleSubmit(onValid)(e)}
+            noValidate
+            initial={false}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="relative grid gap-5 md:grid-cols-2"
+            aria-describedby="form-required-note"
+          >
+            <p id="form-required-note" className="-mb-1 text-body-sm text-ink-subtle md:col-span-2">
+              Các mục có dấu <span className="text-error">*</span> là bắt buộc.
+            </p>
+
+            <Field id="lead-name" label="Họ và tên" required error={errorFor("name")}>
+              <Input
+                id="lead-name"
+                autoComplete="name"
+                placeholder="Nguyễn Văn A"
+                defaultValue={defaults.name}
+                aria-required
+                aria-invalid={!!errorFor("name")}
+                aria-describedby={describedBy("lead-name", { error: !!errorFor("name") })}
+                {...register("name")}
+              />
+            </Field>
+
+            <Field
+              id="lead-phone"
+              label="Số điện thoại / Zalo"
+              required
+              hint="Số Việt Nam (0… hoặc +84…) hoặc số Đức (+49…)."
+              error={errorFor("phone")}
+            >
+              <Input
+                id="lead-phone"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="0988 123 456"
+                defaultValue={defaults.phone}
+                aria-required
+                aria-invalid={!!errorFor("phone")}
+                aria-describedby={describedBy("lead-phone", {
+                  hint: !errorFor("phone"),
+                  error: !!errorFor("phone"),
+                })}
+                {...register("phone")}
+              />
+            </Field>
+
+            <Field id="lead-email" label="Email" error={errorFor("email")}>
+              <Input
+                id="lead-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="ten@gmail.com"
+                defaultValue={defaults.email}
+                aria-invalid={!!errorFor("email")}
+                aria-describedby={describedBy("lead-email", { error: !!errorFor("email") })}
+                {...register("email")}
+              />
+            </Field>
+
+            <Field id="lead-course" label="Khóa học / trình độ quan tâm" error={errorFor("course")}>
+              <Select
+                id="lead-course"
+                defaultValue={defaults.course}
+                aria-invalid={!!errorFor("course")}
+                aria-describedby={describedBy("lead-course", { error: !!errorFor("course") })}
+                {...register("course")}
+              >
+                <option value="">Chọn khóa học</option>
+                {courseOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </Select>
+            </Field>
+
+            <Field
+              id="lead-goal"
+              label="Mục tiêu"
+              error={errorFor("goal")}
+              className="md:col-span-2"
+            >
+              <Select
+                id="lead-goal"
+                defaultValue={defaults.goal}
+                aria-invalid={!!errorFor("goal")}
+                aria-describedby={describedBy("lead-goal", { error: !!errorFor("goal") })}
+                {...register("goal")}
+              >
+                <option value="">Chọn mục tiêu của bạn</option>
+                {goalOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </Select>
+            </Field>
+
+            <RadioGroup
+              className="md:col-span-2"
+              name="channel"
+              legend="Bạn muốn được liên hệ qua"
+              defaultValue={defaults.channel}
+              options={channelOptions.map((o) => ({
+                value: o.value,
+                label: o.label,
+                icon: channelIcons[o.value],
+              }))}
+              inputProps={register("channel")}
+            />
+
+            <Field
+              id="lead-message"
+              label="Mong muốn khác / câu hỏi"
+              error={errorFor("message")}
+              className="md:col-span-2"
+            >
+              <Textarea
+                id="lead-message"
+                rows={4}
+                maxLength={1000}
+                placeholder="Ví dụ: Mình muốn đi du học nghề điều dưỡng, hiện đang học A2…"
+                defaultValue={defaults.message}
+                aria-invalid={!!errorFor("message")}
+                aria-describedby={[
+                  "lead-message-count",
+                  describedBy("lead-message", { error: !!errorFor("message") }),
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                {...register("message")}
+              />
+              <p
+                id="lead-message-count"
+                className="mt-1 text-right text-body-sm text-ink-subtle tabular-nums"
+              >
+                {messageLength}/1000
+              </p>
+            </Field>
+
+            <div className="md:col-span-2">
+              <Checkbox
+                id="lead-consent"
+                value="yes"
+                defaultChecked={defaults.consent === true}
+                aria-required
+                aria-invalid={!!errorFor("consent")}
+                aria-describedby={describedBy("lead-consent", { error: !!errorFor("consent") })}
+                {...register("consent")}
+              >
+                Tôi đồng ý để NaNu NaNa liên hệ và xử lý thông tin theo{" "}
+                <Link
+                  href={privacyHref}
+                  target="_blank"
+                  className="font-semibold text-brand-teal-dark underline underline-offset-2"
+                >
+                  Chính sách bảo mật
+                </Link>
+                . <span className="text-error">*</span>
+              </Checkbox>
+              <FieldError id="lead-consent">{errorFor("consent")}</FieldError>
+            </div>
+
+            {/* Honeypot — hidden from people and assistive tech */}
+            <div aria-hidden className="absolute -left-[10000px] h-px w-px overflow-hidden">
+              <label>
+                Website
+                <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" />
+              </label>
+            </div>
+
+            {/* Attribution fields are added to the FormData on submit (see onValid). */}
+
+            {turnstileSiteKey ? (
+              <div className="md:col-span-2">
+                <Turnstile siteKey={turnstileSiteKey} />
+              </div>
+            ) : null}
+
+            {state.status === "error" ? <FormErrorBanner message={state.message} /> : null}
+
+            <div className="md:col-span-2">
+              <Button
+                type="submit"
+                size="lg"
+                fullWidth
+                disabled={isPending}
+                aria-disabled={isPending}
+              >
+                {isPending ? (
+                  <>
+                    <LoaderCircle aria-hidden className="animate-spin" /> Đang gửi…
+                  </>
+                ) : (
+                  <>
+                    Gửi Yêu Cầu Tư Vấn <Send aria-hidden />
+                  </>
+                )}
+              </Button>
+              <p className="mt-3 text-center text-body-sm text-ink-subtle">
+                Hoặc nhắn ngay qua{" "}
+                <a
+                  href={site.channels.zalo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-brand-teal-dark underline underline-offset-2"
+                >
+                  Zalo
+                </a>{" "}
+                · Hotline{" "}
+                <a href={site.phone.href} className="font-semibold text-ink">
+                  {site.phone.display}
+                </a>
+              </p>
+            </div>
+          </motion.form>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function FormErrorBanner({ message }: { message: string }) {
+  return (
+    <motion.div
+      role="alert"
+      initial={{ opacity: 0, y: -6 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-control border border-error/30 bg-error-container p-4 text-on-error-container md:col-span-2"
+    >
+      <p className="flex gap-2 text-body-md">
+        <CircleAlert aria-hidden className="mt-0.5 size-5 shrink-0" />
+        {message}
+      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <AnchorButton
+          href={site.channels.zalo}
+          target="_blank"
+          rel="noopener noreferrer"
+          size="sm"
+          variant="secondary"
+        >
+          <ZaloIcon /> Nhắn Zalo
+        </AnchorButton>
+        <AnchorButton href={site.phone.href} size="sm" variant="outline">
+          <Phone aria-hidden /> {site.phone.display}
+        </AnchorButton>
+      </div>
+    </motion.div>
+  );
+}

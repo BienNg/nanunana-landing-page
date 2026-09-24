@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { Check, ChevronRight, Clock, Star } from "lucide-react";
 import { courses, coursesSection, type Course } from "@/content/courses";
-import { prefillHref } from "@/content/form-options";
 import { sectionIds } from "@/content/nav";
 import { isVisible } from "@/content/verify";
 import { cn } from "@/lib/cn";
@@ -10,6 +8,7 @@ import { CourseBadge } from "@/components/ui/CourseBadge";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VerifyMark } from "@/components/ui/VerifyMark";
+import { PrefillLink } from "@/components/form/PrefillLink";
 
 function CourseCard({ course }: { course: Course }) {
   const featured = !!course.highlight;
@@ -68,14 +67,14 @@ function CourseCard({ course }: { course: Course }) {
         ) : (
           <span />
         )}
-        <Link
-          href={prefillHref({ course: course.formValue })}
+        <PrefillLink
+          course={course.formValue}
           className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md text-brand-teal-dark hover:bg-surface-container-low"
         >
           {coursesSection.cardCta}
           <span className="sr-only"> khoá {course.name}</span>
           <ChevronRight aria-hidden className="size-4" />
-        </Link>
+        </PrefillLink>
       </footer>
     </article>
   );

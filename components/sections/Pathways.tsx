@@ -1,10 +1,10 @@
 import { ArrowRight, CircleCheck, Landmark, Wrench } from "lucide-react";
 import { pathways, pathwaysSection, type Pathway } from "@/content/pathways";
-import { prefillHref } from "@/content/form-options";
 import { sectionIds } from "@/content/nav";
 import { isVisible } from "@/content/verify";
 import { Badge } from "@/components/ui/Badge";
-import { LinkButton } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/Button";
+import { PrefillLink } from "@/components/form/PrefillLink";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
@@ -60,13 +60,15 @@ function PathwayCard({ p, index }: { p: Pathway; index: number }) {
         </ul>
 
         <div className="mt-auto pt-8">
-          <LinkButton
-            href={prefillHref({ goal: p.goal })}
-            variant={index === 0 ? "secondary" : "primary"}
-            fullWidth
+          <PrefillLink
+            goal={p.goal}
+            className={buttonClasses({
+              variant: index === 0 ? "secondary" : "primary",
+              fullWidth: true,
+            })}
           >
             {p.cta} <ArrowRight aria-hidden />
-          </LinkButton>
+          </PrefillLink>
         </div>
       </div>
     </article>

@@ -3,9 +3,9 @@ import { ArrowRight, Quote } from "lucide-react";
 import { founderSection } from "@/content/founder";
 import { founder } from "@/content/team";
 import { images } from "@/content/images";
-import { prefillHref } from "@/content/form-options";
 import { sectionIds } from "@/content/nav";
-import { LinkButton } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/Button";
+import { PrefillLink } from "@/components/form/PrefillLink";
 import { Section } from "@/components/ui/Section";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -76,9 +76,9 @@ export function Founder() {
           </blockquote>
 
           <div className="mt-8">
-            <LinkButton href={prefillHref({ goal: "dinh-huong" })} size="lg">
+            <PrefillLink goal="dinh-huong" className={buttonClasses({ size: "lg" })}>
               {founderSection.cta} <ArrowRight aria-hidden />
-            </LinkButton>
+            </PrefillLink>
           </div>
         </div>
       </div>

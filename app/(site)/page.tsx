@@ -10,6 +10,8 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { Gallery } from "@/components/sections/Gallery";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
+import { ConsultationForm } from "@/components/form/ConsultationForm";
+import { serverEnv } from "@/lib/env";
 
 export default function Home() {
   return (
@@ -26,7 +28,7 @@ export default function Home() {
       <Testimonials />
       <Gallery />
       <Faq />
-      <Contact />
+      <Contact form={<ConsultationForm turnstileSiteKey={serverEnv.turnstile()?.siteKey} />} />
     </>
   );
 }

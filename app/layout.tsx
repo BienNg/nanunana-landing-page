@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={jakarta.variable}>
+    <html lang="vi" className={jakarta.variable} data-scroll-behavior="smooth">
       <body className="min-h-dvh">
         <MotionProvider>{children}</MotionProvider>
         <Analytics />

@@ -2,6 +2,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { AttributionCapture } from "@/components/analytics/AttributionCapture";
+import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +15,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       </main>
       <Footer />
       <MobileCtaBar />
+      <AttributionCapture />
+      <TrackingScripts />
     </>
   );
 }
