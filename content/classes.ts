@@ -9,6 +9,13 @@ export const runningClassesSection = {
   title: "Lớp đang diễn ra",
   intro: "Các lớp đang học hiện tại. Đăng ký tư vấn để giữ chỗ trong lớp phù hợp.",
   register: "Đăng ký",
+  jump: {
+    label: "Chuyển phần",
+    previous: "Trước",
+    next: "Sau",
+    previousLabel: "Lên phần trước",
+    nextLabel: "Xuống phần sau",
+  },
   columns: {
     name: "Lớp",
     level: "Trình độ",

@@ -7,6 +7,7 @@ import {
   runningClassesSection,
 } from "@/content/classes";
 import { sectionIds } from "@/content/nav";
+import { cn } from "@/lib/cn";
 import type { RunningClass } from "@/lib/notion/classes";
 import { getRunningClasses } from "@/lib/notion/classes";
 import { PrefillLink } from "@/components/form/PrefillLink";
@@ -14,6 +15,7 @@ import { Badge } from "@/components/ui/Badge";
 import { CourseBadge } from "@/components/ui/CourseBadge";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ClassListJump } from "./ClassListJump";
 
 function LevelLabel({ level }: { level: string | null }) {
   if (!level) return <span className="text-ink-subtle">—</span>;
@@ -28,9 +30,9 @@ function LevelLabel({ level }: { level: string | null }) {
   return <CourseBadge level={tone} label={level} className="normal-case" />;
 }
 
-function ClassName({ item }: { item: RunningClass }) {
+function ClassName({ item, className }: { item: RunningClass; className?: string }) {
   return (
-    <span className="text-label-lg text-ink">
+    <span className={cn("text-label-lg text-ink", className)}>
       {item.icon ? (
         <span aria-hidden className="mr-2">
           {item.icon}
@@ -96,7 +98,7 @@ function RegisterLink({ item }: { item: RunningClass }) {
 function ClassTable({ classes }: { classes: RunningClass[] }) {
   const cols = runningClassesSection.columns;
   return (
-    <div className="overflow-x-auto rounded-card border border-border-subtle bg-white shadow-tier-1">
+    <div className="overflow-x-hidden rounded-card border border-border-subtle bg-white shadow-tier-1 md:overflow-x-auto">
       <table className="hidden w-full min-w-[920px] border-collapse text-left md:table">
         <thead>
           <tr className="bg-surface-container-low text-label-sm text-ink-subtle uppercase">
@@ -158,33 +160,40 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
         </tbody>
       </table>
 
-      <ul className="md:hidden">
+      <ul data-class-list className="md:hidden">
         {classes.map((item) => (
-          <li key={item.id} className="border-t border-border-subtle px-4 py-4 first:border-t-0">
-            <div className="flex items-start justify-between gap-3">
-              <ClassName item={item} />
-              <LevelLabel level={item.level} />
-            </div>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <FormatLabel format={item.format} />
-              <LocationLabel location={item.location} />
-              <ClassMedia item={item} />
+          <li
+            key={item.id}
+            className="border-t border-border-subtle py-4 pr-16 pl-4 first:border-t-0"
+          >
+            <ClassName item={item} className="block text-pretty break-words" />
+            <div className="mt-3 flex items-start gap-3">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
+                {item.level ? <LevelLabel level={item.level} /> : null}
+                {item.format ? <FormatLabel format={item.format} /> : null}
+                {item.location ? <LocationLabel location={item.location} /> : null}
+              </div>
+              {item.media.length > 0 ? (
+                <div className="shrink-0">
+                  <ClassMedia item={item} />
+                </div>
+              ) : null}
             </div>
             <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
-              <div>
+              <div className="min-w-0">
                 <dt className="text-label-sm text-ink-subtle uppercase">{cols.begin}</dt>
                 <dd className="mt-0.5 text-ink">
                   <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
                 </dd>
               </div>
-              <div>
+              <div className="min-w-0">
                 <dt className="text-label-sm text-ink-subtle uppercase">{cols.end}</dt>
                 <dd className="mt-0.5 text-ink">
                   <time dateTime={item.end}>{formatClassDate(item.end)}</time>
                 </dd>
               </div>
             </dl>
-            <div className="mt-2 flex justify-end">
+            <div className="mt-1 flex justify-end">
               <RegisterLink item={item} />
             </div>
           </li>
@@ -216,6 +225,7 @@ export async function RunningClasses() {
     <ClassesFrame>
       <p className="mb-4 text-center text-body-sm text-ink-muted">{classes.length} lớp đang học</p>
       <ClassTable classes={classes} />
+      <ClassListJump />
     </ClassesFrame>
   );
 }
