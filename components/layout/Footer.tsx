@@ -57,6 +57,11 @@ export function Footer() {
                   Lớp đang diễn ra
                 </Link>
               </li>
+              <li>
+                <Link href={`/#${sectionIds.learningApp}`} className={linkClass}>
+                  Ứng dụng học tập
+                </Link>
+              </li>
               {courses.map((c) => (
                 <li key={c.id}>
                   <PrefillLink course={c.formValue} className={linkClass}>

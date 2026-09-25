@@ -10,6 +10,9 @@ import type { StaticImageData } from "next/image";
 import founderPhuong from "@/public/images/founder-phuong.webp";
 import pathwayUniversity from "@/public/placeholders/pathway-university.webp";
 import pathwayVocational from "@/public/placeholders/pathway-vocational.webp";
+import appPhone from "@/public/placeholders/app-phone.webp";
+import appTablet from "@/public/placeholders/app-tablet.webp";
+import appDesktop from "@/public/placeholders/app-desktop.webp";
 import galleryLopHoc from "@/public/images/hanh-trinh/lop-hoc-tieng-duc-nanunana.webp";
 import galleryBanDo from "@/public/images/hanh-trinh/hoc-vien-nanunana-truoc-ban-do-viet-nam-duc.webp";
 import galleryVisa from "@/public/images/hanh-trinh/hoc-vien-nhan-visa-du-hoc-duc.webp";
@@ -45,6 +48,21 @@ export const images = {
   pathwayVocational: {
     src: pathwayVocational,
     alt: "Học viên du học nghề trong giờ thực hành Ausbildung",
+    placeholder: true,
+  },
+  appPhone: {
+    src: appPhone,
+    alt: "Màn hình bài học video của ứng dụng NaNu NaNa trên điện thoại",
+    placeholder: true,
+  },
+  appTablet: {
+    src: appTablet,
+    alt: "Màn hình từ vựng của ứng dụng NaNu NaNa trên máy tính bảng",
+    placeholder: true,
+  },
+  appDesktop: {
+    src: appDesktop,
+    alt: "Màn hình luyện nghe của ứng dụng NaNu NaNa trên máy tính",
     placeholder: true,
   },
   galleryLopHoc: {

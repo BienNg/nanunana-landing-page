@@ -31,7 +31,11 @@ export function ClassListJump() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <a href={`#${sectionIds.courses}`} className={jumpClass} aria-label={copy.previousLabel}>
+          <a
+            href={`#${sectionIds.learningApp}`}
+            className={jumpClass}
+            aria-label={copy.previousLabel}
+          >
             <ChevronUp aria-hidden className="size-4" />
             {copy.previous}
           </a>

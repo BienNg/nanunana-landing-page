@@ -19,6 +19,9 @@ const items = [
   ["gallery-4", 1200, 900, "Chia tay học viên tại sân bay"],
   ["gallery-5", 900, 1200, "Học viên tại Đức"],
   ["gallery-6", 1200, 900, "Hoạt động ngoại khoá"],
+  ["app-phone", 900, 1600, "Ứng dụng trên điện thoại"],
+  ["app-tablet", 1200, 1600, "Ứng dụng trên máy tính bảng"],
+  ["app-desktop", 1600, 1000, "Ứng dụng trên máy tính"],
 ];
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");

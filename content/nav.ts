@@ -7,6 +7,7 @@ export const sectionIds = {
   about: "ve-chung-toi",
   founder: "ve-phuong",
   courses: "khoa-hoc",
+  learningApp: "ung-dung",
   classes: "lop-dang-dien-ra",
   pathways: "lo-trinh-du-hoc",
   university: "du-hoc-dai-hoc",
@@ -33,9 +34,9 @@ export type NavItem = {
 
 export const mainNav: NavItem[] = [
   { label: "Khoá Học", href: `/#${sectionIds.courses}`, spy: [sectionIds.courses] },
+  { label: "Lớp đang diễn ra", href: `/#${sectionIds.classes}`, spy: [sectionIds.classes] },
   { label: "Du Học Đại Học", href: `/#${sectionIds.university}`, spy: [sectionIds.university] },
   { label: "Du Học Nghề", href: `/#${sectionIds.vocational}`, spy: [sectionIds.vocational] },
-  { label: "Đội Ngũ", href: `/#${sectionIds.team}`, spy: [sectionIds.team] },
   { label: "Về Chúng Tôi", href: `/#${sectionIds.about}`, spy: [sectionIds.about] },
   { label: "Tuyển Dụng", href: "/tuyen-dung" },
 ];

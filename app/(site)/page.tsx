@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Stats } from "@/components/sections/Stats";
 import { Founder } from "@/components/sections/Founder";
 import { Courses } from "@/components/sections/Courses";
+import { LearningApp } from "@/components/sections/LearningApp";
 import { RunningClasses, RunningClassesFallback } from "@/components/sections/RunningClasses";
 import { Pathways } from "@/components/sections/Pathways";
 import { Process } from "@/components/sections/Process";
@@ -28,6 +29,7 @@ export default function Home() {
         <Founder />
       </div>
       <Courses />
+      <LearningApp />
       <Suspense fallback={<RunningClassesFallback />}>
         <RunningClasses />
       </Suspense>
