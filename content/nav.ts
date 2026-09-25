@@ -35,8 +35,11 @@ export type NavItem = {
 export const mainNav: NavItem[] = [
   { label: "Khoá Học", href: `/#${sectionIds.courses}`, spy: [sectionIds.courses] },
   { label: "Lớp đang diễn ra", href: `/#${sectionIds.classes}`, spy: [sectionIds.classes] },
-  { label: "Du Học Đại Học", href: `/#${sectionIds.university}`, spy: [sectionIds.university] },
-  { label: "Du Học Nghề", href: `/#${sectionIds.vocational}`, spy: [sectionIds.vocational] },
+  {
+    label: "Du Học Đức",
+    href: `/#${sectionIds.pathways}`,
+    spy: [sectionIds.pathways, sectionIds.university, sectionIds.vocational],
+  },
   { label: "Về Chúng Tôi", href: `/#${sectionIds.about}`, spy: [sectionIds.about] },
   { label: "Tuyển Dụng", href: "/tuyen-dung" },
 ];
