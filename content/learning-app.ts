@@ -20,11 +20,13 @@ export type LearningAppDevice = {
 };
 
 export const learningAppSection = {
-  eyebrow: "Chỉ có tại NaNu NaNa",
+  eyebrow: "Dành riêng cho học viên",
   title: "Ứng dụng học đi kèm khoá học",
   intro:
     "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp. Mọi học viên đang theo học đều được dùng — trên điện thoại, máy tính bảng hoặc máy tính.",
-  unique: ok("Không trung tâm ngoại ngữ nào khác có ứng dụng học tập như thế này."),
+  unique: ok(
+    "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
+  ),
   included: "Mọi học viên đang theo học đều được cấp tài khoản.",
   cta: "Đăng ký tư vấn",
   devicesLabel: "Điện thoại và máy tính",

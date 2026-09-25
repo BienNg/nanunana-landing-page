@@ -7,7 +7,10 @@ export const alt = `${site.fullName} — ${site.slogan}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const asset = (p: string) => readFile(join(process.cwd(), p));
+// Paths stay under a static folder so the file tracer does not pull in the whole repo.
+const readFont = (file: string) =>
+  readFile(join(process.cwd(), "assets/fonts", `PlusJakartaSans-${file}.ttf`));
+const readLogo = () => readFile(join(process.cwd(), "public/brand", "logo-full.png"));
 // Satori needs static (non-variable) fonts. Full TTFs (not subsets) so every
 // Vietnamese glyph comes from the right weight.
 const fontFiles = (
@@ -19,11 +22,9 @@ const fontFiles = (
   name: `Jakarta${weight}`,
   weight,
   style: "normal" as const,
-  data: await asset(`assets/fonts/PlusJakartaSans-${file}.ttf`),
+  data: await readFont(file),
 }));
-const logoSrc = asset("public/brand/logo-full.png").then(
-  (b) => `data:image/png;base64,${b.toString("base64")}`,
-);
+const logoSrc = readLogo().then((b) => `data:image/png;base64,${b.toString("base64")}`);
 
 export default async function Image() {
   const [fonts, logo] = await Promise.all([Promise.all(fontFiles), logoSrc]);

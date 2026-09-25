@@ -18,7 +18,7 @@ import { serverEnv } from "@/lib/env";
 import { MotionLoader } from "@/components/motion/MotionLoader";
 
 /** Refresh the page about once a day so cached Google reviews stay current. */
-export const revalidate = 60 * 60 * 24;
+export const revalidate = 86400;
 
 export default function Home() {
   return (
