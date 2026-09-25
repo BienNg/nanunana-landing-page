@@ -1,6 +1,15 @@
 import Image, { type StaticImageData } from "next/image";
 import { cn } from "@/lib/cn";
 
+function isGooglePhoto(src: string) {
+  try {
+    const host = new URL(src).hostname;
+    return host.endsWith("googleusercontent.com") || host.endsWith("ggpht.com");
+  } catch {
+    return false;
+  }
+}
+
 function initials(name: string) {
   const parts = name.trim().split(/\s+/);
   // "Nicole Bärlein" → "NB", "Lệ Phạm" → "LP", single names → first letter ("Mến" → "M").
@@ -16,7 +25,7 @@ export function Avatar({
   className,
 }: {
   name: string;
-  photo?: StaticImageData;
+  photo?: StaticImageData | string;
   size?: number;
   className?: string;
 }) {
@@ -28,7 +37,7 @@ export function Avatar({
       )}
       style={{ width: size, height: size }}
     >
-      {photo ? (
+      {photo && (typeof photo !== "string" || isGooglePhoto(photo)) ? (
         <Image src={photo} alt="" fill sizes={`${size}px`} className="object-cover" />
       ) : (
         <span

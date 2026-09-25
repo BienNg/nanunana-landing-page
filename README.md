@@ -89,7 +89,7 @@ value: verify(1000, "Tổng số học viên thực tế?"),
 ```
 
 - In **development** (`pnpm dev`) they are shown with a **dashed amber outline**; hover to see the question.
-- In **production** they are **hidden** automatically (or replaced by a neutral fallback text). Sections whose content is entirely unconfirmed — Stats, Testimonials, FAQ — are hidden completely.
+- In **production** they are **hidden** automatically (or replaced by a neutral fallback text). Sections whose content is entirely unconfirmed — Stats, FAQ — are hidden completely.
 - To confirm a claim, fix the value if needed and change `verify(value, "…")` to `ok(value)`:
 
 ```ts
@@ -109,7 +109,7 @@ Width/height and the blur preview are detected automatically. **Team photos:** i
 
 - **Add a course:** copy one block in `courses.ts`, change `id`, `level`, texts; add a matching option to `courseOptions` in `form-options.ts` if it should be selectable in the form.
 - **Add an FAQ:** add `{ id, question, answer: ok("…") }` to `faq.ts` — confirmed answers are also sent to Google as FAQ rich results.
-- **Add a testimonial:** add an entry in `testimonials.ts` with `status: ok(true)` (get the student's written consent first) and remove the sample entries.
+- **Google reviews:** set `GOOGLE_PLACES_API_KEY` (Places API New). `#cam-nhan` shows the 5-star reviews Google returns (at most five) and stays hidden when the key is missing or none remain. Set `GOOGLE_PLACE_ID` to pin the listing.
 - **Open job:** in `careers.ts` set `open: ok(true)` and fill in the details with `ok(...)`.
 - **Current intake badge:** `hero.ts → intakeBadge` — update it every intake.
 
@@ -186,6 +186,7 @@ All documented in [`.env.example`](.env.example). Every integration switches on 
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`               | Bot check                                                                                                                      |
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`           | Ad/analytics conversion events                                                                                                 |
 | `NEXT_PUBLIC_SHOW_UNVERIFIED`                              | `1` = show unconfirmed claims in a production build (previews only!)                                                           |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`                 | Google reviews in `#cam-nhan`. Place ID is optional.                                                                           |
 
 `NEXT_PUBLIC_*` values are baked in at build time — redeploy after changing them.
 

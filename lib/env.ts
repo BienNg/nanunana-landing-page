@@ -37,4 +37,10 @@ export const serverEnv = {
     const secretKey = read("TURNSTILE_SECRET_KEY");
     return siteKey && secretKey ? { siteKey, secretKey } : null;
   },
+  /** Places API (New). Place ID is optional; the reviews loader can search for it. */
+  places: () => {
+    const apiKey = read("GOOGLE_PLACES_API_KEY");
+    if (!apiKey) return null;
+    return { apiKey, placeId: read("GOOGLE_PLACE_ID") };
+  },
 };

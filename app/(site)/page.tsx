@@ -16,6 +16,9 @@ import { ConsultationForm } from "@/components/form/ConsultationForm";
 import { serverEnv } from "@/lib/env";
 import { MotionLoader } from "@/components/motion/MotionLoader";
 
+/** Refresh the page about once a day so cached Google reviews stay current. */
+export const revalidate = 60 * 60 * 24;
+
 export default function Home() {
   return (
     <>
@@ -31,7 +34,9 @@ export default function Home() {
       <Pathways />
       <Process />
       <Team />
-      <Testimonials />
+      <Suspense fallback={null}>
+        <Testimonials />
+      </Suspense>
       <Gallery />
       <Faq />
       <Contact form={<ConsultationForm turnstileSiteKey={serverEnv.turnstile()?.siteKey} />} />
