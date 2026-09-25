@@ -16,6 +16,10 @@ export type TeamMember = {
   name: string;
   role: string;
   bio: string[];
+  /** City line, e.g. "Berlin, Deutschland". */
+  location?: string;
+  /** Short motto shown above the bio. Mark German lines with `lang: "de"`. */
+  quote?: { text: string; lang?: "de" }[];
   photo?: StaticImageData;
   /** Portrait alt text. Set whenever `photo` is set so image search can name the person. */
   alt?: string;
@@ -77,14 +81,51 @@ export const team: TeamMember[] = [
     alt: "Chân dung Ben, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
-    id: "le-pham",
-    name: "Lệ Phạm",
+    id: "minh-trang",
+    name: "Minh Trang",
     role: "Giáo viên",
+    location: "Magdeburg, Deutschland",
+    quote: [{ text: "Học là cơ hội chắc chắn nhất của cuộc đời!" }],
     bio: [
-      "Thạc sĩ bằng giỏi tại ĐH Darmstadt",
-      "Cử nhân bằng giỏi tại đại học Hessen",
-      "Ngôn ngữ: Đức, Việt, Anh, Pháp và Trung.",
-      "Lớn lên tại Đức và sống tại Wiesbaden.",
+      "Cử nhân bằng giỏi đại học Magdeburg",
+      "Học toàn bộ bằng tiếng Đức",
+      "Sinh sống và làm việc 10 năm ở Đức",
+      "Bằng nghiệp vụ sư phạm đại học sư phạm Hà Nội",
+    ],
+  },
+  {
+    id: "tu-nguyen",
+    name: "Tú Nguyên",
+    role: "Giáo viên",
+    location: "Tübingen, Deutschland",
+    quote: [
+      {
+        text: "Học ngoại ngữ cũng như hẹn hò: Lúc đầu rất ngại mở miệng, sau lại không thể ngừng nói!",
+      },
+    ],
+    bio: [
+      "Cử nhân đại học Tübingen, Đức, học toàn bộ bằng tiếng Đức",
+      "Tốt nghiệp bằng sư phạm tiếng Đức tại viện Goethe",
+      "Ngôn ngữ: Đức, Anh, Việt",
+      "Ở Đức 9 năm",
+    ],
+  },
+  {
+    id: "hoang-nguyen",
+    name: "Hoàng Nguyễn",
+    role: "Giáo viên",
+    location: "Berlin, Deutschland",
+    quote: [
+      {
+        text: "Mit jeder Sprache, die du lernst, erwirbst du eine neue Seele.",
+        lang: "de",
+      },
+      { text: "Mỗi ngôn ngữ mà bạn học, bạn lại có thêm một tâm hồn mới." },
+    ],
+    bio: [
+      "Học tại TU Berlin",
+      "Tiếng mẹ đẻ: tiếng Đức và tiếng Việt, Tiếng Anh: C1",
+      "Sống tại Đức 36 năm",
     ],
   },
   {
@@ -104,22 +145,6 @@ export const team: TeamMember[] = [
     ],
     photo: tuanPhoto,
     alt: "Chân dung Tuấn, giáo viên tiếng Đức tại NaNu NaNa",
-  },
-  {
-    id: "men",
-    name: "Mến",
-    role: "Giáo viên",
-    bio: ["Cử nhân trường Rhein Main.", "Ngôn ngữ: Đức.", "Sống và làm việc ở Đức: 8 năm."],
-  },
-  {
-    id: "thanh-nam",
-    name: "Thanh Nam",
-    role: "Giáo viên",
-    bio: [
-      "Cử nhân ĐH Dresden - Đức",
-      "Tham gia trao đổi sinh viên tại Hàn Quốc.",
-      "Ngôn ngữ: Đức, Việt, Anh.",
-    ],
   },
   {
     id: "duc",

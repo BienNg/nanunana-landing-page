@@ -22,10 +22,26 @@ function MemberCard({ m }: { m: TeamMember }) {
     <article className="flex h-full flex-col items-center rounded-card border border-border-subtle bg-white p-space-lg text-center shadow-tier-1">
       <Avatar name={m.name} photo={m.photo} alt={m.alt} size={88} />
       <h3 className="mt-4 text-headline-sm text-ink">{m.name}</h3>
-      <p className="mt-1 mb-4 rounded-full bg-surface-container-low px-3 py-0.5 text-label-md text-brand-teal-dark">
+      <p className="mt-1 rounded-full bg-surface-container-low px-3 py-0.5 text-label-md text-brand-teal-dark">
         {m.role}
       </p>
-      <Bio lines={m.bio} />
+      {m.location ? (
+        <p lang="de" className="mt-2 text-label-sm text-ink-subtle">
+          {m.location}
+        </p>
+      ) : null}
+      {m.quote ? (
+        <blockquote className="mt-3 w-full space-y-1 text-left text-body-sm text-ink-muted italic">
+          {m.quote.map((line) => (
+            <p key={line.text} lang={line.lang}>
+              {line.text}
+            </p>
+          ))}
+        </blockquote>
+      ) : null}
+      <div className="mt-4 w-full">
+        <Bio lines={m.bio} />
+      </div>
     </article>
   );
 }

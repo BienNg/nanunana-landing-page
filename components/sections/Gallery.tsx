@@ -19,6 +19,7 @@ export function Gallery() {
         {galleryItems.map((item) => (
           <li
             key={item.image}
+            data-gallery-tile
             className={cn(
               "overflow-hidden rounded-card",
               item.span === "third" ? "md:col-span-2" : "md:col-span-3",
