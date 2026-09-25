@@ -144,18 +144,7 @@ export function Contact({ form }: { form?: React.ReactNode }) {
 
         <div className="lg:col-span-7">
           <div className="rounded-card bg-white p-6 text-ink shadow-tier-3 md:p-8">
-            <h3 className="text-headline-md text-ink">
-              <VerifyMark
-                claim={contactSection.formTitle}
-                fallback={contactSection.formTitleFallback}
-              />
-            </h3>
-            <p className="mt-1.5 text-body-md text-ink-muted">
-              <VerifyMark
-                claim={contactSection.formSubtitle}
-                fallback={contactSection.formSubtitleFallback}
-              />
-            </p>
+            <h3 className="text-headline-md text-ink">{contactSection.formTitle.value}</h3>
             <div className="mt-6">
               {form ?? (
                 <p className="rounded-control border border-dashed border-border-control p-6 text-center text-body-sm text-ink-subtle">

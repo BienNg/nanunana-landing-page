@@ -7,10 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/chinh-sach-bao-mat" },
 };
 
-/*
- * PLACEHOLDER — not legal advice. The final text must be written/approved by
- * NaNu NaNa (Nghị định 13/2023/NĐ-CP on personal data protection applies).
- */
 const sections = [
   {
     title: "1. Thông tin chúng tôi thu thập",
@@ -22,7 +18,7 @@ const sections = [
   },
   {
     title: "3. Lưu trữ và chia sẻ",
-    body: "[Cần NaNu NaNa xác nhận: nơi lưu trữ (ví dụ Notion, email), thời gian lưu trữ, đối tác được chia sẻ nếu có.]",
+    body: "Yêu cầu tư vấn chỉ được lưu trong email của công ty và được giữ trong một năm. Chỉ NaNu NaNa được xem các email này. Chúng tôi không chia sẻ nội dung yêu cầu tư vấn với đối tác hay bên thứ ba.",
   },
   {
     title: "4. Quyền của bạn",
@@ -38,12 +34,6 @@ export default function PrivacyPage() {
   return (
     <div className="container-page section-y">
       <article className="max-w-3xl">
-        <p
-          role="note"
-          className="mb-8 rounded-control border border-dashed border-amber bg-badge-b1 px-4 py-3 text-body-sm text-badge-b1-text"
-        >
-          Bản nháp — nội dung chính sách bảo mật đang được hoàn thiện.
-        </p>
         <h1 className="text-headline-xl-mobile text-ink md:text-headline-xl">Chính sách bảo mật</h1>
         <p className="mt-3 text-body-lg text-ink-muted">
           {site.fullName} tôn trọng và bảo vệ dữ liệu cá nhân của bạn.
