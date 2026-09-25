@@ -3,6 +3,7 @@ import {
   courseValueForLevel,
   formatClassDate,
   levelTone,
+  locationLabel,
   runningClassesSection,
 } from "@/content/classes";
 import { sectionIds } from "@/content/nav";
@@ -40,11 +41,50 @@ function ClassName({ item }: { item: RunningClass }) {
   );
 }
 
+function FormatLabel({ format }: { format: string | null }) {
+  if (!format) return <span className="text-ink-subtle">—</span>;
+  return (
+    <Badge tone={format === "Online" ? "teal" : "neutral"} className="normal-case">
+      {format}
+    </Badge>
+  );
+}
+
+function LocationLabel({ location }: { location: string | null }) {
+  if (!location) return <span className="text-ink-subtle">—</span>;
+  return (
+    <Badge tone="neutral" className="normal-case">
+      {locationLabel(location)}
+    </Badge>
+  );
+}
+
+function ClassMedia({ item }: { item: RunningClass }) {
+  if (item.media.length === 0) return <span className="text-ink-subtle">—</span>;
+  return (
+    <div className="flex gap-1.5">
+      {item.media.map((file) => (
+        <a
+          key={file.url}
+          href={file.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block overflow-hidden rounded-md border border-border-subtle"
+        >
+          {/* Notion file URLs expire within an hour, so they stay unoptimized. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={file.url} alt={`Ảnh lớp ${item.name}`} className="size-12 object-cover" />
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function RegisterLink({ item }: { item: RunningClass }) {
   return (
     <PrefillLink
       course={courseValueForLevel(item.level)}
-      className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md text-brand-teal-dark hover:bg-surface-container-low"
+      className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md whitespace-nowrap text-brand-teal-dark hover:bg-surface-container-low"
     >
       {runningClassesSection.register}
       <span className="sr-only"> lớp {item.name}</span>
@@ -56,8 +96,8 @@ function RegisterLink({ item }: { item: RunningClass }) {
 function ClassTable({ classes }: { classes: RunningClass[] }) {
   const cols = runningClassesSection.columns;
   return (
-    <div className="overflow-hidden rounded-card border border-border-subtle bg-white shadow-tier-1">
-      <table className="hidden w-full border-collapse text-left md:table">
+    <div className="overflow-x-auto rounded-card border border-border-subtle bg-white shadow-tier-1">
+      <table className="hidden w-full min-w-[920px] border-collapse text-left md:table">
         <thead>
           <tr className="bg-surface-container-low text-label-sm text-ink-subtle uppercase">
             <th scope="col" className="px-5 py-3 font-semibold">
@@ -67,10 +107,19 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               {cols.level}
             </th>
             <th scope="col" className="px-5 py-3 font-semibold">
+              {cols.format}
+            </th>
+            <th scope="col" className="px-5 py-3 font-semibold">
+              {cols.location}
+            </th>
+            <th scope="col" className="px-5 py-3 font-semibold">
               {cols.begin}
             </th>
             <th scope="col" className="px-5 py-3 font-semibold">
               {cols.end}
+            </th>
+            <th scope="col" className="px-5 py-3 font-semibold">
+              {cols.media}
             </th>
             <th scope="col" className="px-5 py-3">
               <span className="sr-only">{runningClassesSection.register}</span>
@@ -86,11 +135,20 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               <td className="px-5 py-4">
                 <LevelLabel level={item.level} />
               </td>
+              <td className="px-5 py-4">
+                <FormatLabel format={item.format} />
+              </td>
+              <td className="px-5 py-4">
+                <LocationLabel location={item.location} />
+              </td>
               <td className="px-5 py-4 text-body-md text-ink-muted">
                 <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
               </td>
               <td className="px-5 py-4 text-body-md text-ink-muted">
                 <time dateTime={item.end}>{formatClassDate(item.end)}</time>
+              </td>
+              <td className="px-5 py-4">
+                <ClassMedia item={item} />
               </td>
               <td className="px-5 py-4 text-right">
                 <RegisterLink item={item} />
@@ -106,6 +164,11 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
             <div className="flex items-start justify-between gap-3">
               <ClassName item={item} />
               <LevelLabel level={item.level} />
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <FormatLabel format={item.format} />
+              <LocationLabel location={item.location} />
+              <ClassMedia item={item} />
             </div>
             <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
               <div>

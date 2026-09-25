@@ -15,9 +15,17 @@ const PROPS = {
   level: "Level",
   begin: "Begin",
   end: "End",
+  format: "On|Off",
+  location: "Location",
+  media: "Files & media",
   status: "Class Status",
   archiv: "Archiv",
 } as const;
+
+export type ClassMedia = {
+  name: string;
+  url: string;
+};
 
 export type RunningClass = {
   id: string;
@@ -25,6 +33,15 @@ export type RunningClass = {
   /** Page icon emoji, when the Notion row has one. */
   icon: string | null;
   level: string | null;
+  /** Notion select `On|Off`: Online or Offline. */
+  format: string | null;
+  /** Notion select `Location`, such as Hanoi or Online VN. */
+  location: string | null;
+  /**
+   * Images from `Files & media`. Notion file URLs expire after about an hour,
+   * and this list is refreshed every few minutes, so the links stay valid.
+   */
+  media: ClassMedia[];
   /** Date-only ISO `YYYY-MM-DD`, or null when Begin is empty. */
   begin: string | null;
   /** Date-only ISO `YYYY-MM-DD`. Rows with no End are not returned. */
@@ -48,9 +65,25 @@ function dateOnly(page: PageObjectResponse, name: string) {
   return prop.date.start.slice(0, 10);
 }
 
+function selectName(page: PageObjectResponse, name: string) {
+  const prop = page.properties[name];
+  if (prop?.type !== "select") return null;
+  return prop.select?.name ?? null;
+}
+
+function mediaOf(page: PageObjectResponse): ClassMedia[] {
+  const prop = page.properties[PROPS.media];
+  if (prop?.type !== "files") return [];
+  return prop.files.flatMap((file) => {
+    const url =
+      file.type === "file" ? file.file.url : file.type === "external" ? file.external.url : null;
+    if (!url || !/\.(png|jpe?g|webp|gif)$/i.test(file.name)) return [];
+    return [{ name: file.name, url }];
+  });
+}
+
 function toClass(page: PageObjectResponse) {
   const name = page.properties[PROPS.name];
-  const level = page.properties[PROPS.level];
   return {
     id: page.id,
     name:
@@ -61,7 +94,10 @@ function toClass(page: PageObjectResponse) {
             .trim()
         : "",
     icon: page.icon?.type === "emoji" ? page.icon.emoji : null,
-    level: level?.type === "select" ? (level.select?.name ?? null) : null,
+    level: selectName(page, PROPS.level),
+    format: selectName(page, PROPS.format),
+    location: selectName(page, PROPS.location),
+    media: mediaOf(page),
     begin: dateOnly(page, PROPS.begin),
     end: dateOnly(page, PROPS.end),
   };
@@ -109,7 +145,7 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
     });
 }
 
-const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v2"], {
+const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v3"], {
   revalidate: 300,
 });
 

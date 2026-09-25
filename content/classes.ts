@@ -12,10 +12,25 @@ export const runningClassesSection = {
   columns: {
     name: "Lớp",
     level: "Trình độ",
+    format: "Hình thức",
+    location: "Địa điểm",
     begin: "Bắt đầu",
     end: "Kết thúc",
+    media: "Ảnh",
   },
 };
+
+const locationLabels: Record<string, string> = {
+  Hanoi: "Hà Nội",
+  Saigon: "Sài Gòn",
+  "Online VN": "Online VN",
+  "Online DE": "Online Đức",
+};
+
+/** Notion Location select, shown in Vietnamese when we know the option. */
+export function locationLabel(value: string) {
+  return locationLabels[value] ?? value;
+}
 
 /** CEFR family used for the badge color. Sub-levels like A2.1 keep their own label. */
 export function levelTone(level: string): CourseLevel | null {
