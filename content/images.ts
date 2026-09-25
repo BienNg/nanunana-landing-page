@@ -8,8 +8,8 @@
 import type { StaticImageData } from "next/image";
 
 import founderPhuong from "@/public/images/founder-phuong.webp";
-import pathwayUniversity from "@/public/placeholders/pathway-university.webp";
-import pathwayVocational from "@/public/placeholders/pathway-vocational.webp";
+import pathwayUniversity from "@/public/images/du-hoc-duc/du-hoc-dai-hoc-thanh-pho-duc.webp";
+import pathwayVocational from "@/public/images/du-hoc-duc/du-hoc-nghe-khach-san-nha-hang.webp";
 import appPhone from "@/public/images/app/app-mobile.png";
 import appTablet from "@/public/images/app/app-tablet.png";
 import appDesktop from "@/public/images/app/app-desktop.png";
@@ -42,13 +42,13 @@ export const images = {
   },
   pathwayUniversity: {
     src: pathwayUniversity,
-    alt: "Sinh viên Việt Nam tại một trường đại học ở Đức",
-    placeholder: true,
+    alt: "Toàn cảnh thành phố Đức, điểm đến du học đại học Studium",
+    placeholder: false,
   },
   pathwayVocational: {
     src: pathwayVocational,
-    alt: "Học viên du học nghề trong giờ thực hành Ausbildung",
-    placeholder: true,
+    alt: "Đội ngũ ngành khách sạn và nhà hàng, chương trình du học nghề Ausbildung tại Đức",
+    placeholder: false,
   },
   appPhone: {
     src: appPhone,
@@ -123,3 +123,9 @@ export const images = {
 } satisfies Record<string, SiteImage>;
 
 export type ImageKey = keyof typeof images;
+
+/** Stable public URLs for the two pathway photos, listed on the homepage image sitemap. */
+export const pathwayImageUrls = [
+  "/images/du-hoc-duc/du-hoc-dai-hoc-thanh-pho-duc.webp",
+  "/images/du-hoc-duc/du-hoc-nghe-khach-san-nha-hang.webp",
+] as const;

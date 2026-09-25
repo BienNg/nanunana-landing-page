@@ -205,12 +205,14 @@ function ConsultationFormInner({
             <Field
               id="lead-goal"
               label="Mục tiêu"
+              required
               error={errorFor("goal")}
               className="md:col-span-2"
             >
               <Select
                 id="lead-goal"
                 defaultValue={defaults.goal}
+                aria-required
                 aria-invalid={!!errorFor("goal")}
                 aria-describedby={describedBy("lead-goal", { error: !!errorFor("goal") })}
                 {...register("goal")}

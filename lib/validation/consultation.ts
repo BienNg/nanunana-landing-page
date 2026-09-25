@@ -15,6 +15,7 @@ export const messages = {
   phoneRequired: "Vui lòng nhập số điện thoại hoặc Zalo để chúng tôi liên hệ.",
   phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ, ví dụ 0988 123 456 (hoặc số Đức +49 151 …).",
   messageLong: "Nội dung tối đa 1000 ký tự.",
+  goalRequired: "Vui lòng chọn mục tiêu của bạn.",
   choose: "Vui lòng chọn một mục trong danh sách.",
 } as const;
 
@@ -38,7 +39,9 @@ export const consultationSchema = z.object({
       z.refine(isAcceptedPhone, messages.phoneInvalid),
     ),
   course: z.union([z.literal(""), z.enum(courseValues)], { error: messages.choose }),
-  goal: z.union([z.literal(""), z.enum(goalValues)], { error: messages.choose }),
+  goal: z
+    .union([z.literal(""), z.enum(goalValues)])
+    .check(z.refine((v) => v !== "", messages.goalRequired)),
   message: z.string().check(z.trim(), z.maxLength(1000, messages.messageLong)),
   // Attribution (hidden fields)
   utm_source: optionalText(200),
