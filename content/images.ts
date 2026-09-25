@@ -10,9 +10,9 @@ import type { StaticImageData } from "next/image";
 import founderPhuong from "@/public/images/founder-phuong.webp";
 import pathwayUniversity from "@/public/placeholders/pathway-university.webp";
 import pathwayVocational from "@/public/placeholders/pathway-vocational.webp";
-import appPhone from "@/public/placeholders/app-phone.webp";
-import appTablet from "@/public/placeholders/app-tablet.webp";
-import appDesktop from "@/public/placeholders/app-desktop.webp";
+import appPhone from "@/public/images/app/app-mobile.png";
+import appTablet from "@/public/images/app/app-tablet.png";
+import appDesktop from "@/public/images/app/app-desktop.png";
 import galleryLopHoc from "@/public/images/hanh-trinh/lop-hoc-tieng-duc-nanunana.webp";
 import galleryBanDo from "@/public/images/hanh-trinh/hoc-vien-nanunana-truoc-ban-do-viet-nam-duc.webp";
 import galleryVisa from "@/public/images/hanh-trinh/hoc-vien-nhan-visa-du-hoc-duc.webp";
@@ -52,18 +52,18 @@ export const images = {
   },
   appPhone: {
     src: appPhone,
-    alt: "Màn hình bài học video của ứng dụng NaNu NaNa trên điện thoại",
-    placeholder: true,
+    alt: "Bài học video Lektion 2 trong ứng dụng NaNu NaNa trên điện thoại",
+    placeholder: false,
   },
   appTablet: {
     src: appTablet,
-    alt: "Màn hình từ vựng của ứng dụng NaNu NaNa trên máy tính bảng",
-    placeholder: true,
+    alt: "Danh sách bài học trình độ A1.1 trong ứng dụng NaNu NaNa trên máy tính bảng",
+    placeholder: false,
   },
   appDesktop: {
     src: appDesktop,
-    alt: "Màn hình luyện nghe của ứng dụng NaNu NaNa trên máy tính",
-    placeholder: true,
+    alt: "Bài luyện nghe Auf Wiedersehen trong ứng dụng NaNu NaNa trên máy tính",
+    placeholder: false,
   },
   galleryLopHoc: {
     src: galleryLopHoc,

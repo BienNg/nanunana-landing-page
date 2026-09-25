@@ -14,7 +14,7 @@ export type LearningAppFeature = {
 };
 
 export type LearningAppDevice = {
-  id: "phone" | "tablet" | "desktop";
+  id: "phone" | "desktop";
   image: ImageKey;
   label: string;
 };
@@ -27,7 +27,7 @@ export const learningAppSection = {
   unique: ok("Không trung tâm ngoại ngữ nào khác có ứng dụng học tập như thế này."),
   included: "Mọi học viên đang theo học đều được cấp tài khoản.",
   cta: "Đăng ký tư vấn",
-  devicesLabel: "Điện thoại, máy tính bảng và máy tính",
+  devicesLabel: "Điện thoại và máy tính",
   features: [
     {
       id: "video",
@@ -48,7 +48,6 @@ export const learningAppSection = {
     },
   ] satisfies LearningAppFeature[],
   devices: [
-    { id: "tablet", image: "appTablet", label: "Máy tính bảng" },
     { id: "desktop", image: "appDesktop", label: "Máy tính" },
     { id: "phone", image: "appPhone", label: "Điện thoại" },
   ] satisfies LearningAppDevice[],

@@ -5,7 +5,6 @@ import {
   Monitor,
   Play,
   Smartphone,
-  Tablet,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -28,7 +27,6 @@ const featureIcons: Record<LearningAppFeature["id"], LucideIcon> = {
 
 const deviceIcons: Record<LearningAppDevice["id"], LucideIcon> = {
   phone: Smartphone,
-  tablet: Tablet,
   desktop: Monitor,
 };
 
@@ -36,28 +34,27 @@ const deviceFrame: Record<
   LearningAppDevice["id"],
   { className: string; screen: string; sizes: string }
 > = {
-  phone: {
-    className: "absolute right-0 bottom-0 z-20 w-[30%]",
-    screen: "aspect-[9/16]",
-    sizes: "(min-width: 1024px) 200px, 32vw",
-  },
-  tablet: {
-    className: "absolute bottom-0 left-0 z-10 w-[44%]",
-    screen: "aspect-[3/4]",
-    sizes: "(min-width: 1024px) 280px, 46vw",
-  },
   desktop: {
     className: "absolute inset-x-0 top-0 z-0",
     screen: "aspect-[16/10]",
     sizes: "(min-width: 1024px) 640px, 92vw",
   },
+  phone: {
+    className: "absolute right-0 bottom-0 z-10 w-[34%] sm:right-[3%] sm:w-[28%]",
+    screen: "aspect-[9/16]",
+    sizes: "(min-width: 1024px) 200px, 34vw",
+  },
 };
+
+const devicesById = Object.fromEntries(
+  learningAppSection.devices.map((device) => [device.id, device]),
+) as Record<LearningAppDevice["id"], LearningAppDevice>;
 
 function Device({ device }: { device: LearningAppDevice }) {
   const frame = deviceFrame[device.id];
   const bezel =
     device.id === "desktop"
-      ? "overflow-hidden rounded-xl border border-border-subtle bg-white shadow-tier-3"
+      ? "overflow-hidden rounded-xl border border-border-subtle bg-white shadow-tier-2"
       : "overflow-hidden rounded-[1.35rem] border-[5px] border-ink bg-ink shadow-tier-3 sm:rounded-[1.6rem] sm:border-[6px]";
 
   return (
@@ -146,15 +143,15 @@ export function LearningApp() {
         </div>
 
         <div className="lg:col-span-6">
-          <div className="relative mx-auto h-[24rem] w-full max-w-xl sm:h-[28rem] lg:h-[32rem] lg:max-w-none">
-            {learningAppSection.devices.map((device) => (
-              <Device key={device.id} device={device} />
-            ))}
-          </div>
-          <ul
+          <div
+            role="group"
             aria-label={learningAppSection.devicesLabel}
-            className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2"
+            className="relative mx-auto h-[26rem] w-full max-w-xl sm:h-[30rem] lg:h-[34rem] lg:max-w-none"
           >
+            <Device device={devicesById.desktop} />
+            <Device device={devicesById.phone} />
+          </div>
+          <ul className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2">
             {learningAppSection.devices.map((device) => {
               const Icon = deviceIcons[device.id];
               return (
