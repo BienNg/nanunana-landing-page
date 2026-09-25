@@ -16,6 +16,7 @@ import { CourseBadge } from "@/components/ui/CourseBadge";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ClassListJump } from "./ClassListJump";
+import { ClassPhotos } from "./ClassPhotos";
 
 function LevelLabel({ level }: { level: string | null }) {
   if (!level) return <span className="text-ink-subtle">—</span>;
@@ -49,27 +50,6 @@ function LocationLabel({ location }: { location: string | null }) {
     <Badge tone="neutral" className="normal-case">
       {locationLabel(location)}
     </Badge>
-  );
-}
-
-function ClassMedia({ item }: { item: RunningClass }) {
-  if (item.media.length === 0) return <span className="text-ink-subtle">—</span>;
-  return (
-    <div className="flex gap-1.5">
-      {item.media.map((file) => (
-        <a
-          key={file.url}
-          href={file.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block overflow-hidden rounded-md border border-border-subtle"
-        >
-          {/* Notion file URLs expire within an hour, so they stay unoptimized. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={file.url} alt={`Ảnh lớp ${item.name}`} className="size-12 object-cover" />
-        </a>
-      ))}
-    </div>
   );
 }
 
@@ -135,7 +115,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
                 <time dateTime={item.end}>{formatClassDate(item.end)}</time>
               </td>
               <td className="px-5 py-4">
-                <ClassMedia item={item} />
+                <ClassPhotos name={item.name} media={item.media} />
               </td>
               <td className="px-5 py-4 text-right">
                 <RegisterLink item={item} />
@@ -159,7 +139,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               </div>
               {item.media.length > 0 ? (
                 <div className="shrink-0">
-                  <ClassMedia item={item} />
+                  <ClassPhotos name={item.name} media={item.media} />
                 </div>
               ) : null}
             </div>

@@ -9,6 +9,7 @@ import { serverEnv } from "@/lib/env";
  * "Class Status" is a Notion formula: Upcoming when Begin is empty or still
  * in the future, Completed when End is before today, otherwise Active.
  * Rows with an empty End are left out, even when that formula still says Active.
+ * Checked `1-1` or `Archiv` rows are private and stay off the landing page.
  */
 const PROPS = {
   name: "Name",
@@ -19,6 +20,7 @@ const PROPS = {
   location: "Location",
   media: "Files & media",
   status: "Class Status",
+  oneToOne: "1-1",
   archiv: "Archiv",
 } as const;
 
@@ -40,6 +42,7 @@ export type RunningClass = {
   /**
    * Images from `Files & media`. Notion file URLs expire after about an hour,
    * and this list is refreshed every few minutes, so the links stay valid.
+   * Table thumbnails are a resized copy from `/api/class-photo`; the dialog uses this URL.
    */
   media: ClassMedia[];
   /** Date-only ISO `YYYY-MM-DD`, or null when Begin is empty. */
@@ -63,6 +66,11 @@ function dateOnly(page: PageObjectResponse, name: string) {
   const prop = page.properties[name];
   if (prop?.type !== "date" || !prop.date?.start) return null;
   return prop.date.start.slice(0, 10);
+}
+
+function isChecked(page: PageObjectResponse, name: string) {
+  const prop = page.properties[name];
+  return prop?.type === "checkbox" && prop.checkbox;
 }
 
 function selectName(page: PageObjectResponse, name: string) {
@@ -146,6 +154,7 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
       filter: {
         and: [
           { property: PROPS.status, formula: { string: { equals: "Active" } } },
+          { property: PROPS.oneToOne, checkbox: { equals: false } },
           { property: PROPS.archiv, checkbox: { equals: false } },
           { property: PROPS.end, date: { is_not_empty: true } },
         ],
@@ -163,12 +172,13 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
 
   return pages
     .filter(isFullPage)
+    .filter((page) => !isChecked(page, PROPS.oneToOne) && !isChecked(page, PROPS.archiv))
     .map(toClass)
     .filter((row): row is RunningClass => row.name.length > 0 && row.end !== null)
     .sort(compareRunningClasses);
 }
 
-const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v5"], {
+const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v6"], {
   revalidate: 300,
 });
 

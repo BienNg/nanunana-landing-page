@@ -1,0 +1,124 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
+import { classPhotoThumbSrc, notionFileId } from "@/lib/notion/file-id";
+
+type Photo = { url: string; name: string };
+
+function PhotoButton({
+  file,
+  label,
+  onOpen,
+}: {
+  file: Photo;
+  label: string;
+  onOpen: (file: Photo, trigger: HTMLButtonElement) => void;
+}) {
+  const [src, setSrc] = useState(() => classPhotoThumbSrc(file.url));
+
+  return (
+    <button
+      type="button"
+      onClick={(event) => onOpen(file, event.currentTarget)}
+      aria-label={`Xem ${label}`}
+      className="block cursor-zoom-in overflow-hidden rounded-md border border-border-subtle"
+    >
+      {/* Thumbnails are resized by /api/class-photo. The dialog still uses the Notion URL. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt=""
+        width={48}
+        height={48}
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        className="size-12 bg-surface-container-low object-cover"
+        onError={() => {
+          if (src !== file.url) setSrc(file.url);
+        }}
+      />
+    </button>
+  );
+}
+
+export function ClassPhotos({ name, media }: { name: string; media: Photo[] }) {
+  const [active, setActive] = useState<Photo | null>(null);
+  const restoreFocus = useRef<HTMLElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!active) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setActive(null);
+        return;
+      }
+      if (event.key === "Tab") {
+        event.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+      restoreFocus.current?.focus();
+    };
+  }, [active]);
+
+  if (media.length === 0) return <span className="text-ink-subtle">—</span>;
+
+  const label = `Ảnh lớp ${name}`;
+
+  return (
+    <>
+      <div className="flex gap-1.5">
+        {media.map((file) => (
+          <PhotoButton
+            key={notionFileId(file.url) ?? file.url}
+            file={file}
+            label={label}
+            onOpen={(photo, trigger) => {
+              restoreFocus.current = trigger;
+              setActive(photo);
+            }}
+          />
+        ))}
+      </div>
+      {active
+        ? createPortal(
+            <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-8">
+              <div className="absolute inset-0 bg-ink/75" onClick={() => setActive(null)} />
+              <div role="dialog" aria-modal="true" aria-label={label} className="relative z-10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={active.url}
+                  alt={label}
+                  referrerPolicy="no-referrer"
+                  className="max-h-[85dvh] max-w-[92vw] rounded-card object-contain shadow-tier-3"
+                />
+                <button
+                  ref={closeRef}
+                  type="button"
+                  onClick={() => setActive(null)}
+                  aria-label="Đóng ảnh"
+                  className="absolute top-3 right-3 grid size-tap place-items-center rounded-full bg-white text-ink shadow-tier-2"
+                >
+                  <X aria-hidden className="size-5" />
+                </button>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
+    </>
+  );
+}
