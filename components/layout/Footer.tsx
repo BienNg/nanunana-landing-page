@@ -52,6 +52,11 @@ export function Footer() {
         <div className="lg:col-span-2">
           <Column title="Khoá học">
             <ul>
+              <li>
+                <Link href={`/#${sectionIds.classes}`} className={linkClass}>
+                  Lớp đang diễn ra
+                </Link>
+              </li>
               {courses.map((c) => (
                 <li key={c.id}>
                   <PrefillLink course={c.formValue} className={linkClass}>

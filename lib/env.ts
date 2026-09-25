@@ -12,6 +12,12 @@ export const serverEnv = {
     const databaseId = read("NOTION_LEADS_DB_ID");
     return token && databaseId ? { token, databaseId } : null;
   },
+  /** Klassen Datenbank — classes shown on the site. */
+  classes: () => {
+    const token = read("NOTION_TOKEN");
+    const databaseId = read("NOTION_CLASSES_DB_ID");
+    return token && databaseId ? { token, databaseId } : null;
+  },
   resend: () => {
     const apiKey = read("RESEND_API_KEY");
     const from = read("RESEND_FROM_EMAIL");

@@ -7,6 +7,7 @@ export const sectionIds = {
   about: "ve-chung-toi",
   founder: "ve-phuong",
   courses: "khoa-hoc",
+  classes: "lop-dang-dien-ra",
   pathways: "lo-trinh-du-hoc",
   university: "du-hoc-dai-hoc",
   vocational: "du-hoc-nghe",

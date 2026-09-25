@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { sectionIds } from "@/content/nav";
 import { Hero } from "@/components/sections/Hero";
 import { Stats } from "@/components/sections/Stats";
 import { Founder } from "@/components/sections/Founder";
 import { Courses } from "@/components/sections/Courses";
+import { RunningClasses, RunningClassesFallback } from "@/components/sections/RunningClasses";
 import { Pathways } from "@/components/sections/Pathways";
 import { Process } from "@/components/sections/Process";
 import { Team } from "@/components/sections/Team";
@@ -23,6 +25,9 @@ export default function Home() {
         <Founder />
       </div>
       <Courses />
+      <Suspense fallback={<RunningClassesFallback />}>
+        <RunningClasses />
+      </Suspense>
       <Pathways />
       <Process />
       <Team />
