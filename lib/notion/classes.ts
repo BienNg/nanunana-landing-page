@@ -82,6 +82,34 @@ function mediaOf(page: PageObjectResponse): ClassMedia[] {
   });
 }
 
+/**
+ * A1.1, then A1.2, A2.1, and so on. Exam-prep labels such as "ôn thi B1"
+ * follow that level's sub-levels. Unrecognized and empty levels sort last.
+ */
+function levelSortKey(level: string | null): number {
+  if (!level) return 10_000;
+  const match = level.match(/([abc])\s*(\d)(?:[.\s](\d+))?/i);
+  if (!match) return 9_000;
+  const letter = match[1].toUpperCase().charCodeAt(0) - "A".charCodeAt(0);
+  const major = Number(match[2]);
+  const minor = match[3] ? Number(match[3]) : 0;
+  const exam = /ôn thi|on thi/i.test(level) ? 5 : 0;
+  return letter * 100 + major * 10 + minor + exam;
+}
+
+function compareRunningClasses(a: RunningClass, b: RunningClass) {
+  const levelDiff = levelSortKey(a.level) - levelSortKey(b.level);
+  if (levelDiff !== 0) return levelDiff;
+  if (levelSortKey(a.level) >= 9_000) {
+    const byLabel = (a.level ?? "").localeCompare(b.level ?? "", "vi");
+    if (byLabel !== 0) return byLabel;
+  }
+  if (a.begin === b.begin) return a.name.localeCompare(b.name, "vi");
+  if (!a.begin) return 1;
+  if (!b.begin) return -1;
+  return a.begin.localeCompare(b.begin);
+}
+
 function toClass(page: PageObjectResponse) {
   const name = page.properties[PROPS.name];
   return {
@@ -137,15 +165,10 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
     .filter(isFullPage)
     .map(toClass)
     .filter((row): row is RunningClass => row.name.length > 0 && row.end !== null)
-    .sort((a, b) => {
-      if (a.begin === b.begin) return a.name.localeCompare(b.name, "vi");
-      if (!a.begin) return 1;
-      if (!b.begin) return -1;
-      return a.begin.localeCompare(b.begin);
-    });
+    .sort(compareRunningClasses);
 }
 
-const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v3"], {
+const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v5"], {
   revalidate: 300,
 });
 

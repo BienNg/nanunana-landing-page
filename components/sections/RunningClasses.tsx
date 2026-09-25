@@ -43,15 +43,6 @@ function ClassName({ item, className }: { item: RunningClass; className?: string
   );
 }
 
-function FormatLabel({ format }: { format: string | null }) {
-  if (!format) return <span className="text-ink-subtle">—</span>;
-  return (
-    <Badge tone={format === "Online" ? "teal" : "neutral"} className="normal-case">
-      {format}
-    </Badge>
-  );
-}
-
 function LocationLabel({ location }: { location: string | null }) {
   if (!location) return <span className="text-ink-subtle">—</span>;
   return (
@@ -109,9 +100,6 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               {cols.level}
             </th>
             <th scope="col" className="px-5 py-3 font-semibold">
-              {cols.format}
-            </th>
-            <th scope="col" className="px-5 py-3 font-semibold">
               {cols.location}
             </th>
             <th scope="col" className="px-5 py-3 font-semibold">
@@ -136,9 +124,6 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               </th>
               <td className="px-5 py-4">
                 <LevelLabel level={item.level} />
-              </td>
-              <td className="px-5 py-4">
-                <FormatLabel format={item.format} />
               </td>
               <td className="px-5 py-4">
                 <LocationLabel location={item.location} />
@@ -170,7 +155,6 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
             <div className="mt-3 flex items-start gap-3">
               <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
                 {item.level ? <LevelLabel level={item.level} /> : null}
-                {item.format ? <FormatLabel format={item.format} /> : null}
                 {item.location ? <LocationLabel location={item.location} /> : null}
               </div>
               {item.media.length > 0 ? (
