@@ -211,7 +211,7 @@ Good to know:
 
 - **Design system:** tokens from `docs/DESIGN.md` live in `app/globals.css` (`@theme`). Button fills are slightly darker than the raw brand colours (coral `#B85A0C`, teal `#0B7793`) so white text meets WCAG AA.
 - **Accessibility:** one `<h1>` per page, landmarks, skip link, labelled form fields with Vietnamese error messages, visible focus everywhere, 44 px touch targets. axe-core: 0 violations on all pages.
-- **Motion:** the hero entrance is pure CSS (starts at first paint); GSAP (lazy-loaded) runs the scroll effects — stat count-up, process line, gallery/hero parallax; Motion (Framer) handles interactions. Everything respects "reduce motion", and the page is fully readable without JavaScript.
+- **Motion:** the hero entrance is pure CSS (starts at first paint); GSAP (lazy-loaded) runs the scroll effects — stat count-up, process line, hero parallax; Motion (Framer) handles interactions. Everything respects "reduce motion", and the page is fully readable without JavaScript.
 - **Performance (Lighthouse mobile, production build):** Performance 90+ (98 with real throttling), Accessibility / Best Practices / SEO 100, CLS 0.
 
 ### Launch checklist

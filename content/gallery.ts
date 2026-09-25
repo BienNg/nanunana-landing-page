@@ -7,14 +7,25 @@ export const gallerySection = {
 };
 
 /**
- * 4–8 photos. On tablet/desktop (3 columns) `tall` spans two rows and `wide`
- * spans two columns — keep the total at 9 cells so the grid has no holes.
+ * Eleven photos. From the md breakpoint the grid is 6 columns and every
+ * row sums to 6: `half` spans 3, `third` spans 2. Below that, each photo
+ * is full width. Frame ratios match the photos so each picture stays
+ * inside its tile.
  */
-export const galleryItems: { image: ImageKey; tall?: boolean; wide?: boolean }[] = [
-  { image: "gallery1" },
-  { image: "gallery2", tall: true },
-  { image: "gallery3" },
-  { image: "gallery4" },
-  { image: "gallery5", tall: true },
-  { image: "gallery6", wide: true },
+export const galleryItems: {
+  image: ImageKey;
+  span: "half" | "third";
+  frameClassName: string;
+}[] = [
+  { image: "galleryLopHoc", span: "half", frameClassName: "aspect-[3/2]" },
+  { image: "galleryBanDo", span: "half", frameClassName: "aspect-[3/2]" },
+  { image: "gallerySinhNhat", span: "third", frameClassName: "aspect-[4/3]" },
+  { image: "gallerySanBay", span: "third", frameClassName: "aspect-[4/3]" },
+  { image: "gallerySanBayGiaDinh", span: "third", frameClassName: "aspect-[4/3]" },
+  { image: "galleryVisa", span: "half", frameClassName: "aspect-[3/2]" },
+  { image: "galleryThamQuan", span: "half", frameClassName: "aspect-[3/2]" },
+  { image: "galleryLopTrungTam", span: "half", frameClassName: "aspect-[4/3]" },
+  { image: "galleryTaiDuc", span: "half", frameClassName: "aspect-[4/3]" },
+  { image: "galleryMinhAnh", span: "half", frameClassName: "aspect-[3/4]" },
+  { image: "galleryGiaDinh", span: "half", frameClassName: "aspect-[3/4]" },
 ];

@@ -9,7 +9,6 @@ const nf = new Intl.NumberFormat("vi-VN");
  * - subtle parallax on the hero brand card ([data-hero-parallax])
  * - stat numbers count up once ([data-countup])
  * - the Process line draws as you scroll ([data-process], [data-process-line])
- * - gentle parallax in the gallery ([data-gallery-item])
  * Everything is attached to server-rendered markup; without JS or with
  * reduced motion the final state is what's already in the HTML.
  */
@@ -50,20 +49,6 @@ export default function ScrollMotion() {
             el.textContent = `${prefix}${nf.format(Math.round(counter.v))}${suffix}`;
           },
         });
-      });
-
-      // Gallery parallax — alternate directions, small values
-      gsap.utils.toArray<HTMLElement>("[data-gallery-item] > div").forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { yPercent: i % 2 ? -4 : 4, scale: 1.08 },
-          {
-            yPercent: i % 2 ? 4 : -4,
-            scale: 1.08,
-            ease: "none",
-            scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.8 },
-          },
-        );
       });
     });
 
