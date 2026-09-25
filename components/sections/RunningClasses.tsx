@@ -1,4 +1,4 @@
-import { ChevronRight, Users } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   courseValueForLevel,
   formatClassDate,
@@ -40,17 +40,6 @@ function ClassName({ item }: { item: RunningClass }) {
   );
 }
 
-function StudentCount({ count }: { count: number | null }) {
-  if (count === null) return <span className="text-ink-subtle">—</span>;
-  return (
-    <span className="inline-flex items-center gap-1.5 text-body-md text-ink">
-      <Users aria-hidden className="size-3.5 text-ink-subtle" />
-      {count}
-      <span className="sr-only"> học viên</span>
-    </span>
-  );
-}
-
 function RegisterLink({ item }: { item: RunningClass }) {
   return (
     <PrefillLink
@@ -83,9 +72,6 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
             <th scope="col" className="px-5 py-3 font-semibold">
               {cols.end}
             </th>
-            <th scope="col" className="px-5 py-3 font-semibold">
-              {cols.students}
-            </th>
             <th scope="col" className="px-5 py-3">
               <span className="sr-only">{runningClassesSection.register}</span>
             </th>
@@ -104,10 +90,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
                 <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
               </td>
               <td className="px-5 py-4 text-body-md text-ink-muted">
-                <time dateTime={item.end ?? undefined}>{formatClassDate(item.end)}</time>
-              </td>
-              <td className="px-5 py-4">
-                <StudentCount count={item.students} />
+                <time dateTime={item.end}>{formatClassDate(item.end)}</time>
               </td>
               <td className="px-5 py-4 text-right">
                 <RegisterLink item={item} />
@@ -124,7 +107,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               <ClassName item={item} />
               <LevelLabel level={item.level} />
             </div>
-            <dl className="mt-3 grid grid-cols-3 gap-2 text-body-sm">
+            <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
               <div>
                 <dt className="text-label-sm text-ink-subtle uppercase">{cols.begin}</dt>
                 <dd className="mt-0.5 text-ink">
@@ -134,13 +117,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               <div>
                 <dt className="text-label-sm text-ink-subtle uppercase">{cols.end}</dt>
                 <dd className="mt-0.5 text-ink">
-                  <time dateTime={item.end ?? undefined}>{formatClassDate(item.end)}</time>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-label-sm text-ink-subtle uppercase">{cols.students}</dt>
-                <dd className="mt-0.5">
-                  <StudentCount count={item.students} />
+                  <time dateTime={item.end}>{formatClassDate(item.end)}</time>
                 </dd>
               </div>
             </dl>

@@ -14,7 +14,6 @@ export const runningClassesSection = {
     level: "Trình độ",
     begin: "Bắt đầu",
     end: "Kết thúc",
-    students: "Sĩ số",
   },
 };
 

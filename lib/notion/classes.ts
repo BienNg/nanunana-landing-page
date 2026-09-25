@@ -8,14 +8,13 @@ import { serverEnv } from "@/lib/env";
  * Klassen Datenbank columns shown on the site.
  * "Class Status" is a Notion formula: Upcoming when Begin is empty or still
  * in the future, Completed when End is before today, otherwise Active.
- * Filtering on that formula keeps the query to the ~30 running classes.
+ * Rows with an empty End are left out, even when that formula still says Active.
  */
 const PROPS = {
   name: "Name",
   level: "Level",
   begin: "Begin",
   end: "End",
-  students: "#Students",
   status: "Class Status",
   archiv: "Archiv",
 } as const;
@@ -26,11 +25,10 @@ export type RunningClass = {
   /** Page icon emoji, when the Notion row has one. */
   icon: string | null;
   level: string | null;
-  /** Date-only ISO `YYYY-MM-DD`, or null when the cell is empty. */
+  /** Date-only ISO `YYYY-MM-DD`, or null when Begin is empty. */
   begin: string | null;
-  end: string | null;
-  /** Null when the #Students formula has no numeric result. */
-  students: number | null;
+  /** Date-only ISO `YYYY-MM-DD`. Rows with no End are not returned. */
+  end: string;
 };
 
 async function resolveDataSourceId(notion: Client, urlOrId: string) {
@@ -50,10 +48,9 @@ function dateOnly(page: PageObjectResponse, name: string) {
   return prop.date.start.slice(0, 10);
 }
 
-function toClass(page: PageObjectResponse): RunningClass {
+function toClass(page: PageObjectResponse) {
   const name = page.properties[PROPS.name];
   const level = page.properties[PROPS.level];
-  const students = page.properties[PROPS.students];
   return {
     id: page.id,
     name:
@@ -67,10 +64,6 @@ function toClass(page: PageObjectResponse): RunningClass {
     level: level?.type === "select" ? (level.select?.name ?? null) : null,
     begin: dateOnly(page, PROPS.begin),
     end: dateOnly(page, PROPS.end),
-    students:
-      students?.type === "formula" && students.formula.type === "number"
-        ? students.formula.number
-        : null,
   };
 }
 
@@ -90,6 +83,7 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
         and: [
           { property: PROPS.status, formula: { string: { equals: "Active" } } },
           { property: PROPS.archiv, checkbox: { equals: false } },
+          { property: PROPS.end, date: { is_not_empty: true } },
         ],
       },
       sorts: [
@@ -106,7 +100,7 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
   return pages
     .filter(isFullPage)
     .map(toClass)
-    .filter((row) => row.name.length > 0)
+    .filter((row): row is RunningClass => row.name.length > 0 && row.end !== null)
     .sort((a, b) => {
       if (a.begin === b.begin) return a.name.localeCompare(b.name, "vi");
       if (!a.begin) return 1;
@@ -115,7 +109,7 @@ async function loadRunningClasses(databaseId: string): Promise<RunningClass[]> {
     });
 }
 
-const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes"], {
+const getCachedClasses = unstable_cache(loadRunningClasses, ["notion-running-classes-v2"], {
   revalidate: 300,
 });
 
