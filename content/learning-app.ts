@@ -28,7 +28,6 @@ export const learningAppSection = {
     "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
   ),
   included: "Mọi học viên đang theo học đều được cấp tài khoản.",
-  cta: "Đăng ký tư vấn",
   devicesLabel: "Điện thoại và máy tính",
   features: [
     {

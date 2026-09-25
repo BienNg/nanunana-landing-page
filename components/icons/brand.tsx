@@ -14,6 +14,9 @@ function Svg({ children, ...props }: IconProps) {
   );
 }
 
+/** Zalo glyph on a coral button: the bubble follows currentColor, the letters stay coral. */
+export const zaloOnCoral = "[--icon-contrast:var(--color-coral-fill)]";
+
 export function ZaloIcon(props: IconProps) {
   return (
     <Svg {...props}>

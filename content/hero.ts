@@ -10,8 +10,7 @@ export const hero = {
   taglineEmphasis: "Chất lượng và sự tử tế",
   supporting:
     "Học tiếng Đức từ A1 đến C1 và được đồng hành trên hành trình du học đại học hoặc du học nghề tại Đức — từ ngày đầu định hướng đến khi bạn đặt chân tới Đức.",
-  primaryCta: "Đăng Ký Tư Vấn Miễn Phí",
-  secondaryCta: "Khám Phá Các Khóa Học",
+  primaryCta: "Nhắn Zalo",
   trustBullets: [
     ok("Giáo viên nhiều năm học tập, sinh sống và làm việc tại Đức"),
     ok("Đồng hành trước và sau khi bạn sang Đức"),

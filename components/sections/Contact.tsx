@@ -2,9 +2,12 @@ import { ArrowUpRight, Headset, Phone } from "lucide-react";
 import { contactSection } from "@/content/contact";
 import { sectionIds } from "@/content/nav";
 import { site } from "@/content/site";
+import { ChatLink } from "@/components/analytics/ChatLink";
 import { MessengerIcon, WhatsAppIcon, ZaloIcon } from "@/components/icons/brand";
 import { Badge } from "@/components/ui/Badge";
 import { VerifyMark } from "@/components/ui/VerifyMark";
+import type { ChatChannel } from "@/lib/analytics";
+import { cn } from "@/lib/cn";
 
 const channels = [
   {
@@ -40,6 +43,13 @@ const channels = [
     external: false,
   },
 ] as const;
+
+const channelName: Record<(typeof channels)[number]["id"], ChatChannel> = {
+  zalo: "zalo",
+  messenger: "messenger",
+  whatsapp: "whatsapp",
+  hotline: "phone",
+};
 
 /**
  * Dark consultation section. `form` is the consultation form (Phase 5).
@@ -80,27 +90,52 @@ export function Contact({ form }: { form?: React.ReactNode }) {
           <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             {channels.map((c) => {
               const Icon = c.icon;
+              const lead = c.id === "zalo";
               return (
                 <li key={c.id}>
-                  <a
+                  <ChatLink
                     href={c.href}
+                    channel={channelName[c.id]}
+                    placement="contact"
                     {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="group flex min-h-16 items-center gap-4 rounded-card border border-white/10 bg-white/5 p-4 transition-colors [--icon-contrast:var(--color-ink)] hover:border-white/25 hover:bg-white/10"
+                    className={cn(
+                      "group flex min-h-16 items-center gap-4 rounded-card border p-4 transition-colors [--icon-contrast:var(--color-ink)]",
+                      lead
+                        ? "border-white bg-white text-ink shadow-tier-2 hover:bg-surface-container-low"
+                        : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10",
+                    )}
                   >
-                    <span className="grid size-11 shrink-0 place-items-center rounded-control bg-white text-[22px] text-brand-teal-dark">
+                    <span
+                      className={cn(
+                        "grid size-11 shrink-0 place-items-center rounded-control text-[22px]",
+                        lead
+                          ? "bg-coral-fill text-white [--icon-contrast:var(--color-coral-fill)]"
+                          : "bg-white text-brand-teal-dark",
+                      )}
+                    >
                       <Icon aria-hidden className="size-[1em]" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-label-lg text-white">{c.label}</span>
-                      <span className="block truncate text-body-sm text-ink-inverse-muted">
+                      <span className={cn("block text-label-lg", lead ? "text-ink" : "text-white")}>
+                        {c.label}
+                      </span>
+                      <span
+                        className={cn(
+                          "block truncate text-body-sm",
+                          lead ? "text-ink-muted" : "text-ink-inverse-muted",
+                        )}
+                      >
                         {c.detail}
                       </span>
                     </span>
                     <ArrowUpRight
                       aria-hidden
-                      className="size-5 text-ink-inverse-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      className={cn(
+                        "size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
+                        lead ? "text-coral-fill" : "text-ink-inverse-muted",
+                      )}
                     />
-                  </a>
+                  </ChatLink>
                 </li>
               );
             })}

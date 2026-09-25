@@ -26,7 +26,7 @@ import {
 import { AnchorButton, Button } from "@/components/ui/Button";
 import { describedBy, Field } from "@/components/ui/Field";
 import { Input, Select, Textarea } from "@/components/ui/controls";
-import { ZaloIcon } from "@/components/icons/brand";
+import { ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { FormSuccess } from "./FormSuccess";
 import { Turnstile } from "./Turnstile";
 
@@ -317,11 +317,17 @@ function FormErrorBanner({ message }: { message: string }) {
           target="_blank"
           rel="noopener noreferrer"
           size="sm"
-          variant="secondary"
+          track={{ channel: "zalo", placement: "form_error" }}
+          className={zaloOnCoral}
         >
           <ZaloIcon /> Nhắn Zalo
         </AnchorButton>
-        <AnchorButton href={site.phone.href} size="sm" variant="outline">
+        <AnchorButton
+          href={site.phone.href}
+          size="sm"
+          variant="outline"
+          track={{ channel: "phone", placement: "form_error" }}
+        >
           <Phone aria-hidden /> {site.phone.display}
         </AnchorButton>
       </div>

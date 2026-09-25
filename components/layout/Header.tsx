@@ -6,10 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Phone } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useScrollSpy } from "@/lib/hooks/useScrollSpy";
-import { contactHref, mainNav } from "@/content/nav";
+import { mainNav } from "@/content/nav";
 import { site } from "@/content/site";
-import { LinkButton } from "@/components/ui/Button";
-import { MessengerIcon, ZaloIcon } from "@/components/icons/brand";
+import { AnchorButton } from "@/components/ui/Button";
+import { ChatLink } from "@/components/analytics/ChatLink";
+import { MessengerIcon, WhatsAppIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
@@ -71,34 +72,47 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <a
+          <ChatLink
             href={site.phone.href}
+            channel="phone"
+            placement="header"
             className="hidden min-h-tap items-center gap-2 rounded-control px-2 text-label-md text-ink hover:text-brand-teal-dark xl:inline-flex"
           >
             <Phone aria-hidden className="size-4 text-teal" />
             {site.phone.display}
-          </a>
-          <a
+          </ChatLink>
+          <AnchorButton
             href={site.channels.zalo}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Nhắn tin Zalo"
-            className="hidden size-tap place-items-center rounded-control text-[22px] text-[#0068ff] transition-colors hover:bg-surface-container-low md:grid"
+            size="sm"
+            track={{ channel: "zalo", placement: "header" }}
+            className={cn("hidden md:inline-flex", zaloOnCoral)}
           >
-            <ZaloIcon />
-          </a>
-          <a
+            <ZaloIcon /> Nhắn Zalo
+          </AnchorButton>
+          <ChatLink
             href={site.channels.messenger}
+            channel="messenger"
+            placement="header"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Nhắn tin Messenger"
             className="hidden size-tap place-items-center rounded-control text-[22px] text-[#0866ff] transition-colors hover:bg-surface-container-low md:grid"
           >
             <MessengerIcon />
-          </a>
-          <LinkButton href={contactHref} size="sm" className="hidden sm:inline-flex">
-            Tư Vấn Miễn Phí
-          </LinkButton>
+          </ChatLink>
+          <ChatLink
+            href={site.channels.whatsapp}
+            channel="whatsapp"
+            placement="header"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Nhắn tin WhatsApp"
+            className="hidden size-tap place-items-center rounded-control text-[22px] text-[#128C7E] transition-colors hover:bg-surface-container-low lg:grid"
+          >
+            <WhatsAppIcon />
+          </ChatLink>
           <button
             ref={menuButtonRef}
             type="button"

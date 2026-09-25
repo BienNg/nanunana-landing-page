@@ -16,6 +16,7 @@ import { CourseBadge } from "@/components/ui/CourseBadge";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VerifyMark } from "@/components/ui/VerifyMark";
+import { ChatCtaPair } from "@/components/analytics/ChatCtaPair";
 import { PrefillLink } from "@/components/form/PrefillLink";
 
 function CourseCard({ course }: { course: Course }) {
@@ -109,9 +110,16 @@ function CoursesCloser() {
           );
         })}
       </ul>
-      <p className="border-t border-border-subtle bg-surface-container-low px-6 py-6 text-center text-body-md text-pretty text-ink md:px-12 md:py-8 md:text-body-lg">
-        {coursesSection.closer.invitation}
-      </p>
+      <div className="border-t border-border-subtle bg-surface-container-low px-6 py-6 text-center md:px-12 md:py-8">
+        <p className="text-body-md text-pretty text-ink md:text-body-lg">
+          {coursesSection.closer.invitation}
+        </p>
+        <ChatCtaPair
+          placement="courses"
+          primaryLabel={coursesSection.chatCta}
+          className="mt-6"
+        />
+      </div>
     </div>
   );
 }

@@ -49,6 +49,7 @@ export const coursesSection = {
     invitation:
       "Bạn đang ấp ủ ước mơ được học tập, làm việc và có một khoảng thời gian trải nghiệm ý nghĩa tại Đức. Chúng tôi ở đây và xin được đồng hành cùng bạn trên hành trình này.",
   },
+  chatCta: "Hỏi học phí qua Zalo",
   cardCta: "Đăng ký tư vấn",
 };
 

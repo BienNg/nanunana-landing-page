@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { m } from "motion/react";
+import { trackChatClick, type ChatClick } from "@/lib/analytics";
 import { buttonClasses, pressMotion, type ButtonSize, type ButtonVariant } from "./button-styles";
 
 export { buttonClasses, type ButtonSize, type ButtonVariant } from "./button-styles";
@@ -49,19 +50,25 @@ export function LinkButton({
   );
 }
 
-/** External links (Zalo, Messenger, tel:). */
+/** External links (Zalo, Messenger, tel:). `track` records a chat_click before navigation. */
 export function AnchorButton({
   variant,
   size,
   fullWidth,
   className,
+  track,
+  onClick,
   ...props
-}: Safe<ComponentProps<"a">> & StyleProps) {
+}: Safe<ComponentProps<"a">> & StyleProps & { track?: ChatClick }) {
   return (
     <m.a
       className={buttonClasses({ variant, size, fullWidth, className })}
       {...pressMotion}
       {...props}
+      onClick={(event) => {
+        onClick?.(event);
+        if (track && !event.defaultPrevented) trackChatClick(track);
+      }}
     />
   );
 }

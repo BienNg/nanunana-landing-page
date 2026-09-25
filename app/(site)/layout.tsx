@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { AttributionCapture } from "@/components/analytics/AttributionCapture";
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
@@ -17,6 +18,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Footer />
       <MobileCtaBar />
       <AttributionCapture />
+      <SectionViewTracker />
       <TrackingScripts />
       <OrganizationJsonLd />
     </>

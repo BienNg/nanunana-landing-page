@@ -9,7 +9,8 @@ import { cn } from "@/lib/cn";
 import { contactHref, mainNav } from "@/content/nav";
 import { site } from "@/content/site";
 import { AnchorButton, LinkButton } from "@/components/ui/Button";
-import { MessengerIcon, ZaloIcon } from "@/components/icons/brand";
+import { ChatLink } from "@/components/analytics/ChatLink";
+import { MessengerIcon, WhatsAppIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Logo } from "./Logo";
 
 const subscribe = () => () => {};
@@ -149,37 +150,74 @@ export function MobileNav({
             </nav>
 
             <div className="flex flex-col gap-3 border-t border-border-subtle p-margin-mobile pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-              <LinkButton href={contactHref} onClick={onClose} fullWidth size="lg">
-                Tư Vấn Miễn Phí
+              <AnchorButton
+                href={site.channels.zalo}
+                target="_blank"
+                rel="noopener noreferrer"
+                fullWidth
+                size="lg"
+                track={{ channel: "zalo", placement: "mobile_nav" }}
+                className={zaloOnCoral}
+                onClick={onClose}
+              >
+                <ZaloIcon /> Nhắn Zalo
+              </AnchorButton>
+              <LinkButton
+                href={contactHref}
+                onClick={onClose}
+                fullWidth
+                size="lg"
+                variant="outline"
+              >
+                Để lại thông tin
               </LinkButton>
               <div className="grid grid-cols-3 gap-2">
-                <AnchorButton href={site.phone.href} variant="outline" size="sm">
-                  <Phone aria-hidden /> Gọi
-                </AnchorButton>
-                <AnchorButton
-                  href={site.channels.zalo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  size="sm"
-                >
-                  <ZaloIcon /> Zalo
-                </AnchorButton>
                 <AnchorButton
                   href={site.channels.messenger}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="outline"
                   size="sm"
+                  track={{ channel: "messenger", placement: "mobile_nav" }}
+                  onClick={onClose}
+                  className="h-auto flex-col gap-0.5 px-1 py-2 text-[12px] leading-tight whitespace-normal"
                 >
                   <MessengerIcon /> Chat
+                </AnchorButton>
+                <AnchorButton
+                  href={site.channels.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  size="sm"
+                  track={{ channel: "whatsapp", placement: "mobile_nav" }}
+                  onClick={onClose}
+                  className="h-auto flex-col gap-0.5 px-1 py-2 text-[12px] leading-tight whitespace-normal"
+                >
+                  <WhatsAppIcon /> WhatsApp
+                </AnchorButton>
+                <AnchorButton
+                  href={site.phone.href}
+                  variant="outline"
+                  size="sm"
+                  track={{ channel: "phone", placement: "mobile_nav" }}
+                  onClick={onClose}
+                  className="h-auto flex-col gap-0.5 px-1 py-2 text-[12px] leading-tight whitespace-normal"
+                >
+                  <Phone aria-hidden /> Gọi
                 </AnchorButton>
               </div>
               <p className="text-center text-body-sm text-ink-subtle">
                 Hotline:{" "}
-                <a href={site.phone.href} className="font-semibold text-ink">
+                <ChatLink
+                  href={site.phone.href}
+                  channel="phone"
+                  placement="mobile_nav"
+                  onClick={onClose}
+                  className="font-semibold text-ink"
+                >
                   {site.phone.display}
-                </a>
+                </ChatLink>
               </p>
             </div>
           </m.div>

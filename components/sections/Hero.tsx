@@ -1,12 +1,14 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { ArrowRight, BookOpen, CircleCheck, MapPin, Sparkles } from "lucide-react";
+import { CircleCheck, MapPin, Sparkles } from "lucide-react";
 import { hero } from "@/content/hero";
 import { images } from "@/content/images";
 import { sectionIds } from "@/content/nav";
+import { site } from "@/content/site";
 import { isVisible } from "@/content/verify";
+import { ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Badge } from "@/components/ui/Badge";
-import { LinkButton } from "@/components/ui/Button";
+import { AnchorButton } from "@/components/ui/Button";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
 /** Stagger position for the CSS hero entrance (see globals.css). */
@@ -70,12 +72,16 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-item style={order(5)}>
-            <LinkButton href={`/#${sectionIds.contact}`} size="lg">
-              {hero.primaryCta} <ArrowRight aria-hidden />
-            </LinkButton>
-            <LinkButton href={`/#${sectionIds.courses}`} size="lg" variant="outline">
-              <BookOpen aria-hidden /> {hero.secondaryCta}
-            </LinkButton>
+            <AnchorButton
+              href={site.channels.zalo}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="lg"
+              track={{ channel: "zalo", placement: "hero" }}
+              className={zaloOnCoral}
+            >
+              <ZaloIcon /> {hero.primaryCta}
+            </AnchorButton>
           </div>
 
           <ul className="mt-7 grid gap-2.5 sm:grid-cols-2" data-hero-item style={order(6)}>

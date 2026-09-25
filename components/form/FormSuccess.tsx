@@ -5,7 +5,7 @@ import { m } from "motion/react";
 import { CircleCheck } from "lucide-react";
 import { site } from "@/content/site";
 import { AnchorButton } from "@/components/ui/Button";
-import { ZaloIcon } from "@/components/icons/brand";
+import { ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 
 export function FormSuccess({ onReset }: { onReset?: () => void }) {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -42,7 +42,8 @@ export function FormSuccess({ onReset }: { onReset?: () => void }) {
         target="_blank"
         rel="noopener noreferrer"
         size="lg"
-        className="mt-6"
+        track={{ channel: "zalo", placement: "form_success" }}
+        className={`mt-6 ${zaloOnCoral}`}
       >
         <ZaloIcon /> Nhắn Zalo ngay
       </AnchorButton>

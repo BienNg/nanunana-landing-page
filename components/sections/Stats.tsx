@@ -19,6 +19,7 @@ export function Stats() {
 
   return (
     <section
+      id="thanh-tich"
       aria-label="Thành tích của NaNu NaNa"
       className="border-y border-border-subtle bg-white"
     >
@@ -32,7 +33,7 @@ export function Stats() {
               </span>
               <div className="flex flex-col">
                 <dt className="order-2 text-label-md whitespace-nowrap text-ink">{s.label}</dt>
-                <dd className="order-1 text-headline-md text-brand-teal-dark tabular-nums whitespace-nowrap sm:text-headline-lg md:text-headline-xl">
+                <dd className="order-1 text-headline-md whitespace-nowrap text-brand-teal-dark tabular-nums sm:text-headline-lg md:text-headline-xl">
                   <VerifyMark claim={s.value}>
                     {(v) => (
                       <span data-countup={v} data-prefix={s.prefix} data-suffix={s.suffix}>

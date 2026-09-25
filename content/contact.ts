@@ -6,7 +6,7 @@ export const contactSection = {
   // Old site text.
   intro:
     "Nếu bạn muốn đăng ký khóa học, cần hỗ trợ để làm việc hoặc học tập tại Đức, hoặc có bất kỳ câu hỏi nào, hãy liên hệ với mình trên Facebook hoặc Zalo, đừng ngại nha!",
-  channelsTitle: "Hoặc nhắn trực tiếp",
+  channelsTitle: "Nhắn trực tiếp",
   formTitle: verify(
     "Đăng Ký Nhận Lộ Trình & Học Thử Miễn Phí",
     "Có học thử miễn phí không? Nếu không, dùng formTitleFallback.",

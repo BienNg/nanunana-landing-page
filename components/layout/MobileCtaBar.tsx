@@ -1,19 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "motion/react";
-import { PenLine, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { useAnyInView } from "@/lib/hooks/useInView";
-import { contactHref, sectionIds } from "@/content/nav";
+import { sectionIds } from "@/content/nav";
 import { site } from "@/content/site";
-import { ZaloIcon } from "@/components/icons/brand";
-
-const itemClass =
-  "flex min-h-13 flex-1 flex-col items-center justify-center gap-0.5 rounded-control text-label-sm transition-colors [&_svg]:size-5";
+import { MessengerIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
+import { AnchorButton } from "@/components/ui/Button";
+import { cn } from "@/lib/cn";
 
 /**
- * Sticky bottom bar for phones (< 768px): Zalo · Hotline · Đăng ký.
+ * Sticky bottom bar for phones (< 768px): Zalo (primary) · Messenger · call.
  * Hidden while the contact section or the footer is on screen so it never
  * covers form fields or footer links.
  */
@@ -32,35 +30,46 @@ export function MobileCtaBar() {
           exit={{ y: "100%" }}
           transition={{ type: "spring", stiffness: 420, damping: 40 }}
         >
-          <ul className="flex gap-2">
-            <li className="flex flex-1">
-              <a
+          <ul className="grid grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_2.75rem] items-center gap-2">
+            <li className="min-w-0">
+              <AnchorButton
                 href={site.channels.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${itemClass} text-brand-teal-dark hover:bg-surface-container-low`}
+                size="sm"
+                fullWidth
+                track={{ channel: "zalo", placement: "mobile_bar" }}
+                className={cn("min-w-0 px-2", zaloOnCoral)}
               >
-                <ZaloIcon />
-                Zalo Chat
-              </a>
+                <ZaloIcon /> Nhắn Zalo
+              </AnchorButton>
             </li>
-            <li className="flex flex-1">
-              <a
+            <li className="min-w-0">
+              <AnchorButton
+                href={site.channels.messenger}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outline"
+                size="sm"
+                fullWidth
+                track={{ channel: "messenger", placement: "mobile_bar" }}
+                aria-label="Nhắn tin Messenger"
+                className="min-w-0 px-2"
+              >
+                <MessengerIcon /> Chat
+              </AnchorButton>
+            </li>
+            <li>
+              <AnchorButton
                 href={site.phone.href}
-                className={`${itemClass} text-brand-teal-dark hover:bg-surface-container-low`}
+                variant="ghost"
+                size="sm"
+                track={{ channel: "phone", placement: "mobile_bar" }}
+                aria-label={`Gọi hotline ${site.phone.display}`}
+                className="size-11 px-0"
               >
                 <Phone aria-hidden />
-                Gọi Hotline
-              </a>
-            </li>
-            <li className="flex flex-1">
-              <Link
-                href={contactHref}
-                className={`${itemClass} bg-coral-fill text-white hover:bg-coral-hover`}
-              >
-                <PenLine aria-hidden />
-                Đăng Ký
-              </Link>
+              </AnchorButton>
             </li>
           </ul>
         </m.nav>

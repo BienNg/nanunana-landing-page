@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "1. Thông tin chúng tôi thu thập",
-    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu).",
+    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu). Khi bạn xem trang, chúng tôi ghi lại mục nào đã xuất hiện trên màn hình và nút liên hệ nào bạn bấm (Zalo, Messenger, WhatsApp hoặc điện thoại), qua Vercel Analytics và — khi được cấu hình — Google Analytics cùng Meta Pixel. Chúng tôi không nhận nội dung tin nhắn bạn gửi trên các ứng dụng đó.",
   },
   {
     title: "2. Mục đích sử dụng",

@@ -1,12 +1,4 @@
-import {
-  ArrowRight,
-  BookOpen,
-  Headphones,
-  Monitor,
-  Play,
-  Smartphone,
-  type LucideIcon,
-} from "lucide-react";
+import { BookOpen, Headphones, Monitor, Play, Smartphone, type LucideIcon } from "lucide-react";
 import {
   learningAppSection,
   type LearningAppDevice,
@@ -14,8 +6,6 @@ import {
 } from "@/content/learning-app";
 import { sectionIds } from "@/content/nav";
 import { Badge } from "@/components/ui/Badge";
-import { buttonClasses } from "@/components/ui/button-styles";
-import { PrefillLink } from "@/components/form/PrefillLink";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
@@ -135,11 +125,6 @@ export function LearningApp() {
           </ul>
 
           <p className="mt-8 text-body-sm text-ink-muted">{learningAppSection.included}</p>
-          <div className="mt-4">
-            <PrefillLink press className={buttonClasses({ size: "lg" })}>
-              {learningAppSection.cta} <ArrowRight aria-hidden />
-            </PrefillLink>
-          </div>
         </div>
 
         <div className="lg:col-span-6">

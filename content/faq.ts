@@ -8,8 +8,10 @@ export type FaqItem = { id: string; question: string; answer: Claim };
 export const faqSection = {
   eyebrow: "Giải đáp thắc mắc",
   title: "Câu hỏi thường gặp",
-  intro:
-    "Chưa thấy câu trả lời bạn cần? Nhắn Zalo hoặc để lại thông tin, chúng tôi sẽ liên hệ lại.",
+  introLead: "Chưa thấy câu trả lời bạn cần?",
+  introLink: "Nhắn Zalo",
+  introTail: "hoặc để lại thông tin, chúng tôi sẽ liên hệ lại.",
+  chatCta: "Nhắn Zalo",
 };
 
 export const faqs: FaqItem[] = [

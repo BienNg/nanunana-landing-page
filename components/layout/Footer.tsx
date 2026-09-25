@@ -5,6 +5,7 @@ import { courses } from "@/content/courses";
 import { careersHref, privacyHref, sectionIds } from "@/content/nav";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { isVisible } from "@/content/verify";
+import { ChatLink } from "@/components/analytics/ChatLink";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { Logo } from "./Logo";
@@ -33,19 +34,37 @@ export function Footer() {
           <p className="mt-4 max-w-sm text-body-md">{site.description}</p>
           <p className="mt-2 max-w-sm text-body-sm italic">{site.slogan}</p>
           <ul className="mt-5 flex flex-wrap gap-2" aria-label="Mạng xã hội">
-            {site.socials.map((s) => (
-              <li key={s.id}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="grid size-tap place-items-center rounded-full bg-white/10 text-[20px] text-white transition-colors [--icon-contrast:var(--color-ink)] hover:bg-brand-teal-dark"
-                >
-                  <SocialIcon id={s.id} />
-                </a>
-              </li>
-            ))}
+            {site.socials.map((s) => {
+              const className =
+                "grid size-tap place-items-center rounded-full bg-white/10 text-[20px] text-white transition-colors [--icon-contrast:var(--color-ink)] hover:bg-brand-teal-dark";
+              return (
+                <li key={s.id}>
+                  {s.id === "zalo" ? (
+                    <ChatLink
+                      href={s.href}
+                      channel="zalo"
+                      placement="footer"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className={className}
+                    >
+                      <SocialIcon id={s.id} />
+                    </ChatLink>
+                  ) : (
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className={className}
+                    >
+                      <SocialIcon id={s.id} />
+                    </a>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -128,10 +147,15 @@ export function Footer() {
                 </span>
               </p>
               <p>
-                <a href={site.phone.href} className={`${linkClass} md:min-h-0`}>
+                <ChatLink
+                  href={site.phone.href}
+                  channel="phone"
+                  placement="footer"
+                  className={`${linkClass} md:min-h-0`}
+                >
                   <Phone aria-hidden className="size-4 shrink-0 text-inverse-primary" />
                   {site.phone.display}
-                </a>
+                </ChatLink>
               </p>
               <p>
                 <a href={`mailto:${site.email}`} className={`${linkClass} md:min-h-0`}>
