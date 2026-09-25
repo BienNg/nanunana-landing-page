@@ -20,7 +20,7 @@ function Bio({ lines }: { lines: string[] }) {
 function MemberCard({ m }: { m: TeamMember }) {
   return (
     <article className="flex h-full flex-col items-center rounded-card border border-border-subtle bg-white p-space-lg text-center shadow-tier-1">
-      <Avatar name={m.name} photo={m.photo} size={88} />
+      <Avatar name={m.name} photo={m.photo} alt={m.alt} size={88} />
       <h3 className="mt-4 text-headline-sm text-ink">{m.name}</h3>
       <p className="mt-1 mb-4 rounded-full bg-surface-container-low px-3 py-0.5 text-label-md text-brand-teal-dark">
         {m.role}
@@ -51,13 +51,13 @@ export function Team() {
         <h3 className="text-center text-label-sm text-ink-subtle uppercase">
           {teamSection.supportTitle}
         </h3>
-        <ul className="mt-5 grid gap-gutter-mobile md:grid-cols-3 md:gap-gutter">
+        <ul className="mt-5 grid gap-gutter-mobile sm:grid-cols-2 md:gap-gutter">
           {supportTeam.map((m) => (
             <li
               key={m.id}
               className="flex gap-4 rounded-card border border-border-subtle bg-white p-5 shadow-tier-1"
             >
-              <Avatar name={m.name} photo={m.photo} size={56} />
+              <Avatar name={m.name} photo={m.photo} alt={m.alt} size={56} />
               <div className="min-w-0">
                 <p className="text-headline-sm text-ink">{m.name}</p>
                 <p className="mb-2 text-label-md text-brand-teal-dark">{m.role}</p>

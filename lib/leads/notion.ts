@@ -5,8 +5,8 @@ import type { Lead, LeadDestinationFactory } from "./types";
 
 /*
  * Notion leads database — expected properties (names must match exactly):
- *   Name (title) · Phone (phone number) · Email (email) · Course (select)
- *   Goal (select) · Preferred channel (select) · Message (text)
+ *   Name (title) · Phone (phone number) · Course (select)
+ *   Goal (select) · Message (text)
  *   UTM Source / UTM Medium / UTM Campaign / UTM Content (text) · fbclid (text)
  *   Landing page (URL) · Referrer (URL) · Created at (date) · Status (select, option "Mới")
  */
@@ -50,10 +50,8 @@ export const notionDestination: LeadDestinationFactory = () => {
         properties: {
           Name: { title: [{ type: "text", text: { content: lead.name } }] },
           Phone: { phone_number: lead.phone },
-          Email: { email: lead.email ?? null },
           Course: select(lead.course?.label),
           Goal: select(lead.goal?.label),
-          "Preferred channel": select(lead.channel.label),
           Message: text(lead.message),
           "UTM Source": text(a.utmSource),
           "UTM Medium": text(a.utmMedium),

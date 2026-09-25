@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "1. Thông tin chúng tôi thu thập",
-    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, email (nếu có), khoá học và mục tiêu quan tâm, kênh liên hệ mong muốn, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu).",
+    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu).",
   },
   {
     title: "2. Mục đích sử dụng",

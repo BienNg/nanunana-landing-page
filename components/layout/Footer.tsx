@@ -121,6 +121,12 @@ export function Footer() {
                   {site.address.country}
                 </span>
               </p>
+              <p className="flex gap-2.5">
+                <MapPin aria-hidden className="mt-1 size-4 shrink-0 text-inverse-primary" />
+                <span>
+                  {site.addressHanoi.street}, {site.addressHanoi.city}, {site.addressHanoi.country}
+                </span>
+              </p>
               <p>
                 <a href={site.phone.href} className={`${linkClass} md:min-h-0`}>
                   <Phone aria-hidden className="size-4 shrink-0 text-inverse-primary" />

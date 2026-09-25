@@ -2,7 +2,7 @@
  * Company facts, contact channels and social links.
  * Source: docs/old-site-content.md + kickoff brief.
  */
-import { verify, type Claim } from "./verify";
+import { ok, verify, type Claim } from "./verify";
 
 export type Office = { city: string; address?: Claim };
 
@@ -31,9 +31,18 @@ export const site = {
     countryCode: "VN",
   },
 
+  addressHanoi: {
+    street: "Tầng 2, tòa Trung Yên 1, số 1 Vũ Phạm Hàm, Phường Yên Hòa",
+    city: "Thành phố Hà Nội",
+    country: "Việt Nam",
+  },
+
   offices: [
     { city: "Hồ Chí Minh", address: undefined },
-    { city: "Hà Nội", address: verify("", "Địa chỉ văn phòng Hà Nội?") },
+    {
+      city: "Hà Nội",
+      address: ok("Tầng 2, tòa Trung Yên 1, số 1 Vũ Phạm Hàm, Phường Yên Hòa, Thành phố Hà Nội"),
+    },
     { city: "Stuttgart", address: verify("", "Địa chỉ văn phòng Stuttgart?") },
   ] satisfies Office[],
 

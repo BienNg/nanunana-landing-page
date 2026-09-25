@@ -2,7 +2,7 @@
 
 import { randomUUID } from "node:crypto";
 import { headers } from "next/headers";
-import { channelOptions, courseOptions, goalOptions } from "@/content/form-options";
+import { courseOptions, goalOptions } from "@/content/form-options";
 import { deliverLead } from "@/lib/leads";
 import type { Lead } from "@/lib/leads/types";
 import { checkRateLimit } from "@/lib/spam/ratelimit";
@@ -21,8 +21,8 @@ const labelOf = <T extends { value: string; label: string }>(list: readonly T[],
 
 /** Values echoed back so a no-JS re-render keeps what the user typed (no attribution/honeypot). */
 function echo(raw: Record<ConsultationField, string>) {
-  const { name, phone, email, course, goal, channel, message, consent } = raw;
-  return { name, phone, email, course, goal, channel, message, consent };
+  const { name, phone, course, goal, message } = raw;
+  return { name, phone, course, goal, message };
 }
 
 async function clientIp() {
@@ -79,7 +79,6 @@ export async function submitConsultation(
   // 4. Normalise and deliver.
   const course = data.course ? labelOf(courseOptions, data.course) : undefined;
   const goal = data.goal ? labelOf(goalOptions, data.goal) : undefined;
-  const channel = labelOf(channelOptions, data.channel)!;
   const opt = (v: string) => v || undefined;
 
   const lead: Lead = {
@@ -88,10 +87,8 @@ export async function submitConsultation(
     name: data.name,
     phone: toE164(data.phone)!, // validated above
     phoneRaw: data.phone,
-    email: opt(data.email),
     course: course ? { value: course.value, label: course.label } : undefined,
     goal: goal ? { value: goal.value, label: goal.label } : undefined,
-    channel: { value: channel.value, label: channel.label },
     message: opt(data.message),
     attribution: {
       utmSource: opt(data.utm_source),

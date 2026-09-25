@@ -4,6 +4,12 @@
  */
 import type { StaticImageData } from "next/image";
 import { images } from "./images";
+import benPhoto from "@/public/images/team/ben-giao-vien-nanunana.webp";
+import haiPhoto from "@/public/images/team/hai-ho-tro-hoc-vien-sai-gon-nanunana.webp";
+import julianPhoto from "@/public/images/team/julian-giao-vien-nanunana.webp";
+import nicolePhoto from "@/public/images/team/nicole-baerlein-nanunana.webp";
+import tramPhoto from "@/public/images/team/tram-quan-ly-nhan-su-nanunana.webp";
+import tuanPhoto from "@/public/images/team/tuan-giao-vien-nanunana.webp";
 
 export type TeamMember = {
   id: string;
@@ -11,6 +17,8 @@ export type TeamMember = {
   role: string;
   bio: string[];
   photo?: StaticImageData;
+  /** Portrait alt text. Set whenever `photo` is set so image search can name the person. */
+  alt?: string;
   /** Featured members are shown in their own section, not the grid. */
   featured?: boolean;
 };
@@ -26,6 +34,7 @@ export const founder: TeamMember = {
     "Sống và làm việc ở Đức: 11 năm.",
   ],
   photo: images.founderPhuong.src,
+  alt: images.founderPhuong.alt,
   featured: true,
 };
 
@@ -40,6 +49,8 @@ export const team: TeamMember[] = [
       "Ngôn ngữ: Đức, Việt, Anh, Trung",
       "Người Đức, sinh ra và lớn lên ở tây Đức",
     ],
+    photo: julianPhoto,
+    alt: "Chân dung Julian, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "nicole",
@@ -50,6 +61,8 @@ export const team: TeamMember[] = [
       "Nhiều năm quản lý trong ngành F&B.",
       "Hỗ trợ các doanh nghiệp ở Đức tuyển dụng học viên người Việt Nam.",
     ],
+    photo: nicolePhoto,
+    alt: "Chân dung Nicole Bärlein, phụ trách phát triển kinh doanh tại NaNu NaNa",
   },
   {
     id: "ben",
@@ -60,6 +73,8 @@ export const team: TeamMember[] = [
       "Tiếng mẹ đẻ: tiếng Đức và tiếng Việt.",
       "Tiếng Anh C1.",
     ],
+    photo: benPhoto,
+    alt: "Chân dung Ben, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "le-pham",
@@ -87,6 +102,8 @@ export const team: TeamMember[] = [
       "Ngôn ngữ: Đức.",
       "Sống và làm việc ở Đức: 8 năm.",
     ],
+    photo: tuanPhoto,
+    alt: "Chân dung Tuấn, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "men",
@@ -115,17 +132,6 @@ export const team: TeamMember[] = [
       "Sống và làm việc ở Đức: 8 năm.",
     ],
   },
-  {
-    id: "bien",
-    name: "Biên",
-    role: "Quản lý",
-    bio: [
-      "Đại học Stuttgart - Đức.",
-      "Sinh ra và lớn lên tại Đức.",
-      "Tiếng mẹ đẻ: tiếng Đức và tiếng Việt.",
-      "Từng làm việc tại Mercedes Stuttgart.",
-    ],
-  },
 ];
 
 export const supportTeam: TeamMember[] = [
@@ -134,24 +140,28 @@ export const supportTeam: TeamMember[] = [
     name: "Trâm",
     role: "Quản lý nhân sự",
     bio: ["Cử nhân ĐH Sài Gòn", "Chứng chỉ Hành chính nhân sự", "Tiếng Đức B2", "Tiếng Anh B1"],
-  },
-  {
-    id: "tuan-social-media",
-    name: "Tuấn",
-    role: "Social Media",
-    bio: [
-      "Từng sống và làm việc tại Leipzig.",
-      "Bằng tiếng Đức B1.",
-      "Cử nhân ĐH Công Nghệ.",
-      "Khoá đào tạo Arena Multimedia.",
-      "8 năm kinh nghiệm thiết kế.",
-    ],
+    photo: tramPhoto,
+    alt: "Chân dung Trâm, quản lý nhân sự tại NaNu NaNa",
   },
   {
     id: "cam-van",
     name: "Cẩm Vân",
     role: "Bộ phận chăm sóc khách hàng",
     bio: ["Cử nhân ĐH KH xã hội & nhân văn, ĐH quốc gia Hà Nội.", "Ngôn ngữ: Việt, Anh, Hàn."],
+  },
+  {
+    id: "hai",
+    name: "Hai",
+    role: "Hỗ trợ học viên",
+    bio: ["Hỗ trợ học viên tại Sài Gòn."],
+    photo: haiPhoto,
+    alt: "Chân dung Hai, nhân viên hỗ trợ học viên tại Sài Gòn, NaNu NaNa",
+  },
+  {
+    id: "ly",
+    name: "Ly",
+    role: "Hỗ trợ học viên",
+    bio: ["Hỗ trợ học viên tại Hà Nội."],
   },
 ];
 

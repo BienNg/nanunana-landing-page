@@ -21,11 +21,13 @@ function initials(name: string) {
 export function Avatar({
   name,
   photo,
+  alt = "",
   size = 96,
   className,
 }: {
   name: string;
   photo?: StaticImageData | string;
+  alt?: string;
   size?: number;
   className?: string;
 }) {
@@ -38,7 +40,14 @@ export function Avatar({
       style={{ width: size, height: size }}
     >
       {photo && (typeof photo !== "string" || isGooglePhoto(photo)) ? (
-        <Image src={photo} alt="" fill sizes={`${size}px`} className="object-cover" />
+        <Image
+          src={photo}
+          alt={alt}
+          fill
+          sizes={`${size}px`}
+          placeholder={typeof photo !== "string" ? "blur" : undefined}
+          className="object-cover"
+        />
       ) : (
         <span
           aria-hidden

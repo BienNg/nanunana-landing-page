@@ -14,10 +14,8 @@ function rows(lead: Lead): [string, string][] {
   return [
     ["Họ tên", lead.name],
     ["Điện thoại", lead.phone],
-    ["Email", lead.email ?? "—"],
     ["Khoá học", lead.course?.label ?? "—"],
     ["Mục tiêu", lead.goal?.label ?? "—"],
-    ["Liên hệ qua", lead.channel.label],
     ["Lời nhắn", lead.message ?? "—"],
     [
       "Nguồn",
@@ -35,7 +33,7 @@ function rows(lead: Lead): [string, string][] {
 
 export function renderLeadEmail(lead: Lead) {
   const zalo = `https://zalo.me/${lead.phone.replace(/^\+/, "")}`;
-  const subject = `[Lead mới] ${lead.name} · ${lead.course?.label ?? lead.goal?.label ?? "Tư vấn"} · ${lead.channel.label}`;
+  const subject = `[Lead mới] ${lead.name} · ${lead.course?.label ?? lead.goal?.label ?? "Tư vấn"}`;
   const text = [
     `Lead mới từ website NaNu NaNa`,
     ``,
@@ -48,7 +46,6 @@ export function renderLeadEmail(lead: Lead) {
   const html = `<!doctype html><html lang="vi"><body style="font-family:Arial,sans-serif;color:#0f172a;margin:0;padding:24px;background:#f8fafc">
 <div style="max-width:560px;margin:auto;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px">
 <h1 style="font-size:18px;margin:0 0 4px">Lead mới: ${esc(lead.name)}</h1>
-<p style="margin:0 0 16px;color:#475569">Liên hệ qua <b>${esc(lead.channel.label)}</b></p>
 <p style="margin:0 0 20px">
 <a href="tel:${esc(lead.phone)}" style="display:inline-block;background:#0b7793;color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px;margin-right:8px">Gọi ${esc(lead.phone)}</a>
 <a href="${esc(zalo)}" style="display:inline-block;background:#b85a0c;color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px">Mở Zalo</a>
@@ -80,7 +77,6 @@ export const emailDestination: LeadDestinationFactory = () => {
         subject,
         text,
         html,
-        ...(lead.email ? { replyTo: lead.email } : {}),
       });
       if (error) throw new Error(`Resend: ${error.name} ${error.message}`);
     },

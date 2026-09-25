@@ -3,13 +3,10 @@
  * Server Action, so both validate with exactly the same rules and messages.
  */
 import * as z from "zod/mini";
-import { channelValues, courseValues, goalValues } from "@/content/form-options";
+import { courseValues, goalValues } from "@/content/form-options";
 import { isAcceptedPhone } from "./phone";
 
 export { toE164 } from "./phone";
-
-/** Pragmatic email check (same idea as Zod's default email pattern). */
-const EMAIL_RE = /^(?!\.)(?!.*\.\.)[\w'+\-.]*[\w+\-]@([a-z0-9][a-z0-9-]*\.)+[a-z]{2,}$/i;
 
 export const messages = {
   nameRequired: "Vui lòng nhập họ và tên của bạn.",
@@ -17,9 +14,7 @@ export const messages = {
   nameLong: "Họ và tên tối đa 80 ký tự.",
   phoneRequired: "Vui lòng nhập số điện thoại hoặc Zalo để chúng tôi liên hệ.",
   phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ, ví dụ 0988 123 456 (hoặc số Đức +49 151 …).",
-  emailInvalid: "Email chưa đúng định dạng, ví dụ ten@gmail.com.",
   messageLong: "Nội dung tối đa 1000 ký tự.",
-  consent: "Vui lòng đồng ý để NaNu NaNa liên hệ với bạn.",
   choose: "Vui lòng chọn một mục trong danh sách.",
 } as const;
 
@@ -42,19 +37,9 @@ export const consultationSchema = z.object({
       z.minLength(1, messages.phoneRequired),
       z.refine(isAcceptedPhone, messages.phoneInvalid),
     ),
-  email: z.string().check(
-    z.trim(),
-    z.maxLength(254, messages.emailInvalid),
-    z.refine((v) => v === "" || EMAIL_RE.test(v), messages.emailInvalid),
-  ),
   course: z.union([z.literal(""), z.enum(courseValues)], { error: messages.choose }),
   goal: z.union([z.literal(""), z.enum(goalValues)], { error: messages.choose }),
-  channel: z.enum(channelValues, { error: messages.choose }),
   message: z.string().check(z.trim(), z.maxLength(1000, messages.messageLong)),
-  // "yes" from FormData / checkbox value attribute, true/false from react-hook-form
-  consent: z
-    .union([z.string(), z.boolean()])
-    .check(z.refine((v): boolean => v === "yes" || v === true, messages.consent)),
   // Attribution (hidden fields)
   utm_source: optionalText(200),
   utm_medium: optionalText(200),
@@ -72,12 +57,9 @@ export type ConsultationField = keyof ConsultationInput;
 export const visibleFields = [
   "name",
   "phone",
-  "email",
   "course",
   "goal",
-  "channel",
   "message",
-  "consent",
 ] as const satisfies readonly ConsultationField[];
 
 export const attributionFields = [
@@ -96,12 +78,9 @@ export const HONEYPOT_FIELD = "company_website";
 export const emptyConsultation: ConsultationInput = {
   name: "",
   phone: "",
-  email: "",
   course: "",
   goal: "",
-  channel: "zalo",
   message: "",
-  consent: false,
   utm_source: "",
   utm_medium: "",
   utm_campaign: "",
@@ -116,7 +95,7 @@ export function formDataToInput(fd: FormData): Record<ConsultationField, string>
   const out = {} as Record<ConsultationField, string>;
   for (const key of Object.keys(emptyConsultation) as ConsultationField[]) {
     const v = fd.get(key);
-    out[key] = typeof v === "string" ? v : key === "channel" ? "zalo" : "";
+    out[key] = typeof v === "string" ? v : "";
   }
   return out;
 }

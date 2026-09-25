@@ -1,4 +1,4 @@
-import type { ChannelValue, CourseValue, GoalValue } from "@/content/form-options";
+import type { CourseValue, GoalValue } from "@/content/form-options";
 
 /** A validated, normalised lead — what every destination receives. */
 export type Lead = {
@@ -7,10 +7,8 @@ export type Lead = {
   name: string;
   phone: string; // E.164
   phoneRaw: string;
-  email?: string;
   course?: { value: CourseValue; label: string };
   goal?: { value: GoalValue; label: string };
-  channel: { value: ChannelValue; label: string };
   message?: string;
   attribution: {
     utmSource?: string;

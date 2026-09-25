@@ -20,28 +20,15 @@ export const courseOptions = [
 export const goalOptions = [
   { value: "du-hoc-dai-hoc", label: "Du học đại học" },
   { value: "du-hoc-nghe", label: "Du học nghề (Ausbildung)" },
-  { value: "lam-viec", label: "Làm việc tại Đức" },
-  { value: "hoc-tieng", label: "Chỉ học tiếng Đức" },
+  { value: "hoc-tieng", label: "Học tiếng Đức" },
   { value: "dinh-huong", label: "Cần tư vấn định hướng" },
-] as const;
-
-export const channelOptions = [
-  { value: "zalo", label: "Zalo" },
-  { value: "goi-dien", label: "Gọi điện" },
-  { value: "messenger", label: "Messenger" },
-  { value: "email", label: "Email" },
 ] as const;
 
 export type CourseValue = (typeof courseOptions)[number]["value"];
 export type GoalValue = (typeof goalOptions)[number]["value"];
-export type ChannelValue = (typeof channelOptions)[number]["value"];
 
 export const courseValues = courseOptions.map((o) => o.value) as [CourseValue, ...CourseValue[]];
 export const goalValues = goalOptions.map((o) => o.value) as [GoalValue, ...GoalValue[]];
-export const channelValues = channelOptions.map((o) => o.value) as [
-  ChannelValue,
-  ...ChannelValue[],
-];
 
 export const prefillParams = { course: "khoa", goal: "muc-tieu" } as const;
 

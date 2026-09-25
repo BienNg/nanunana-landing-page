@@ -1,14 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "motion/react";
 import { CircleAlert, LoaderCircle, Phone, Send } from "lucide-react";
 import { submitConsultation } from "@/app/actions/consultation";
-import { channelOptions, courseOptions, goalOptions } from "@/content/form-options";
-import { privacyHref } from "@/content/nav";
+import { courseOptions, goalOptions } from "@/content/form-options";
 import { site } from "@/content/site";
 import { trackLead } from "@/lib/analytics";
 import { readAttribution } from "@/lib/attribution";
@@ -26,18 +24,11 @@ import {
   type ConsultationState,
 } from "@/lib/validation/consultation-state";
 import { AnchorButton, Button } from "@/components/ui/Button";
-import { describedBy, Field, FieldError } from "@/components/ui/Field";
-import { Checkbox, Input, RadioGroup, Select, Textarea } from "@/components/ui/controls";
-import { MessengerIcon, ZaloIcon } from "@/components/icons/brand";
+import { describedBy, Field } from "@/components/ui/Field";
+import { Input, Select, Textarea } from "@/components/ui/controls";
+import { ZaloIcon } from "@/components/icons/brand";
 import { FormSuccess } from "./FormSuccess";
 import { Turnstile } from "./Turnstile";
-
-const channelIcons = {
-  zalo: <ZaloIcon />,
-  "goi-dien": <Phone aria-hidden />,
-  messenger: <MessengerIcon />,
-  email: null,
-} as const;
 
 /** Wrapper: remounting the inner form (new key) resets the action state. */
 export function ConsultationForm({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
@@ -70,7 +61,6 @@ function ConsultationFormInner({
   const defaults: ConsultationInput = {
     ...emptyConsultation,
     ...(echoed as Partial<ConsultationInput> | undefined),
-    consent: echoed?.consent === "yes",
   };
 
   const {
@@ -78,7 +68,6 @@ function ConsultationFormInner({
     handleSubmit,
     setValue,
     setError,
-    getValues,
     control,
     formState: { errors, isSubmitted },
   } = useForm<ConsultationInput>({
@@ -114,9 +103,9 @@ function ConsultationFormInner({
   useEffect(() => {
     if (state.status === "success" && !tracked.current) {
       tracked.current = true;
-      trackLead({ course: state.course, goal: state.goal, channel: getValues("channel") });
+      trackLead({ course: state.course, goal: state.goal });
     }
-  }, [state, getValues]);
+  }, [state]);
 
   const onValid = () => {
     if (!formRef.current) return;
@@ -158,12 +147,7 @@ function ConsultationFormInner({
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
             className="relative grid gap-5 md:grid-cols-2"
-            aria-describedby="form-required-note"
           >
-            <p id="form-required-note" className="-mb-1 text-body-sm text-ink-subtle md:col-span-2">
-              Các mục có dấu <span className="text-error">*</span> là bắt buộc.
-            </p>
-
             <Field id="lead-name" label="Họ và tên" required error={errorFor("name")}>
               <Input
                 id="lead-name"
@@ -198,20 +182,6 @@ function ConsultationFormInner({
                   error: !!errorFor("phone"),
                 })}
                 {...register("phone")}
-              />
-            </Field>
-
-            <Field id="lead-email" label="Email" error={errorFor("email")}>
-              <Input
-                id="lead-email"
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                placeholder="ten@gmail.com"
-                defaultValue={defaults.email}
-                aria-invalid={!!errorFor("email")}
-                aria-describedby={describedBy("lead-email", { error: !!errorFor("email") })}
-                {...register("email")}
               />
             </Field>
 
@@ -254,19 +224,6 @@ function ConsultationFormInner({
               </Select>
             </Field>
 
-            <RadioGroup
-              className="md:col-span-2"
-              name="channel"
-              legend="Bạn muốn được liên hệ qua"
-              defaultValue={defaults.channel}
-              options={channelOptions.map((o) => ({
-                value: o.value,
-                label: o.label,
-                icon: channelIcons[o.value],
-              }))}
-              inputProps={register("channel")}
-            />
-
             <Field
               id="lead-message"
               label="Mong muốn khác / câu hỏi"
@@ -295,29 +252,6 @@ function ConsultationFormInner({
                 {messageLength}/1000
               </p>
             </Field>
-
-            <div className="md:col-span-2">
-              <Checkbox
-                id="lead-consent"
-                value="yes"
-                defaultChecked={defaults.consent === true}
-                aria-required
-                aria-invalid={!!errorFor("consent")}
-                aria-describedby={describedBy("lead-consent", { error: !!errorFor("consent") })}
-                {...register("consent")}
-              >
-                Tôi đồng ý để NaNu NaNa liên hệ và xử lý thông tin theo{" "}
-                <Link
-                  href={privacyHref}
-                  target="_blank"
-                  className="font-semibold text-brand-teal-dark underline underline-offset-2"
-                >
-                  Chính sách bảo mật
-                </Link>
-                . <span className="text-error">*</span>
-              </Checkbox>
-              <FieldError id="lead-consent">{errorFor("consent")}</FieldError>
-            </div>
 
             {/* Honeypot — hidden from people and assistive tech */}
             <div aria-hidden className="absolute -left-[10000px] h-px w-px overflow-hidden">
@@ -355,21 +289,6 @@ function ConsultationFormInner({
                   </>
                 )}
               </Button>
-              <p className="mt-3 text-center text-body-sm text-ink-subtle">
-                Hoặc nhắn ngay qua{" "}
-                <a
-                  href={site.channels.zalo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-brand-teal-dark underline underline-offset-2"
-                >
-                  Zalo
-                </a>{" "}
-                · Hotline{" "}
-                <a href={site.phone.href} className="font-semibold text-ink">
-                  {site.phone.display}
-                </a>
-              </p>
             </div>
           </m.form>
         )}
