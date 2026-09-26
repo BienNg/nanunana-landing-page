@@ -42,7 +42,7 @@ export type RunningClass = {
   /**
    * Images from `Files & media`. Notion file URLs expire after about an hour,
    * and this list is refreshed every few minutes, so the links stay valid.
-   * Table thumbnails are a resized copy from `/api/class-photo`; the dialog uses this URL.
+   * Thumbnails and the lightbox both use a resized WebP from `/api/class-photo`.
    */
   media: ClassMedia[];
   /** Date-only ISO `YYYY-MM-DD`, or null when Begin is empty. */

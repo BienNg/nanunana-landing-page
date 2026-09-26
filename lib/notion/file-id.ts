@@ -22,8 +22,14 @@ export function notionFileId(url: string): string | null {
   return null;
 }
 
-/** Resized thumbnail. The lightbox keeps the original Notion URL. */
+/** Resized thumbnail for the class table and mobile row. */
 export function classPhotoThumbSrc(url: string) {
   const id = notionFileId(url);
   return id ? `/api/class-photo/${id}` : url;
+}
+
+/** Compressed lightbox image. Larger than the thumbnail, still not the Notion original. */
+export function classPhotoViewSrc(url: string) {
+  const id = notionFileId(url);
+  return id ? `/api/class-photo/${id}?size=view` : url;
 }

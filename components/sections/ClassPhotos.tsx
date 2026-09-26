@@ -3,9 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { classPhotoThumbSrc, notionFileId } from "@/lib/notion/file-id";
+import { classPhotoThumbSrc, classPhotoViewSrc, notionFileId } from "@/lib/notion/file-id";
 
 type Photo = { url: string; name: string };
+
+function ViewerPhoto({ url, label }: { url: string; label: string }) {
+  const viewSrc = classPhotoViewSrc(url);
+  const thumbSrc = classPhotoThumbSrc(url);
+  const [src, setSrc] = useState(thumbSrc);
+
+  useEffect(() => {
+    if (viewSrc === thumbSrc) return;
+    const img = new Image();
+    img.referrerPolicy = "no-referrer";
+    img.onload = () => setSrc(viewSrc);
+    img.src = viewSrc;
+    return () => {
+      img.onload = null;
+    };
+  }, [thumbSrc, viewSrc]);
+
+  return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={label}
+        referrerPolicy="no-referrer"
+        decoding="async"
+        className="max-h-[85dvh] max-w-[92vw] rounded-card object-contain shadow-tier-3"
+      />
+    </>
+  );
+}
 
 function PhotoButton({
   file,
@@ -31,7 +61,7 @@ function PhotoButton({
           : "block cursor-zoom-in overflow-hidden rounded-md border border-border-subtle"
       }
     >
-      {/* Thumbnails are resized by /api/class-photo. The dialog still uses the Notion URL. */}
+      {/* Thumbnails are the small /api/class-photo WebP. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -118,13 +148,7 @@ export function ClassPhotos({
             <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-8">
               <div className="absolute inset-0 bg-ink/75" onClick={() => setActive(null)} />
               <div role="dialog" aria-modal="true" aria-label={label} className="relative z-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={active.url}
-                  alt={label}
-                  referrerPolicy="no-referrer"
-                  className="max-h-[85dvh] max-w-[92vw] rounded-card object-contain shadow-tier-3"
-                />
+                <ViewerPhoto key={active.url} url={active.url} label={label} />
                 <button
                   ref={closeRef}
                   type="button"

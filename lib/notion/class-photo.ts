@@ -5,8 +5,18 @@ import sharp from "sharp";
 import { getRunningClasses } from "@/lib/notion/classes";
 import { notionFileId } from "@/lib/notion/file-id";
 
-/** Longest side of a class photo. 640px covers a full-height mobile row at 3x. */
-const THUMB_MAX_PX = 640;
+/**
+ * Table and mobile-row thumbnails. 640px covers a full-height mobile row at 3x.
+ * The lightbox uses a larger copy that is still WebP, so opening a photo does not
+ * download the original Notion file.
+ */
+const VARIANTS = {
+  thumb: { maxPx: 640, quality: 70 },
+  view: { maxPx: 1600, quality: 70 },
+} as const;
+
+export type ClassPhotoVariant = keyof typeof VARIANTS;
+
 const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const DOWNLOAD_TIMEOUT_MS = 25_000;
 const REVALIDATE_SECONDS = 60 * 60 * 24;
@@ -99,35 +109,46 @@ function downloadNotionFile(url: string) {
   });
 }
 
-async function renderClassPhoto(id: string) {
+async function renderClassPhoto(id: string, variant: ClassPhotoVariant) {
   const url = sourceUrls.get(id);
   if (!url || notionFileId(url) !== id) throw new Error("Class photo URL was not resolved");
 
+  const { maxPx, quality } = VARIANTS[variant];
   const source = await downloadNotionFile(url);
   const webp = await sharp(source, { limitInputPixels: 25_000_000, animated: false })
     .rotate()
-    .resize(THUMB_MAX_PX, THUMB_MAX_PX, { fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 70 })
+    .resize(maxPx, maxPx, { fit: "inside", withoutEnlargement: true })
+    .webp({ quality })
     .toBuffer();
   if (webp.byteLength === 0) throw new Error("Resized class photo was empty");
   return webp.toString("base64");
 }
 
-const getCachedClassPhoto = unstable_cache(renderClassPhoto, ["class-photo-thumb-640-v1"], {
-  revalidate: REVALIDATE_SECONDS,
-});
+const getCachedThumb = unstable_cache(
+  (id: string) => renderClassPhoto(id, "thumb"),
+  ["class-photo-thumb-640-v1"],
+  { revalidate: REVALIDATE_SECONDS },
+);
 
-/** WebP thumbnail for a running-class photo, cached by Notion file id. */
-export async function classPhotoThumb(id: string) {
+const getCachedView = unstable_cache(
+  (id: string) => renderClassPhoto(id, "view"),
+  ["class-photo-view-1600-v1"],
+  { revalidate: REVALIDATE_SECONDS },
+);
+
+/** WebP class photo, cached by Notion file id. `view` is the lightbox size. */
+export async function classPhotoImage(id: string, variant: ClassPhotoVariant = "thumb") {
   const url = await findMediaUrl(id);
   if (!url) throw new ClassPhotoNotFound();
   sourceUrls.set(id, url);
 
-  const pending = inflight.get(id);
+  const key = `${variant}:${id}`;
+  const pending = inflight.get(key);
   if (pending) return pending;
-  const created = getCachedClassPhoto(id).finally(() => {
-    if (inflight.get(id) === created) inflight.delete(id);
+  const load = variant === "view" ? getCachedView(id) : getCachedThumb(id);
+  const created = load.finally(() => {
+    if (inflight.get(key) === created) inflight.delete(key);
   });
-  inflight.set(id, created);
+  inflight.set(key, created);
   return created;
 }
