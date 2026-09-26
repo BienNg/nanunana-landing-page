@@ -6,9 +6,13 @@ import type { StaticImageData } from "next/image";
 import { images } from "./images";
 import benPhoto from "@/public/images/team/ben-giao-vien-nanunana.webp";
 import haiPhoto from "@/public/images/team/hai-ho-tro-hoc-vien-sai-gon-nanunana.webp";
+import hoangPhoto from "@/public/images/team/hoang-nguyen-giao-vien-nanunana.webp";
 import julianPhoto from "@/public/images/team/julian-giao-vien-nanunana.webp";
+import lyPhoto from "@/public/images/team/ly-ho-tro-hoc-vien-ha-noi-nanunana.webp";
+import minhTrangPhoto from "@/public/images/team/minh-trang-giao-vien-nanunana.webp";
 import nicolePhoto from "@/public/images/team/nicole-baerlein-nanunana.webp";
 import tramPhoto from "@/public/images/team/tram-quan-ly-nhan-su-nanunana.webp";
+import tuPhoto from "@/public/images/team/tu-nguyen-giao-vien-nanunana.webp";
 import tuanPhoto from "@/public/images/team/tuan-giao-vien-nanunana.webp";
 
 export type TeamMember = {
@@ -92,6 +96,8 @@ export const team: TeamMember[] = [
       "Sinh sống và làm việc 10 năm ở Đức",
       "Bằng nghiệp vụ sư phạm đại học sư phạm Hà Nội",
     ],
+    photo: minhTrangPhoto,
+    alt: "Chân dung Minh Trang, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "tu-nguyen",
@@ -109,6 +115,8 @@ export const team: TeamMember[] = [
       "Ngôn ngữ: Đức, Anh, Việt",
       "Ở Đức 9 năm",
     ],
+    photo: tuPhoto,
+    alt: "Chân dung Tú Nguyên, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "hoang-nguyen",
@@ -127,6 +135,8 @@ export const team: TeamMember[] = [
       "Tiếng mẹ đẻ: tiếng Đức và tiếng Việt, Tiếng Anh: C1",
       "Sống tại Đức 36 năm",
     ],
+    photo: hoangPhoto,
+    alt: "Chân dung Hoàng Nguyễn, giáo viên tiếng Đức tại NaNu NaNa",
   },
   {
     id: "mai-trang",
@@ -169,12 +179,6 @@ export const supportTeam: TeamMember[] = [
     alt: "Chân dung Trâm, quản lý nhân sự tại NaNu NaNa",
   },
   {
-    id: "cam-van",
-    name: "Cẩm Vân",
-    role: "Bộ phận chăm sóc khách hàng",
-    bio: ["Cử nhân ĐH KH xã hội & nhân văn, ĐH quốc gia Hà Nội.", "Ngôn ngữ: Việt, Anh, Hàn."],
-  },
-  {
     id: "hai",
     name: "Hai",
     role: "Hỗ trợ học viên",
@@ -187,6 +191,14 @@ export const supportTeam: TeamMember[] = [
     name: "Ly",
     role: "Hỗ trợ học viên",
     bio: ["Hỗ trợ học viên tại Hà Nội."],
+    photo: lyPhoto,
+    alt: "Chân dung Ly, nhân viên hỗ trợ học viên tại Hà Nội, NaNu NaNa",
+  },
+  {
+    id: "cam-van",
+    name: "Cẩm Vân",
+    role: "Bộ phận chăm sóc khách hàng",
+    bio: ["Cử nhân ĐH KH xã hội & nhân văn, ĐH quốc gia Hà Nội.", "Ngôn ngữ: Việt, Anh, Hàn."],
   },
 ];
 
