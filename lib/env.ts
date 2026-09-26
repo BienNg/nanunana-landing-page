@@ -7,12 +7,7 @@ const read = (key: string) => {
 };
 
 export const serverEnv = {
-  notion: () => {
-    const token = read("NOTION_TOKEN");
-    const databaseId = read("NOTION_LEADS_DB_ID");
-    return token && databaseId ? { token, databaseId } : null;
-  },
-  /** Klassen Datenbank — classes shown on the site. */
+  /** Klassen Datenbank — classes shown on the site. Leads are not written to Notion. */
   classes: () => {
     const token = read("NOTION_TOKEN");
     const databaseId = read("NOTION_CLASSES_DB_ID");
@@ -24,15 +19,6 @@ export const serverEnv = {
     if (!webhookUrl) return null;
     if (!webhookUrl.startsWith("https://hooks.zapier.com/")) return null;
     return { webhookUrl };
-  },
-  resend: () => {
-    const apiKey = read("RESEND_API_KEY");
-    const from = read("RESEND_FROM_EMAIL");
-    const to = read("LEAD_NOTIFY_EMAIL")
-      ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
-    return apiKey && from && to?.length ? { apiKey, from, to } : null;
   },
   upstash: () => {
     const url = read("UPSTASH_REDIS_REST_URL");

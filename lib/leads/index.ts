@@ -1,6 +1,4 @@
 import "server-only";
-import { emailDestination } from "./email";
-import { notionDestination } from "./notion";
 import { zapierDestination } from "./zapier";
 import type { Lead, LeadDestinationFactory } from "./types";
 
@@ -9,11 +7,7 @@ import type { Lead, LeadDestinationFactory } from "./types";
  * lib/leads/sheets.ts exporting a LeadDestinationFactory and add it here —
  * the form and the Server Action don't change.
  */
-const destinations: LeadDestinationFactory[] = [
-  notionDestination,
-  emailDestination,
-  zapierDestination,
-];
+const destinations: LeadDestinationFactory[] = [zapierDestination];
 
 export type DeliveryResult =
   | { ok: true; delivered: string[]; failed: string[] }

@@ -51,7 +51,7 @@ components/
 content/     ALL text, numbers and images (edit these — see section 3)
 lib/
   validation/  zod schema + phone rules shared by browser and server
-  leads/       lead destinations: notion.ts, email.ts, index.ts
+  leads/       lead destination: zapier.ts (Slack), index.ts
   spam/        rate limit (Upstash) + Cloudflare Turnstile
 docs/        design system (DESIGN.md), old site copy, reference mockup
 ```
@@ -127,57 +127,25 @@ Flow: visitor submits → **Server Action** (`app/actions/consultation.ts`) vali
 - **Conversion events on success:** Vercel Analytics `lead`, Meta Pixel `Lead` and GA4 `generate_lead` (the last two only when their IDs are set).
 - **Never lost silently:** if a destination fails, the full lead is written to the server log (`[lead:lost]` / `[lead:partial]`) and the visitor is shown Zalo/hotline alternatives.
 
-> ⚠️ **Before launch:** with no destination configured, leads only appear in the server log as `[lead:unrouted]` (Vercel → Project → Logs). Configure Notion and/or email first.
+> ⚠️ **Before launch:** with no destination configured, leads only appear in the server log as `[lead:unrouted]` (Vercel → Project → Logs). Set the Slack webhook first. Leads are not written to Notion or email.
 
-### 4.1 Notion (primary destination)
-
-1. Create an internal integration at <https://www.notion.so/profile/integrations> → copy the token → `NOTION_TOKEN`.
-2. Create a database with **exactly** these properties:
-
-| Property                                          | Type                       |
-| ------------------------------------------------- | -------------------------- |
-| Name                                              | Title                      |
-| Phone                                             | Phone                      |
-| Email                                             | Email                      |
-| Course                                            | Select                     |
-| Goal                                              | Select                     |
-| Preferred channel                                 | Select                     |
-| Message                                           | Text                       |
-| UTM Source, UTM Medium, UTM Campaign, UTM Content | Text                       |
-| fbclid                                            | Text                       |
-| Landing page                                      | URL                        |
-| Referrer                                          | URL                        |
-| Created at                                        | Date                       |
-| Status                                            | Select (with option `Mới`) |
-
-3. Open the database → `•••` → **Connections** → add your integration.
-4. Copy the database ID from its URL (the 32 characters before `?v=`) → `NOTION_LEADS_DB_ID`.
-
-### 4.2 Email notification (Resend)
-
-1. Create an account at <https://resend.com>, verify your sending domain, create an API key → `RESEND_API_KEY`.
-2. `RESEND_FROM_EMAIL` = a sender on that domain, e.g. `NaNu NaNa Website <leads@your-domain.com>`.
-3. `LEAD_NOTIFY_EMAIL` = who receives the notifications (comma-separated for several people).
-
-Each email has the lead summary plus "Gọi" (tel:) and "Mở Zalo" buttons.
-
-### 4.3 Slack via Zapier
+### 4.1 Slack via Zapier
 
 1. In Zapier, create a Zap: **Webhooks by Zapier → Catch Hook**, then **Slack → Send Channel Message**.
 2. Copy the catch-hook URL (`https://hooks.zapier.com/hooks/catch/…`) → `ZAPIER_LEAD_WEBHOOK_URL`.
 3. Send one test submission (or a sample POST) so Zapier sees the fields, then map `name`, `phone`, `course`, `goal`, `message`, and `landingPage` into the Slack message and publish the Zap.
 
-The site POSTs the lead only after validation. The variable must be a `https://hooks.zapier.com/` URL; anything else leaves this destination off. It runs alongside Notion and email.
+The site POSTs the lead only after validation. The variable must be a `https://hooks.zapier.com/` URL; anything else leaves this destination off. This is the only lead destination.
 
-### 4.4 Optional: rate limit, Turnstile, tracking
+### 4.2 Optional: rate limit, Turnstile, tracking
 
 - **Upstash Redis** (free tier is enough): `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
 - **Cloudflare Turnstile:** `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. Note: with Turnstile on, the no-JavaScript fallback can't pass the check.
 - **Meta Pixel / GA4:** `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`. Check your privacy policy/consent requirements before enabling.
 
-### 4.5 Adding another destination (e.g. Google Sheets)
+### 4.3 Adding another destination (e.g. Google Sheets)
 
-Create `lib/leads/sheets.ts` exporting a `LeadDestinationFactory` (see `notion.ts` for the pattern — return `null` when its env vars are missing) and add it to the `destinations` array in `lib/leads/index.ts`. The form and the Server Action don't change.
+Create `lib/leads/sheets.ts` exporting a `LeadDestinationFactory` (see `zapier.ts` for the pattern — return `null` when its env vars are missing) and add it to the `destinations` array in `lib/leads/index.ts`. The form and the Server Action don't change.
 
 ---
 
@@ -188,9 +156,8 @@ All documented in [`.env.example`](.env.example). Every integration switches on 
 | Variable                                                   | Needed for                                                                                                                     |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `NEXT_PUBLIC_SITE_URL`                                     | Canonical URLs, sitemap, share image. Set to the final domain once it's connected. On Vercel the project URL is used if empty. |
-| `NOTION_TOKEN`, `NOTION_LEADS_DB_ID`                       | Leads → Notion                                                                                                                 |
-| `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFY_EMAIL` | Leads → email                                                                                                                  |
-| `ZAPIER_LEAD_WEBHOOK_URL`                                  | Leads → Slack (Zapier Catch Hook at `https://hooks.zapier.com/`)                                                              |
+| `NOTION_TOKEN`, `NOTION_CLASSES_DB_ID`                     | Running classes from Klassen Datenbank. Leads are not written here.                                                           |
+| `ZAPIER_LEAD_WEBHOOK_URL`                                  | Leads → Slack (the only destination; Zapier Catch Hook at `https://hooks.zapier.com/`)                                        |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`       | Rate limiting                                                                                                                  |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`               | Bot check                                                                                                                      |
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`           | Ad/analytics conversion events                                                                                                 |
@@ -227,6 +194,6 @@ Good to know:
 
 - [ ] All `pnpm verify:content` items confirmed or accepted as hidden
 - [ ] Real photos in place (`content/images.ts`), logo files (SVG/PNG) from the brand owner
-- [ ] Notion and/or email configured, one real test lead received
+- [ ] Slack (Zapier) configured, one real test lead received
 - [ ] Privacy policy text final (`app/(site)/chinh-sach-bao-mat/page.tsx`)
 - [ ] Domain connected, `NEXT_PUBLIC_SITE_URL` set, sitemap submitted

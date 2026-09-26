@@ -18,7 +18,7 @@ const sections = [
   },
   {
     title: "3. Lưu trữ và chia sẻ",
-    body: "Yêu cầu tư vấn chỉ được lưu trong email của công ty và được giữ trong một năm. Chỉ NaNu NaNa được xem các email này. Chúng tôi không chia sẻ nội dung yêu cầu tư vấn với đối tác hay bên thứ ba.",
+    body: "Yêu cầu tư vấn được gửi vào kênh Slack nội bộ của NaNu NaNa thông qua Zapier, để nhân viên liên hệ lại. Chúng tôi không gửi nội dung yêu cầu tư vấn qua email.",
   },
   {
     title: "4. Quyền của bạn",

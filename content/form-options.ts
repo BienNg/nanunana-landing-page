@@ -1,6 +1,6 @@
 /**
  * Option lists for the consultation form. `value` is what is stored and sent
- * to Notion/email; it is also the URL param used for pre-filling
+ * with the lead; it is also the URL param used for pre-filling
  * (e.g. `/?khoa=b1#tu-van`, `/?muc-tieu=du-hoc-nghe#tu-van`).
  */
 export const courseOptions = [

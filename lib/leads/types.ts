@@ -22,7 +22,7 @@ export type Lead = {
 };
 
 /**
- * A place leads are sent to (Notion, email, later Google Sheets…).
+ * A place leads are sent to (Slack via Zapier, later another destination…).
  * The factory returns null when the destination is not configured.
  */
 export type LeadDestination = {
