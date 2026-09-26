@@ -39,6 +39,8 @@ app/
     tuyen-dung/              careers page
     chinh-sach-bao-mat/      privacy policy (draft)
   actions/consultation.ts    Server Action for the consultation form
+  admin/                     password-protected behaviour stats
+  api/stats/collect/         first-party click, section and visit ingest
   opengraph-image.tsx        generated social share image
   sitemap.ts, robots.ts, icon.png, apple-icon.png, not-found.tsx
 components/
@@ -142,6 +144,7 @@ The site POSTs the lead only after validation. The variable must be a `https://h
 - **Upstash Redis** (free tier is enough): `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
 - **Cloudflare Turnstile:** `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. Note: with Turnstile on, the no-JavaScript fallback can't pass the check.
 - **Meta Pixel / GA4:** `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`. Check your privacy policy/consent requirements before enabling.
+- **Behaviour stats:** `STATS_ADMIN_PASSWORD`, plus Upstash if you want the numbers kept on Vercel. Open `/admin` (not linked from the site). The page shows visits for today, this week and this month, which button was clicked and from which section, how long each section stayed on screen, and city/country. City and country come from Vercel’s network headers, so they appear after deploy, not on a laptop. No IP address is stored. Changing the password signs everyone out. Without Upstash, `pnpm dev` saves the numbers in `.data/` on that computer.
 
 ### 4.3 Adding another destination (e.g. Google Sheets)
 
@@ -153,16 +156,17 @@ Create `lib/leads/sheets.ts` exporting a `LeadDestinationFactory` (see `zapier.t
 
 All documented in [`.env.example`](.env.example). Every integration switches on only when its variables are set.
 
-| Variable                                                   | Needed for                                                                                                                     |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL`                                     | Canonical URLs, sitemap, share image. Set to the final domain once it's connected. On Vercel the project URL is used if empty. |
-| `NOTION_TOKEN`, `NOTION_CLASSES_DB_ID`                     | Running classes from Klassen Datenbank. Leads are not written here.                                                           |
-| `ZAPIER_LEAD_WEBHOOK_URL`                                  | Leads → Slack (the only destination; Zapier Catch Hook at `https://hooks.zapier.com/`)                                        |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`       | Rate limiting                                                                                                                  |
-| `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`               | Bot check                                                                                                                      |
-| `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`           | Ad/analytics conversion events                                                                                                 |
-| `NEXT_PUBLIC_SHOW_UNVERIFIED`                              | `1` = show unconfirmed claims in a production build (previews only!)                                                           |
-| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`                 | Google reviews in `#cam-nhan`. Place ID is optional.                                                                           |
+| Variable                                             | Needed for                                                                                                                     |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`                               | Canonical URLs, sitemap, share image. Set to the final domain once it's connected. On Vercel the project URL is used if empty. |
+| `NOTION_TOKEN`, `NOTION_CLASSES_DB_ID`               | Running classes from Klassen Datenbank. Leads are not written here.                                                            |
+| `ZAPIER_LEAD_WEBHOOK_URL`                            | Leads → Slack (the only destination; Zapier Catch Hook at `https://hooks.zapier.com/`)                                         |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Rate limiting, and behaviour stats on Vercel. Locally, stats still work without these and are saved in `.data/`.               |
+| `STATS_ADMIN_PASSWORD`                               | Password for `/admin`. Sessions last 14 days and are signed with this value.                                                   |
+| `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`         | Bot check                                                                                                                      |
+| `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`     | Ad/analytics conversion events                                                                                                 |
+| `NEXT_PUBLIC_SHOW_UNVERIFIED`                        | `1` = show unconfirmed claims in a production build (previews only!)                                                           |
+| `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`           | Google reviews in `#cam-nhan`. Place ID is optional.                                                                           |
 
 `NEXT_PUBLIC_*` values are baked in at build time — redeploy after changing them.
 

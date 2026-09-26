@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "1. Thông tin chúng tôi thu thập",
-    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu). Khi bạn xem trang, chúng tôi ghi lại mục nào đã xuất hiện trên màn hình và nút liên hệ nào bạn bấm (Zalo, Messenger, WhatsApp hoặc điện thoại), qua Vercel Analytics và — khi được cấu hình — Google Analytics cùng Meta Pixel. Chúng tôi không nhận nội dung tin nhắn bạn gửi trên các ứng dụng đó.",
+    body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu). Khi bạn xem trang, trang tự ghi số lần ghé, nút bạn bấm, thời gian từng mục nằm trên màn hình, và thành phố cùng quốc gia suy ra từ mạng của máy chủ. Phần này không lưu địa chỉ IP và không gắn với họ tên hay số điện thoại. Một mã ngẫu nhiên trong trình duyệt giúp đếm người xem khác nhau. Khi được cấu hình, Vercel Analytics, Google Analytics và Meta Pixel cũng ghi lượt xem và nút liên hệ. Chúng tôi không nhận nội dung tin nhắn bạn gửi trên Zalo, Messenger hay WhatsApp.",
   },
   {
     title: "2. Mục đích sử dụng",
@@ -18,7 +18,7 @@ const sections = [
   },
   {
     title: "3. Lưu trữ và chia sẻ",
-    body: "Yêu cầu tư vấn được gửi vào kênh Slack nội bộ của NaNu NaNa thông qua Zapier, để nhân viên liên hệ lại. Chúng tôi không gửi nội dung yêu cầu tư vấn qua email.",
+    body: "Yêu cầu tư vấn được gửi vào kênh Slack nội bộ của NaNu NaNa thông qua Zapier, để nhân viên liên hệ lại. Chúng tôi không gửi nội dung yêu cầu tư vấn qua email. Số liệu hành vi (lượt ghé, nút bấm, thời gian xem từng mục, thành phố và quốc gia) được lưu riêng trên Redis, không kèm họ tên hay số điện thoại.",
   },
   {
     title: "4. Quyền của bạn",

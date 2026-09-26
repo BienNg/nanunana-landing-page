@@ -25,6 +25,8 @@ export const serverEnv = {
     const token = read("UPSTASH_REDIS_REST_TOKEN");
     return url && token ? { url, token } : null;
   },
+  /** Password for the /admin behaviour stats. Sessions are signed with this value. */
+  statsAdmin: () => read("STATS_ADMIN_PASSWORD"),
   turnstile: () => {
     const siteKey = read("TURNSTILE_SITE_KEY");
     const secretKey = read("TURNSTILE_SECRET_KEY");
