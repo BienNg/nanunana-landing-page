@@ -5,6 +5,7 @@ import {
   type LearningAppFeature,
 } from "@/content/learning-app";
 import { sectionIds } from "@/content/nav";
+import { PrefillLink } from "@/components/form/PrefillLink";
 import { Badge } from "@/components/ui/Badge";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
@@ -100,7 +101,10 @@ export function LearningApp() {
     >
       <div className="container-page grid items-center gap-12 lg:grid-cols-12 lg:gap-gutter">
         <div className="lg:col-span-6">
-          <Badge>{learningAppSection.eyebrow}</Badge>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge>{learningAppSection.eyebrow}</Badge>
+            <Badge tone="coral">{learningAppSection.comingSoon}</Badge>
+          </div>
           <h2
             id={`${sectionIds.learningApp}-title`}
             className="mt-4 text-headline-xl-mobile text-balance text-ink md:text-headline-xl"
@@ -109,6 +113,16 @@ export function LearningApp() {
           </h2>
           <p className="mt-4 text-body-md text-pretty text-ink-muted md:text-body-lg">
             {learningAppSection.intro}
+          </p>
+          <p className="mt-4 rounded-card border border-accent-coral/30 bg-tertiary-fixed px-4 py-3 text-body-md text-ink">
+            <PrefillLink
+              course="a1"
+              message={learningAppSection.earlyAccess.message}
+              className="font-semibold text-brand-teal-dark underline decoration-teal/40 underline-offset-2 hover:decoration-brand-teal-dark focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-teal/30 focus-visible:outline-none"
+            >
+              {learningAppSection.earlyAccess.link}
+            </PrefillLink>{" "}
+            {learningAppSection.earlyAccess.rest}
           </p>
           <div className="mt-5">
             <VerifyMark claim={learningAppSection.unique} as="div">

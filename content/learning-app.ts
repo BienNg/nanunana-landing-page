@@ -1,5 +1,6 @@
 /**
  * The learning app included with every enrolled student's course.
+ * It is not live yet: the section says so, and A1 sign-ups today get early access.
  * Screenshots are placeholders until real captures replace them in images.ts.
  */
 import { ok, type Claim } from "./verify";
@@ -21,13 +22,20 @@ export type LearningAppDevice = {
 
 export const learningAppSection = {
   eyebrow: "Dành riêng cho học viên",
+  comingSoon: "Sắp ra mắt",
   title: "Ứng dụng học đi kèm khoá học",
   intro:
-    "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp. Mọi học viên đang theo học đều được dùng — trên điện thoại, máy tính bảng hoặc máy tính.",
+    "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp — trên điện thoại, máy tính bảng hoặc máy tính.",
+  earlyAccess: {
+    link: "Đăng ký khoá A1 hôm nay",
+    rest: "để được truy cập sớm.",
+    /** Dropped into the consultation message when this hint is followed. */
+    message: "Tôi muốn đăng ký khoá A1 để được dùng ứng dụng sớm.",
+  },
   unique: ok(
     "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
   ),
-  included: "Mọi học viên đang theo học đều được cấp tài khoản.",
+  included: "Khi ra mắt, mọi học viên đang theo học đều được cấp tài khoản.",
   devicesLabel: "Điện thoại và máy tính",
   features: [
     {
