@@ -129,37 +129,39 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
         {classes.map((item) => (
           <li
             key={item.id}
-            className="border-t border-border-subtle py-4 pr-16 pl-4 first:border-t-0"
+            className="relative border-t border-border-subtle first:border-t-0"
           >
-            <ClassName item={item} className="block text-pretty break-words" />
-            <div className="mt-3 flex items-start gap-3">
-              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
-                {item.level ? <LevelLabel level={item.level} /> : null}
-                {item.location ? <LocationLabel location={item.location} /> : null}
-              </div>
-              {item.media.length > 0 ? (
-                <div className="shrink-0">
-                  <ClassPhotos name={item.name} media={item.media} />
+            <div className={item.media.length > 0 ? "py-4 pr-[9.75rem] pl-4" : "py-4 pr-4 pl-4"}>
+              <ClassName item={item} className="block text-pretty break-words" />
+              {item.level || item.location ? (
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {item.level ? <LevelLabel level={item.level} /> : null}
+                  {item.location ? <LocationLabel location={item.location} /> : null}
                 </div>
               ) : null}
-            </div>
-            <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
-              <div className="min-w-0">
-                <dt className="text-label-sm text-ink-subtle uppercase">{cols.begin}</dt>
-                <dd className="mt-0.5 text-ink">
-                  <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
-                </dd>
+              <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
+                <div className="min-w-0">
+                  <dt className="text-label-sm text-ink-subtle uppercase">{cols.begin}</dt>
+                  <dd className="mt-0.5 text-ink">
+                    <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
+                  </dd>
+                </div>
+                <div className="min-w-0">
+                  <dt className="text-label-sm text-ink-subtle uppercase">{cols.end}</dt>
+                  <dd className="mt-0.5 text-ink">
+                    <time dateTime={item.end}>{formatClassDate(item.end)}</time>
+                  </dd>
+                </div>
+              </dl>
+              <div className="mt-1 flex justify-end">
+                <RegisterLink item={item} />
               </div>
-              <div className="min-w-0">
-                <dt className="text-label-sm text-ink-subtle uppercase">{cols.end}</dt>
-                <dd className="mt-0.5 text-ink">
-                  <time dateTime={item.end}>{formatClassDate(item.end)}</time>
-                </dd>
-              </div>
-            </dl>
-            <div className="mt-1 flex justify-end">
-              <RegisterLink item={item} />
             </div>
+            {item.media.length > 0 ? (
+              <div className="absolute inset-y-0 right-0 w-36">
+                <ClassPhotos layout="fill" name={item.name} media={item.media} />
+              </div>
+            ) : null}
           </li>
         ))}
       </ul>

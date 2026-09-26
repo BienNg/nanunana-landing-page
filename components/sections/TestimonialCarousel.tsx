@@ -11,6 +11,9 @@ import { pressMotion } from "@/components/ui/button-styles";
  * JS adds prev/next buttons and an animated position indicator.
  * Dots are scroll stops, not one per card: with 5 reviews and 3 on screen
  * there are 3 stops, and on a phone there is one stop per review.
+ *
+ * contain:paint stops off-screen slides from widening the page. Overflow on
+ * the track alone does not — the snapped cards still extend the document.
  */
 function slideEls(track: HTMLElement) {
   return Array.from(track.querySelectorAll<HTMLElement>(":scope > [data-slide]"));
@@ -77,7 +80,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
     <div role="region" aria-roledescription="carousel" aria-label={label}>
       <ul
         ref={trackRef}
-        className="-mx-margin-mobile flex snap-x snap-mandatory scroll-px-margin-mobile [scrollbar-width:none] gap-gutter-mobile overflow-x-auto px-margin-mobile pb-2 md:mx-0 md:scroll-px-0 md:gap-gutter md:px-0 [&::-webkit-scrollbar]:hidden"
+        className="contain-paint -mx-margin-mobile flex snap-x snap-mandatory scroll-px-margin-mobile [scrollbar-width:none] gap-gutter-mobile overflow-x-auto px-margin-mobile pb-2 md:mx-0 md:scroll-px-0 md:gap-gutter md:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((slide, i) => (
           <li

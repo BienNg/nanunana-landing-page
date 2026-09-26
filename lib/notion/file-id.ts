@@ -22,7 +22,7 @@ export function notionFileId(url: string): string | null {
   return null;
 }
 
-/** 48px thumbnails request this. The lightbox keeps the original Notion URL. */
+/** Resized thumbnail. The lightbox keeps the original Notion URL. */
 export function classPhotoThumbSrc(url: string) {
   const id = notionFileId(url);
   return id ? `/api/class-photo/${id}` : url;

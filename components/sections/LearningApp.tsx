@@ -25,14 +25,16 @@ const deviceFrame: Record<
   { className: string; screen: string; sizes: string }
 > = {
   desktop: {
-    className: "absolute inset-x-0 top-0 z-0",
+    className:
+      "relative z-0 min-w-0 flex-1 sm:absolute sm:inset-x-0 sm:top-0 sm:w-auto sm:flex-none",
     screen: "aspect-[16/10]",
-    sizes: "(min-width: 1024px) 640px, 92vw",
+    sizes: "(min-width: 1024px) 640px, (min-width: 640px) 92vw, 62vw",
   },
   phone: {
-    className: "absolute right-0 bottom-0 z-10 w-[34%] sm:right-[3%] sm:w-[28%]",
+    className:
+      "relative z-10 -ml-3 w-[38%] shrink-0 sm:absolute sm:right-[3%] sm:bottom-0 sm:ml-0 sm:w-[28%]",
     screen: "aspect-[9/16]",
-    sizes: "(min-width: 1024px) 200px, 34vw",
+    sizes: "(min-width: 1024px) 200px, (min-width: 640px) 28vw, 38vw",
   },
 };
 
@@ -131,7 +133,7 @@ export function LearningApp() {
           <div
             role="group"
             aria-label={learningAppSection.devicesLabel}
-            className="relative mx-auto h-[26rem] w-full max-w-xl sm:h-[30rem] lg:h-[34rem] lg:max-w-none"
+            className="relative mx-auto flex w-full max-w-xl items-end sm:block sm:h-[30rem] lg:h-[34rem] lg:max-w-none"
           >
             <Device device={devicesById.desktop} />
             <Device device={devicesById.phone} />

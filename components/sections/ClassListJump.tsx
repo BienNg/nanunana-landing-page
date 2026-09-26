@@ -12,6 +12,7 @@ const jumpClass =
 /**
  * Floating control over the class list on phones. The list is long, so this
  * jumps to the previous section or skips ahead to the next one.
+ * Sits at the bottom-right, above the mobile CTA bar.
  * Hidden while the list is off screen, and hidden from `md` up.
  */
 export function ClassListJump() {
@@ -25,7 +26,7 @@ export function ClassListJump() {
       {overList ? (
         <m.nav
           aria-label={copy.label}
-          className="fixed top-[42%] right-3 z-30 flex -translate-y-1/2 flex-col overflow-hidden rounded-card border border-border-subtle bg-white/95 shadow-tier-3 backdrop-blur md:hidden"
+          className="fixed right-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-30 flex flex-col overflow-hidden rounded-card border border-border-subtle bg-white/95 shadow-tier-3 backdrop-blur md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

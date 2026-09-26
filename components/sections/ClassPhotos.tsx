@@ -10,10 +10,12 @@ type Photo = { url: string; name: string };
 function PhotoButton({
   file,
   label,
+  fill,
   onOpen,
 }: {
   file: Photo;
   label: string;
+  fill?: boolean;
   onOpen: (file: Photo, trigger: HTMLButtonElement) => void;
 }) {
   const [src, setSrc] = useState(() => classPhotoThumbSrc(file.url));
@@ -23,19 +25,27 @@ function PhotoButton({
       type="button"
       onClick={(event) => onOpen(file, event.currentTarget)}
       aria-label={`Xem ${label}`}
-      className="block cursor-zoom-in overflow-hidden rounded-md border border-border-subtle"
+      className={
+        fill
+          ? "relative block min-h-0 flex-1 cursor-zoom-in overflow-hidden"
+          : "block cursor-zoom-in overflow-hidden rounded-md border border-border-subtle"
+      }
     >
       {/* Thumbnails are resized by /api/class-photo. The dialog still uses the Notion URL. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt=""
-        width={48}
-        height={48}
+        width={fill ? 640 : 48}
+        height={fill ? 640 : 48}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
-        className="size-12 bg-surface-container-low object-cover"
+        className={
+          fill
+            ? "absolute inset-0 size-full bg-surface-container-low object-cover"
+            : "size-12 bg-surface-container-low object-cover"
+        }
         onError={() => {
           if (src !== file.url) setSrc(file.url);
         }}
@@ -44,7 +54,16 @@ function PhotoButton({
   );
 }
 
-export function ClassPhotos({ name, media }: { name: string; media: Photo[] }) {
+export function ClassPhotos({
+  name,
+  media,
+  layout = "inline",
+}: {
+  name: string;
+  media: Photo[];
+  /** `fill` stretches photos to the full height of a mobile class row. */
+  layout?: "inline" | "fill";
+}) {
   const [active, setActive] = useState<Photo | null>(null);
   const restoreFocus = useRef<HTMLElement | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -80,12 +99,13 @@ export function ClassPhotos({ name, media }: { name: string; media: Photo[] }) {
 
   return (
     <>
-      <div className="flex gap-1.5">
+      <div className={layout === "fill" ? "absolute inset-0 flex flex-col" : "flex gap-1.5"}>
         {media.map((file) => (
           <PhotoButton
             key={notionFileId(file.url) ?? file.url}
             file={file}
             label={label}
+            fill={layout === "fill"}
             onOpen={(photo, trigger) => {
               restoreFocus.current = trigger;
               setActive(photo);

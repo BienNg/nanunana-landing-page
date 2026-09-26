@@ -5,8 +5,8 @@ import sharp from "sharp";
 import { getRunningClasses } from "@/lib/notion/classes";
 import { notionFileId } from "@/lib/notion/file-id";
 
-/** Longest side of the table thumbnail. 160px covers a 48px slot at 3x. */
-const THUMB_MAX_PX = 160;
+/** Longest side of a class photo. 640px covers a full-height mobile row at 3x. */
+const THUMB_MAX_PX = 640;
 const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const DOWNLOAD_TIMEOUT_MS = 25_000;
 const REVALIDATE_SECONDS = 60 * 60 * 24;
@@ -113,7 +113,7 @@ async function renderClassPhoto(id: string) {
   return webp.toString("base64");
 }
 
-const getCachedClassPhoto = unstable_cache(renderClassPhoto, ["class-photo-thumb-160-v1"], {
+const getCachedClassPhoto = unstable_cache(renderClassPhoto, ["class-photo-thumb-640-v1"], {
   revalidate: REVALIDATE_SECONDS,
 });
 
