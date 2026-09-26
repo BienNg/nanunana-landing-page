@@ -1,4 +1,13 @@
-import { BookOpen, Headphones, Monitor, Play, Smartphone, type LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Headphones,
+  Monitor,
+  Play,
+  Smartphone,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import {
   learningAppSection,
   type LearningAppDevice,
@@ -7,6 +16,8 @@ import {
 import { sectionIds } from "@/content/nav";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { Badge } from "@/components/ui/Badge";
+import { buttonClasses } from "@/components/ui/button-styles";
+import { CourseBadge } from "@/components/ui/CourseBadge";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
@@ -70,6 +81,46 @@ function Device({ device }: { device: LearningAppDevice }) {
   );
 }
 
+function EarlyAccess() {
+  const offer = learningAppSection.earlyAccess;
+  return (
+    <div className="relative mt-6">
+      <div
+        aria-hidden
+        className="absolute -inset-1.5 -z-10 rounded-[1.35rem] bg-gradient-to-br from-accent-coral/45 via-tertiary-fixed to-brand-teal-light/30 blur-[2px]"
+      />
+      <div className="overflow-hidden rounded-card bg-white shadow-tier-2 ring-1 ring-accent-coral/25">
+        <div
+          aria-hidden
+          className="h-1 bg-gradient-to-r from-accent-coral via-tertiary-fixed-dim to-brand-teal-light"
+        />
+        <div className="flex gap-4 p-4 sm:p-5">
+          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-tertiary-fixed to-white text-coral-ink ring-1 ring-inset ring-accent-coral/30">
+            <Sparkles aria-hidden className="size-5" />
+          </span>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <CourseBadge level="A1" />
+              <span className="text-label-sm text-coral-ink uppercase">{offer.kicker}</span>
+            </div>
+            <p className="mt-2 text-headline-sm text-balance text-ink">{offer.title}</p>
+            <p className="mt-1 text-body-sm text-pretty text-ink-muted">{offer.text}</p>
+            <PrefillLink
+              course="a1"
+              message={offer.message}
+              press
+              className={buttonClasses({ size: "sm", className: "mt-4" })}
+            >
+              {offer.cta}
+              <ArrowRight aria-hidden />
+            </PrefillLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Feature({ feature }: { feature: LearningAppFeature }) {
   const Icon = featureIcons[feature.id];
   return (
@@ -114,16 +165,7 @@ export function LearningApp() {
           <p className="mt-4 text-body-md text-pretty text-ink-muted md:text-body-lg">
             {learningAppSection.intro}
           </p>
-          <p className="mt-4 rounded-card border border-accent-coral/30 bg-tertiary-fixed px-4 py-3 text-body-md text-ink">
-            <PrefillLink
-              course="a1"
-              message={learningAppSection.earlyAccess.message}
-              className="font-semibold text-brand-teal-dark underline decoration-teal/40 underline-offset-2 hover:decoration-brand-teal-dark focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-teal/30 focus-visible:outline-none"
-            >
-              {learningAppSection.earlyAccess.link}
-            </PrefillLink>{" "}
-            {learningAppSection.earlyAccess.rest}
-          </p>
+          <EarlyAccess />
           <div className="mt-5">
             <VerifyMark claim={learningAppSection.unique} as="div">
               {(text) => (

@@ -27,8 +27,10 @@ export const learningAppSection = {
   intro:
     "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp — trên điện thoại, máy tính bảng hoặc máy tính.",
   earlyAccess: {
-    link: "Đăng ký khoá A1 hôm nay",
-    rest: "để được truy cập sớm.",
+    kicker: "Truy cập sớm",
+    title: "Đăng ký khoá A1 hôm nay",
+    text: "Bạn được dùng ứng dụng trước ngày ra mắt.",
+    cta: "Nhận quyền truy cập",
     /** Dropped into the consultation message when this hint is followed. */
     message: "Tôi muốn đăng ký khoá A1 để được dùng ứng dụng sớm.",
   },
