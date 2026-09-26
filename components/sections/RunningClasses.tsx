@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import {
+  classRegisterMessage,
   courseValueForLevel,
   formatClassDate,
   levelTone,
@@ -57,7 +58,8 @@ function RegisterLink({ item }: { item: RunningClass }) {
   return (
     <PrefillLink
       course={courseValueForLevel(item.level)}
-      className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md whitespace-nowrap text-brand-teal-dark hover:bg-surface-container-low"
+      message={classRegisterMessage(item)}
+      className="inline-flex min-h-tap items-center gap-1 rounded-control bg-surface-container-low px-2.5 text-label-md whitespace-nowrap text-brand-teal-dark ring-1 ring-teal/30 ring-inset hover:bg-white hover:ring-teal/50 md:-mr-2"
     >
       {runningClassesSection.register}
       <span className="sr-only"> lớp {item.name}</span>
@@ -127,11 +129,10 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
 
       <ul data-class-list className="md:hidden">
         {classes.map((item) => (
-          <li
-            key={item.id}
-            className="relative border-t border-border-subtle first:border-t-0"
-          >
-            <div className={item.media.length > 0 ? "py-4 pr-[9.75rem] pl-4" : "py-4 pr-4 pl-4"}>
+          <li key={item.id} className="relative border-t border-border-subtle first:border-t-0">
+            <div
+              className={item.media.length > 0 ? "pt-4 pr-[9.75rem] pb-1 pl-4" : "pt-4 pr-4 pl-4"}
+            >
               <ClassName item={item} className="block text-pretty break-words" />
               {item.level || item.location ? (
                 <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -153,9 +154,9 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
                   </dd>
                 </div>
               </dl>
-              <div className="mt-1 flex justify-end">
-                <RegisterLink item={item} />
-              </div>
+            </div>
+            <div className="relative z-10 flex justify-start pb-1 pl-4">
+              <RegisterLink item={item} />
             </div>
             {item.media.length > 0 ? (
               <div className="absolute inset-y-0 right-0 w-36">

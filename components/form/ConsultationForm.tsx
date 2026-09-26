@@ -76,11 +76,12 @@ function ConsultationFormInner({
     defaultValues: defaults,
   });
 
-  // ?khoa= / ?muc-tieu= from the URL on mount.
+  // ?khoa= / ?muc-tieu= / ?loi-nhan= from the URL on mount.
   useEffect(() => {
     const fromUrl = prefillFromSearch(location.search);
     if (fromUrl.course) setValue("course", fromUrl.course);
     if (fromUrl.goal) setValue("goal", fromUrl.goal);
+    if (fromUrl.message) setValue("message", fromUrl.message);
   }, [setValue]);
 
   // CTA clicks elsewhere on the page.
@@ -88,6 +89,7 @@ function ConsultationFormInner({
     if (prefill.nonce === 0) return;
     if (prefill.course) setValue("course", prefill.course, { shouldDirty: true });
     if (prefill.goal) setValue("goal", prefill.goal, { shouldDirty: true });
+    if (prefill.message) setValue("message", prefill.message, { shouldDirty: true });
   }, [prefill, setValue]);
 
   // Server-side field errors (JS path) → react-hook-form.

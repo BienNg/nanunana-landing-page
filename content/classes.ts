@@ -39,6 +39,13 @@ export function locationLabel(value: string) {
   return locationLabels[value] ?? value;
 }
 
+/** Sentence placed in the consultation message when someone registers for a class. */
+export function classRegisterMessage(item: { name: string; location: string | null }) {
+  const place = item.location ? locationLabel(item.location) : "";
+  const label = place ? `${item.name} (${place})` : item.name;
+  return `Tôi muốn đăng ký tham gia khóa học ${label}`;
+}
+
 /** CEFR family used for the badge color. Sub-levels like A2.1 keep their own label. */
 export function levelTone(level: string): CourseLevel | null {
   const n = level.toLowerCase();

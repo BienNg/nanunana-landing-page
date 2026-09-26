@@ -1,7 +1,7 @@
 /**
  * Option lists for the consultation form. `value` is what is stored and sent
  * with the lead; it is also the URL param used for pre-filling
- * (e.g. `/?khoa=b1#tu-van`, `/?muc-tieu=du-hoc-nghe#tu-van`).
+ * (e.g. `/?khoa=b1#tu-van`, `/?muc-tieu=du-hoc-nghe#tu-van`, `/?loi-nhan=…#tu-van`).
  */
 export const courseOptions = [
   { value: "a1", label: "A1" },
@@ -30,13 +30,18 @@ export type GoalValue = (typeof goalOptions)[number]["value"];
 export const courseValues = courseOptions.map((o) => o.value) as [CourseValue, ...CourseValue[]];
 export const goalValues = goalOptions.map((o) => o.value) as [GoalValue, ...GoalValue[]];
 
-export const prefillParams = { course: "khoa", goal: "muc-tieu" } as const;
+export const prefillParams = { course: "khoa", goal: "muc-tieu", message: "loi-nhan" } as const;
 
-/** Link to the consultation form with course and/or goal pre-selected. */
-export function prefillHref(opts: { course?: CourseValue; goal?: GoalValue }) {
+/** Matches the consultation message field limit. */
+export const prefillMessageMax = 1000;
+
+/** Link to the consultation form with course, goal, and/or message pre-filled. */
+export function prefillHref(opts: { course?: CourseValue; goal?: GoalValue; message?: string }) {
   const params = new URLSearchParams();
   if (opts.course) params.set(prefillParams.course, opts.course);
   if (opts.goal) params.set(prefillParams.goal, opts.goal);
+  const message = opts.message?.trim().slice(0, prefillMessageMax);
+  if (message) params.set(prefillParams.message, message);
   const q = params.toString();
   return `/${q ? `?${q}` : ""}#tu-van`;
 }
