@@ -18,6 +18,13 @@ export const serverEnv = {
     const databaseId = read("NOTION_CLASSES_DB_ID");
     return token && databaseId ? { token, databaseId } : null;
   },
+  /** Zapier Catch Hook. Leads are POSTed only when this is an https://hooks.zapier.com URL. */
+  zapier: () => {
+    const webhookUrl = read("ZAPIER_LEAD_WEBHOOK_URL");
+    if (!webhookUrl) return null;
+    if (!webhookUrl.startsWith("https://hooks.zapier.com/")) return null;
+    return { webhookUrl };
+  },
   resend: () => {
     const apiKey = read("RESEND_API_KEY");
     const from = read("RESEND_FROM_EMAIL");

@@ -161,13 +161,21 @@ Flow: visitor submits → **Server Action** (`app/actions/consultation.ts`) vali
 
 Each email has the lead summary plus "Gọi" (tel:) and "Mở Zalo" buttons.
 
-### 4.3 Optional: rate limit, Turnstile, tracking
+### 4.3 Slack via Zapier
+
+1. In Zapier, create a Zap: **Webhooks by Zapier → Catch Hook**, then **Slack → Send Channel Message**.
+2. Copy the catch-hook URL (`https://hooks.zapier.com/hooks/catch/…`) → `ZAPIER_LEAD_WEBHOOK_URL`.
+3. Send one test submission (or a sample POST) so Zapier sees the fields, then map `name`, `phone`, `course`, `goal`, `message`, and `landingPage` into the Slack message and publish the Zap.
+
+The site POSTs the lead only after validation. The variable must be a `https://hooks.zapier.com/` URL; anything else leaves this destination off. It runs alongside Notion and email.
+
+### 4.4 Optional: rate limit, Turnstile, tracking
 
 - **Upstash Redis** (free tier is enough): `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
 - **Cloudflare Turnstile:** `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`. Note: with Turnstile on, the no-JavaScript fallback can't pass the check.
 - **Meta Pixel / GA4:** `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`. Check your privacy policy/consent requirements before enabling.
 
-### 4.4 Adding another destination (e.g. Google Sheets)
+### 4.5 Adding another destination (e.g. Google Sheets)
 
 Create `lib/leads/sheets.ts` exporting a `LeadDestinationFactory` (see `notion.ts` for the pattern — return `null` when its env vars are missing) and add it to the `destinations` array in `lib/leads/index.ts`. The form and the Server Action don't change.
 
@@ -182,6 +190,7 @@ All documented in [`.env.example`](.env.example). Every integration switches on 
 | `NEXT_PUBLIC_SITE_URL`                                     | Canonical URLs, sitemap, share image. Set to the final domain once it's connected. On Vercel the project URL is used if empty. |
 | `NOTION_TOKEN`, `NOTION_LEADS_DB_ID`                       | Leads → Notion                                                                                                                 |
 | `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFY_EMAIL` | Leads → email                                                                                                                  |
+| `ZAPIER_LEAD_WEBHOOK_URL`                                  | Leads → Slack (Zapier Catch Hook at `https://hooks.zapier.com/`)                                                              |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`       | Rate limiting                                                                                                                  |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`               | Bot check                                                                                                                      |
 | `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`           | Ad/analytics conversion events                                                                                                 |
