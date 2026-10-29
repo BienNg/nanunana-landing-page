@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Briefcase, Check, Mail, MapPin } from "lucide-react";
-import { careers } from "@/content/careers";
+import Link from "next/link";
+import { ArrowRight, Briefcase, Mail, MapPin } from "lucide-react";
+import { applyHref, careerHref, careers, openRoles as getOpenRoles } from "@/content/careers";
 import { isVisible } from "@/content/verify";
-import { AnchorButton } from "@/components/ui/Button";
+import { AnchorButton, LinkButton } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { VerifyMark } from "@/components/ui/VerifyMark";
@@ -13,13 +14,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tuyen-dung" },
 };
 
-function applyHref(roleTitle?: string) {
-  const subject = `${careers.applySubjectPrefix} ${roleTitle ?? "Ứng tuyển tự do"}`;
-  return `mailto:${careers.applyEmail}?subject=${encodeURIComponent(subject)}`;
-}
-
 export default function CareersPage() {
-  const openRoles = careers.roles.filter((r) => isVisible(r.open) && r.open.value);
+  const openRoles = getOpenRoles();
 
   return (
     <>
@@ -45,10 +41,12 @@ export default function CareersPage() {
           ) : null}
           <ul className="mt-6 grid gap-gutter-mobile md:grid-cols-2 md:gap-gutter">
             {openRoles.map((role) => (
-              <li key={role.id}>
+              <li key={role.slug}>
                 <Card tier={1} interactive className="flex h-full flex-col">
                   <h3 className="text-headline-md text-ink">
-                    <VerifyMark claim={role.open}>{() => role.title}</VerifyMark>
+                    <Link href={careerHref(role.slug)} className="hover:text-teal">
+                      {role.title}
+                    </Link>
                   </h3>
                   <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-body-sm text-ink-subtle">
                     <VerifyMark claim={role.type} />
@@ -62,21 +60,12 @@ export default function CareersPage() {
                   <VerifyMark claim={role.summary} as="div" className="mt-3">
                     {(s) => <p className="text-body-md text-ink-muted">{s}</p>}
                   </VerifyMark>
-                  <VerifyMark claim={role.requirements} as="div" className="mt-4">
-                    {(items) => (
-                      <ul className="space-y-2">
-                        {items.map((r) => (
-                          <li key={r} className="flex gap-2 text-body-md text-ink">
-                            <Check aria-hidden className="mt-0.5 size-5 shrink-0 text-teal" />
-                            {r}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </VerifyMark>
-                  <div className="mt-auto pt-6">
-                    <AnchorButton href={applyHref(role.title)} variant="secondary">
-                      <Mail aria-hidden /> Ứng tuyển vị trí này
+                  <div className="mt-auto flex flex-wrap gap-3 pt-6">
+                    <LinkButton href={careerHref(role.slug)} variant="outline">
+                      Xem chi tiết <ArrowRight aria-hidden />
+                    </LinkButton>
+                    <AnchorButton href={applyHref(role)} variant="primary">
+                      <Mail aria-hidden /> Gửi CV
                     </AnchorButton>
                   </div>
                 </Card>
