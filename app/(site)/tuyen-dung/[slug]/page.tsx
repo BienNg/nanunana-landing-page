@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { FaqList } from "@/components/sections/FaqList";
+import { ApplyLink } from "@/components/analytics/ApplyLink";
+import type { ApplyPlacement } from "@/lib/analytics";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -96,8 +98,13 @@ export default async function CareerRolePage({ params }: Props) {
   const role = findRole((await params).slug);
   if (!role) notFound();
 
-  const apply = (
-    <AnchorButton href={applyHref(role)} variant="primary" className="shrink-0">
+  const apply = (placement: ApplyPlacement) => (
+    <AnchorButton
+      href={applyHref(role)}
+      variant="primary"
+      className="shrink-0"
+      apply={{ role: role.slug, placement }}
+    >
       <Mail aria-hidden /> Gửi CV qua email
     </AnchorButton>
   );
@@ -144,14 +151,19 @@ export default async function CareerRolePage({ params }: Props) {
               <div>
                 <dt className="text-label-md text-ink-subtle">Liên hệ</dt>
                 <dd className="mt-1 text-body-md font-semibold text-ink">
-                  <a href={applyHref(role)} className="underline underline-offset-2 hover:text-teal">
+                  <ApplyLink
+                    href={applyHref(role)}
+                    role={role.slug}
+                    placement="role_contact"
+                    className="underline underline-offset-2 hover:text-teal"
+                  >
                     {careers.applyEmail}
-                  </a>
+                  </ApplyLink>
                 </dd>
               </div>
             </dl>
           ) : null}
-          <div className="mt-8">{apply}</div>
+          <div className="mt-8">{apply("role_header")}</div>
         </div>
       </section>
 
@@ -167,7 +179,7 @@ export default async function CareerRolePage({ params }: Props) {
                 </span>
               ))}
             </p>
-            <p className="mt-3 text-body-md font-semibold italic text-ink">
+            <p className="mt-3 text-body-md font-semibold text-ink italic">
               {careers.about.slogan}
             </p>
           </div>
@@ -212,7 +224,7 @@ export default async function CareerRolePage({ params }: Props) {
                   </>
                 )}
               </VerifyMark>
-              <div className="mt-6">{apply}</div>
+              <div className="mt-6">{apply("role_footer")}</div>
             </Card>
           ) : (
             <Card
@@ -225,7 +237,7 @@ export default async function CareerRolePage({ params }: Props) {
                   {careers.roleApplyHowTo}
                 </p>
               </div>
-              {apply}
+              {apply("role_footer")}
             </Card>
           )}
 

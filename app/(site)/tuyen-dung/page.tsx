@@ -64,7 +64,11 @@ export default function CareersPage() {
                     <LinkButton href={careerHref(role.slug)} variant="outline">
                       Xem chi tiết <ArrowRight aria-hidden />
                     </LinkButton>
-                    <AnchorButton href={applyHref(role)} variant="primary">
+                    <AnchorButton
+                      href={applyHref(role)}
+                      variant="primary"
+                      apply={{ role: role.slug, placement: "role_list" }}
+                    >
                       <Mail aria-hidden /> Gửi CV
                     </AnchorButton>
                   </div>
@@ -81,7 +85,12 @@ export default function CareersPage() {
               <h2 className="text-headline-sm text-ink">Chưa thấy vị trí phù hợp?</h2>
               <p className="mt-1 max-w-xl text-body-md text-ink-muted">{careers.applyHowTo}</p>
             </div>
-            <AnchorButton href={applyHref()} variant="primary" className="shrink-0">
+            <AnchorButton
+              href={applyHref()}
+              variant="primary"
+              className="shrink-0"
+              apply={{ role: "general", placement: "general" }}
+            >
               <Mail aria-hidden /> {careers.applyEmail}
             </AnchorButton>
           </Card>

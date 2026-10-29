@@ -61,6 +61,30 @@ export function trackChatClick({ channel, placement }: ChatClick) {
   }
 }
 
+/** Where on the careers pages the "Gửi CV" mailto control lives. */
+export type ApplyPlacement =
+  "role_list" | "role_header" | "role_contact" | "role_footer" | "general";
+
+export type ApplyClick = { role: string; placement: ApplyPlacement };
+
+/**
+ * "Gửi CV" mailto tap. It opens the visitor's mail app, so this counts intent,
+ * not sent emails — compare with CVs in the inbox. Meta optimises recruitment
+ * ads on SubmitApplication.
+ */
+export function trackApplyClick({ role, placement }: ApplyClick) {
+  const props = { role, placement };
+  try {
+    track("apply_click", props);
+  } catch {}
+  if (process.env.NEXT_PUBLIC_GA_ID) {
+    window.gtag?.("event", "apply_click", props);
+  }
+  if (process.env.NEXT_PUBLIC_META_PIXEL_ID) {
+    window.fbq?.("track", "SubmitApplication", { content_name: role, content_category: placement });
+  }
+}
+
 /** Fired once per section each time it reaches the middle of the viewport. */
 export function trackSectionView(section: string) {
   try {
