@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone, UserRound } from "lucide-react";
-import { site } from "@/content/site";
-import { courses } from "@/content/courses";
+import { siteFor } from "@/content/site";
+import { courses as coursesByLocale } from "@/content/courses";
 import { careersHref, privacyHref, sectionIds } from "@/content/nav";
+import { ui } from "@/content/ui";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { isVisible } from "@/content/verify";
 import { ChatLink } from "@/components/analytics/ChatLink";
 import { SocialIcon } from "@/components/icons/SocialIcon";
 import { PrefillLink } from "@/components/form/PrefillLink";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { localePath } from "@/lib/i18n/locale";
 import { Logo } from "./Logo";
 
 const linkClass =
@@ -22,9 +25,13 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
   );
 }
 
-export function Footer() {
-  // Evaluated at build/render time; the site is rebuilt on every deploy.
+export async function Footer() {
+  const locale = await getLocale();
+  const site = siteFor(locale);
+  const courses = coursesByLocale[locale];
+  const copy = ui[locale].footer;
   const year = new Date().getFullYear();
+  const section = (id: string) => localePath(locale, `/#${id}`);
 
   return (
     <footer id="site-footer" className="bg-ink text-ink-inverse-muted">
@@ -33,7 +40,7 @@ export function Footer() {
           <Logo tone="dark" />
           <p className="mt-4 max-w-sm text-body-md">{site.description}</p>
           <p className="mt-2 max-w-sm text-body-sm italic">{site.slogan}</p>
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Mạng xã hội">
+          <ul className="mt-5 flex flex-wrap gap-2" aria-label={ui[locale].socials}>
             {site.socials.map((s) => {
               const className =
                 "grid size-tap place-items-center rounded-full bg-white/10 text-[20px] text-white transition-colors [--icon-contrast:var(--color-ink)] hover:bg-brand-teal-dark";
@@ -69,16 +76,16 @@ export function Footer() {
         </div>
 
         <div className="lg:col-span-2">
-          <Column title="Khoá học">
+          <Column title={copy.courses}>
             <ul>
               <li>
-                <Link href={`/#${sectionIds.classes}`} className={linkClass}>
-                  Lớp đang diễn ra
+                <Link href={section(sectionIds.classes)} className={linkClass}>
+                  {copy.classes}
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.learningApp}`} className={linkClass}>
-                  Ứng dụng học tập
+                <Link href={section(sectionIds.learningApp)} className={linkClass}>
+                  {copy.app}
                 </Link>
               </li>
               {courses.map((c) => (
@@ -93,36 +100,36 @@ export function Footer() {
         </div>
 
         <div className="lg:col-span-2">
-          <Column title="Lộ trình du học">
+          <Column title={copy.pathways}>
             <ul>
               <li>
-                <Link href={`/#${sectionIds.university}`} className={linkClass}>
-                  Du học đại học
+                <Link href={section(sectionIds.university)} className={linkClass}>
+                  {copy.university}
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.vocational}`} className={linkClass}>
-                  Du học nghề (Ausbildung)
+                <Link href={section(sectionIds.vocational)} className={linkClass}>
+                  {copy.vocational}
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.processUniversity}`} className={linkClass}>
-                  Lộ trình du học đại học
+                <Link href={section(sectionIds.processUniversity)} className={linkClass}>
+                  {copy.processUniversity}
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.processVocational}`} className={linkClass}>
-                  Lộ trình du học nghề
+                <Link href={section(sectionIds.processVocational)} className={linkClass}>
+                  {copy.processVocational}
                 </Link>
               </li>
               <li>
-                <Link href={`/#${sectionIds.team}`} className={linkClass}>
-                  Đội ngũ
+                <Link href={section(sectionIds.team)} className={linkClass}>
+                  {copy.team}
                 </Link>
               </li>
               <li>
-                <Link href={careersHref} className={linkClass}>
-                  Tuyển dụng
+                <Link href={localePath(locale, careersHref)} className={linkClass}>
+                  {copy.careers}
                 </Link>
               </li>
             </ul>
@@ -130,7 +137,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-2 lg:col-span-4">
-          <Column title="Thông tin pháp lý & liên hệ">
+          <Column title={copy.legal}>
             <p className="text-label-md text-white">{site.legalName}</p>
             <address className="mt-3 space-y-2 text-body-md not-italic">
               <p className="flex gap-2.5">
@@ -165,11 +172,11 @@ export function Footer() {
               </p>
               <p className="flex items-center gap-2.5">
                 <UserRound aria-hidden className="size-4 shrink-0 text-inverse-primary" />
-                Giám đốc: {site.director}
+                {site.directorLabel}: {site.director}
               </p>
             </address>
             <div className="mt-5">
-              <p className="text-label-sm text-white uppercase">Văn phòng</p>
+              <p className="text-label-sm text-white uppercase">{copy.offices}</p>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {site.offices.map((o) => (
                   <li
@@ -188,12 +195,12 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col gap-3 py-6 text-body-sm md:flex-row md:items-center md:justify-between">
           <p>
-            © {year} {site.fullName}. Bảo lưu mọi quyền.
+            © {year} {site.fullName}. {site.rights}
           </p>
           <ul className="flex flex-wrap gap-x-5">
             <li>
-              <Link href={privacyHref} className={`${linkClass} text-body-sm`}>
-                Chính sách bảo mật
+              <Link href={localePath(locale, privacyHref)} className={`${linkClass} text-body-sm`}>
+                {copy.privacy}
               </Link>
             </li>
             {isVisible(site.license) ? (

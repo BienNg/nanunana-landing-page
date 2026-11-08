@@ -8,6 +8,7 @@ export function leadWebhookBody(lead: Lead) {
   return {
     id: lead.id,
     createdAt: lead.createdAt,
+    locale: lead.locale,
     name: lead.name,
     phone: lead.phone,
     course: lead.course?.label ?? "",

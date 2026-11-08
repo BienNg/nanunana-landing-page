@@ -4,7 +4,9 @@ import Link from "next/link";
 import type { ComponentProps } from "react";
 import { m } from "motion/react";
 import { pressMotion } from "@/components/ui/button-styles";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { prefillHref, type CourseValue, type GoalValue } from "@/content/form-options";
+import { localePath } from "@/lib/i18n/locale";
 import { setPrefill } from "@/lib/prefill-store";
 
 /**
@@ -32,10 +34,11 @@ export function PrefillLink({
   /** Button-style link: add press feedback. */
   press?: boolean;
 }) {
+  const locale = useLocale();
   return (
     <MotionLink
       {...(press ? pressMotion : {})}
-      href={prefillHref({ course, goal, message })}
+      href={localePath(locale, prefillHref({ course, goal, message }))}
       onClick={(e) => {
         onClick?.(e);
         if (e.defaultPrevented) return;

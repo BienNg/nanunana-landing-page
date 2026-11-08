@@ -3,12 +3,14 @@
 import { randomUUID } from "node:crypto";
 import { headers } from "next/headers";
 import { courseOptions, goalOptions } from "@/content/form-options";
+import { ui } from "@/content/ui";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { deliverLead } from "@/lib/leads";
 import type { Lead } from "@/lib/leads/types";
 import { checkRateLimit } from "@/lib/spam/ratelimit";
 import { TURNSTILE_FIELD, verifyTurnstile } from "@/lib/spam/turnstile";
 import {
-  consultationSchema,
+  consultationSchemaFor,
   formDataToInput,
   HONEYPOT_FIELD,
   toE164,
@@ -35,6 +37,8 @@ export async function submitConsultation(
   formData: FormData,
 ): Promise<ConsultationState> {
   const raw = formDataToInput(formData);
+  const locale = await getLocale();
+  const errors = ui[locale].errors;
 
   // 1. Honeypot: pretend success so bots learn nothing.
   const honeypot = formData.get(HONEYPOT_FIELD);
@@ -44,7 +48,7 @@ export async function submitConsultation(
   }
 
   // 2. Validate with the shared schema.
-  const parsed = consultationSchema.safeParse(raw);
+  const parsed = consultationSchemaFor(locale).safeParse(raw);
   if (!parsed.success) {
     const fieldErrors: FieldErrors = {};
     for (const issue of parsed.error.issues) {
@@ -61,8 +65,7 @@ export async function submitConsultation(
     return {
       status: "error",
       reason: "rate_limited",
-      message:
-        "Bạn đã gửi nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau ít phút hoặc nhắn Zalo cho chúng tôi.",
+      message: errors.rateLimited,
       values: echo(raw),
     };
   }
@@ -71,19 +74,20 @@ export async function submitConsultation(
     return {
       status: "error",
       reason: "captcha",
-      message: "Chúng tôi chưa xác minh được bạn không phải robot. Vui lòng thử lại.",
+      message: errors.captcha,
       values: echo(raw),
     };
   }
 
   // 4. Normalise and deliver.
-  const course = data.course ? labelOf(courseOptions, data.course) : undefined;
-  const goal = data.goal ? labelOf(goalOptions, data.goal) : undefined;
+  const course = data.course ? labelOf(courseOptions[locale], data.course) : undefined;
+  const goal = data.goal ? labelOf(goalOptions[locale], data.goal) : undefined;
   const opt = (v: string) => v || undefined;
 
   const lead: Lead = {
     id: randomUUID(),
     createdAt: new Date().toISOString(),
+    locale,
     name: data.name,
     phone: toE164(data.phone)!, // validated above
     phoneRaw: data.phone,
@@ -106,8 +110,7 @@ export async function submitConsultation(
     return {
       status: "error",
       reason: "delivery",
-      message:
-        "Rất tiếc, hệ thống chưa gửi được thông tin của bạn. Vui lòng thử lại sau ít phút, hoặc liên hệ trực tiếp qua Zalo / Hotline bên dưới.",
+      message: errors.delivery,
       values: echo(raw),
     };
   }

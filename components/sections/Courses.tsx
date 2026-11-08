@@ -8,7 +8,12 @@ import {
   Star,
   type LucideIcon,
 } from "lucide-react";
-import { courses, coursesSection, type Course } from "@/content/courses";
+import {
+  courses as coursesByLocale,
+  coursesSection as coursesSectionByLocale,
+  type Course,
+} from "@/content/courses";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { cn } from "@/lib/cn";
 import { Badge } from "@/components/ui/Badge";
@@ -19,7 +24,13 @@ import { VerifyMark } from "@/components/ui/VerifyMark";
 import { ChatCtaPair } from "@/components/analytics/ChatCtaPair";
 import { PrefillLink } from "@/components/form/PrefillLink";
 
-function CourseCard({ course }: { course: Course }) {
+function CourseCard({
+  course,
+  section,
+}: {
+  course: Course;
+  section: (typeof coursesSectionByLocale)["vi"];
+}) {
   const featured = !!course.highlight;
   return (
     <article
@@ -73,8 +84,11 @@ function CourseCard({ course }: { course: Course }) {
           course={course.formValue}
           className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md text-brand-teal-dark hover:bg-surface-container-low"
         >
-          {coursesSection.cardCta}
-          <span className="sr-only"> khoá {course.name}</span>
+          {section.cardCta}
+          <span className="sr-only">
+            {" "}
+            {section.cardCtaFor} {course.name}
+          </span>
           <ChevronRight aria-hidden className="size-4" />
         </PrefillLink>
       </footer>
@@ -82,17 +96,20 @@ function CourseCard({ course }: { course: Course }) {
   );
 }
 
-const closerIcons: Record<(typeof coursesSection.closer.points)[number]["id"], LucideIcon> = {
+const closerIcons: Record<
+  (typeof coursesSectionByLocale.vi.closer.points)[number]["id"],
+  LucideIcon
+> = {
   "moi-truong": HeartHandshake,
   "giao-vien": GraduationCap,
   "tam-nhin": Globe,
 };
 
-function CoursesCloser() {
+function CoursesCloser({ section }: { section: (typeof coursesSectionByLocale)["vi"] }) {
   return (
     <div className="mt-14 overflow-hidden rounded-card border border-border-subtle bg-white shadow-tier-1">
       <ul className="grid md:grid-cols-3">
-        {coursesSection.closer.points.map((point) => {
+        {section.closer.points.map((point) => {
           const Icon = closerIcons[point.id];
           return (
             <li
@@ -112,19 +129,18 @@ function CoursesCloser() {
       </ul>
       <div className="border-t border-border-subtle bg-surface-container-low px-6 py-6 text-center md:px-12 md:py-8">
         <p className="text-body-md text-pretty text-ink md:text-body-lg">
-          {coursesSection.closer.invitation}
+          {section.closer.invitation}
         </p>
-        <ChatCtaPair
-          placement="courses"
-          primaryLabel={coursesSection.chatCta}
-          className="mt-6"
-        />
+        <ChatCtaPair placement="courses" primaryLabel={section.chatCta} className="mt-6" />
       </div>
     </div>
   );
 }
 
-export function Courses() {
+export async function Courses() {
+  const locale = await getLocale();
+  const coursesSection = coursesSectionByLocale[locale];
+  const courses = coursesByLocale[locale];
   return (
     <Section id={sectionIds.courses} tone="white">
       <SectionHeading
@@ -141,11 +157,11 @@ export function Courses() {
       <ul className="grid gap-x-gutter-mobile gap-y-8 md:grid-cols-2 md:gap-gutter lg:grid-cols-3">
         {courses.map((c) => (
           <li key={c.id} id={`khoa-hoc-${c.id}`}>
-            <CourseCard course={c} />
+            <CourseCard course={c} section={coursesSection} />
           </li>
         ))}
       </ul>
-      <CoursesCloser />
+      <CoursesCloser section={coursesSection} />
     </Section>
   );
 }

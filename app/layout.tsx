@@ -3,6 +3,9 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { siteCopy } from "@/content/site";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { openGraphLocale, pageAlternates } from "@/lib/i18n/locale";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -13,24 +16,29 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
-export const metadata: Metadata = {
-  metadataBase: getSiteUrl(),
-  title: {
-    default: "NaNu NaNa – Du Học Đức | Tiếng Đức A1–C1, Du học đại học & Du học nghề",
-    template: "%s | NaNu NaNa – Du Học Đức",
-  },
-  description:
-    "Nhắc đến du học Đức là nhắc đến NaNu NaNa — Chất lượng và sự tử tế. Khoá học tiếng Đức A1–C1, tư vấn du học đại học và du học nghề (Ausbildung) tại Đức.",
-  applicationName: "NaNu NaNa – Du Học Đức",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "vi_VN",
-    url: "/",
-    siteName: "NaNu NaNa – Du Học Đức",
-  },
-  twitter: { card: "summary_large_image" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const copy = siteCopy[locale];
+  const alternates = pageAlternates(locale, "/");
+  return {
+    metadataBase: getSiteUrl(),
+    title: {
+      default: copy.metaTitle,
+      template: copy.metaTitleTemplate,
+    },
+    description: copy.metaDescription,
+    applicationName: copy.fullName,
+    alternates,
+    openGraph: {
+      type: "website",
+      locale: openGraphLocale(locale),
+      alternateLocale: [locale === "de" ? "vi_VN" : "de_DE"],
+      url: alternates.canonical,
+      siteName: copy.fullName,
+    },
+    twitter: { card: "summary_large_image" },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#0b7793",
@@ -38,13 +46,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="vi" className={jakarta.variable} data-scroll-behavior="smooth">
+    <html lang={locale} className={jakarta.variable} data-scroll-behavior="smooth">
       <body className="min-h-dvh">
         <MotionProvider>{children}</MotionProvider>
         {/* Scripts are served by Vercel (they 404 on a local `pnpm start`, which is harmless). */}

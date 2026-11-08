@@ -1,19 +1,21 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "motion/react";
 import { CircleAlert, LoaderCircle, Phone, Send } from "lucide-react";
 import { submitConsultation } from "@/app/actions/consultation";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { courseOptions, goalOptions } from "@/content/form-options";
-import { site } from "@/content/site";
+import { siteFor } from "@/content/site";
+import { ui } from "@/content/ui";
 import { trackLead } from "@/lib/analytics";
 import { readAttribution } from "@/lib/attribution";
 import { prefillFromSearch, usePrefill } from "@/lib/prefill-store";
 import {
   attributionFields,
-  consultationSchema,
+  consultationSchemaFor,
   emptyConsultation,
   HONEYPOT_FIELD,
   type ConsultationField,
@@ -55,6 +57,9 @@ function ConsultationFormInner({
   );
   const formRef = useRef<HTMLFormElement>(null);
   const prefill = usePrefill();
+  const locale = useLocale();
+  const copy = ui[locale].form;
+  const resolver = useMemo(() => zodResolver(consultationSchemaFor(locale)), [locale]);
 
   // Values echoed by the server (no-JS round trip) become the defaults.
   const echoed = state.status === "invalid" || state.status === "error" ? state.values : undefined;
@@ -71,7 +76,7 @@ function ConsultationFormInner({
     control,
     formState: { errors, isSubmitted },
   } = useForm<ConsultationInput>({
-    resolver: zodResolver(consultationSchema),
+    resolver,
     mode: "onTouched",
     defaultValues: defaults,
   });
@@ -150,11 +155,11 @@ function ConsultationFormInner({
             transition={{ duration: 0.2 }}
             className="relative grid gap-5 md:grid-cols-2"
           >
-            <Field id="lead-name" label="Họ và tên" required error={errorFor("name")}>
+            <Field id="lead-name" label={copy.name} required error={errorFor("name")}>
               <Input
                 id="lead-name"
                 autoComplete="name"
-                placeholder="Nguyễn Văn A"
+                placeholder={copy.namePlaceholder}
                 defaultValue={defaults.name}
                 aria-required
                 aria-invalid={!!errorFor("name")}
@@ -165,9 +170,9 @@ function ConsultationFormInner({
 
             <Field
               id="lead-phone"
-              label="Số điện thoại / Zalo"
+              label={copy.phone}
               required
-              hint="Số Việt Nam (0… hoặc +84…) hoặc số Đức (+49…)."
+              hint={copy.phoneHint}
               error={errorFor("phone")}
             >
               <Input
@@ -175,7 +180,7 @@ function ConsultationFormInner({
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="0988 123 456"
+                placeholder={copy.phonePlaceholder}
                 defaultValue={defaults.phone}
                 aria-required
                 aria-invalid={!!errorFor("phone")}
@@ -187,7 +192,7 @@ function ConsultationFormInner({
               />
             </Field>
 
-            <Field id="lead-course" label="Khóa học / trình độ quan tâm" error={errorFor("course")}>
+            <Field id="lead-course" label={copy.course} error={errorFor("course")}>
               <Select
                 id="lead-course"
                 defaultValue={defaults.course}
@@ -195,8 +200,8 @@ function ConsultationFormInner({
                 aria-describedby={describedBy("lead-course", { error: !!errorFor("course") })}
                 {...register("course")}
               >
-                <option value="">Chọn khóa học</option>
-                {courseOptions.map((o) => (
+                <option value="">{copy.courseEmpty}</option>
+                {courseOptions[locale].map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -206,7 +211,7 @@ function ConsultationFormInner({
 
             <Field
               id="lead-goal"
-              label="Mục tiêu"
+              label={copy.goal}
               required
               error={errorFor("goal")}
               className="md:col-span-2"
@@ -219,8 +224,8 @@ function ConsultationFormInner({
                 aria-describedby={describedBy("lead-goal", { error: !!errorFor("goal") })}
                 {...register("goal")}
               >
-                <option value="">Chọn mục tiêu của bạn</option>
-                {goalOptions.map((o) => (
+                <option value="">{copy.goalEmpty}</option>
+                {goalOptions[locale].map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -230,7 +235,7 @@ function ConsultationFormInner({
 
             <Field
               id="lead-message"
-              label="Mong muốn khác / câu hỏi"
+              label={copy.message}
               error={errorFor("message")}
               className="md:col-span-2"
             >
@@ -238,7 +243,7 @@ function ConsultationFormInner({
                 id="lead-message"
                 rows={4}
                 maxLength={1000}
-                placeholder="Ví dụ: Mình muốn đi du học nghề điều dưỡng, hiện đang học A2…"
+                placeholder={copy.messagePlaceholder}
                 defaultValue={defaults.message}
                 aria-invalid={!!errorFor("message")}
                 aria-describedby={[
@@ -285,11 +290,11 @@ function ConsultationFormInner({
               >
                 {isPending ? (
                   <>
-                    <LoaderCircle aria-hidden className="animate-spin" /> Đang gửi…
+                    <LoaderCircle aria-hidden className="animate-spin" /> {copy.sending}
                   </>
                 ) : (
                   <>
-                    Gửi Yêu Cầu Tư Vấn <Send aria-hidden />
+                    {copy.submit} <Send aria-hidden />
                   </>
                 )}
               </Button>
@@ -302,6 +307,9 @@ function ConsultationFormInner({
 }
 
 function FormErrorBanner({ message }: { message: string }) {
+  const locale = useLocale();
+  const site = siteFor(locale);
+  const copy = ui[locale].form;
   return (
     <m.div
       role="alert"
@@ -322,7 +330,7 @@ function FormErrorBanner({ message }: { message: string }) {
           track={{ channel: "zalo", placement: "form_error" }}
           className={zaloOnCoral}
         >
-          <ZaloIcon /> Nhắn Zalo
+          <ZaloIcon /> {copy.zalo}
         </AnchorButton>
         <AnchorButton
           href={site.phone.href}

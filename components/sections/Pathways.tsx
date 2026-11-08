@@ -1,5 +1,10 @@
 import { ArrowRight, CircleCheck, Landmark, Wrench } from "lucide-react";
-import { pathways, pathwaysSection, type Pathway } from "@/content/pathways";
+import {
+  pathways as pathwaysByLocale,
+  pathwaysSection as pathwaysSectionByLocale,
+  type Pathway,
+} from "@/content/pathways";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { isVisible } from "@/content/verify";
 import { Badge } from "@/components/ui/Badge";
@@ -76,7 +81,10 @@ function PathwayCard({ p, index }: { p: Pathway; index: number }) {
   );
 }
 
-export function Pathways() {
+export async function Pathways() {
+  const locale = await getLocale();
+  const pathwaysSection = pathwaysSectionByLocale[locale];
+  const pathways = pathwaysByLocale[locale];
   return (
     <section
       id={sectionIds.pathways}

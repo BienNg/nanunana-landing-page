@@ -4,8 +4,10 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "motion/react";
 import { Phone } from "lucide-react";
 import { useAnyInView } from "@/lib/hooks/useInView";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { sectionIds } from "@/content/nav";
 import { site } from "@/content/site";
+import { ui } from "@/content/ui";
 import { MessengerIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { AnchorButton } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
@@ -17,13 +19,15 @@ import { cn } from "@/lib/cn";
  */
 export function MobileCtaBar() {
   const pathname = usePathname();
+  const copy = ui[useLocale()];
   const hide = useAnyInView([`#${sectionIds.contact}`, "#site-footer"], "0px", pathname);
 
   return (
     <AnimatePresence initial={false}>
       {!hide ? (
         <m.nav
-          aria-label="Liên hệ nhanh"
+          id="mobile-cta"
+          aria-label={copy.quickContact}
           className="fixed inset-x-0 bottom-0 z-40 border-t border-border-subtle bg-white/95 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-tier-3 backdrop-blur md:hidden"
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
@@ -41,7 +45,7 @@ export function MobileCtaBar() {
                 track={{ channel: "zalo", placement: "mobile_bar" }}
                 className={cn("min-w-0 px-2", zaloOnCoral)}
               >
-                <ZaloIcon /> Nhắn Zalo
+                <ZaloIcon /> {copy.zalo}
               </AnchorButton>
             </li>
             <li className="min-w-0">
@@ -53,10 +57,10 @@ export function MobileCtaBar() {
                 size="sm"
                 fullWidth
                 track={{ channel: "messenger", placement: "mobile_bar" }}
-                aria-label="Nhắn tin Messenger"
+                aria-label={copy.messenger}
                 className="min-w-0 px-2"
               >
-                <MessengerIcon /> Chat
+                <MessengerIcon /> {copy.chat}
               </AnchorButton>
             </li>
             <li>
@@ -65,7 +69,7 @@ export function MobileCtaBar() {
                 variant="ghost"
                 size="sm"
                 track={{ channel: "phone", placement: "mobile_bar" }}
-                aria-label={`Gọi hotline ${site.phone.display}`}
+                aria-label={`${copy.callHotline} ${site.phone.display}`}
                 className="size-11 px-0"
               >
                 <Phone aria-hidden />

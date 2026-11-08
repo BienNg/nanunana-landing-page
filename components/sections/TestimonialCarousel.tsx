@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { carouselPosition, testimonialsSection } from "@/content/testimonials";
 import { m, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -25,6 +27,8 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
   const [pages, setPages] = useState(1);
   const [overflow, setOverflow] = useState(false);
   const reduce = useReducedMotion();
+  const locale = useLocale();
+  const copy = testimonialsSection[locale];
 
   const measure = useCallback(() => {
     const track = trackRef.current;
@@ -80,7 +84,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
     <div role="region" aria-roledescription="carousel" aria-label={label}>
       <ul
         ref={trackRef}
-        className="contain-paint -mx-margin-mobile flex snap-x snap-mandatory scroll-px-margin-mobile [scrollbar-width:none] gap-gutter-mobile overflow-x-auto px-margin-mobile pb-2 md:mx-0 md:scroll-px-0 md:gap-gutter md:px-0 [&::-webkit-scrollbar]:hidden"
+        className="-mx-margin-mobile flex snap-x snap-mandatory scroll-px-margin-mobile [scrollbar-width:none] gap-gutter-mobile overflow-x-auto px-margin-mobile pb-2 contain-paint md:mx-0 md:scroll-px-0 md:gap-gutter md:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((slide, i) => (
           <li
@@ -102,19 +106,19 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
             type="button"
             onClick={() => go(active - 1)}
             disabled={active === 0}
-            aria-label="Câu chuyện trước"
+            aria-label={copy.previous}
             className="grid size-tap place-items-center rounded-full border border-border-subtle bg-white text-ink shadow-tier-1 transition-opacity disabled:opacity-40"
             {...pressMotion}
           >
             <ChevronLeft aria-hidden className="size-5" />
           </m.button>
-          <ol className="flex items-center gap-1" aria-label="Chọn câu chuyện">
+          <ol className="flex items-center gap-1" aria-label={copy.choose}>
             {Array.from({ length: pages }, (_, i) => (
               <li key={i}>
                 <button
                   type="button"
                   onClick={() => go(i)}
-                  aria-label={`Vị trí ${i + 1} / ${pages}`}
+                  aria-label={carouselPosition(locale, i + 1, pages)}
                   aria-current={i === active ? "true" : undefined}
                   className="relative grid size-tap place-items-center"
                 >
@@ -135,7 +139,7 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
             type="button"
             onClick={() => go(active + 1)}
             disabled={active >= pages - 1}
-            aria-label="Câu chuyện tiếp theo"
+            aria-label={copy.next}
             className={cn(
               "grid size-tap place-items-center rounded-full border border-border-subtle bg-white text-ink shadow-tier-1 transition-opacity disabled:opacity-40",
             )}

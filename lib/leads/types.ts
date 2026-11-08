@@ -1,9 +1,12 @@
 import type { CourseValue, GoalValue } from "@/content/form-options";
+import type { Locale } from "@/lib/i18n/locale";
 
 /** A validated, normalised lead — what every destination receives. */
 export type Lead = {
   id: string;
   createdAt: string; // ISO 8601
+  /** Page language the visitor used. Option values stay stable; labels match this language. */
+  locale: Locale;
   name: string;
   phone: string; // E.164
   phoneRaw: string;

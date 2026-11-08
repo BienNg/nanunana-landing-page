@@ -1,28 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Briefcase, Mail, MapPin } from "lucide-react";
-import { applyHref, careerHref, careers, openRoles as getOpenRoles } from "@/content/careers";
+import {
+  applyHref,
+  careerHref,
+  careersContent,
+  openRoles as getOpenRoles,
+} from "@/content/careers";
 import { isVisible } from "@/content/verify";
 import { AnchorButton, LinkButton } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { VerifyMark } from "@/components/ui/VerifyMark";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { localePath, pageAlternates } from "@/lib/i18n/locale";
 
-export const metadata: Metadata = {
-  title: "Tuyển Dụng",
-  description: careers.intro,
-  alternates: { canonical: "/tuyen-dung" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const careers = careersContent(locale);
+  return {
+    title: careers.metaTitle,
+    description: careers.intro,
+    alternates: pageAlternates(locale, "/tuyen-dung"),
+  };
+}
 
-export default function CareersPage() {
-  const openRoles = getOpenRoles();
+export default async function CareersPage() {
+  const locale = await getLocale();
+  const careers = careersContent(locale);
+  const openRoles = getOpenRoles(locale);
 
   return (
     <>
       <section className="border-b border-border-subtle bg-white">
         <div className="container-page py-14 md:py-20">
           <Badge>
-            <Briefcase aria-hidden /> Gia nhập NaNu NaNa
+            <Briefcase aria-hidden /> {careers.joinBadge}
           </Badge>
           <h1 className="mt-4 text-display-hero-mobile text-ink md:text-display-hero">
             {careers.title}
@@ -34,7 +47,7 @@ export default function CareersPage() {
       <section aria-labelledby="vi-tri" className="section-y">
         <div className="container-page">
           <h2 id="vi-tri" className="text-headline-lg text-ink">
-            Vị trí đang tuyển
+            {careers.openRoles}
           </h2>
           {openRoles.length === 0 ? (
             <p className="mt-4 max-w-2xl text-body-md text-ink-muted">{careers.noOpenRoles}</p>
@@ -44,7 +57,10 @@ export default function CareersPage() {
               <li key={role.slug}>
                 <Card tier={1} interactive className="flex h-full flex-col">
                   <h3 className="text-headline-md text-ink">
-                    <Link href={careerHref(role.slug)} className="hover:text-teal">
+                    <Link
+                      href={localePath(locale, careerHref(role.slug))}
+                      className="hover:text-teal"
+                    >
                       {role.title}
                     </Link>
                   </h3>
@@ -62,14 +78,14 @@ export default function CareersPage() {
                   </VerifyMark>
                   <div className="mt-auto flex flex-wrap gap-3 pt-6">
                     <LinkButton href={careerHref(role.slug)} variant="outline">
-                      Xem chi tiết <ArrowRight aria-hidden />
+                      {careers.viewRole} <ArrowRight aria-hidden />
                     </LinkButton>
                     <AnchorButton
-                      href={applyHref(role)}
+                      href={applyHref(locale, role)}
                       variant="primary"
                       apply={{ role: role.slug, placement: "role_list" }}
                     >
-                      <Mail aria-hidden /> Gửi CV
+                      <Mail aria-hidden /> {careers.sendCv}
                     </AnchorButton>
                   </div>
                 </Card>
@@ -82,11 +98,11 @@ export default function CareersPage() {
             className="mt-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
           >
             <div>
-              <h2 className="text-headline-sm text-ink">Chưa thấy vị trí phù hợp?</h2>
+              <h2 className="text-headline-sm text-ink">{careers.otherRole}</h2>
               <p className="mt-1 max-w-xl text-body-md text-ink-muted">{careers.applyHowTo}</p>
             </div>
             <AnchorButton
-              href={applyHref()}
+              href={applyHref(locale)}
               variant="primary"
               className="shrink-0"
               apply={{ role: "general", placement: "general" }}

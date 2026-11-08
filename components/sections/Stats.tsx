@@ -1,6 +1,9 @@
 import { GraduationCap, History, BadgeCheck, MapPin, type LucideIcon } from "lucide-react";
-import { stats, type StatIcon } from "@/content/stats";
+import { stats as statsByLocale, type StatIcon } from "@/content/stats";
+import { ui } from "@/content/ui";
 import { isVisible } from "@/content/verify";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { dateLocale } from "@/lib/i18n/locale";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
 const icons: Record<StatIcon, LucideIcon> = {
@@ -10,17 +13,18 @@ const icons: Record<StatIcon, LucideIcon> = {
   offices: MapPin,
 };
 
-const nf = new Intl.NumberFormat("vi-VN");
-
 /** Stats strip — renders only confirmed stats in production. */
-export function Stats() {
+export async function Stats() {
+  const locale = await getLocale();
+  const stats = statsByLocale[locale];
+  const nf = new Intl.NumberFormat(dateLocale(locale));
   const visible = stats.filter((s) => isVisible(s.value));
   if (visible.length === 0) return null;
 
   return (
     <section
       id="thanh-tich"
-      aria-label="Thành tích của NaNu NaNa"
+      aria-label={ui[locale].statsLabel}
       className="border-y border-border-subtle bg-white"
     >
       <dl className="container-page grid grid-cols-2 gap-x-3 gap-y-8 py-10 sm:gap-x-gutter md:py-12 lg:grid-cols-4 lg:gap-y-0">

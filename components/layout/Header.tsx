@@ -6,19 +6,27 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, Phone } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useScrollSpy } from "@/lib/hooks/useScrollSpy";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { mainNav } from "@/content/nav";
-import { site } from "@/content/site";
+import { siteFor } from "@/content/site";
+import { ui } from "@/content/ui";
+import { localePath, unlocalizedPath } from "@/lib/i18n/locale";
 import { AnchorButton } from "@/components/ui/Button";
 import { ChatLink } from "@/components/analytics/ChatLink";
 import { MessengerIcon, WhatsAppIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
-const spyIds = mainNav.flatMap((item) => item.spy ?? []);
-
 export function Header() {
+  const locale = useLocale();
+  const nav = mainNav[locale];
+  const site = siteFor(locale);
+  const copy = ui[locale];
+  const spyIds = nav.flatMap((item) => item.spy ?? []);
   const pathname = usePathname();
-  const active = useScrollSpy(pathname === "/" ? spyIds : []);
+  const path = unlocalizedPath(pathname);
+  const active = useScrollSpy(path === "/" ? spyIds : []);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -30,10 +38,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isActive = (href: string, spy?: string[]) =>
+  const isActive = (href: string, spy?: readonly string[]) =>
     href.startsWith("/#")
-      ? pathname === "/" && !!active && !!spy?.includes(active)
-      : pathname === href;
+      ? path === "/" && !!active && !!spy?.includes(active)
+      : path === unlocalizedPath(href);
 
   return (
     <header
@@ -45,14 +53,14 @@ export function Header() {
       <div className="container-page flex h-header items-center justify-between gap-4">
         <Logo priority />
 
-        <nav aria-label="Điều hướng chính" className="hidden xl:block">
+        <nav aria-label={copy.nav} className="hidden xl:block">
           <ul className="flex items-center gap-1">
-            {mainNav.map((item) => {
+            {nav.map((item) => {
               const current = isActive(item.href, item.spy);
               return (
                 <li key={item.href}>
                   <Link
-                    href={item.href}
+                    href={localePath(locale, item.href)}
                     aria-current={
                       current ? (item.href.startsWith("/#") ? "location" : "page") : undefined
                     }
@@ -72,6 +80,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-2">
+          <LanguageSwitcher className="mr-1" />
           <ChatLink
             href={site.phone.href}
             channel="phone"
@@ -89,7 +98,7 @@ export function Header() {
             track={{ channel: "zalo", placement: "header" }}
             className={cn("hidden md:inline-flex", zaloOnCoral)}
           >
-            <ZaloIcon /> Nhắn Zalo
+            <ZaloIcon /> {copy.zalo}
           </AnchorButton>
           <ChatLink
             href={site.channels.messenger}
@@ -97,7 +106,7 @@ export function Header() {
             placement="header"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Nhắn tin Messenger"
+            aria-label={copy.messenger}
             className="hidden size-tap place-items-center rounded-control text-[22px] text-[#0866ff] transition-colors hover:bg-surface-container-low md:grid"
           >
             <MessengerIcon />
@@ -108,7 +117,7 @@ export function Header() {
             placement="header"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Nhắn tin WhatsApp"
+            aria-label={copy.whatsapp}
             className="hidden size-tap place-items-center rounded-control text-[22px] text-[#128C7E] transition-colors hover:bg-surface-container-low lg:grid"
           >
             <WhatsAppIcon />
@@ -116,7 +125,7 @@ export function Header() {
           <button
             ref={menuButtonRef}
             type="button"
-            aria-label="Mở menu"
+            aria-label={copy.openMenu}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen(true)}

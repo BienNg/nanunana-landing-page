@@ -1,7 +1,13 @@
 import type { ReactNode } from "react";
 import { Star } from "lucide-react";
-import { testimonialsSection } from "@/content/testimonials";
+import {
+  reviewCountLabel,
+  starsLabel,
+  testimonialsSection as testimonialsByLocale,
+} from "@/content/testimonials";
 import { sectionIds } from "@/content/nav";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { dateLocale } from "@/lib/i18n/locale";
 import { cn } from "@/lib/cn";
 import { getGoogleReviews, type GoogleReview, type GoogleReviews } from "@/lib/google/reviews";
 import { Avatar } from "@/components/ui/Avatar";
@@ -16,23 +22,26 @@ const externalLink = {
 
 /** Public Google reviews. Hidden when Places API is unset or returns nothing. */
 export async function Testimonials() {
-  const data = await getGoogleReviews();
+  const locale = await getLocale();
+  const copy = testimonialsByLocale[locale];
+  const data = await getGoogleReviews(locale);
   if (!data) return null;
 
   return (
-    <ReviewsFrame>
-      <ReviewSummary data={data} />
+    <ReviewsFrame locale={locale}>
+      <ReviewSummary data={data} locale={locale} />
       <TestimonialCarousel
-        label={testimonialsSection.title}
+        label={copy.title}
         slides={data.reviews.map((review) => (
-          <ReviewCard key={review.id} review={review} />
+          <ReviewCard key={review.id} review={review} locale={locale} />
         ))}
       />
     </ReviewsFrame>
   );
 }
 
-function ReviewsFrame({ children }: { children: ReactNode }) {
+function ReviewsFrame({ children, locale }: { children: ReactNode; locale: "vi" | "de" }) {
+  const testimonialsSection = testimonialsByLocale[locale];
   return (
     <Section id={sectionIds.testimonials} tone="white">
       <SectionHeading
@@ -46,12 +55,17 @@ function ReviewsFrame({ children }: { children: ReactNode }) {
   );
 }
 
-function ReviewSummary({ data }: { data: GoogleReviews }) {
+function ReviewSummary({ data, locale }: { data: GoogleReviews; locale: "vi" | "de" }) {
+  const copy = testimonialsByLocale[locale];
+  const numberLocale = dateLocale(locale);
   const rating =
     data.rating == null
       ? null
-      : data.rating.toLocaleString("vi-VN", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const count = data.ratingCount?.toLocaleString("vi-VN");
+      : data.rating.toLocaleString(numberLocale, {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        });
+  const count = data.ratingCount?.toLocaleString(numberLocale);
 
   return (
     <p className="-mt-4 mb-space-lg flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-body-sm text-ink-muted">
@@ -61,7 +75,9 @@ function ReviewSummary({ data }: { data: GoogleReviews }) {
           {rating}
         </span>
       ) : null}
-      {count ? <span>{count} đánh giá</span> : null}
+      {count && data.ratingCount != null ? (
+        <span>{reviewCountLabel(locale, data.ratingCount)}</span>
+      ) : null}
       {data.mapsUri ? (
         <a
           href={data.mapsUri}
@@ -69,8 +85,8 @@ function ReviewSummary({ data }: { data: GoogleReviews }) {
           className="inline-flex items-center gap-1.5 rounded-control text-brand-teal-dark underline-offset-2 hover:underline focus-visible:ring-[3px] focus-visible:ring-teal/30 focus-visible:outline-none"
         >
           <GoogleMark />
-          {testimonialsSection.allReviews}
-          <span className="sr-only"> (mở trong tab mới)</span>
+          {copy.allReviews}
+          <span className="sr-only"> {copy.newTab}</span>
         </a>
       ) : (
         <span className="inline-flex items-center gap-1.5">
@@ -82,11 +98,12 @@ function ReviewSummary({ data }: { data: GoogleReviews }) {
   );
 }
 
-function ReviewCard({ review }: { review: GoogleReview }) {
-  const when = review.relativeTime ?? formatPublished(review.publishedAt);
+function ReviewCard({ review, locale }: { review: GoogleReview; locale: "vi" | "de" }) {
+  const copy = testimonialsByLocale[locale];
+  const when = review.relativeTime ?? formatPublished(review.publishedAt, locale);
   return (
     <figure className="flex h-full flex-col rounded-card border border-border-subtle bg-surface-canvas p-space-lg">
-      <Stars rating={review.rating} />
+      <Stars rating={review.rating} locale={locale} />
       <blockquote className="mt-3 flex-1 text-body-md text-ink">
         <p className="line-clamp-6">{review.text}</p>
       </blockquote>
@@ -96,14 +113,14 @@ function ReviewCard({ review }: { review: GoogleReview }) {
           {...externalLink}
           className="mt-3 self-start text-body-sm text-brand-teal-dark underline-offset-2 hover:underline focus-visible:ring-[3px] focus-visible:ring-teal/30 focus-visible:outline-none"
         >
-          {testimonialsSection.readOnGoogle}
-          <span className="sr-only"> (mở trong tab mới)</span>
+          {copy.readOnGoogle}
+          <span className="sr-only"> {copy.newTab}</span>
         </a>
       ) : null}
       <figcaption className="mt-6 flex items-center gap-3">
         <Avatar name={review.authorName} photo={review.authorPhotoUri ?? undefined} size={48} />
         <div className="min-w-0">
-          <AuthorName name={review.authorName} href={review.authorUri} />
+          <AuthorName name={review.authorName} href={review.authorUri} locale={locale} />
           {when ? (
             <p className="text-body-sm text-ink-subtle">
               {review.publishedAt ? <time dateTime={review.publishedAt}>{when}</time> : when}
@@ -115,7 +132,15 @@ function ReviewCard({ review }: { review: GoogleReview }) {
   );
 }
 
-function AuthorName({ name, href }: { name: string; href: string | null }) {
+function AuthorName({
+  name,
+  href,
+  locale,
+}: {
+  name: string;
+  href: string | null;
+  locale: "vi" | "de";
+}) {
   if (!href) return <p className="truncate text-label-lg text-ink">{name}</p>;
   return (
     <a
@@ -124,15 +149,15 @@ function AuthorName({ name, href }: { name: string; href: string | null }) {
       className="block truncate text-label-lg text-ink underline-offset-2 hover:underline focus-visible:ring-[3px] focus-visible:ring-teal/30 focus-visible:outline-none"
     >
       {name}
-      <span className="sr-only"> trên Google (mở trong tab mới)</span>
+      <span className="sr-only"> {testimonialsByLocale[locale].onGoogle}</span>
     </a>
   );
 }
 
-function Stars({ rating }: { rating: number }) {
+function Stars({ rating, locale }: { rating: number; locale: "vi" | "de" }) {
   const filled = Math.max(0, Math.min(5, Math.round(rating)));
   return (
-    <div className="flex gap-0.5" aria-label={`${filled} trên 5 sao`}>
+    <div className="flex gap-0.5" aria-label={starsLabel(locale, filled)}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
@@ -172,9 +197,9 @@ function GoogleMark() {
   );
 }
 
-function formatPublished(iso: string | null) {
+function formatPublished(iso: string | null, locale: "vi" | "de") {
   if (!iso) return null;
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return null;
-  return new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium" }).format(date);
+  return new Intl.DateTimeFormat(dateLocale(locale), { dateStyle: "medium" }).format(date);
 }

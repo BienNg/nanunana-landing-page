@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { cn } from "@/lib/cn";
-import { site } from "@/content/site";
+import { site, siteFor } from "@/content/site";
+import { localePath } from "@/lib/i18n/locale";
 import logoMark from "@/public/brand/logo-mark.png";
 
 /** Graduation-cap mark + wordmark. Links to the home page. */
@@ -14,11 +18,13 @@ export function Logo({
   className?: string;
   priority?: boolean;
 }) {
+  const locale = useLocale();
+  const brand = siteFor(locale);
   const dark = tone === "dark";
   return (
     <Link
-      href="/"
-      aria-label={`${site.fullName} — Trang chủ`}
+      href={localePath(locale, "/")}
+      aria-label={`${brand.fullName} — ${brand.homeLabel}`}
       className={cn("inline-flex min-h-tap items-center gap-2.5", className)}
     >
       <span
@@ -44,7 +50,7 @@ export function Logo({
             dark ? "text-ink-inverse-muted" : "text-ink-subtle",
           )}
         >
-          {site.tagline}
+          {brand.tagline}
         </span>
       </span>
     </Link>

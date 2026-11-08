@@ -6,6 +6,7 @@
  * Width/height/blur come from the static import automatically.
  */
 import type { StaticImageData } from "next/image";
+import type { Locale } from "@/lib/i18n/locale";
 
 import founderPhuong from "@/public/images/founder-phuong.webp";
 import pathwayUniversity from "@/public/images/du-hoc-duc/du-hoc-dai-hoc-thanh-pho-duc.webp";
@@ -123,6 +124,43 @@ export const images = {
 } satisfies Record<string, SiteImage>;
 
 export type ImageKey = keyof typeof images;
+
+const imageAltDe: Record<ImageKey, string> = {
+  logoFull: "Logo NaNu NaNa – Studium in Deutschland",
+  founderPhuong: "Porträt von Phương, Geschäftsführerin von NaNu NaNa",
+  pathwayUniversity: "Blick über eine deutsche Stadt, Ziel für ein Studium",
+  pathwayVocational: "Team aus Hotellerie und Gastronomie, Ausbildung in Deutschland",
+  appPhone: "Videolektion Lektion 2 in der NaNu-NaNa-App auf dem Telefon",
+  appTablet: "Lektionsliste Niveau A1.1 in der NaNu-NaNa-App auf dem Tablet",
+  appDesktop: "Hörübung Auf Wiedersehen in der NaNu-NaNa-App am Computer",
+  galleryLopHoc: "Deutschkurs bei NaNu NaNa, Lernende mit Heften und der deutschen Flagge",
+  galleryBanDo: "Lernende von NaNu NaNa vor einer Karte von Vietnam und Deutschland",
+  galleryVisa: "Lernende von NaNu NaNa mit dem Visum für Deutschland",
+  gallerySinhNhat: "Lernende von NaNu NaNa feiern einen Geburtstag im Deutschkurs",
+  gallerySanBay:
+    "Familie verabschiedet eine lernende Person nach Deutschland, Koffer mit NaNu-NaNa-Logo",
+  gallerySanBayGiaDinh: "Familie bringt eine lernende Person von NaNu NaNa zum Flughafen",
+  galleryLopTrungTam: "Deutschlernende beim Foto im Zentrum von NaNu NaNa",
+  galleryTaiDuc:
+    "Lernende von NaNu NaNa mit Kolleginnen und Kollegen an einem Arbeitstag in Deutschland",
+  galleryMinhAnh: "Minh Anh mit dem Visum für Deutschland und ihrer Lehrerin bei NaNu NaNa",
+  galleryGiaDinh: "Familie verabschiedet eine lernende Person von NaNu NaNa am Abflug",
+  galleryThamQuan: "Lernende von NaNu NaNa bei einem Besuch in Deutschland",
+};
+
+export function imagesFor(locale: Locale) {
+  if (locale === "vi") return images;
+  return Object.fromEntries(
+    (Object.keys(images) as ImageKey[]).map((key) => [
+      key,
+      { ...images[key], alt: imageAltDe[key] },
+    ]),
+  ) as typeof images;
+}
+
+export function placeholderLabel(locale: Locale) {
+  return locale === "de" ? "Beispielbild" : "Ảnh mẫu";
+}
 
 /** Stable public URLs for the two pathway photos, listed on the homepage image sitemap. */
 export const pathwayImageUrls = [

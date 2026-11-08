@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { classPhotoLabel } from "@/content/classes";
+import { ui } from "@/content/ui";
 import { classPhotoThumbSrc, classPhotoViewSrc, notionFileId } from "@/lib/notion/file-id";
 
 type Photo = { url: string; name: string };
@@ -94,6 +97,7 @@ export function ClassPhotos({
   /** `fill` stretches photos to the full height of a mobile class row. */
   layout?: "inline" | "fill";
 }) {
+  const locale = useLocale();
   const [active, setActive] = useState<Photo | null>(null);
   const restoreFocus = useRef<HTMLElement | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -125,7 +129,7 @@ export function ClassPhotos({
 
   if (media.length === 0) return <span className="text-ink-subtle">—</span>;
 
-  const label = `Ảnh lớp ${name}`;
+  const label = classPhotoLabel(locale, name);
 
   return (
     <>
@@ -153,7 +157,7 @@ export function ClassPhotos({
                   ref={closeRef}
                   type="button"
                   onClick={() => setActive(null)}
-                  aria-label="Đóng ảnh"
+                  aria-label={ui[locale].closePhoto}
                   className="absolute top-3 right-3 grid size-tap place-items-center rounded-full bg-white text-ink shadow-tier-2"
                 >
                   <X aria-hidden className="size-5" />

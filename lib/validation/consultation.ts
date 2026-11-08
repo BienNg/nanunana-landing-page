@@ -4,56 +4,50 @@
  */
 import * as z from "zod/mini";
 import { courseValues, goalValues } from "@/content/form-options";
+import { ui } from "@/content/ui";
+import type { Locale } from "@/lib/i18n/locale";
 import { isAcceptedPhone } from "./phone";
 
 export { toE164 } from "./phone";
 
-export const messages = {
-  nameRequired: "Vui lòng nhập họ và tên của bạn.",
-  nameShort: "Họ và tên cần ít nhất 2 ký tự.",
-  nameLong: "Họ và tên tối đa 80 ký tự.",
-  phoneRequired: "Vui lòng nhập số điện thoại hoặc Zalo để chúng tôi liên hệ.",
-  phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ, ví dụ 0988 123 456 (hoặc số Đức +49 151 …).",
-  messageLong: "Nội dung tối đa 1000 ký tự.",
-  goalRequired: "Vui lòng chọn mục tiêu của bạn.",
-  choose: "Vui lòng chọn một mục trong danh sách.",
-} as const;
-
 const optionalText = (max: number) => z.string().check(z.trim(), z.maxLength(max));
 
-// zod/mini: same rules as full Zod, but tree-shakeable (much smaller in the browser).
-export const consultationSchema = z.object({
-  name: z
-    .string()
-    .check(
-      z.trim(),
-      z.minLength(1, messages.nameRequired),
-      z.minLength(2, messages.nameShort),
-      z.maxLength(80, messages.nameLong),
-    ),
-  phone: z
-    .string()
-    .check(
-      z.trim(),
-      z.minLength(1, messages.phoneRequired),
-      z.refine(isAcceptedPhone, messages.phoneInvalid),
-    ),
-  course: z.union([z.literal(""), z.enum(courseValues)], { error: messages.choose }),
-  goal: z
-    .union([z.literal(""), z.enum(goalValues)])
-    .check(z.refine((v) => v !== "", messages.goalRequired)),
-  message: z.string().check(z.trim(), z.maxLength(1000, messages.messageLong)),
-  // Attribution (hidden fields)
-  utm_source: optionalText(200),
-  utm_medium: optionalText(200),
-  utm_campaign: optionalText(200),
-  utm_content: optionalText(200),
-  fbclid: optionalText(500),
-  landing_page: optionalText(2000),
-  referrer: optionalText(2000),
-});
+/** Same rules in both languages. Only the messages change. */
+export function consultationSchemaFor(locale: Locale) {
+  const messages = ui[locale].validation;
+  return z.object({
+    name: z
+      .string()
+      .check(
+        z.trim(),
+        z.minLength(1, messages.nameRequired),
+        z.minLength(2, messages.nameShort),
+        z.maxLength(80, messages.nameLong),
+      ),
+    phone: z
+      .string()
+      .check(
+        z.trim(),
+        z.minLength(1, messages.phoneRequired),
+        z.refine(isAcceptedPhone, messages.phoneInvalid),
+      ),
+    course: z.union([z.literal(""), z.enum(courseValues)], { error: messages.choose }),
+    goal: z
+      .union([z.literal(""), z.enum(goalValues)])
+      .check(z.refine((v) => v !== "", messages.goalRequired)),
+    message: z.string().check(z.trim(), z.maxLength(1000, messages.messageLong)),
+    // Attribution (hidden fields)
+    utm_source: optionalText(200),
+    utm_medium: optionalText(200),
+    utm_campaign: optionalText(200),
+    utm_content: optionalText(200),
+    fbclid: optionalText(500),
+    landing_page: optionalText(2000),
+    referrer: optionalText(2000),
+  });
+}
 
-export type ConsultationInput = z.infer<typeof consultationSchema>;
+export type ConsultationInput = z.infer<ReturnType<typeof consultationSchemaFor>>;
 export type ConsultationField = keyof ConsultationInput;
 
 /** Field names the user fills in (in form order) — used for error focus/ordering. */

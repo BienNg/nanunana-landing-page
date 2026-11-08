@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { ArrowRight, Quote } from "lucide-react";
-import { founderSection } from "@/content/founder";
-import { founder } from "@/content/team";
-import { images } from "@/content/images";
+import { founderSection as founderSectionByLocale } from "@/content/founder";
+import { founder as founderByLocale } from "@/content/team";
+import { imagesFor, placeholderLabel } from "@/content/images";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { PrefillLink } from "@/components/form/PrefillLink";
@@ -10,7 +11,11 @@ import { Section } from "@/components/ui/Section";
 
 const isDev = process.env.NODE_ENV !== "production";
 
-export function Founder() {
+export async function Founder() {
+  const locale = await getLocale();
+  const founderSection = founderSectionByLocale[locale];
+  const founder = founderByLocale[locale];
+  const images = imagesFor(locale);
   return (
     <Section id={sectionIds.founder}>
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-gutter">
@@ -26,7 +31,7 @@ export function Founder() {
             />
             {isDev && images.founderPhuong.placeholder ? (
               <span className="absolute top-3 left-3 rounded-full bg-amber px-2 py-0.5 text-label-sm text-ink uppercase">
-                Ảnh mẫu
+                {placeholderLabel(locale)}
               </span>
             ) : null}
             <figcaption className="absolute inset-x-3 bottom-3 rounded-card bg-white/95 p-4 shadow-tier-2 backdrop-blur">

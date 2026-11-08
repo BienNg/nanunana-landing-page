@@ -1,6 +1,7 @@
-import { faqs, faqSection } from "@/content/faq";
+import { faqs as faqsByLocale, faqSection as faqSectionByLocale } from "@/content/faq";
 import { sectionIds } from "@/content/nav";
 import { site } from "@/content/site";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { isVisible } from "@/content/verify";
 import { ChatCtaPair } from "@/components/analytics/ChatCtaPair";
 import { ChatLink } from "@/components/analytics/ChatLink";
@@ -10,7 +11,10 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqList } from "./FaqList";
 
 /** Hidden until at least one answer is confirmed. JSON-LD only includes confirmed answers. */
-export function Faq() {
+export async function Faq() {
+  const locale = await getLocale();
+  const faqs = faqsByLocale[locale];
+  const faqSection = faqSectionByLocale[locale];
   const visible = faqs.filter((f) => isVisible(f.answer));
   if (visible.length === 0) return null;
   const confirmed = faqs.filter((f) => f.answer.status === "ok");

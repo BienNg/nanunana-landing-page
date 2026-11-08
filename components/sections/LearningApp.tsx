@@ -9,10 +9,11 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import {
-  learningAppSection,
+  learningAppSection as learningAppByLocale,
   type LearningAppDevice,
   type LearningAppFeature,
 } from "@/content/learning-app";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { Badge } from "@/components/ui/Badge";
@@ -50,10 +51,6 @@ const deviceFrame: Record<
   },
 };
 
-const devicesById = Object.fromEntries(
-  learningAppSection.devices.map((device) => [device.id, device]),
-) as Record<LearningAppDevice["id"], LearningAppDevice>;
-
 function Device({ device }: { device: LearningAppDevice }) {
   const frame = deviceFrame[device.id];
   const bezel =
@@ -81,8 +78,7 @@ function Device({ device }: { device: LearningAppDevice }) {
   );
 }
 
-function EarlyAccess() {
-  const offer = learningAppSection.earlyAccess;
+function EarlyAccess({ offer }: { offer: (typeof learningAppByLocale)["vi"]["earlyAccess"] }) {
   return (
     <div className="relative mt-6">
       <div
@@ -92,10 +88,10 @@ function EarlyAccess() {
       <div className="overflow-hidden rounded-card bg-white shadow-tier-2 ring-1 ring-accent-coral/25">
         <div
           aria-hidden
-          className="h-1 bg-gradient-to-r from-accent-coral via-tertiary-fixed-dim to-brand-teal-light"
+          className="via-tertiary-fixed-dim h-1 bg-gradient-to-r from-accent-coral to-brand-teal-light"
         />
         <div className="flex gap-4 p-4 sm:p-5">
-          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-tertiary-fixed to-white text-coral-ink ring-1 ring-inset ring-accent-coral/30">
+          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-tertiary-fixed to-white text-coral-ink ring-1 ring-accent-coral/30 ring-inset">
             <Sparkles aria-hidden className="size-5" />
           </span>
           <div className="min-w-0">
@@ -143,7 +139,11 @@ function Feature({ feature }: { feature: LearningAppFeature }) {
   );
 }
 
-export function LearningApp() {
+export async function LearningApp() {
+  const learningAppSection = learningAppByLocale[await getLocale()];
+  const devicesById = Object.fromEntries(
+    learningAppSection.devices.map((device) => [device.id, device]),
+  ) as Record<LearningAppDevice["id"], LearningAppDevice>;
   return (
     <section
       id={sectionIds.learningApp}
@@ -165,7 +165,7 @@ export function LearningApp() {
           <p className="mt-4 text-body-md text-pretty text-ink-muted md:text-body-lg">
             {learningAppSection.intro}
           </p>
-          <EarlyAccess />
+          <EarlyAccess offer={learningAppSection.earlyAccess} />
           <div className="mt-5">
             <VerifyMark claim={learningAppSection.unique} as="div">
               {(text) => (

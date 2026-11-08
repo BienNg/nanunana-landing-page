@@ -1,6 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import {
+  classCountLabel,
   classRegisterMessage,
+  classRegisterSr,
   courseValueForLevel,
   formatClassDate,
   levelTone,
@@ -8,6 +10,8 @@ import {
   runningClassesSection,
 } from "@/content/classes";
 import { sectionIds } from "@/content/nav";
+import { getLocale } from "@/lib/i18n/get-locale";
+import type { Locale } from "@/lib/i18n/locale";
 import { cn } from "@/lib/cn";
 import type { RunningClass } from "@/lib/notion/classes";
 import { getRunningClasses } from "@/lib/notion/classes";
@@ -45,31 +49,33 @@ function ClassName({ item, className }: { item: RunningClass; className?: string
   );
 }
 
-function LocationLabel({ location }: { location: string | null }) {
+function LocationLabel({ location, locale }: { location: string | null; locale: Locale }) {
   if (!location) return <span className="text-ink-subtle">—</span>;
   return (
     <Badge tone="neutral" className="normal-case">
-      {locationLabel(location)}
+      {locationLabel(locale, location)}
     </Badge>
   );
 }
 
-function RegisterLink({ item }: { item: RunningClass }) {
+function RegisterLink({ item, locale }: { item: RunningClass; locale: Locale }) {
+  const copy = runningClassesSection[locale];
   return (
     <PrefillLink
       course={courseValueForLevel(item.level)}
-      message={classRegisterMessage(item)}
+      message={classRegisterMessage(locale, item)}
       className="inline-flex min-h-tap items-center gap-1 rounded-control bg-surface-container-low px-2.5 text-label-md whitespace-nowrap text-brand-teal-dark ring-1 ring-teal/30 ring-inset hover:bg-white hover:ring-teal/50 md:-mr-2"
     >
-      {runningClassesSection.register}
-      <span className="sr-only"> lớp {item.name}</span>
+      {copy.register}
+      <span className="sr-only">{classRegisterSr(locale, item.name)}</span>
       <ChevronRight aria-hidden className="size-4" />
     </PrefillLink>
   );
 }
 
-function ClassTable({ classes }: { classes: RunningClass[] }) {
-  const cols = runningClassesSection.columns;
+function ClassTable({ classes, locale }: { classes: RunningClass[]; locale: Locale }) {
+  const copy = runningClassesSection[locale];
+  const cols = copy.columns;
   return (
     <div className="overflow-x-hidden rounded-card border border-border-subtle bg-white shadow-tier-1 md:overflow-x-auto">
       <table className="hidden w-full min-w-[920px] border-collapse text-left md:table">
@@ -94,7 +100,7 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               {cols.media}
             </th>
             <th scope="col" className="px-5 py-3">
-              <span className="sr-only">{runningClassesSection.register}</span>
+              <span className="sr-only">{copy.register}</span>
             </th>
           </tr>
         </thead>
@@ -108,19 +114,21 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
                 <LevelLabel level={item.level} />
               </td>
               <td className="px-5 py-4">
-                <LocationLabel location={item.location} />
+                <LocationLabel location={item.location} locale={locale} />
               </td>
               <td className="px-5 py-4 text-body-md text-ink-muted">
-                <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
+                <time dateTime={item.begin ?? undefined}>
+                  {formatClassDate(item.begin, locale)}
+                </time>
               </td>
               <td className="px-5 py-4 text-body-md text-ink-muted">
-                <time dateTime={item.end}>{formatClassDate(item.end)}</time>
+                <time dateTime={item.end}>{formatClassDate(item.end, locale)}</time>
               </td>
               <td className="px-5 py-4">
                 <ClassPhotos name={item.name} media={item.media} />
               </td>
               <td className="px-5 py-4 text-right">
-                <RegisterLink item={item} />
+                <RegisterLink item={item} locale={locale} />
               </td>
             </tr>
           ))}
@@ -137,26 +145,30 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
               {item.level || item.location ? (
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   {item.level ? <LevelLabel level={item.level} /> : null}
-                  {item.location ? <LocationLabel location={item.location} /> : null}
+                  {item.location ? (
+                    <LocationLabel location={item.location} locale={locale} />
+                  ) : null}
                 </div>
               ) : null}
               <dl className="mt-3 grid grid-cols-2 gap-2 text-body-sm">
                 <div className="min-w-0">
                   <dt className="text-label-sm text-ink-subtle uppercase">{cols.begin}</dt>
                   <dd className="mt-0.5 text-ink">
-                    <time dateTime={item.begin ?? undefined}>{formatClassDate(item.begin)}</time>
+                    <time dateTime={item.begin ?? undefined}>
+                      {formatClassDate(item.begin, locale)}
+                    </time>
                   </dd>
                 </div>
                 <div className="min-w-0">
                   <dt className="text-label-sm text-ink-subtle uppercase">{cols.end}</dt>
                   <dd className="mt-0.5 text-ink">
-                    <time dateTime={item.end}>{formatClassDate(item.end)}</time>
+                    <time dateTime={item.end}>{formatClassDate(item.end, locale)}</time>
                   </dd>
                 </div>
               </dl>
             </div>
             <div className="relative z-10 flex justify-start pb-1 pl-4">
-              <RegisterLink item={item} />
+              <RegisterLink item={item} locale={locale} />
             </div>
             {item.media.length > 0 ? (
               <div className="absolute inset-y-0 right-0 w-36">
@@ -170,14 +182,15 @@ function ClassTable({ classes }: { classes: RunningClass[] }) {
   );
 }
 
-function ClassesFrame({ children }: { children: React.ReactNode }) {
+function ClassesFrame({ children, locale }: { children: React.ReactNode; locale: Locale }) {
+  const copy = runningClassesSection[locale];
   return (
     <Section id={sectionIds.classes} tone="canvas" className="scroll-mt-24">
       <SectionHeading
         id={`${sectionIds.classes}-title`}
-        eyebrow={runningClassesSection.eyebrow}
-        title={runningClassesSection.title}
-        intro={runningClassesSection.intro}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        intro={copy.intro}
       />
       {children}
     </Section>
@@ -185,21 +198,25 @@ function ClassesFrame({ children }: { children: React.ReactNode }) {
 }
 
 export async function RunningClasses() {
+  const locale = await getLocale();
   const classes = await getRunningClasses();
   if (classes.length === 0) return null;
 
   return (
-    <ClassesFrame>
-      <p className="mb-4 text-center text-body-sm text-ink-muted">{classes.length} lớp đang học</p>
-      <ClassTable classes={classes} />
+    <ClassesFrame locale={locale}>
+      <p className="mb-4 text-center text-body-sm text-ink-muted">
+        {classCountLabel(locale, classes.length)}
+      </p>
+      <ClassTable classes={classes} locale={locale} />
       <ClassListJump />
     </ClassesFrame>
   );
 }
 
-export function RunningClassesFallback() {
+export async function RunningClassesFallback() {
+  const locale = await getLocale();
   return (
-    <ClassesFrame>
+    <ClassesFrame locale={locale}>
       <div
         aria-hidden
         className="h-72 animate-pulse rounded-card border border-border-subtle bg-white"

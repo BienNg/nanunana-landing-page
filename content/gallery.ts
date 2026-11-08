@@ -1,10 +1,18 @@
+import { dictionary } from "@/lib/i18n/dictionary";
 import type { ImageKey } from "./images";
 
-export const gallerySection = {
-  eyebrow: "Khoảnh khắc NaNu NaNa",
-  title: "Hành Trình Chinh Phục Giấc Mơ Đức",
-  intro: "Từ những giờ học tiếng Đức ở lớp tới ngày đầu tiên của học viên trên nước Đức.",
-};
+export const gallerySection = dictionary(
+  {
+    eyebrow: "Khoảnh khắc NaNu NaNa",
+    title: "Hành Trình Chinh Phục Giấc Mơ Đức",
+    intro: "Từ những giờ học tiếng Đức ở lớp tới ngày đầu tiên của học viên trên nước Đức.",
+  },
+  {
+    eyebrow: "Momente bei NaNu NaNa",
+    title: "Der Weg nach Deutschland",
+    intro: "Von der Deutschstunde im Kurs bis zum ersten Tag der Lernenden in Deutschland.",
+  },
+);
 
 /**
  * Eleven photos. From the md breakpoint the grid is 6 columns and every

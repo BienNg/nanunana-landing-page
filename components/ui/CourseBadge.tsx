@@ -1,3 +1,6 @@
+"use client";
+
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { cn } from "@/lib/cn";
 
 export type CourseLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "GT";
@@ -20,6 +23,11 @@ const defaultLabels: Record<CourseLevel, string> = {
   GT: "Giao Tiếp",
 };
 
+const germanLabels: Record<CourseLevel, string> = {
+  ...defaultLabels,
+  GT: "Konversation",
+};
+
 /** CEFR level pill using the DESIGN.md badge palette. */
 export function CourseBadge({
   level,
@@ -30,6 +38,8 @@ export function CourseBadge({
   label?: string;
   className?: string;
 }) {
+  const locale = useLocale();
+  const labels = locale === "de" ? germanLabels : defaultLabels;
   return (
     <span
       className={cn(
@@ -38,7 +48,7 @@ export function CourseBadge({
         className,
       )}
     >
-      {label ?? defaultLabels[level]}
+      {label ?? labels[level]}
     </span>
   );
 }

@@ -1,7 +1,8 @@
 import { ArrowUpRight, Headset, Phone } from "lucide-react";
-import { contactSection } from "@/content/contact";
+import { contactSection as contactByLocale } from "@/content/contact";
 import { sectionIds } from "@/content/nav";
-import { site } from "@/content/site";
+import { siteFor } from "@/content/site";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { ChatLink } from "@/components/analytics/ChatLink";
 import { MessengerIcon, WhatsAppIcon, ZaloIcon } from "@/components/icons/brand";
 import { Badge } from "@/components/ui/Badge";
@@ -9,52 +10,54 @@ import { VerifyMark } from "@/components/ui/VerifyMark";
 import type { ChatChannel } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
-const channels = [
-  {
-    id: "zalo",
-    label: "Nhắn tin Zalo",
-    detail: site.phone.display,
-    href: site.channels.zalo,
-    icon: ZaloIcon,
-    external: true,
-  },
-  {
-    id: "messenger",
-    label: "Facebook Messenger",
-    detail: "NaNu NaNa – Du Học Đức",
-    href: site.channels.messenger,
-    icon: MessengerIcon,
-    external: true,
-  },
-  {
-    id: "whatsapp",
-    label: "WhatsApp",
-    detail: site.phone.display,
-    href: site.channels.whatsapp,
-    icon: WhatsAppIcon,
-    external: true,
-  },
-  {
-    id: "hotline",
-    label: "Gọi hotline",
-    detail: site.phone.display,
-    href: site.phone.href,
-    icon: Phone,
-    external: false,
-  },
-] as const;
-
-const channelName: Record<(typeof channels)[number]["id"], ChatChannel> = {
+const channelName = {
   zalo: "zalo",
   messenger: "messenger",
   whatsapp: "whatsapp",
   hotline: "phone",
-};
+} as const satisfies Record<"zalo" | "messenger" | "whatsapp" | "hotline", ChatChannel>;
 
 /**
  * Dark consultation section. `form` is the consultation form (Phase 5).
  */
-export function Contact({ form }: { form?: React.ReactNode }) {
+export async function Contact({ form }: { form?: React.ReactNode }) {
+  const locale = await getLocale();
+  const contactSection = contactByLocale[locale];
+  const site = siteFor(locale);
+  const channels = [
+    {
+      id: "zalo" as const,
+      label: contactSection.channels.zalo,
+      detail: site.phone.display,
+      href: site.channels.zalo,
+      icon: ZaloIcon,
+      external: true,
+    },
+    {
+      id: "messenger" as const,
+      label: contactSection.channels.messenger,
+      detail: site.fullName,
+      href: site.channels.messenger,
+      icon: MessengerIcon,
+      external: true,
+    },
+    {
+      id: "whatsapp" as const,
+      label: contactSection.channels.whatsapp,
+      detail: site.phone.display,
+      href: site.channels.whatsapp,
+      icon: WhatsAppIcon,
+      external: true,
+    },
+    {
+      id: "hotline" as const,
+      label: contactSection.channels.phone,
+      detail: site.phone.display,
+      href: site.phone.href,
+      icon: Phone,
+      external: false,
+    },
+  ];
   return (
     <section
       id={sectionIds.contact}

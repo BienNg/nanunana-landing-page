@@ -8,7 +8,7 @@ const FAILURE_BACKOFF_MS = 60_000;
 
 let failureUntil = 0;
 let loggedFailure = "";
-let inflight: Promise<GoogleReviews | null> | null = null;
+const inflight = new Map<string, Promise<GoogleReviews | null>>();
 
 const SCHOOL_PHONE_DIGITS = "84862934989";
 const SEARCH_QUERY = "NaNu NaNa du học Đức Stuttgart";
@@ -38,28 +38,34 @@ export type GoogleReviews = {
  * Places API (New) returns at most five reviews, sorted by relevance, with no
  * way to request more or to ask only for 5-star ones. Lower ratings are dropped
  * here. Hidden when the key is unset, the API rejects the key, or nothing
- * rated 5 remains. Responses are cached for a day.
+ * rated 5 remains. Responses are cached for a day, separately per language.
+ * `languageCode` asks Google for that language. Place search stays Vietnamese.
  */
-export async function getGoogleReviews(): Promise<GoogleReviews | null> {
+export async function getGoogleReviews(languageCode: "vi" | "de"): Promise<GoogleReviews | null> {
   if (Date.now() < failureUntil) return null;
   const cfg = serverEnv.places();
   if (!cfg) return null;
-  if (inflight) return inflight;
+  const pending = inflight.get(languageCode);
+  if (pending) return pending;
 
-  inflight = fetchReviews(cfg).finally(() => {
-    inflight = null;
+  const request = fetchReviews(cfg, languageCode).finally(() => {
+    inflight.delete(languageCode);
   });
-  return inflight;
+  inflight.set(languageCode, request);
+  return request;
 }
 
-async function fetchReviews(cfg: {
-  apiKey: string;
-  placeId?: string;
-}): Promise<GoogleReviews | null> {
+async function fetchReviews(
+  cfg: {
+    apiKey: string;
+    placeId?: string;
+  },
+  languageCode: "vi" | "de",
+): Promise<GoogleReviews | null> {
   try {
     const placeId = cfg.placeId ?? (await findPlaceId(cfg.apiKey));
     if (!placeId) return null;
-    const reviews = await loadReviews(cfg.apiKey, placeId);
+    const reviews = await loadReviews(cfg.apiKey, placeId, languageCode);
     failureUntil = 0;
     loggedFailure = "";
     return reviews;
@@ -108,11 +114,15 @@ async function findPlaceId(apiKey: string): Promise<string | null> {
   return chosen.id;
 }
 
-async function loadReviews(apiKey: string, placeId: string): Promise<GoogleReviews | null> {
+async function loadReviews(
+  apiKey: string,
+  placeId: string,
+  languageCode: "vi" | "de",
+): Promise<GoogleReviews | null> {
   const id = placeId.replace(/^places\//, "");
   const data = await placesFetch(
     apiKey,
-    `https://places.googleapis.com/v1/places/${encodeURIComponent(id)}?languageCode=vi`,
+    `https://places.googleapis.com/v1/places/${encodeURIComponent(id)}?languageCode=${languageCode}`,
     {
       headers: {
         "X-Goog-FieldMask": "displayName,rating,userRatingCount,googleMapsUri,reviews",
@@ -209,7 +219,7 @@ function toReview(value: unknown): GoogleReview[] {
   if (!review) return [];
   const author = asRecord(review.authorAttribution);
   const authorName = typeof author?.displayName === "string" ? author.displayName.trim() : "";
-  const text = localizedText(review.originalText) || localizedText(review.text);
+  const text = localizedText(review.text) || localizedText(review.originalText);
   const rating = review.rating;
   if (!authorName || !text || typeof rating !== "number") return [];
 

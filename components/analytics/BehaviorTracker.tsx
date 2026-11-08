@@ -94,7 +94,7 @@ function sectionOf(el: Element) {
   if (el.closest("#mobile-nav")) return "menu";
   if (el.closest("#site-footer")) return "footer";
   if (el.closest("header")) return "header";
-  if (el.closest("nav[aria-label='Liên hệ nhanh']")) return "mobile-cta";
+  if (el.closest("#mobile-cta")) return "mobile-cta";
   return "";
 }
 

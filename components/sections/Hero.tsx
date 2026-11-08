@@ -1,10 +1,11 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import { CircleCheck, MapPin, Sparkles } from "lucide-react";
-import { hero } from "@/content/hero";
-import { images } from "@/content/images";
+import { hero as heroByLocale } from "@/content/hero";
+import { imagesFor } from "@/content/images";
 import { sectionIds } from "@/content/nav";
-import { site } from "@/content/site";
+import { siteFor } from "@/content/site";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { isVisible } from "@/content/verify";
 import { ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Badge } from "@/components/ui/Badge";
@@ -14,7 +15,11 @@ import { VerifyMark } from "@/components/ui/VerifyMark";
 /** Stagger position for the CSS hero entrance (see globals.css). */
 const order = (i: number) => ({ "--i": i }) as CSSProperties;
 
-export function Hero() {
+export async function Hero() {
+  const locale = await getLocale();
+  const hero = heroByLocale[locale];
+  const site = siteFor(locale);
+  const images = imagesFor(locale);
   const visibleChips = hero.card.chips.filter((c) => isVisible(c.value));
 
   return (

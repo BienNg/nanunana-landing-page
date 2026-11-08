@@ -2,6 +2,7 @@
 
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { AnimatePresence, m } from "motion/react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { runningClassesSection } from "@/content/classes";
 import { sectionIds } from "@/content/nav";
 import { useAnyInView } from "@/lib/hooks/useInView";
@@ -16,7 +17,7 @@ const jumpClass =
  * Hidden while the list is off screen, and hidden from `md` up.
  */
 export function ClassListJump() {
-  const copy = runningClassesSection.jump;
+  const copy = runningClassesSection[useLocale()].jump;
   // Inset past the sticky header (4.5rem) and the mobile CTA bar.
   // rootMargin only accepts px or %, not rem.
   const overList = useAnyInView(["[data-class-list]"], "-72px 0px -88px 0px");

@@ -5,12 +5,14 @@ import {
   applyHref,
   applySubject,
   careerHref,
-  careers,
+  careersContent,
   openRoles,
   type RoleItem,
   type RoleSection,
 } from "@/content/careers";
 import { claimValue, isVisible } from "@/content/verify";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { pageAlternates } from "@/lib/i18n/locale";
 import { AnchorButton, LinkButton } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
@@ -24,20 +26,25 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return openRoles().map((role) => ({ slug: role.slug }));
+  return openRoles("vi").map((role) => ({ slug: role.slug }));
 }
 
-function findRole(slug: string) {
-  return openRoles().find((role) => role.slug === slug);
+async function pageRole(slug: string) {
+  const locale = await getLocale();
+  return {
+    locale,
+    careers: careersContent(locale),
+    role: openRoles(locale).find((role) => role.slug === slug),
+  };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const role = findRole((await params).slug);
+  const { locale, careers, role } = await pageRole((await params).slug);
   if (!role) return {};
   return {
-    title: `${role.title} · Tuyển Dụng`,
+    title: `${role.title} · ${careers.roleMeta}`,
     description: claimValue(role.summary, careers.intro),
-    alternates: { canonical: careerHref(role.slug) },
+    alternates: pageAlternates(locale, careerHref(role.slug)),
   };
 }
 
@@ -95,17 +102,17 @@ function RoleSectionBlock({ section }: { section: RoleSection }) {
 }
 
 export default async function CareerRolePage({ params }: Props) {
-  const role = findRole((await params).slug);
+  const { locale, careers, role } = await pageRole((await params).slug);
   if (!role) notFound();
 
   const apply = (placement: ApplyPlacement) => (
     <AnchorButton
-      href={applyHref(role)}
+      href={applyHref(locale, role)}
       variant="primary"
       className="shrink-0"
       apply={{ role: role.slug, placement }}
     >
-      <Mail aria-hidden /> Gửi CV qua email
+      <Mail aria-hidden /> {careers.sendCvEmail}
     </AnchorButton>
   );
   const facts = role.facts?.filter((f) => isVisible(f.value)) ?? [];
@@ -116,10 +123,10 @@ export default async function CareerRolePage({ params }: Props) {
       <section className="border-b border-border-subtle bg-white">
         <div className="container-page py-14 md:py-20">
           <LinkButton href="/tuyen-dung" variant="ghost" size="sm">
-            <ArrowLeft aria-hidden /> Tất cả vị trí
+            <ArrowLeft aria-hidden /> {careers.allRoles}
           </LinkButton>
           <Badge className="mt-6">
-            <Briefcase aria-hidden /> Tuyển dụng
+            <Briefcase aria-hidden /> {careers.recruiting}
           </Badge>
           <h1 className="mt-4 text-display-hero-mobile text-ink md:text-display-hero">
             {role.title}
@@ -149,10 +156,10 @@ export default async function CareerRolePage({ params }: Props) {
                 </div>
               ))}
               <div>
-                <dt className="text-label-md text-ink-subtle">Liên hệ</dt>
+                <dt className="text-label-md text-ink-subtle">{careers.contact}</dt>
                 <dd className="mt-1 text-body-md font-semibold text-ink">
                   <ApplyLink
-                    href={applyHref(role)}
+                    href={applyHref(locale, role)}
                     role={role.slug}
                     placement="role_contact"
                     className="underline underline-offset-2 hover:text-teal"
@@ -190,11 +197,13 @@ export default async function CareerRolePage({ params }: Props) {
 
           {role.application ? (
             <Card tier={2}>
-              <h2 className="text-headline-md text-ink">Ứng tuyển</h2>
+              <h2 className="text-headline-md text-ink">{careers.apply}</h2>
               <VerifyMark claim={role.application.send} as="div" className="mt-4">
                 {(items) => (
                   <>
-                    <p className="text-label-md font-semibold text-ink-subtle">Hồ sơ cần gửi</p>
+                    <p className="text-label-md font-semibold text-ink-subtle">
+                      {careers.documents}
+                    </p>
                     <div className="mt-2">
                       <CheckList items={items} />
                     </div>
@@ -202,15 +211,17 @@ export default async function CareerRolePage({ params }: Props) {
                 )}
               </VerifyMark>
               <div className="mt-5 text-body-md text-ink">
-                <p className="text-label-md font-semibold text-ink-subtle">Gửi đến</p>
+                <p className="text-label-md font-semibold text-ink-subtle">{careers.sendTo}</p>
                 <p className="mt-1">{careers.applyEmail}</p>
-                <p className="mt-3 text-label-md font-semibold text-ink-subtle">Tiêu đề email</p>
-                <p className="mt-1 font-mono text-body-sm">{applySubject(role)}</p>
+                <p className="mt-3 text-label-md font-semibold text-ink-subtle">
+                  {careers.subject}
+                </p>
+                <p className="mt-1 font-mono text-body-sm">{applySubject(locale, role)}</p>
               </div>
               <VerifyMark claim={role.application.steps} as="div" className="mt-5">
                 {(steps) => (
                   <>
-                    <p className="text-label-md font-semibold text-ink-subtle">Quy trình</p>
+                    <p className="text-label-md font-semibold text-ink-subtle">{careers.steps}</p>
                     <ol className="mt-3 grid gap-3 sm:grid-cols-2">
                       {steps.map((step, i) => (
                         <li key={step} className="flex items-start gap-3 text-body-md text-ink">
@@ -232,7 +243,7 @@ export default async function CareerRolePage({ params }: Props) {
               className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
             >
               <div>
-                <h2 className="text-headline-sm text-ink">Ứng tuyển vị trí này</h2>
+                <h2 className="text-headline-sm text-ink">{careers.applyRole}</h2>
                 <p className="mt-1 max-w-xl text-body-md text-ink-muted">
                   {careers.roleApplyHowTo}
                 </p>
@@ -243,7 +254,7 @@ export default async function CareerRolePage({ params }: Props) {
 
           {faq.length > 0 ? (
             <div>
-              <h2 className="text-headline-md text-ink">Câu hỏi thường gặp</h2>
+              <h2 className="text-headline-md text-ink">{careers.faq}</h2>
               <div className="mt-4">
                 <FaqList
                   items={faq.map((f, i) => ({

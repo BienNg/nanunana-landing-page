@@ -1,24 +1,29 @@
-import { site } from "@/content/site";
+import { site, siteFor } from "@/content/site";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { localePath } from "@/lib/i18n/locale";
 import { getSiteUrl } from "@/lib/site-url";
 import { JsonLd } from "./JsonLd";
 
 /** EducationalOrganization structured data (rendered on every page). */
-export function OrganizationJsonLd() {
+export async function OrganizationJsonLd() {
+  const locale = await getLocale();
+  const brand = siteFor(locale);
   const base = getSiteUrl().origin;
+  const home = localePath(locale, "/");
   return (
     <JsonLd
       data={{
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
         "@id": `${base}/#organization`,
-        name: site.fullName,
+        name: brand.fullName,
         legalName: site.legalName,
         alternateName: site.name,
-        url: `${base}/`,
+        url: `${base}${home}`,
         logo: `${base}/brand/logo-full.png`,
         image: `${base}/opengraph-image`,
-        description: site.description,
-        slogan: site.slogan,
+        description: brand.description,
+        slogan: brand.slogan,
         telephone: site.phone.e164,
         email: site.email,
         address: {

@@ -6,8 +6,12 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, m } from "motion/react";
 import { ChevronRight, Phone, X } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { contactHref, mainNav } from "@/content/nav";
-import { site } from "@/content/site";
+import { siteFor } from "@/content/site";
+import { ui } from "@/content/ui";
+import { localePath } from "@/lib/i18n/locale";
 import { AnchorButton, LinkButton } from "@/components/ui/Button";
 import { ChatLink } from "@/components/analytics/ChatLink";
 import { MessengerIcon, WhatsAppIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
@@ -30,9 +34,13 @@ export function MobileNav({
 }: {
   open: boolean;
   onClose: () => void;
-  isActive: (href: string, spy?: string[]) => boolean;
+  isActive: (href: string, spy?: readonly string[]) => boolean;
 }) {
   const isClient = useIsClient();
+  const locale = useLocale();
+  const nav = mainNav[locale];
+  const site = siteFor(locale);
+  const copy = ui[locale];
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Escape to close, focus trap, scroll lock.
@@ -97,7 +105,7 @@ export function MobileNav({
             id="mobile-nav"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu"
+            aria-label={copy.menu}
             className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col bg-white shadow-tier-3"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -110,19 +118,16 @@ export function MobileNav({
                 type="button"
                 data-autofocus
                 onClick={onClose}
-                aria-label="Đóng menu"
+                aria-label={copy.closeMenu}
                 className="grid size-tap place-items-center rounded-control text-ink hover:bg-surface-container-low"
               >
                 <X aria-hidden className="size-6" />
               </button>
             </div>
 
-            <nav
-              aria-label="Điều hướng chính (di động)"
-              className="flex-1 overflow-y-auto px-3 py-4"
-            >
+            <nav aria-label={copy.navMobile} className="flex-1 overflow-y-auto px-3 py-4">
               <ul className="flex flex-col">
-                {mainNav.map((item, i) => {
+                {nav.map((item, i) => {
                   const current = isActive(item.href, item.spy);
                   return (
                     <m.li
@@ -132,7 +137,7 @@ export function MobileNav({
                       transition={{ delay: 0.05 + i * 0.03, duration: 0.25 }}
                     >
                       <Link
-                        href={item.href}
+                        href={localePath(locale, item.href)}
                         onClick={onClose}
                         aria-current={current ? "location" : undefined}
                         className={cn(
@@ -150,6 +155,7 @@ export function MobileNav({
             </nav>
 
             <div className="flex flex-col gap-3 border-t border-border-subtle p-margin-mobile pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+              <LanguageSwitcher className="justify-center" />
               <AnchorButton
                 href={site.channels.zalo}
                 target="_blank"
@@ -160,7 +166,7 @@ export function MobileNav({
                 className={zaloOnCoral}
                 onClick={onClose}
               >
-                <ZaloIcon /> Nhắn Zalo
+                <ZaloIcon /> {copy.zalo}
               </AnchorButton>
               <LinkButton
                 href={contactHref}
@@ -169,7 +175,7 @@ export function MobileNav({
                 size="lg"
                 variant="outline"
               >
-                Để lại thông tin
+                {copy.leaveInfo}
               </LinkButton>
               <div className="grid grid-cols-3 gap-2">
                 <AnchorButton
@@ -182,7 +188,7 @@ export function MobileNav({
                   onClick={onClose}
                   className="h-auto flex-col gap-0.5 px-1 py-2 text-[12px] leading-tight whitespace-normal"
                 >
-                  <MessengerIcon /> Chat
+                  <MessengerIcon /> {copy.chat}
                 </AnchorButton>
                 <AnchorButton
                   href={site.channels.whatsapp}
@@ -204,11 +210,11 @@ export function MobileNav({
                   onClick={onClose}
                   className="h-auto flex-col gap-0.5 px-1 py-2 text-[12px] leading-tight whitespace-normal"
                 >
-                  <Phone aria-hidden /> Gọi
+                  <Phone aria-hidden /> {copy.call}
                 </AnchorButton>
               </div>
               <p className="text-center text-body-sm text-ink-subtle">
-                Hotline:{" "}
+                {copy.hotline}:{" "}
                 <ChatLink
                   href={site.phone.href}
                   channel="phone"

@@ -1,4 +1,5 @@
-import { galleryItems, gallerySection } from "@/content/gallery";
+import { galleryItems, gallerySection as gallerySectionByLocale } from "@/content/gallery";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { cn } from "@/lib/cn";
 import { GalleryGrid } from "@/components/sections/GalleryGrid";
@@ -6,7 +7,8 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SiteImage } from "@/components/ui/SiteImage";
 
-export function Gallery() {
+export async function Gallery() {
+  const gallerySection = gallerySectionByLocale[await getLocale()];
   return (
     <Section id={sectionIds.gallery}>
       <SectionHeading

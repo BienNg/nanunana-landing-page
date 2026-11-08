@@ -1,20 +1,25 @@
 "use client";
 
 import { useEffect, useState, type KeyboardEvent } from "react";
-import { processSection, processTracks, type ProcessTrack } from "@/content/process";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import {
+  processSection as processSectionByLocale,
+  processTracks as processTracksByLocale,
+  type ProcessTrack,
+} from "@/content/process";
 import { sectionIds } from "@/content/nav";
 import { cn } from "@/lib/cn";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
-function trackFromHash() {
+function trackFromHash(tracks: readonly ProcessTrack[]) {
   if (typeof window === "undefined") return null;
   const hash = window.location.hash.slice(1);
-  return processTracks.find((track) => track.id === hash)?.id ?? null;
+  return tracks.find((track) => track.id === hash)?.id ?? null;
 }
 
-function ProcessTimeline({ track }: { track: ProcessTrack }) {
+function ProcessTimeline({ track, stepPrefix }: { track: ProcessTrack; stepPrefix: string }) {
   return (
     <div className="relative" data-process>
       <div
@@ -38,7 +43,7 @@ function ProcessTimeline({ track }: { track: ProcessTrack }) {
               data-process-dot
               className="relative z-10 grid size-12 shrink-0 place-items-center rounded-full border-2 border-teal bg-white text-headline-sm text-brand-teal-dark shadow-tier-1 transition-colors duration-300"
             >
-              <span className="sr-only">Bước </span>
+              <span className="sr-only">{stepPrefix}</span>
               {i + 1}
             </span>
             <div className="pt-2 lg:pt-0">
@@ -56,17 +61,20 @@ function ProcessTimeline({ track }: { track: ProcessTrack }) {
 
 /** One roadmap at a time. The switch is a tab pair; both tracks stay in the DOM. */
 export function Process() {
+  const locale = useLocale();
+  const processSection = processSectionByLocale[locale];
+  const processTracks = processTracksByLocale[locale];
   const [active, setActive] = useState(processTracks[0].id);
 
   useEffect(() => {
     const applyHash = () => {
-      const id = trackFromHash();
+      const id = trackFromHash(processTracks);
       if (id) setActive(id);
     };
     applyHash();
     window.addEventListener("hashchange", applyHash);
     return () => window.removeEventListener("hashchange", applyHash);
-  }, []);
+  }, [processTracks]);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -116,7 +124,7 @@ export function Process() {
 
       <div
         role="tablist"
-        aria-label="Chọn lộ trình"
+        aria-label={processSection.switchAria}
         onKeyDown={onTabsKeyDown}
         className="mx-auto mb-8 flex w-full max-w-xl rounded-full bg-surface-card-subtle p-1 ring-1 ring-border-subtle ring-inset"
       >
@@ -162,7 +170,7 @@ export function Process() {
             <p className="mx-auto mb-8 max-w-3xl text-center text-body-md text-pretty text-ink-muted md:text-body-lg">
               {track.intro}
             </p>
-            <ProcessTimeline track={track} />
+            <ProcessTimeline track={track} stepPrefix={processSection.stepPrefix} />
           </div>
         );
       })}

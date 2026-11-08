@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 type TurnstileApi = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
@@ -17,16 +18,17 @@ declare global {
 export function Turnstile({ siteKey }: { siteKey: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  const language = useLocale();
 
   useEffect(() => {
     if (!ready || !ref.current || !window.turnstile) return;
     const id = window.turnstile.render(ref.current, {
       sitekey: siteKey,
-      language: "vi",
+      language,
       appearance: "interaction-only",
     });
     return () => window.turnstile?.remove(id);
-  }, [ready, siteKey]);
+  }, [ready, siteKey, language]);
 
   return (
     <>

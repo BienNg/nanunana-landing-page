@@ -3,6 +3,7 @@
  * It is not live yet: the section says so, and A1 sign-ups today get early access.
  * Screenshots are placeholders until real captures replace them in images.ts.
  */
+import { dictionary } from "@/lib/i18n/dictionary";
 import { ok, type Claim } from "./verify";
 import type { ImageKey } from "./images";
 
@@ -20,46 +21,90 @@ export type LearningAppDevice = {
   label: string;
 };
 
-export const learningAppSection = {
-  eyebrow: "Dành riêng cho học viên",
-  comingSoon: "Sắp ra mắt",
-  title: "Ứng dụng học đi kèm khoá học",
-  intro:
-    "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp — trên điện thoại, máy tính bảng hoặc máy tính.",
-  earlyAccess: {
-    kicker: "Truy cập sớm",
-    title: "Đăng ký khoá A1 hôm nay",
-    text: "Bạn được dùng ứng dụng trước ngày ra mắt.",
-    cta: "Nhận quyền truy cập",
-    /** Dropped into the consultation message when this hint is followed. */
-    message: "Tôi muốn đăng ký khoá A1 để được dùng ứng dụng sớm.",
+export const learningAppSection = dictionary(
+  {
+    eyebrow: "Dành riêng cho học viên",
+    comingSoon: "Sắp ra mắt",
+    title: "Ứng dụng học đi kèm khoá học",
+    intro:
+      "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp — trên điện thoại, máy tính bảng hoặc máy tính.",
+    earlyAccess: {
+      kicker: "Truy cập sớm",
+      title: "Đăng ký khoá A1 hôm nay",
+      text: "Bạn được dùng ứng dụng trước ngày ra mắt.",
+      cta: "Nhận quyền truy cập",
+      /** Dropped into the consultation message when this hint is followed. */
+      message: "Tôi muốn đăng ký khoá A1 để được dùng ứng dụng sớm.",
+    },
+    unique: ok(
+      "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
+    ),
+    included: "Khi ra mắt, mọi học viên đang theo học đều được cấp tài khoản.",
+    devicesLabel: "Điện thoại và máy tính",
+    features: [
+      {
+        id: "video",
+        stat: ok("150+"),
+        title: "Video bài giảng",
+        text: "Xem lại bài đã học trên lớp, bất cứ lúc nào và theo tốc độ của bạn.",
+      },
+      {
+        id: "vocab",
+        stat: ok("5.000+"),
+        title: "Từ và câu",
+        text: "Đúng phần từ vựng và mẫu câu cần học sau mỗi buổi trên lớp.",
+      },
+      {
+        id: "listening",
+        title: "Luyện nghe",
+        text: "Bài nghe đi kèm lộ trình, để luyện tai giữa các buổi học.",
+      },
+    ] satisfies LearningAppFeature[],
+    devices: [
+      { id: "desktop", image: "appDesktop", label: "Máy tính" },
+      { id: "phone", image: "appPhone", label: "Điện thoại" },
+    ] satisfies LearningAppDevice[],
   },
-  unique: ok(
-    "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
-  ),
-  included: "Khi ra mắt, mọi học viên đang theo học đều được cấp tài khoản.",
-  devicesLabel: "Điện thoại và máy tính",
-  features: [
-    {
-      id: "video",
-      stat: ok("150+"),
-      title: "Video bài giảng",
-      text: "Xem lại bài đã học trên lớp, bất cứ lúc nào và theo tốc độ của bạn.",
+  {
+    eyebrow: "Nur für unsere Lernenden",
+    comingSoon: "Demnächst",
+    title: "Die Lern-App zum Kurs",
+    intro:
+      "NaNu NaNa baut eine eigene App, damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten — am Telefon, Tablet oder Computer.",
+    earlyAccess: {
+      kicker: "Früher Zugang",
+      title: "Melden Sie sich heute für A1 an",
+      text: "Sie nutzen die App schon vor dem Start.",
+      cta: "Zugang sichern",
+      message: "Ich möchte den Kurs A1 buchen, um die App früh zu nutzen.",
     },
-    {
-      id: "vocab",
-      stat: ok("5.000+"),
-      title: "Từ và câu",
-      text: "Đúng phần từ vựng và mẫu câu cần học sau mỗi buổi trên lớp.",
-    },
-    {
-      id: "listening",
-      title: "Luyện nghe",
-      text: "Bài nghe đi kèm lộ trình, để luyện tai giữa các buổi học.",
-    },
-  ] satisfies LearningAppFeature[],
-  devices: [
-    { id: "desktop", image: "appDesktop", label: "Máy tính" },
-    { id: "phone", image: "appPhone", label: "Điện thoại" },
-  ] satisfies LearningAppDevice[],
-};
+    unique: ok(
+      "NaNu NaNa baut diese App nur für die eigenen Lernenden — damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten.",
+    ),
+    included: "Zum Start erhält jede Person, die gerade einen Kurs besucht, ein Konto.",
+    devicesLabel: "Telefon und Computer",
+    features: [
+      {
+        id: "video",
+        stat: ok("150+"),
+        title: "Unterrichtsvideos",
+        text: "Sehen Sie die Stunde noch einmal an, wann Sie wollen und in Ihrem Tempo.",
+      },
+      {
+        id: "vocab",
+        stat: ok("5.000+"),
+        title: "Wörter und Sätze",
+        text: "Genau der Wortschatz und die Sätze, die nach jeder Stunde anstehen.",
+      },
+      {
+        id: "listening",
+        title: "Hörtraining",
+        text: "Hörübungen zum Kurs, für die Zeit zwischen den Stunden.",
+      },
+    ] satisfies LearningAppFeature[],
+    devices: [
+      { id: "desktop", image: "appDesktop", label: "Computer" },
+      { id: "phone", image: "appPhone", label: "Telefon" },
+    ] satisfies LearningAppDevice[],
+  },
+);

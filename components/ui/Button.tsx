@@ -3,6 +3,8 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { m } from "motion/react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { localePath } from "@/lib/i18n/locale";
 import { trackApplyClick, trackChatClick, type ApplyClick, type ChatClick } from "@/lib/analytics";
 import { buttonClasses, pressMotion, type ButtonSize, type ButtonVariant } from "./button-styles";
 
@@ -41,11 +43,14 @@ export function LinkButton({
   className,
   ...props
 }: Safe<ComponentProps<typeof Link>> & StyleProps) {
+  const locale = useLocale();
+  const href = typeof props.href === "string" ? localePath(locale, props.href) : props.href;
   return (
     <MotionLink
       className={buttonClasses({ variant, size, fullWidth, className })}
       {...pressMotion}
       {...props}
+      href={href}
     />
   );
 }

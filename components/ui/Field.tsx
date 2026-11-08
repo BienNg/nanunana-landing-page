@@ -1,5 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { CircleAlert } from "lucide-react";
+import { useLocale } from "@/components/i18n/LocaleProvider";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
 
 export function fieldIds(id: string) {
@@ -27,7 +31,7 @@ export function Field({
   id,
   label,
   required,
-  optionalLabel = "(không bắt buộc)",
+  optionalLabel,
   hint,
   error,
   className,
@@ -42,6 +46,7 @@ export function Field({
   className?: string;
   children: ReactNode;
 }) {
+  const fallbackOptional = ui[useLocale()].optional;
   return (
     <div className={cn("flex flex-col", className)}>
       <label htmlFor={id} className="mb-1.5 text-label-md text-ink">
@@ -51,7 +56,9 @@ export function Field({
             *
           </span>
         ) : (
-          <span className="ml-1 font-normal text-ink-subtle">{optionalLabel}</span>
+          <span className="ml-1 font-normal text-ink-subtle">
+            {optionalLabel ?? fallbackOptional}
+          </span>
         )}
       </label>
       {children}

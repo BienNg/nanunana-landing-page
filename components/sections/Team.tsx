@@ -1,4 +1,10 @@
-import { supportTeam, team, teamSection, type TeamMember } from "@/content/team";
+import {
+  supportTeam as supportByLocale,
+  team as teamByLocale,
+  teamSection as teamSectionByLocale,
+  type TeamMember,
+} from "@/content/team";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { sectionIds } from "@/content/nav";
 import { Avatar } from "@/components/ui/Avatar";
 import { Section } from "@/components/ui/Section";
@@ -46,7 +52,11 @@ function MemberCard({ m }: { m: TeamMember }) {
   );
 }
 
-export function Team() {
+export async function Team() {
+  const locale = await getLocale();
+  const teamSection = teamSectionByLocale[locale];
+  const team = teamByLocale[locale];
+  const supportTeam = supportByLocale[locale];
   return (
     <Section id={sectionIds.team}>
       <SectionHeading
