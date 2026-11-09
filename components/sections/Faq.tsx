@@ -11,9 +11,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqList } from "./FaqList";
 
 /** Hidden until at least one answer is confirmed. JSON-LD only includes confirmed answers. */
-export async function Faq() {
+export async function Faq({ ids }: { ids?: readonly string[] }) {
   const locale = await getLocale();
-  const faqs = faqsByLocale[locale];
+  const faqs = faqsByLocale[locale].filter((f) => !ids || ids.includes(f.id));
   const faqSection = faqSectionByLocale[locale];
   const visible = faqs.filter((f) => isVisible(f.answer));
   if (visible.length === 0) return null;

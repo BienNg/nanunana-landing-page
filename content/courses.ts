@@ -53,6 +53,10 @@ export const coursesSection = dictionary(
     chatCta: "Hỏi học phí qua Zalo",
     cardCta: "Đăng ký tư vấn",
     cardCtaFor: "khoá",
+    detailCta: "Xem chi tiết các khoá",
+    metaTitle: "Khoá học tiếng Đức A1–C1",
+    metaDescription:
+      "Khoá tiếng Đức A1 đến C1 và lớp giao tiếp, online hoặc tại TP. Hồ Chí Minh. Giáo viên có nhiều năm sống và làm việc tại Đức.",
   },
   {
     eyebrow: "Gemeinsamer Europäischer Referenzrahmen",
@@ -84,6 +88,10 @@ export const coursesSection = dictionary(
     chatCta: "Gebühren per Zalo erfragen",
     cardCta: "Beratung anfragen",
     cardCtaFor: "Kurs",
+    detailCta: "Alle Kurse im Detail",
+    metaTitle: "Deutschkurse A1–C1",
+    metaDescription:
+      "Deutschkurse von A1 bis C1 und Konversation, online oder in Ho-Chi-Minh-Stadt. Lehrkräfte mit Jahren in Deutschland.",
   },
 );
 

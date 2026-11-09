@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { siteFor } from "@/content/site";
 import { courses as coursesByLocale } from "@/content/courses";
-import { careersHref, privacyHref, sectionIds } from "@/content/nav";
+import { careersHref, pathwayPath, privacyHref, sectionIds } from "@/content/nav";
 import { ui } from "@/content/ui";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { isVisible } from "@/content/verify";
@@ -103,22 +103,37 @@ export async function Footer() {
           <Column title={copy.pathways}>
             <ul>
               <li>
-                <Link href={section(sectionIds.university)} className={linkClass}>
+                <Link
+                  href={localePath(locale, pathwayPath["du-hoc-dai-hoc"])}
+                  className={linkClass}
+                >
                   {copy.university}
                 </Link>
               </li>
               <li>
-                <Link href={section(sectionIds.vocational)} className={linkClass}>
+                <Link href={localePath(locale, pathwayPath["du-hoc-nghe"])} className={linkClass}>
                   {copy.vocational}
                 </Link>
               </li>
               <li>
-                <Link href={section(sectionIds.processUniversity)} className={linkClass}>
+                <Link
+                  href={localePath(
+                    locale,
+                    `${pathwayPath["du-hoc-dai-hoc"]}#${sectionIds.processUniversity}`,
+                  )}
+                  className={linkClass}
+                >
                   {copy.processUniversity}
                 </Link>
               </li>
               <li>
-                <Link href={section(sectionIds.processVocational)} className={linkClass}>
+                <Link
+                  href={localePath(
+                    locale,
+                    `${pathwayPath["du-hoc-nghe"]}#${sectionIds.processVocational}`,
+                  )}
+                  className={linkClass}
+                >
                   {copy.processVocational}
                 </Link>
               </li>

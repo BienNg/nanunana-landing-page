@@ -1,12 +1,13 @@
-import { ArrowRight, CircleCheck, Landmark, Wrench } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Landmark, Wrench } from "lucide-react";
 import {
   pathways as pathwaysByLocale,
   pathwaysSection as pathwaysSectionByLocale,
   type Pathway,
 } from "@/content/pathways";
 import { getLocale } from "@/lib/i18n/get-locale";
-import { sectionIds } from "@/content/nav";
-import { isVisible } from "@/content/verify";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { pathwayPath, sectionIds } from "@/content/nav";
 import { Badge } from "@/components/ui/Badge";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { PrefillLink } from "@/components/form/PrefillLink";
@@ -14,8 +15,19 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
-function PathwayCard({ p, index }: { p: Pathway; index: number }) {
+function PathwayCard({
+  p,
+  index,
+  locale,
+  moreLabel,
+}: {
+  p: Pathway;
+  index: number;
+  locale: Locale;
+  moreLabel: string;
+}) {
   const Icon = index === 0 ? Landmark : Wrench;
+  const lead = p.paragraphs[0];
   return (
     <article
       id={p.id}
@@ -47,24 +59,15 @@ function PathwayCard({ p, index }: { p: Pathway; index: number }) {
         {p.tagline ? (
           <p className="mt-2 text-body-md font-semibold text-brand-teal-dark">{p.tagline}</p>
         ) : null}
-        <div className="mt-3 space-y-3 text-body-md text-ink-muted">
-          {p.paragraphs.map((t) => (
-            <p key={t}>{t}</p>
-          ))}
-        </div>
+        {lead ? <p className="mt-3 text-body-md text-ink-muted">{lead}</p> : null}
 
-        <ul className="mt-6 space-y-3">
-          {p.bullets.map((b) =>
-            isVisible(b) ? (
-              <li key={b.value} className="flex gap-2.5 text-body-md text-ink">
-                <CircleCheck aria-hidden className="mt-0.5 size-5 shrink-0 text-trust-emerald" />
-                <VerifyMark claim={b} />
-              </li>
-            ) : null,
-          )}
-        </ul>
-
-        <div className="mt-auto pt-8">
+        <div className="mt-auto flex flex-col gap-3 pt-8">
+          <Link
+            href={localePath(locale, pathwayPath[p.id])}
+            className="inline-flex min-h-tap items-center gap-1 text-label-md font-semibold text-brand-teal-dark hover:underline"
+          >
+            {moreLabel} <ArrowRight aria-hidden className="size-4" />
+          </Link>
           <PrefillLink
             goal={p.goal}
             press
@@ -100,7 +103,13 @@ export async function Pathways() {
         />
         <div className="grid gap-gutter-mobile md:gap-gutter lg:grid-cols-2">
           {pathways.map((p, i) => (
-            <PathwayCard key={p.id} p={p} index={i} />
+            <PathwayCard
+              key={p.id}
+              p={p}
+              index={i}
+              locale={locale}
+              moreLabel={pathwaysSection.more}
+            />
           ))}
         </div>
       </div>

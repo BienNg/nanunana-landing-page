@@ -1,7 +1,8 @@
 export const locales = ["vi", "de"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "vi";
-export const LOCALE_HEADER = "x-locale";
+/** Hidden consultation field. The form language is not read from request headers. */
+export const LOCALE_FIELD = "lead_locale";
 
 export function isLocale(value: string | null | undefined): value is Locale {
   return value === "vi" || value === "de";

@@ -9,7 +9,7 @@ import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <LocaleProvider>
       <SkipLink />

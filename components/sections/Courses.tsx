@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Check,
   ChevronRight,
@@ -14,6 +15,7 @@ import {
   type Course,
 } from "@/content/courses";
 import { getLocale } from "@/lib/i18n/get-locale";
+import { localePath } from "@/lib/i18n/locale";
 import { sectionIds } from "@/content/nav";
 import { cn } from "@/lib/cn";
 import { Badge } from "@/components/ui/Badge";
@@ -23,6 +25,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { ChatCtaPair } from "@/components/analytics/ChatCtaPair";
 import { PrefillLink } from "@/components/form/PrefillLink";
+import { LinkButton } from "@/components/ui/Button";
 
 function CourseCard({
   course,
@@ -137,13 +140,20 @@ function CoursesCloser({ section }: { section: (typeof coursesSectionByLocale)["
   );
 }
 
-export async function Courses() {
+/** Old Webflow deep links used `/niveau#a1-section`. */
+export function courseAnchor(id: string) {
+  return `${id}-section`;
+}
+
+export async function Courses({ variant = "summary" }: { variant?: "summary" | "full" }) {
   const locale = await getLocale();
   const coursesSection = coursesSectionByLocale[locale];
   const courses = coursesByLocale[locale];
+  const full = variant === "full";
   return (
     <Section id={sectionIds.courses} tone="white">
       <SectionHeading
+        as={full ? "h1" : "h2"}
         id={`${sectionIds.courses}-title`}
         eyebrow={coursesSection.eyebrow}
         title={coursesSection.title}
@@ -154,13 +164,37 @@ export async function Courses() {
           </>
         }
       />
-      <ul className="grid gap-x-gutter-mobile gap-y-8 md:grid-cols-2 md:gap-gutter lg:grid-cols-3">
-        {courses.map((c) => (
-          <li key={c.id} id={`khoa-hoc-${c.id}`}>
-            <CourseCard course={c} section={coursesSection} />
-          </li>
-        ))}
-      </ul>
+      {full ? (
+        <ul className="grid gap-x-gutter-mobile gap-y-8 md:grid-cols-2 md:gap-gutter lg:grid-cols-3">
+          {courses.map((c) => (
+            <li key={c.id} id={courseAnchor(c.id)} className="scroll-mt-24">
+              <CourseCard course={c} section={coursesSection} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {courses.map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={localePath(locale, `/niveau#${courseAnchor(c.id)}`)}
+                  className="flex min-h-tap items-center gap-3 rounded-card border border-border-subtle bg-white px-4 py-3 shadow-tier-1 transition-colors hover:border-teal"
+                >
+                  <CourseBadge level={c.level} />
+                  <span className="text-headline-sm text-ink">{c.name}</span>
+                  <ChevronRight aria-hidden className="ml-auto size-5 text-teal" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 text-center">
+            <LinkButton href="/niveau" variant="outline">
+              {coursesSection.detailCta} <ChevronRight aria-hidden />
+            </LinkButton>
+          </div>
+        </>
+      )}
       <CoursesCloser section={coursesSection} />
     </Section>
   );

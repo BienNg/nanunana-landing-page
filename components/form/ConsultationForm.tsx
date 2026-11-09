@@ -7,6 +7,7 @@ import { AnimatePresence, m } from "motion/react";
 import { CircleAlert, LoaderCircle, Phone, Send } from "lucide-react";
 import { submitConsultation } from "@/app/actions/consultation";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { LOCALE_FIELD } from "@/lib/i18n/locale";
 import { courseOptions, goalOptions } from "@/content/form-options";
 import { siteFor } from "@/content/site";
 import { ui } from "@/content/ui";
@@ -155,6 +156,7 @@ function ConsultationFormInner({
             transition={{ duration: 0.2 }}
             className="relative grid gap-5 md:grid-cols-2"
           >
+            <input type="hidden" name={LOCALE_FIELD} value={locale} />
             <Field id="lead-name" label={copy.name} required error={errorFor("name")}>
               <Input
                 id="lead-name"

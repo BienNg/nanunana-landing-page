@@ -9,6 +9,7 @@ export function SectionHeading({
   intro,
   align = "center",
   tone = "light",
+  as = "h2",
   className,
 }: {
   id?: string;
@@ -17,9 +18,12 @@ export function SectionHeading({
   intro?: ReactNode;
   align?: "center" | "left";
   tone?: "light" | "dark";
+  /** Page titles use h1. Sections on a page that already has one use h2. */
+  as?: "h1" | "h2";
   className?: string;
 }) {
   const dark = tone === "dark";
+  const Title = as;
   return (
     <header
       className={cn(
@@ -38,7 +42,7 @@ export function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <h2
+      <Title
         id={id}
         className={cn(
           "text-headline-xl-mobile text-balance md:text-headline-xl",
@@ -46,7 +50,7 @@ export function SectionHeading({
         )}
       >
         {title}
-      </h2>
+      </Title>
       {intro ? (
         <div
           className={cn(

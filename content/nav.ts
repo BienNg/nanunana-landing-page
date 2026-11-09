@@ -1,7 +1,7 @@
 /**
  * Section anchor ids (single source of truth) and navigation.
- * Old Webflow URLs redirect to these anchors — see next.config.ts.
- * Ids stay Vietnamese on both languages so redirects, hashes, and stats stay put.
+ * Ids stay Vietnamese on both languages so hashes and stats stay put.
+ * /niveau, /du-hoc-duc and /du-hoc-nghe are real pages (old Webflow URLs).
  */
 import { dictionary } from "@/lib/i18n/dictionary";
 
@@ -35,13 +35,17 @@ export type NavItem = {
   spy?: readonly SectionId[];
 };
 
+/** Old Webflow pathway URLs. Keys are the homepage section ids. */
+export const pathwayPath = {
+  "du-hoc-dai-hoc": "/du-hoc-duc",
+  "du-hoc-nghe": "/du-hoc-nghe",
+} as const;
+
 const navItems = [
-  { href: `/#${sectionIds.courses}`, spy: [sectionIds.courses] },
+  { href: "/niveau" },
   { href: `/#${sectionIds.classes}`, spy: [sectionIds.classes] },
-  {
-    href: `/#${sectionIds.pathways}`,
-    spy: [sectionIds.pathways, sectionIds.university, sectionIds.vocational],
-  },
+  { href: pathwayPath["du-hoc-dai-hoc"] },
+  { href: pathwayPath["du-hoc-nghe"] },
   { href: `/#${sectionIds.about}`, spy: [sectionIds.about] },
   { href: "/tuyen-dung" },
 ] as const;
@@ -49,11 +53,18 @@ const navItems = [
 export const mainNav = dictionary<NavItem[]>(
   navItems.map((item, i) => ({
     ...item,
-    label: ["Khoá Học", "Lớp đang diễn ra", "Du Học Đức", "Về Chúng Tôi", "Tuyển Dụng"][i]!,
+    label: [
+      "Khoá Học",
+      "Lớp đang diễn ra",
+      "Du học đại học",
+      "Du học nghề",
+      "Về Chúng Tôi",
+      "Tuyển Dụng",
+    ][i]!,
   })),
   navItems.map((item, i) => ({
     ...item,
-    label: ["Kurse", "Laufende Kurse", "Studium in Deutschland", "Über uns", "Karriere"][i]!,
+    label: ["Kurse", "Laufende Kurse", "Studium", "Ausbildung", "Über uns", "Karriere"][i]!,
   })),
 );
 

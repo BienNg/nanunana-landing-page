@@ -17,6 +17,8 @@ export type Pathway = {
   image: ImageKey;
   goal: GoalValue;
   cta: string;
+  pageTitle: string;
+  pageDescription: string;
 };
 
 export const pathwaysSection = dictionary(
@@ -25,12 +27,14 @@ export const pathwaysSection = dictionary(
     title: "Hai con đường tới nước Đức",
     intro:
       "Dù bạn chọn giảng đường đại học hay chương trình đào tạo nghề, NaNu NaNa đồng hành cùng bạn từ lúc định hướng đến khi bạn đặt chân tới Đức.",
+    more: "Xem thêm",
   },
   {
     eyebrow: "Ihre Zukunft",
     title: "Zwei Wege nach Deutschland",
     intro:
       "Ob Hörsaal oder Ausbildung: NaNu NaNa begleitet Sie von der ersten Orientierung bis zu Ihrer Ankunft in Deutschland.",
+    more: "Mehr dazu",
   },
 );
 
@@ -55,6 +59,9 @@ export const pathways = dictionary<Pathway[]>(
       image: "pathwayUniversity",
       goal: "du-hoc-dai-hoc",
       cta: "Tư vấn du học đại học",
+      pageTitle: "Du học đại học tại Đức",
+      pageDescription:
+        "Tìm chương trình đại học phù hợp tại Đức, chuẩn bị hồ sơ, APS và Zulassung. NaNu NaNa đồng hành trước và sau khi bạn sang Đức.",
     },
     {
       id: "du-hoc-nghe",
@@ -74,6 +81,9 @@ export const pathways = dictionary<Pathway[]>(
       image: "pathwayVocational",
       goal: "du-hoc-nghe",
       cta: "Tư vấn du học nghề",
+      pageTitle: "Du học nghề (Ausbildung) tại Đức",
+      pageDescription:
+        "Tư vấn du học nghề tại Đức: chọn ngành, làm hồ sơ, không cần chứng minh tài chính. NaNu NaNa đồng hành từ lúc định hướng đến khi bạn sang Đức.",
     },
   ],
   [
@@ -96,6 +106,9 @@ export const pathways = dictionary<Pathway[]>(
       image: "pathwayUniversity",
       goal: "du-hoc-dai-hoc",
       cta: "Studium beraten lassen",
+      pageTitle: "Studium in Deutschland",
+      pageDescription:
+        "Passendes Studium in Deutschland finden, Unterlagen vorbereiten, APS und Zulassung. NaNu NaNa begleitet Sie vor und nach der Ankunft.",
     },
     {
       id: "du-hoc-nghe",
@@ -115,6 +128,9 @@ export const pathways = dictionary<Pathway[]>(
       image: "pathwayVocational",
       goal: "du-hoc-nghe",
       cta: "Ausbildung beraten lassen",
+      pageTitle: "Ausbildung in Deutschland",
+      pageDescription:
+        "Beratung zur Ausbildung in Deutschland: Beruf wählen, Bewerbung, ohne Sperrkonto. Begleitung von der Orientierung bis zur Ankunft.",
     },
   ],
 );

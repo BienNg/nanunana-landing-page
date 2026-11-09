@@ -50,11 +50,11 @@ export function Header() {
         scrolled ? "border-border-subtle shadow-tier-1" : "border-transparent",
       )}
     >
-      <div className="container-page flex h-header items-center justify-between gap-4">
+      <div className="container-page flex h-header items-center justify-between gap-3">
         <Logo priority />
 
         <nav aria-label={copy.nav} className="hidden xl:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center">
             {nav.map((item) => {
               const current = isActive(item.href, item.spy);
               return (
@@ -65,9 +65,9 @@ export function Header() {
                       current ? (item.href.startsWith("/#") ? "location" : "page") : undefined
                     }
                     className={cn(
-                      "relative inline-flex min-h-tap items-center rounded-control px-3 text-label-md transition-colors hover:text-brand-teal-dark",
+                      "relative inline-flex min-h-tap items-center rounded-control px-2 text-label-md whitespace-nowrap transition-colors hover:text-brand-teal-dark",
                       current ? "text-brand-teal-dark" : "text-ink-muted",
-                      "after:absolute after:inset-x-3 after:bottom-1.5 after:h-0.5 after:origin-left after:rounded-full after:bg-teal after:transition-transform after:duration-200",
+                      "after:absolute after:inset-x-2 after:bottom-1.5 after:h-0.5 after:origin-left after:rounded-full after:bg-teal after:transition-transform after:duration-200",
                       current ? "after:scale-x-100" : "after:scale-x-0",
                     )}
                   >
@@ -85,7 +85,7 @@ export function Header() {
             href={site.phone.href}
             channel="phone"
             placement="header"
-            className="hidden min-h-tap items-center gap-2 rounded-control px-2 text-label-md text-ink hover:text-brand-teal-dark xl:inline-flex"
+            className="hidden min-h-tap items-center gap-2 rounded-control px-2 text-label-md whitespace-nowrap text-ink hover:text-brand-teal-dark 2xl:inline-flex"
           >
             <Phone aria-hidden className="size-4 text-teal" />
             {site.phone.display}

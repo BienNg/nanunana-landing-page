@@ -60,7 +60,7 @@ function ProcessTimeline({ track, stepPrefix }: { track: ProcessTrack; stepPrefi
 }
 
 /** One roadmap at a time. The switch is a tab pair; both tracks stay in the DOM. */
-export function Process() {
+export function Process({ only }: { only?: ProcessTrack["id"] }) {
   const locale = useLocale();
   const processSection = processSectionByLocale[locale];
   const processTracks = processTracksByLocale[locale];
@@ -111,6 +111,22 @@ export function Process() {
     requestAnimationFrame(() => {
       document.getElementById(`tab-${next.id}`)?.focus();
     });
+  }
+
+  if (only) {
+    const track = processTracks.find((item) => item.id === only);
+    if (!track) return null;
+    return (
+      <Section id={track.id} tone="white" className="scroll-mt-24">
+        <SectionHeading
+          id={`${track.id}-title`}
+          eyebrow={track.eyebrow}
+          title={track.title}
+          intro={track.intro}
+        />
+        <ProcessTimeline track={track} stepPrefix={processSection.stepPrefix} />
+      </Section>
+    );
   }
 
   return (

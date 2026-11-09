@@ -1,0 +1,16 @@
+import type { Metadata, Viewport } from "next";
+import { Document } from "@/components/layout/Document";
+import { getSiteUrl } from "@/lib/site-url";
+import "../globals.css";
+
+export const metadata: Metadata = { metadataBase: getSiteUrl() };
+
+export const viewport: Viewport = {
+  themeColor: "#0b7793",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function ToolsRootLayout({ children }: { children: React.ReactNode }) {
+  return <Document locale="vi">{children}</Document>;
+}

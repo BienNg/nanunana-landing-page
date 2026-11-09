@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { headers } from "next/headers";
 import { courseOptions, goalOptions } from "@/content/form-options";
 import { ui } from "@/content/ui";
-import { getLocale } from "@/lib/i18n/get-locale";
+import { defaultLocale, isLocale, LOCALE_FIELD, type Locale } from "@/lib/i18n/locale";
 import { deliverLead } from "@/lib/leads";
 import type { Lead } from "@/lib/leads/types";
 import { checkRateLimit } from "@/lib/spam/ratelimit";
@@ -32,12 +32,18 @@ async function clientIp() {
   return h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
 }
 
+function localeFromForm(formData: FormData): Locale {
+  const value = formData.get(LOCALE_FIELD);
+  const text = typeof value === "string" ? value : null;
+  return isLocale(text) ? text : defaultLocale;
+}
+
 export async function submitConsultation(
   _prev: ConsultationState,
   formData: FormData,
 ): Promise<ConsultationState> {
   const raw = formDataToInput(formData);
-  const locale = await getLocale();
+  const locale = localeFromForm(formData);
   const errors = ui[locale].errors;
 
   // 1. Honeypot: pretend success so bots learn nothing.
