@@ -1,3 +1,4 @@
+import { courseHref, courseLevels } from "@/content/course-levels";
 import type { MetadataRoute } from "next";
 import { careerHref, openRoles } from "@/content/careers";
 import { pathwayImageUrls } from "@/content/images";
@@ -24,7 +25,8 @@ const homeSources = [
 /** Files whose commits count as a real change for this URL. */
 function sourcesFor(path: string): string[] {
   if (path === "/") return homeSources;
-  if (path === "/niveau") return ["content/courses.ts"];
+  if (path === "/niveau" || path.startsWith("/niveau/"))
+    return ["content/courses.ts", "content/course-levels.ts"];
   if (path === "/du-hoc-nghe")
     return ["content/ausbildung.ts", "content/pathways.ts", "content/process.ts"];
   if (path === "/du-hoc-duc") {
@@ -38,6 +40,7 @@ function sourcesFor(path: string): string[] {
 function priorityFor(path: string): number {
   if (path === "/") return 1;
   if (path === "/niveau" || path === "/du-hoc-duc" || path === "/du-hoc-nghe") return 0.8;
+  if (path.startsWith("/niveau/")) return 0.7;
   if (path === "/tuyen-dung") return 0.5;
   if (path === "/chinh-sach-bao-mat") return 0.2;
   return 0.4;
@@ -48,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
     "/niveau",
+    ...courseLevels.map(courseHref),
     "/du-hoc-duc",
     "/du-hoc-nghe",
     "/tuyen-dung",

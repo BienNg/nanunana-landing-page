@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { courseHref, isCourseSlug, coursePageCopy } from "@/content/course-levels";
 import {
   Check,
   ChevronRight,
@@ -15,7 +16,7 @@ import {
   type Course,
 } from "@/content/courses";
 import { getLocale } from "@/lib/i18n/get-locale";
-import { localePath } from "@/lib/i18n/locale";
+import { localePath, type Locale } from "@/lib/i18n/locale";
 import { sectionIds } from "@/content/nav";
 import { cn } from "@/lib/cn";
 import { Badge } from "@/components/ui/Badge";
@@ -30,8 +31,10 @@ import { LinkButton } from "@/components/ui/Button";
 function CourseCard({
   course,
   section,
+  locale,
 }: {
   course: Course;
+  locale: Locale;
   section: (typeof coursesSectionByLocale)["vi"];
 }) {
   const featured = !!course.highlight;
@@ -63,7 +66,16 @@ function CourseCard({
       </header>
 
       <h3 id={`khoa-${course.id}`} className="mt-4 text-headline-sm text-ink">
-        {course.title}
+        {isCourseSlug(course.id) ? (
+          <Link
+            href={localePath(locale, courseHref(course.id))}
+            className="hover:text-brand-teal-dark"
+          >
+            {course.title}
+          </Link>
+        ) : (
+          course.title
+        )}
       </h3>
       <VerifyMark claim={course.description} as="div" className="mt-2">
         {(t) => <p className="text-body-md text-ink-muted">{t}</p>}
@@ -82,7 +94,16 @@ function CourseCard({
         )}
       </VerifyMark>
 
-      <footer className="mt-auto flex items-center justify-end border-t border-border-subtle pt-4">
+      <footer className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle pt-4">
+        {isCourseSlug(course.id) && (
+          <Link
+            href={localePath(locale, courseHref(course.id))}
+            className="inline-flex min-h-tap items-center text-label-md text-brand-teal-dark underline underline-offset-2"
+          >
+            {coursePageCopy[locale].details}
+            <span className="sr-only"> {course.name}</span>
+          </Link>
+        )}
         <PrefillLink
           course={course.formValue}
           className="-mr-2 inline-flex min-h-tap items-center gap-1 rounded-control px-2 text-label-md text-brand-teal-dark hover:bg-surface-container-low"
@@ -168,7 +189,7 @@ export async function Courses({ variant = "summary" }: { variant?: "summary" | "
         <ul className="grid gap-x-gutter-mobile gap-y-8 md:grid-cols-2 md:gap-gutter lg:grid-cols-3">
           {courses.map((c) => (
             <li key={c.id} id={courseAnchor(c.id)} className="scroll-mt-24">
-              <CourseCard course={c} section={coursesSection} />
+              <CourseCard course={c} section={coursesSection} locale={locale} />
             </li>
           ))}
         </ul>
@@ -178,7 +199,7 @@ export async function Courses({ variant = "summary" }: { variant?: "summary" | "
             {courses.map((c) => (
               <li key={c.id}>
                 <Link
-                  href={localePath(locale, `/niveau#${courseAnchor(c.id)}`)}
+                  href={localePath(locale, courseHref(c.id))}
                   className="flex min-h-tap items-center gap-3 rounded-card border border-border-subtle bg-white px-4 py-3 shadow-tier-1 transition-colors hover:border-teal"
                 >
                   <CourseBadge level={c.level} />

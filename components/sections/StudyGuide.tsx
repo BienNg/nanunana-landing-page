@@ -1,3 +1,4 @@
+import { courseHref, courseLevels, levelCourse } from "@/content/course-levels";
 import Link from "next/link";
 import type { StudyGuideContent, GuideSource } from "@/content/study-guide";
 import type { Locale } from "@/lib/i18n/locale";
@@ -188,6 +189,18 @@ export function StudyGuide({
               <Link href={localePath(locale, "/niveau")}>{copy.coursesLabel}</Link>
               <Link href={localePath(locale, alternativePath)}>{copy.alternativeLabel}</Link>
             </div>
+            <ul className="mt-4 flex flex-wrap gap-3">
+              {courseLevels.map((level) => (
+                <li key={level}>
+                  <Link
+                    href={localePath(locale, courseHref(level))}
+                    className="inline-flex min-h-tap items-center rounded-control border border-border-subtle bg-white px-3 text-label-md text-brand-teal-dark hover:underline"
+                  >
+                    {levelCourse(locale, level).name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <PrefillLink
               goal={goal}
               className={buttonClasses({

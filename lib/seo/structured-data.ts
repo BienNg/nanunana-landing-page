@@ -1,5 +1,6 @@
 import { site } from "@/content/site";
-import { courses } from "@/content/courses";
+import { courses, type Course } from "@/content/courses";
+import { courseHref } from "@/content/course-levels";
 import { careerHref, type Role } from "@/content/careers";
 import { localePath, type Locale } from "@/lib/i18n/locale";
 
@@ -21,6 +22,25 @@ export function officeAddresses() {
   ];
 }
 
+export function courseData(locale: Locale, base: string, course: Course) {
+  const url = `${base}${localePath(locale, courseHref(course.id))}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${url}${url.includes("#") ? "" : "#course"}`,
+    url,
+    name: course.title,
+    description: course.description.value,
+    courseCode: course.level,
+    provider: {
+      "@type": "EducationalOrganization",
+      "@id": `${base}/#organization`,
+      name: site.name,
+      sameAs: base,
+    },
+  };
+}
+
 export function courseListData(locale: Locale, base: string) {
   return {
     "@context": "https://schema.org",
@@ -30,20 +50,8 @@ export function courseListData(locale: Locale, base: string) {
       .map((course, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        item: {
-          "@type": "Course",
-          "@id": `${base}${localePath(locale, `/niveau#${course.id}-section`)}`,
-          url: `${base}${localePath(locale, `/niveau#${course.id}-section`)}`,
-          name: course.title,
-          description: course.description.value,
-          inLanguage: locale,
-          provider: {
-            "@type": "EducationalOrganization",
-            "@id": `${base}/#organization`,
-            name: site.name,
-            sameAs: base,
-          },
-        },
+        url: `${base}${localePath(locale, courseHref(course.id))}`,
+        item: courseData(locale, base, course),
       })),
   };
 }

@@ -1,3 +1,4 @@
+import { courseHref, isCourseSlug } from "@/content/course-levels";
 import { PrivacySettingsButton } from "@/components/analytics/PrivacyPreferences";
 import Link from "next/link";
 import { Mail, MapPin, Phone, UserRound } from "lucide-react";
@@ -91,9 +92,15 @@ export async function Footer() {
               </li>
               {courses.map((c) => (
                 <li key={c.id}>
-                  <PrefillLink course={c.formValue} className={linkClass}>
-                    {c.name}
-                  </PrefillLink>
+                  {isCourseSlug(c.id) ? (
+                    <Link href={localePath(locale, courseHref(c.id))} className={linkClass}>
+                      {c.name}
+                    </Link>
+                  ) : (
+                    <PrefillLink course={c.formValue} className={linkClass}>
+                      {c.name}
+                    </PrefillLink>
+                  )}
                 </li>
               ))}
             </ul>
