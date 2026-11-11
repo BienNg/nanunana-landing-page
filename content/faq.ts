@@ -38,7 +38,7 @@ export const faqs = dictionary<FaqItem[]>(
       id: "online-offline",
       question: "Có lớp online không? Lịch học như thế nào?",
       answer: ok(
-        "NaNu NaNa có cả lớp online và lớp tại trung tâm ở TP. Hồ Chí Minh. Lịch học được sắp xếp theo khung giờ tối và cuối tuần để phù hợp với học sinh, sinh viên và người đi làm.",
+        "NaNu NaNa có cả lớp online và lớp tại trung tâm ở Hà Nội và TP. Hồ Chí Minh. Lịch học được sắp xếp theo khung giờ tối và cuối tuần để phù hợp với học sinh, sinh viên và người đi làm.",
       ),
     },
     {
@@ -82,7 +82,7 @@ export const faqs = dictionary<FaqItem[]>(
       id: "online-offline",
       question: "Gibt es Online-Kurse? Wie sieht der Stundenplan aus?",
       answer: ok(
-        "NaNu NaNa bietet Online-Kurse und Kurse am Standort in Ho-Chi-Minh-Stadt. Die Stunden liegen abends und am Wochenende, passend zu Schule, Studium und Beruf.",
+        "NaNu NaNa bietet Online-Kurse und Kurse an den Standorten Hanoi und Ho-Chi-Minh-Stadt. Die Stunden liegen abends und am Wochenende, passend zu Schule, Studium und Beruf.",
       ),
     },
     {

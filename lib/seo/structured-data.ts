@@ -3,6 +3,7 @@ import { site } from "@/content/site";
 import { courses, type Course } from "@/content/courses";
 import { courseHref } from "@/content/course-levels";
 import { careerHref, type Role } from "@/content/careers";
+import { onlineCopy, onlineHref } from "@/content/online";
 import { localePath, type Locale } from "@/lib/i18n/locale";
 
 export function officeAddresses() {
@@ -158,5 +159,30 @@ export function locationData(locale: Locale, base: string, slug: LocationSlug) {
     email: site.email,
     hasMap: locationMapHref(slug),
     parentOrganization: { "@id": `${base}/#organization` },
+  };
+}
+
+export function onlineCourseData(locale: Locale, base: string) {
+  const copy = onlineCopy[locale];
+  const url = `${base}${localePath(locale, onlineHref)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${url}#course`,
+    url,
+    name: copy.metaTitle,
+    description: copy.description,
+    inLanguage: "de",
+    provider: {
+      "@type": "EducationalOrganization",
+      "@id": `${base}/#organization`,
+      name: site.name,
+      sameAs: base,
+    },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      location: { "@type": "VirtualLocation", url },
+    },
   };
 }

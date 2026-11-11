@@ -209,9 +209,12 @@ export async function Courses({ variant = "summary" }: { variant?: "summary" | "
               </li>
             ))}
           </ul>
-          <div className="mt-8 text-center">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <LinkButton href="/niveau" variant="outline">
               {coursesSection.detailCta} <ChevronRight aria-hidden />
+            </LinkButton>
+            <LinkButton href="/hoc-tieng-duc-online" variant="outline">
+              {coursesSection.onlineCta} <ChevronRight aria-hidden />
             </LinkButton>
           </div>
         </>

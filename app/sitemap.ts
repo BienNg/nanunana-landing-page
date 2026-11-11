@@ -34,6 +34,7 @@ function sourcesFor(path: string): string[] {
     return ["content/university.ts", "content/pathways.ts", "content/process.ts"];
   }
   if (path.startsWith("/dia-diem/")) return ["content/site.ts", "content/locations.ts"];
+  if (path === "/hoc-tieng-duc-online") return ["content/online.ts", "content/course-levels.ts"];
   if (path === "/chinh-sach-bao-mat") return ["content/privacy.ts"];
   if (path.startsWith("/tuyen-dung")) return ["content/careers.ts"];
   return [];
@@ -42,7 +43,7 @@ function sourcesFor(path: string): string[] {
 function priorityFor(path: string): number {
   if (path === "/") return 1;
   if (path === "/niveau" || path === "/du-hoc-duc" || path === "/du-hoc-nghe") return 0.8;
-  if (path.startsWith("/dia-diem/")) return 0.7;
+  if (path.startsWith("/dia-diem/") || path === "/hoc-tieng-duc-online") return 0.7;
   if (path.startsWith("/niveau/")) return 0.7;
   if (path === "/tuyen-dung") return 0.5;
   if (path === "/chinh-sach-bao-mat") return 0.2;
@@ -55,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/",
     "/niveau",
     ...courseLevels.map(courseHref),
+    "/hoc-tieng-duc-online",
     "/du-hoc-duc",
     "/du-hoc-nghe",
     ...locationSlugs.map(locationHref),
