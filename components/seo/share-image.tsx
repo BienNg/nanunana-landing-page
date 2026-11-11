@@ -29,9 +29,14 @@ export function shareImageAlt(locale: Locale) {
   return `${copy.fullName} — ${copy.slogan}`;
 }
 
-export async function renderShareImage(locale: Locale) {
+export async function renderShareImage(
+  locale: Locale,
+  topic?: { headline: string; subtitle: string },
+) {
   const copy = siteCopy[locale];
-  const headline = copy.tagline.toLocaleUpperCase(locale === "de" ? "de-DE" : "vi-VN");
+  const headline = (topic?.headline ?? copy.tagline).toLocaleUpperCase(
+    locale === "de" ? "de-DE" : "vi-VN",
+  );
   const long = headline.length > 16;
   const [fonts, logo] = await Promise.all([Promise.all(fontFiles), logoSrc]);
   return new ImageResponse(
@@ -58,7 +63,7 @@ export async function renderShareImage(locale: Locale) {
             textTransform: "uppercase",
           }}
         >
-          {copy.ogKicker}
+          {topic ? "Ausbildung · NaNu NaNa" : copy.ogKicker}
         </div>
         <div
           style={{
@@ -84,7 +89,7 @@ export async function renderShareImage(locale: Locale) {
             color: "#0f172a",
           }}
         >
-          {copy.ogMotto}
+          {topic?.subtitle ?? copy.ogMotto}
         </div>
         <div
           style={{

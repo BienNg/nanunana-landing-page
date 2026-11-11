@@ -1,3 +1,4 @@
+import { AusbildungGuide } from "./AusbildungGuide";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { CircleCheck } from "lucide-react";
 import { pathways as pathwaysByLocale } from "@/content/pathways";
@@ -87,8 +88,9 @@ export async function PathwayDetail({ id }: { id: keyof typeof pathwayPath }) {
           </div>
         </div>
       </Section>
+      {id === "du-hoc-nghe" && <AusbildungGuide locale={locale} />}
       <Process only={trackId[id]} />
-      <Faq ids={faqIds[id]} />
+      {id !== "du-hoc-nghe" && <Faq ids={faqIds[id]} />}
     </>
   );
 }

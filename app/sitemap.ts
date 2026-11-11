@@ -25,7 +25,9 @@ const homeSources = [
 function sourcesFor(path: string): string[] {
   if (path === "/") return homeSources;
   if (path === "/niveau") return ["content/courses.ts"];
-  if (path === "/du-hoc-duc" || path === "/du-hoc-nghe") {
+  if (path === "/du-hoc-nghe")
+    return ["content/ausbildung.ts", "content/pathways.ts", "content/process.ts"];
+  if (path === "/du-hoc-duc") {
     return ["content/pathways.ts", "content/process.ts", "content/faq.ts"];
   }
   if (path === "/chinh-sach-bao-mat") return ["content/privacy.ts"];

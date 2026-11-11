@@ -71,11 +71,11 @@ export const pathways = dictionary<Pathway[]>(
       paragraphs: [
         "Chúng tôi đồng hành và tư vấn làm hồ sơ du học nghề tại Đức. Từ việc định hướng lựa chọn ngành nghề phù hợp cho tới khi đặt chân tới Đức và khoảng thời gian khi bắt đầu chương trình học nghề, chúng tôi sẽ luôn ở bên cạnh bạn và hỗ trợ bạn trên hành trình này!",
       ],
-      highlight: ok("Trợ cấp 1.200€ – 1.400€/tháng trong khi học"),
+      highlight: ok("Lương đào tạo theo hợp đồng"),
       bullets: [
         ok("Định hướng lựa chọn ngành nghề phù hợp"),
         ok("Tư vấn và đồng hành làm hồ sơ du học nghề"),
-        ok("Không cần chứng minh tài chính, nhận lương đào tạo từ tháng đầu"),
+        ok("Kiểm tra lương đào tạo và yêu cầu tài chính theo từng hồ sơ"),
         ok("Ở bên cạnh bạn khi đặt chân tới Đức và bắt đầu chương trình học nghề"),
       ],
       image: "pathwayVocational",
@@ -83,7 +83,7 @@ export const pathways = dictionary<Pathway[]>(
       cta: "Tư vấn du học nghề",
       pageTitle: "Du học nghề (Ausbildung) tại Đức",
       pageDescription:
-        "Tư vấn du học nghề tại Đức: chọn ngành, làm hồ sơ, không cần chứng minh tài chính. NaNu NaNa đồng hành từ lúc định hướng đến khi bạn sang Đức.",
+        "Du học nghề Đức: điều kiện, thời gian, ngành nghề, lương và chi phí Ausbildung. Hướng dẫn có nguồn chính thức, cùng lộ trình hỗ trợ của NaNu NaNa.",
     },
   ],
   [
@@ -118,11 +118,11 @@ export const pathways = dictionary<Pathway[]>(
       paragraphs: [
         "Wir begleiten Sie bei der Bewerbung für eine Ausbildung in Deutschland. Von der Berufswahl bis zu Ihrer Ankunft und dem Start der Ausbildung bleiben wir an Ihrer Seite.",
       ],
-      highlight: ok("1.200–1.400 € Ausbildungsvergütung im Monat"),
+      highlight: ok("Ausbildungsvergütung laut Vertrag"),
       bullets: [
         ok("Den passenden Beruf finden"),
         ok("Begleitung der Bewerbung"),
-        ok("Kein Sperrkonto, Vergütung ab dem ersten Monat"),
+        ok("Ausbildungsvergütung und Finanzierung individuell prüfen"),
         ok("An Ihrer Seite bei der Ankunft und zum Start der Ausbildung"),
       ],
       image: "pathwayVocational",
@@ -130,7 +130,7 @@ export const pathways = dictionary<Pathway[]>(
       cta: "Ausbildung beraten lassen",
       pageTitle: "Ausbildung in Deutschland",
       pageDescription:
-        "Beratung zur Ausbildung in Deutschland: Beruf wählen, Bewerbung, ohne Sperrkonto. Begleitung von der Orientierung bis zur Ankunft.",
+        "Ausbildung in Deutschland: Voraussetzungen, Dauer, Berufe, Vergütung und Kosten. Ratgeber mit offiziellen Quellen und Begleitung durch NaNu NaNa.",
     },
   ],
 );
