@@ -125,16 +125,15 @@ export const courses = dictionary<Course[]>(
       id: "b1",
       level: "B1",
       name: "Tiếng Đức B1",
-      title: "Tiếng Đức B1 & Luyện Thi",
+      title: "Tiếng Đức B1",
       formValue: "b1",
-      highlight: "Mục Tiêu Du Học",
       description: ok(
-        "Trình độ quan trọng cho hồ sơ du học nghề và nhiều thủ tục tại Đức. Rèn luyện đủ 4 kỹ năng Nghe – Nói – Đọc – Viết theo format kỳ thi Goethe-Zertifikat.",
+        "Phát triển tiếng Đức trình độ B1 qua bốn kỹ năng nghe, nói, đọc và viết để giao tiếp tự tin hơn trong cuộc sống hằng ngày.",
       ),
       duration: ok("44 buổi"),
       bullets: ok([
-        "Luyện đề theo format Goethe-Zertifikat B1",
-        "Chữa bài Nói & Viết cùng giáo viên",
+        "Rèn luyện nghe, nói, đọc và viết",
+        "Diễn đạt ý kiến và trao đổi về các chủ đề quen thuộc",
       ]),
     },
     {
@@ -203,16 +202,15 @@ export const courses = dictionary<Course[]>(
       id: "b1",
       level: "B1",
       name: "Deutsch B1",
-      title: "Deutsch B1 & Prüfungsvorbereitung",
+      title: "Deutsch B1",
       formValue: "b1",
-      highlight: "Ziel: Studium",
       description: ok(
-        "Das Niveau, das für viele Ausbildungsverträge und Verfahren in Deutschland zählt. Hören, Sprechen, Lesen und Schreiben im Format des Goethe-Zertifikats.",
+        "Deutsch auf B1-Niveau: Hören, Sprechen, Lesen und Schreiben weiterentwickeln und sich im Alltag sicherer verständigen.",
       ),
       duration: ok("44 Einheiten"),
       bullets: ok([
-        "Übungen im Format Goethe-Zertifikat B1",
-        "Sprechen und Schreiben mit der Lehrkraft",
+        "Hören, Sprechen, Lesen und Schreiben üben",
+        "Meinungen ausdrücken und über vertraute Themen sprechen",
       ]),
     },
     {

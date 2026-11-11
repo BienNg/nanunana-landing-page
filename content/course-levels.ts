@@ -44,16 +44,16 @@ export const courseDetails: Record<Locale, Record<CourseSlug, LevelDetail>> = {
     },
     b1: {
       audience:
-        "Dành cho bạn quan tâm đến học B1 và luyện thi, đặc biệt khi đang chuẩn bị lộ trình học tập hoặc học nghề tại Đức. Mức tiếng được chấp nhận vẫn phải kiểm tra theo từng hồ sơ và chương trình.",
+        "Dành cho bạn muốn phát triển tiếng Đức ở trình độ B1 và sử dụng ngôn ngữ tự tin hơn trong cuộc sống hằng ngày.",
       focus:
-        "Khoá B1 rèn bốn kỹ năng nghe, nói, đọc, viết theo định dạng Goethe-Zertifikat. Các nội dung đã xác nhận gồm luyện đề B1 và chữa bài nói, viết cùng giáo viên.",
+        "Khoá B1 rèn bốn kỹ năng nghe, nói, đọc và viết. Trọng tâm là diễn đạt ý kiến, trao đổi về những chủ đề quen thuộc và kết nối các ý rõ ràng.",
       practice: [
         "Trình bày ý kiến về một chủ đề quen thuộc và nêu lý do.",
         "Viết một đoạn có mở đầu, nội dung chính và kết thúc.",
-        "Khi luyện đề, ghi lại lỗi lặp lại ở từng kỹ năng để ôn lại.",
+        "Ghi lại những chỗ còn khó khi nghe, nói, đọc hoặc viết để ôn lại.",
       ],
       preparation:
-        "Hãy mang theo mục tiêu cụ thể: học để giao tiếp, chuẩn bị hồ sơ hay luyện thi. Nếu đã có kết quả thi hoặc bài viết gần đây, bạn có thể dùng chúng để mô tả phần cần cải thiện khi tư vấn.",
+        "Bạn có thể ôn lại những nội dung đã học và ghi ra các tình huống muốn giao tiếp tốt hơn. Khi tư vấn, hãy chia sẻ trình độ hiện tại và phần bạn muốn cải thiện.",
     },
     b2: {
       audience:
@@ -111,16 +111,16 @@ export const courseDetails: Record<Locale, Record<CourseSlug, LevelDetail>> = {
     },
     b1: {
       audience:
-        "Für Interessierte an B1 und Prüfungsvorbereitung, etwa auf dem Weg zu Studium oder Ausbildung in Deutschland. Welche Nachweise akzeptiert werden, hängt vom konkreten Verfahren und Programm ab.",
+        "Für alle, die ihr Deutsch auf B1-Niveau weiterentwickeln und sich im Alltag sicherer verständigen möchten.",
       focus:
-        "Der Kurs trainiert Hören, Sprechen, Lesen und Schreiben im Goethe-Zertifikat-Format. Bestätigte Inhalte sind B1-Übungsprüfungen sowie die Besprechung von Sprech- und Schreibaufgaben mit der Lehrkraft.",
+        "Der B1-Kurs trainiert Hören, Sprechen, Lesen und Schreiben. Im Mittelpunkt stehen eigene Meinungen, Gespräche über vertraute Themen und das klare Verknüpfen von Gedanken.",
       practice: [
         "Äußern Sie zu einem vertrauten Thema eine Meinung mit Begründung.",
         "Schreiben Sie einen Text mit Einleitung, Hauptteil und Schluss.",
-        "Notieren Sie bei Übungsprüfungen wiederkehrende Fehler pro Fertigkeit.",
+        "Notieren Sie Schwierigkeiten beim Hören, Sprechen, Lesen oder Schreiben und wiederholen Sie diese gezielt.",
       ],
       preparation:
-        "Benennen Sie Ihr Ziel: Kommunikation, Bewerbung oder Prüfung. Vorhandene Prüfungsergebnisse oder eigene Texte können helfen, Ihren Unterstützungsbedarf bei der Beratung zu beschreiben.",
+        "Wiederholen Sie bekannte Inhalte und sammeln Sie Alltagssituationen, in denen Sie sich besser verständigen möchten. Beschreiben Sie bei der Beratung Ihre aktuellen Kenntnisse und die Bereiche, die Sie verbessern möchten.",
     },
     b2: {
       audience:
@@ -177,7 +177,7 @@ export const coursePageCopy = {
       "Liên hệ NaNu NaNa để nhận học phí, lịch lớp và hình thức học đang có cho trình độ này. Bạn có thể gửi yêu cầu tư vấn với khoá học đã được chọn sẵn.",
     certificateQ: "Học xong có tự động được cấp chứng chỉ thi không?",
     certificateA:
-      "Không. Chuẩn bị kiến thức và luyện thi khác với việc đăng ký, dự thi và nhận chứng chỉ từ đơn vị tổ chức thi. Hãy hỏi rõ mục tiêu của khoá và yêu cầu chứng chỉ của nơi tiếp nhận.",
+      "Không. Tham gia khoá học không thay thế việc đăng ký, dự thi và nhận chứng chỉ từ đơn vị tổ chức thi. Hãy hỏi rõ mục tiêu của khoá và yêu cầu chứng chỉ của nơi tiếp nhận.",
   },
   de: {
     overview: "Alle Kurse",
@@ -204,6 +204,6 @@ export const coursePageCopy = {
       "Erfragen Sie bei NaNu NaNa die aktuellen Gebühren, Termine und Unterrichtsformen für dieses Niveau. Bei Ihrer Beratungsanfrage ist der Kurs bereits ausgewählt.",
     certificateQ: "Erhalte ich nach dem Kurs automatisch ein Prüfungszertifikat?",
     certificateA:
-      "Nein. Lernen und Prüfungsvorbereitung sind von Anmeldung, Prüfung und Zertifikat der prüfenden Einrichtung zu unterscheiden. Klären Sie das Kursziel und die Nachweise, die Ihre Zielinstitution verlangt.",
+      "Nein. Ein Kursbesuch ersetzt weder die Anmeldung noch die Prüfung bei der prüfenden Einrichtung. Klären Sie das Kursziel und die Nachweise, die Ihre Zielinstitution verlangt.",
   },
 };
