@@ -8,6 +8,7 @@
  * Group size, price and 1-on-1 lessons were confirmed by NaNu NaNa on 2026-11-11.
  */
 import { ok, type Claim } from "./verify";
+import { coursePrice } from "./pricing";
 import type { Locale } from "@/lib/i18n/locale";
 
 export const onlineHref = "/hoc-tieng-duc-online";
@@ -58,7 +59,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       },
       {
         label: "Học phí",
-        value: ok("Từ 5.900.000 VND"),
+        value: ok(coursePrice.vi),
       },
     ],
     whoTitle: "Lớp online dành cho ai?",
@@ -91,7 +92,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       "Lớp online đi theo cùng lộ trình A1–C1 như lớp tại trung tâm. Xem nội dung từng trình độ:",
     openTitle: "Lớp online đang học",
     openText:
-      "Danh sách lớp hiện tại (kể cả lớp Online VN và Online Đức) nằm ở trang chủ. Hãy để lại thông tin để được xếp vào lớp phù hợp với trình độ và lịch của bạn.",
+      "Danh sách lớp hiện tại (kể cả lớp Online VN và Online Đức) nằm ở trang Lịch học. Hãy để lại thông tin để được xếp vào lớp phù hợp với trình độ và lịch của bạn.",
     shareSubtitle: "Zoom · A1–C1 · Buổi tối & cuối tuần",
   },
   de: {
@@ -116,7 +117,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       },
       {
         label: "Gebühr",
-        value: ok("Ab 5.900.000 VND"),
+        value: ok(coursePrice.de),
       },
     ],
     whoTitle: "Für wen sind die Online-Kurse?",
@@ -151,7 +152,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       "Die Online-Kurse folgen demselben Weg von A1 bis C1 wie die Kurse vor Ort. Die Inhalte je Niveau:",
     openTitle: "Laufende Online-Kurse",
     openText:
-      "Die aktuelle Kursliste (auch Online Vietnam und Online Deutschland) steht auf der Startseite. Hinterlassen Sie Ihre Daten, dann finden wir einen Kurs, der zu Niveau und Zeitplan passt.",
+      "Die aktuelle Kursliste (auch Online Vietnam und Online Deutschland) steht im Kursplan. Hinterlassen Sie Ihre Daten, dann finden wir einen Kurs, der zu Niveau und Zeitplan passt.",
     shareSubtitle: "Zoom · A1–C1 · Abends & Wochenende",
   },
 };

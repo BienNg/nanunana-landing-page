@@ -155,6 +155,7 @@ export const coursePageCopy = {
   vi: {
     overview: "Tất cả khoá học",
     duration: "Số buổi học",
+    price: "Học phí",
     audience: "Khoá học này dành cho ai?",
     focus: "Nội dung và kỹ năng trọng tâm",
     practice: "Gợi ý tự luyện theo chủ đề",
@@ -163,7 +164,7 @@ export const coursePageCopy = {
     preparation: "Chuẩn bị trước khi học",
     planning: "Thời gian, học phí và lịch học",
     planningText:
-      "Số buổi không phải số tháng. Thời gian hoàn thành phụ thuộc số buổi mỗi tuần và lịch lớp thực tế. Hãy hỏi bảng học phí, hình thức học và lịch khai giảng hiện có khi tư vấn.",
+      "Số buổi không phải số tháng. Thời gian hoàn thành phụ thuộc số buổi mỗi tuần và lịch lớp thực tế. Hãy hỏi bảng học phí chi tiết, hình thức học và lịch khai giảng hiện có khi tư vấn.",
     enquiry: "Tư vấn khoá học",
     details: "Xem nội dung khoá",
     roadmap: "Các trình độ khác",
@@ -174,7 +175,7 @@ export const coursePageCopy = {
     durationQ: "Khoá học kéo dài bao lâu?",
     feesQ: "Học phí và lịch khai giảng thế nào?",
     feesA:
-      "Liên hệ NaNu NaNa để nhận học phí, lịch lớp và hình thức học đang có cho trình độ này. Bạn có thể gửi yêu cầu tư vấn với khoá học đã được chọn sẵn.",
+      "Học phí từ 5.900.000 VND, áp dụng cho cả lớp online và lớp tại trung tâm. Liên hệ NaNu NaNa để nhận bảng học phí chi tiết, lịch lớp và hình thức học đang có cho trình độ này.",
     certificateQ: "Học xong có tự động được cấp chứng chỉ thi không?",
     certificateA:
       "Không. Tham gia khoá học không thay thế việc đăng ký, dự thi và nhận chứng chỉ từ đơn vị tổ chức thi. Hãy hỏi rõ mục tiêu của khoá và yêu cầu chứng chỉ của nơi tiếp nhận.",
@@ -182,6 +183,7 @@ export const coursePageCopy = {
   de: {
     overview: "Alle Kurse",
     duration: "Unterrichtseinheiten",
+    price: "Gebühr",
     audience: "Für wen ist der Kurs?",
     focus: "Inhalte und Schwerpunkte",
     practice: "Anregungen zum selbstständigen Üben",
@@ -201,7 +203,7 @@ export const coursePageCopy = {
     durationQ: "Wie lange dauert der Kurs?",
     feesQ: "Welche Gebühren und Starttermine gelten?",
     feesA:
-      "Erfragen Sie bei NaNu NaNa die aktuellen Gebühren, Termine und Unterrichtsformen für dieses Niveau. Bei Ihrer Beratungsanfrage ist der Kurs bereits ausgewählt.",
+      "Die Gebühr beginnt ab 5.900.000 VND, online wie vor Ort. Die genaue Preisliste, Termine und Unterrichtsformen für dieses Niveau erhalten Sie bei NaNu NaNa.",
     certificateQ: "Erhalte ich nach dem Kurs automatisch ein Prüfungszertifikat?",
     certificateA:
       "Nein. Ein Kursbesuch ersetzt weder die Anmeldung noch die Prüfung bei der prüfenden Einrichtung. Klären Sie das Kursziel und die Nachweise, die Ihre Zielinstitution verlangt.",

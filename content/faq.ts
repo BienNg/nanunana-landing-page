@@ -31,7 +31,7 @@ export const faqs = dictionary<FaqItem[]>(
       id: "hoc-phi",
       question: "Học phí các khoá tiếng Đức là bao nhiêu?",
       answer: ok(
-        "Học phí phụ thuộc vào trình độ và hình thức học (online hoặc tại lớp). Hãy để lại thông tin, tư vấn viên sẽ gửi bạn bảng học phí chi tiết và lịch khai giảng gần nhất.",
+        "Học phí từ 5.900.000 VND, cho cả lớp online và lớp tại trung tâm. Hãy để lại thông tin, tư vấn viên sẽ gửi bạn bảng học phí chi tiết và lịch khai giảng gần nhất.",
       ),
     },
     {
@@ -75,7 +75,7 @@ export const faqs = dictionary<FaqItem[]>(
       id: "hoc-phi",
       question: "Was kosten die Deutschkurse?",
       answer: ok(
-        "Die Gebühr hängt vom Niveau und von der Form ab (online oder vor Ort). Hinterlassen Sie Ihre Daten, dann senden wir Ihnen die Preisliste und den nächsten Starttermin.",
+        "Die Kurse kosten ab 5.900.000 VND, online wie vor Ort. Hinterlassen Sie Ihre Daten, dann senden wir Ihnen die genaue Preisliste und den nächsten Starttermin.",
       ),
     },
     {

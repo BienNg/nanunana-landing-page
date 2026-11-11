@@ -82,7 +82,7 @@ export async function Footer() {
           <Column title={copy.courses}>
             <ul>
               <li>
-                <Link href={section(sectionIds.classes)} className={linkClass}>
+                <Link href={localePath(locale, "/lich-hoc")} className={linkClass}>
                   {copy.classes}
                 </Link>
               </li>

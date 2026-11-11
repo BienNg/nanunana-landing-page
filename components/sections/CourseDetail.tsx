@@ -18,6 +18,7 @@ import { localePath, type Locale } from "@/lib/i18n/locale";
 import { courseData } from "@/lib/seo/structured-data";
 import { getSiteUrl } from "@/lib/site-url";
 import { FaqList } from "./FaqList";
+import { coursePrice } from "@/content/pricing";
 
 export function CourseDetail({ locale, level }: { locale: Locale; level: CourseSlug }) {
   const course = levelCourse(locale, level);
@@ -64,6 +65,8 @@ export function CourseDetail({ locale, level }: { locale: Locale; level: CourseS
           >
             <p className="text-label-sm text-ink-muted">{copy.duration}</p>
             <p className="mt-2 text-headline-lg text-brand-teal-dark">{course.duration.value}</p>
+            <p className="mt-4 text-label-sm text-ink-muted">{copy.price}</p>
+            <p className="mt-1 text-headline-sm text-ink">{coursePrice[locale]}</p>
             <p className="mt-4 text-body-sm text-ink-muted">{copy.planningText}</p>
             <PrefillLink
               course={course.formValue}

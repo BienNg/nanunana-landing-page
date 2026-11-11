@@ -13,6 +13,15 @@ export const runningClassesSection = dictionary(
     title: "Lớp đang diễn ra",
     intro: "Các lớp đang học hiện tại. Đăng ký tư vấn để giữ chỗ trong lớp phù hợp.",
     register: "Đăng ký",
+    seeAll: (count: number) => `Xem tất cả ${count} lớp`,
+    page: {
+      title: "Lịch học tiếng Đức",
+      metaTitle: "Lịch học tiếng Đức A1–C1",
+      description:
+        "Các lớp tiếng Đức đang học tại NaNu NaNa: trình độ, địa điểm (Hà Nội, Sài Gòn, online) và ngày bắt đầu, kết thúc. Đăng ký tư vấn để giữ chỗ.",
+      intro:
+        "Tất cả lớp đang học tại Hà Nội, Sài Gòn và online. Danh sách được cập nhật thường xuyên. Đăng ký tư vấn để giữ chỗ trong lớp phù hợp với trình độ và lịch của bạn.",
+    },
     jump: {
       label: "Chuyển phần",
       previous: "Trước",
@@ -35,6 +44,15 @@ export const runningClassesSection = dictionary(
     title: "Laufende Kurse",
     intro: "Kurse, die gerade laufen. Fragen Sie eine Beratung an, um einen Platz zu sichern.",
     register: "Anmelden",
+    seeAll: (count: number) => `Alle ${count} Kurse ansehen`,
+    page: {
+      title: "Kursplan Deutsch",
+      metaTitle: "Kursplan Deutsch A1–C1",
+      description:
+        "Laufende Deutschkurse bei NaNu NaNa: Niveau, Ort (Hanoi, Saigon, online) sowie Beginn und Ende. Fragen Sie eine Beratung an, um einen Platz zu sichern.",
+      intro:
+        "Alle laufenden Kurse in Hanoi, Saigon und online. Die Liste wird regelmäßig aktualisiert. Fragen Sie eine Beratung an, um einen Platz in einem Kurs zu sichern, der zu Niveau und Zeitplan passt.",
+    },
     jump: {
       label: "Abschnitt wechseln",
       previous: "Zurück",

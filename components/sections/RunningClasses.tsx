@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import {
   classCountLabel,
   classRegisterMessage,
@@ -20,8 +20,12 @@ import { Badge } from "@/components/ui/Badge";
 import { CourseBadge } from "@/components/ui/CourseBadge";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ClassListJump } from "./ClassListJump";
 import { ClassPhotos } from "./ClassPhotos";
+import { LinkButton } from "@/components/ui/Button";
+
+export const scheduleHref = "/lich-hoc";
+/** Classes shown on the homepage; the rest live on the schedule page. */
+const HOME_LIMIT = 6;
 
 function LevelLabel({ level }: { level: string | null }) {
   if (!level) return <span className="text-ink-subtle">—</span>;
@@ -201,15 +205,47 @@ export async function RunningClasses() {
   const locale = await getLocale();
   const classes = await getRunningClasses();
   if (classes.length === 0) return null;
+  const copy = runningClassesSection[locale];
+  const shown = classes.slice(0, HOME_LIMIT);
 
   return (
     <ClassesFrame locale={locale}>
       <p className="mb-4 text-center text-body-sm text-ink-muted">
         {classCountLabel(locale, classes.length)}
       </p>
-      <ClassTable classes={classes} locale={locale} />
-      <ClassListJump />
+      <ClassTable classes={shown} locale={locale} />
+      {classes.length > shown.length ? (
+        <div className="mt-6 text-center">
+          <LinkButton href={scheduleHref} variant="outline">
+            {copy.seeAll(classes.length)} <ArrowRight aria-hidden />
+          </LinkButton>
+        </div>
+      ) : null}
     </ClassesFrame>
+  );
+}
+
+/** Full list for the schedule page, with its own h1. */
+export async function ClassSchedule() {
+  const locale = await getLocale();
+  const classes = await getRunningClasses();
+  const copy = runningClassesSection[locale];
+  return (
+    <Section id={sectionIds.classes} tone="canvas">
+      <p className="text-label-lg text-brand-teal-dark">{copy.eyebrow}</p>
+      <h1 className="mt-4 text-display-hero-mobile text-ink md:text-display-hero">
+        {copy.page.title}
+      </h1>
+      <p className="mt-6 mb-8 max-w-2xl text-body-lg text-ink-muted">{copy.page.intro}</p>
+      {classes.length > 0 ? (
+        <>
+          <p className="mb-4 text-body-sm text-ink-muted">
+            {classCountLabel(locale, classes.length)}
+          </p>
+          <ClassTable classes={classes} locale={locale} />
+        </>
+      ) : null}
+    </Section>
   );
 }
 

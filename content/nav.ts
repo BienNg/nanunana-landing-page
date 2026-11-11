@@ -61,10 +61,10 @@ export const mainNav = dictionary<NavItem[]>(
           href: "/hoc-tieng-duc-online",
           hint: "Qua Zoom, buổi tối và cuối tuần",
         },
+        { label: "Thi Goethe", href: "/thi-goethe", hint: "Cần mang gì, bao lâu có kết quả" },
         {
           label: "Lớp đang diễn ra",
-          href: `/#${sectionIds.classes}`,
-          spy: [sectionIds.classes],
+          href: "/lich-hoc",
           hint: "Lịch lớp hiện tại",
         },
       ],
@@ -79,6 +79,11 @@ export const mainNav = dictionary<NavItem[]>(
           hint: "Học đại học tại Đức",
         },
         { label: "Du học nghề", href: pathwayPath["du-hoc-nghe"], hint: "Ausbildung tại Đức" },
+        {
+          label: "Chi phí & visa",
+          href: "/chi-phi-du-hoc-duc",
+          hint: "Tài khoản phong tỏa, lệ phí, bảo hiểm",
+        },
       ],
     },
     {
@@ -112,9 +117,13 @@ export const mainNav = dictionary<NavItem[]>(
           hint: "Über Zoom, abends und am Wochenende",
         },
         {
+          label: "Goethe-Prüfung",
+          href: "/thi-goethe",
+          hint: "Was mitbringen, wann kommt das Ergebnis",
+        },
+        {
           label: "Laufende Kurse",
-          href: `/#${sectionIds.classes}`,
-          spy: [sectionIds.classes],
+          href: "/lich-hoc",
           hint: "Aktueller Kursplan",
         },
       ],
@@ -132,6 +141,11 @@ export const mainNav = dictionary<NavItem[]>(
           label: "Ausbildung in Deutschland",
           href: pathwayPath["du-hoc-nghe"],
           hint: "Berufsausbildung in Deutschland",
+        },
+        {
+          label: "Kosten & Visum",
+          href: "/chi-phi-du-hoc-duc",
+          hint: "Sperrkonto, Gebühr, Versicherung",
         },
       ],
     },

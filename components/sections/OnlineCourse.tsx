@@ -3,7 +3,6 @@ import { Check, MonitorPlay } from "lucide-react";
 import { onlineCopy, onlineHref } from "@/content/online";
 import { courseHref, courseLevels, levelCourse } from "@/content/course-levels";
 import { isVisible } from "@/content/verify";
-import { sectionIds } from "@/content/nav";
 import { localePath, type Locale } from "@/lib/i18n/locale";
 import { getSiteUrl } from "@/lib/site-url";
 import { onlineCourseData } from "@/lib/seo/structured-data";
@@ -107,7 +106,7 @@ export function OnlineCourse({ locale }: { locale: Locale }) {
         <p className="mt-3 max-w-3xl text-body-md text-ink-muted">{copy.openText}</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href={`${localePath(locale, "/")}#${sectionIds.classes}`}
+            href={localePath(locale, "/lich-hoc")}
             className={buttonClasses({
               variant: "outline",
               className: "text-center whitespace-normal",
