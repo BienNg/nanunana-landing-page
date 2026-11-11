@@ -119,7 +119,7 @@ export async function Hero() {
                 src={images.logoFull.src}
                 alt={images.logoFull.alt}
                 priority
-                sizes="(min-width: 1024px) 420px, 80vw"
+                sizes="340px"
                 className="mx-auto my-6 h-auto w-full max-w-[340px]"
               />
               <p className="text-center text-headline-sm text-brand-teal-dark">{hero.card.motto}</p>

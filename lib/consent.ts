@@ -3,6 +3,13 @@ export const CONSENT_KEY = "nanunana:consent:v1";
 export const CONSENT_EVENT = "nanunana:consent-change";
 export const PREFERENCES_EVENT = "nanunana:privacy-settings";
 export const CONSENT_MAX_AGE = 180 * 24 * 60 * 60 * 1000;
+
+/**
+ * Runs in <head> before first paint. The banner is part of the server HTML so it
+ * paints early; this hides it right away for visitors with a valid stored choice.
+ * Mirrors parseConsent: version 1, boolean flags, savedAt within CONSENT_MAX_AGE.
+ */
+export const consentPaintScript = `try{var c=JSON.parse(localStorage.getItem(${JSON.stringify(CONSENT_KEY)})),n=Date.now();if(c&&c.version===1&&typeof c.analytics==="boolean"&&typeof c.marketing==="boolean"&&typeof c.savedAt==="number"&&c.savedAt<=n&&n-c.savedAt<${CONSENT_MAX_AGE})document.documentElement.dataset.consent="1"}catch(e){}`;
 let memory: string | null = null;
 let memoryOnly = false;
 

@@ -1,16 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { buttonClasses } from "@/components/ui/button-styles";
 import { useConsent } from "@/lib/hooks/useConsent";
 import { localePath } from "@/lib/i18n/locale";
 import { PREFERENCES_EVENT, saveConsent, type Consent } from "@/lib/consent";
-
-const subscribeMounted = () => () => {};
-const clientMounted = () => true;
-const serverMounted = () => false;
 
 const copy = {
   vi: {
@@ -71,7 +67,6 @@ export function PrivacyPreferences() {
   const locale = useLocale();
   const text = copy[locale];
   const consent = useConsent();
-  const mounted = useSyncExternalStore(subscribeMounted, clientMounted, serverMounted);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<Consent>({ analytics: false, marketing: false });
   const heading = useRef<HTMLHeadingElement>(null);
@@ -99,12 +94,16 @@ export function PrivacyPreferences() {
     saveConsent(value);
     close();
   };
-  if (!mounted || (consent && !editing)) return null;
+  // Rendered on the server too, so the banner is in the first paint (it is the
+  // LCP element for new visitors). Returning visitors never see it: the head
+  // script hides it via data-consent before paint, and it unmounts on hydration.
+  if (consent && !editing) return null;
 
   return (
     <section
       aria-labelledby="privacy-preferences-title"
       data-stats-ignore
+      data-consent-banner={editing ? undefined : ""}
       className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-h-[85dvh] max-w-2xl overflow-y-auto rounded-card border border-border-subtle bg-white p-5 text-ink shadow-tier-3 sm:p-6"
       onKeyDown={(event) => {
         if (event.key === "Escape" && consent) close();

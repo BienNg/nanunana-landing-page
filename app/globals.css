@@ -259,3 +259,8 @@
     color: var(--color-ink);
   }
 }
+
+/* Visitors who already chose: hide the server-rendered banner before first paint. */
+html[data-consent="1"] [data-consent-banner] {
+  display: none;
+}
