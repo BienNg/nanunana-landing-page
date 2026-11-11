@@ -1,3 +1,4 @@
+import { locationHref } from "@/content/locations";
 import { officeAddresses } from "@/lib/seo/structured-data";
 import { site, siteFor } from "@/content/site";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -38,6 +39,7 @@ export async function OrganizationJsonLd() {
           "@type": "EducationalOrganization",
           "@id": `${base}/#office-${index === 0 ? "hcm" : "hanoi"}`,
           name: `${site.name} – ${address.addressLocality}`,
+          url: `${base}${localePath(locale, locationHref(index === 0 ? "ho-chi-minh" : "ha-noi"))}`,
           address,
           telephone: site.phone.e164,
           parentOrganization: { "@id": `${base}/#organization` },

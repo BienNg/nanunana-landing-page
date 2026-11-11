@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { openRoles } from "../content/careers";
 import { courseHref, courseLevels, isCourseSlug, levelCourse } from "../content/course-levels";
-import { siteCopy } from "../content/site";
+import { locationSlugs, locationFor, isLocationSlug } from "../content/locations";
+import { site, siteCopy } from "../content/site";
 import {
+  locationData,
   courseData,
   courseListData,
   jobPostingData,
@@ -73,4 +75,29 @@ test("only the five confirmed CEFR course routes are valid", () => {
       assert.equal("offers" in data, false);
       assert.equal("hasCourseInstance" in data, false);
     }
+});
+
+test("location pages only describe confirmed addresses and share the central contact", () => {
+  const base = "https://example.test";
+  for (const locale of ["vi", "de"] as const) {
+    for (const slug of locationSlugs) {
+      const location = locationFor(slug);
+      const data = locationData(locale, base, slug);
+      assert.deepEqual(data.address, officeAddresses()[slug === "ha-noi" ? 1 : 0]);
+      assert.equal(data.telephone, site.phone.e164);
+      assert.equal(data.email, site.email);
+      assert.equal(data.url, `${base}${locale === "de" ? "/de" : ""}/dia-diem/${slug}`);
+      assert.equal(data["@id"], `${base}/#office-${slug === "ha-noi" ? "hanoi" : "hcm"}`);
+      assert.equal(data.parentOrganization["@id"], `${base}/#organization`);
+      const map = new URL(data.hasMap);
+      assert.equal(map.origin, "https://www.google.com");
+      assert.equal(map.searchParams.get("api"), "1");
+      assert.equal(map.searchParams.get("query"), location.fullAddress);
+      for (const unverified of ["openingHoursSpecification", "geo", "aggregateRating", "image"]) {
+        assert.equal(unverified in data, false);
+      }
+    }
+  }
+  assert.equal(isLocationSlug("stuttgart"), false);
+  assert.equal(isLocationSlug("toString"), false);
 });

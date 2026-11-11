@@ -1,3 +1,4 @@
+import { locationHref } from "@/content/locations";
 import { courseHref, isCourseSlug } from "@/content/course-levels";
 import { PrivacySettingsButton } from "@/components/analytics/PrivacyPreferences";
 import Link from "next/link";
@@ -206,7 +207,19 @@ export async function Footer() {
                     key={o.city}
                     className="rounded-full bg-white/10 px-3 py-1 text-label-md text-white"
                   >
-                    {o.city}
+                    {o.id === "stuttgart" ? (
+                      o.city
+                    ) : (
+                      <Link
+                        className="inline-flex min-h-9 items-center hover:underline"
+                        href={localePath(
+                          locale,
+                          locationHref(o.id === "hanoi" ? "ha-noi" : "ho-chi-minh"),
+                        )}
+                      >
+                        {o.city}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

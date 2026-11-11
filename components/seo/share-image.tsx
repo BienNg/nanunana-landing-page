@@ -31,7 +31,7 @@ export function shareImageAlt(locale: Locale) {
 
 export async function renderShareImage(
   locale: Locale,
-  topic?: { headline: string; subtitle: string; kicker?: string },
+  topic?: { headline: string; subtitle: string; kicker?: string; places?: string },
 ) {
   const copy = siteCopy[locale];
   const headline = (topic?.headline ?? copy.tagline).toLocaleUpperCase(
@@ -100,7 +100,7 @@ export async function renderShareImage(
             color: "#475569",
           }}
         >
-          {site.phone.display} · {copy.ogPlaces}
+          {site.phone.display} · {topic?.places ?? copy.ogPlaces}
         </div>
       </div>
       <div
