@@ -17,13 +17,17 @@ import { ChatLink } from "@/components/analytics/ChatLink";
 import { MessengerIcon, WhatsAppIcon, ZaloIcon, zaloOnCoral } from "@/components/icons/brand";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
+import { NavDropdown } from "./NavDropdown";
 
 export function Header() {
   const locale = useLocale();
   const nav = mainNav[locale];
   const site = siteFor(locale);
   const copy = ui[locale];
-  const spyIds = nav.flatMap((item) => item.spy ?? []);
+  const spyIds = nav.flatMap((item) => [
+    ...(item.spy ?? []),
+    ...(item.children ?? []).flatMap((child) => child.spy ?? []),
+  ]);
   const pathname = usePathname();
   const path = unlocalizedPath(pathname);
   const active = useScrollSpy(path === "/" ? spyIds : []);
@@ -42,6 +46,9 @@ export function Header() {
     href.startsWith("/#")
       ? path === "/" && !!active && !!spy?.includes(active)
       : path === unlocalizedPath(href);
+  const isGroupActive = (item: (typeof nav)[number]) =>
+    isActive(item.href, item.spy) ||
+    !!item.children?.some((child) => isActive(child.href, child.spy));
 
   return (
     <header
@@ -53,10 +60,22 @@ export function Header() {
       <div className="container-page flex h-header items-center justify-between gap-3">
         <Logo priority />
 
-        <nav aria-label={copy.nav} className="hidden xl:block">
+        <nav aria-label={copy.nav} className="hidden lg:block">
           <ul className="flex items-center">
             {nav.map((item) => {
-              const current = isActive(item.href, item.spy);
+              const current = isGroupActive(item);
+              if (item.children) {
+                return (
+                  <NavDropdown
+                    key={item.label}
+                    item={{ ...item, children: item.children }}
+                    locale={locale}
+                    current={current}
+                    isActive={isActive}
+                    path={path}
+                  />
+                );
+              }
               return (
                 <li key={item.href}>
                   <Link
@@ -65,9 +84,9 @@ export function Header() {
                       current ? (item.href.startsWith("/#") ? "location" : "page") : undefined
                     }
                     className={cn(
-                      "relative inline-flex min-h-tap items-center rounded-control px-2 text-label-md whitespace-nowrap transition-colors hover:text-brand-teal-dark",
+                      "relative inline-flex min-h-tap items-center rounded-control px-2.5 text-label-md whitespace-nowrap transition-colors hover:text-brand-teal-dark",
                       current ? "text-brand-teal-dark" : "text-ink-muted",
-                      "after:absolute after:inset-x-2 after:bottom-1.5 after:h-0.5 after:origin-left after:rounded-full after:bg-teal after:transition-transform after:duration-200",
+                      "after:absolute after:inset-x-2.5 after:bottom-1.5 after:h-0.5 after:origin-left after:rounded-full after:bg-teal after:transition-transform after:duration-200",
                       current ? "after:scale-x-100" : "after:scale-x-0",
                     )}
                   >
@@ -129,7 +148,7 @@ export function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen(true)}
-            className="grid size-tap place-items-center rounded-control text-ink transition-colors hover:bg-surface-container-low xl:hidden"
+            className="grid size-tap place-items-center rounded-control text-ink transition-colors hover:bg-surface-container-low lg:hidden"
           >
             <Menu aria-hidden className="size-6" />
           </button>

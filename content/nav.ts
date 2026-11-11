@@ -27,13 +27,18 @@ export const sectionIds = {
 
 export type SectionId = (typeof sectionIds)[keyof typeof sectionIds];
 
-export type NavItem = {
+export type NavLink = {
   label: string;
   /** Section id on the home page, or an absolute route. Unprefixed; localize at render. */
   href: string;
   /** Section ids that should highlight this item while in view. */
   spy?: readonly SectionId[];
+  /** Short helper line shown under the label in dropdowns. */
+  hint?: string;
 };
+
+/** A top-level menu entry: a plain link, or a dropdown with its own links. */
+export type NavItem = NavLink & { children?: NavLink[] };
 
 /** Old Webflow pathway URLs. Keys are the homepage section ids. */
 export const pathwayPath = {
@@ -41,31 +46,117 @@ export const pathwayPath = {
   "du-hoc-nghe": "/du-hoc-nghe",
 } as const;
 
-const navItems = [
-  { href: "/niveau" },
-  { href: `/#${sectionIds.classes}`, spy: [sectionIds.classes] },
-  { href: pathwayPath["du-hoc-dai-hoc"] },
-  { href: pathwayPath["du-hoc-nghe"] },
-  { href: `/#${sectionIds.about}`, spy: [sectionIds.about] },
-  { href: "/tuyen-dung" },
-] as const;
+const levels = ["a1", "a2", "b1", "b2", "c1"] as const;
 
 export const mainNav = dictionary<NavItem[]>(
-  navItems.map((item, i) => ({
-    ...item,
-    label: [
-      "Khoá Học",
-      "Lớp đang diễn ra",
-      "Du học đại học",
-      "Du học nghề",
-      "Về Chúng Tôi",
-      "Tuyển Dụng",
-    ][i]!,
-  })),
-  navItems.map((item, i) => ({
-    ...item,
-    label: ["Kurse", "Laufende Kurse", "Studium", "Ausbildung", "Über uns", "Karriere"][i]!,
-  })),
+  [
+    {
+      label: "Khoá học",
+      href: "/niveau",
+      children: [
+        { label: "Tất cả khoá học", href: "/niveau", hint: "Lộ trình A1 đến C1" },
+        ...levels.map((l) => ({ label: `Tiếng Đức ${l.toUpperCase()}`, href: `/niveau/${l}` })),
+        {
+          label: "Học tiếng Đức online",
+          href: "/hoc-tieng-duc-online",
+          hint: "Qua Zoom, buổi tối và cuối tuần",
+        },
+        {
+          label: "Lớp đang diễn ra",
+          href: `/#${sectionIds.classes}`,
+          spy: [sectionIds.classes],
+          hint: "Lịch lớp hiện tại",
+        },
+      ],
+    },
+    {
+      label: "Du học Đức",
+      href: pathwayPath["du-hoc-dai-hoc"],
+      children: [
+        {
+          label: "Du học đại học",
+          href: pathwayPath["du-hoc-dai-hoc"],
+          hint: "Học đại học tại Đức",
+        },
+        { label: "Du học nghề", href: pathwayPath["du-hoc-nghe"], hint: "Ausbildung tại Đức" },
+      ],
+    },
+    {
+      label: "Về chúng tôi",
+      href: `/#${sectionIds.about}`,
+      spy: [sectionIds.about, sectionIds.founder, sectionIds.team],
+      children: [
+        {
+          label: "Về NaNu NaNa",
+          href: `/#${sectionIds.about}`,
+          spy: [sectionIds.about],
+          hint: "Câu chuyện và đội ngũ",
+        },
+        { label: "Hà Nội", href: "/dia-diem/ha-noi", hint: "Địa chỉ trung tâm" },
+        { label: "TP. Hồ Chí Minh", href: "/dia-diem/ho-chi-minh", hint: "Địa chỉ trung tâm" },
+        { label: "Tuyển dụng", href: "/tuyen-dung", hint: "Vị trí đang tuyển" },
+      ],
+    },
+    { label: "Hỏi đáp", href: `/#${sectionIds.faq}`, spy: [sectionIds.faq] },
+  ],
+  [
+    {
+      label: "Kurse",
+      href: "/niveau",
+      children: [
+        { label: "Alle Kurse", href: "/niveau", hint: "Der Weg von A1 bis C1" },
+        ...levels.map((l) => ({ label: `Deutsch ${l.toUpperCase()}`, href: `/niveau/${l}` })),
+        {
+          label: "Deutsch online",
+          href: "/hoc-tieng-duc-online",
+          hint: "Über Zoom, abends und am Wochenende",
+        },
+        {
+          label: "Laufende Kurse",
+          href: `/#${sectionIds.classes}`,
+          spy: [sectionIds.classes],
+          hint: "Aktueller Kursplan",
+        },
+      ],
+    },
+    {
+      label: "Studium & Ausbildung",
+      href: pathwayPath["du-hoc-dai-hoc"],
+      children: [
+        {
+          label: "Studium in Deutschland",
+          href: pathwayPath["du-hoc-dai-hoc"],
+          hint: "An einer deutschen Hochschule",
+        },
+        {
+          label: "Ausbildung in Deutschland",
+          href: pathwayPath["du-hoc-nghe"],
+          hint: "Berufsausbildung in Deutschland",
+        },
+      ],
+    },
+    {
+      label: "Über uns",
+      href: `/#${sectionIds.about}`,
+      spy: [sectionIds.about, sectionIds.founder, sectionIds.team],
+      children: [
+        {
+          label: "Über NaNu NaNa",
+          href: `/#${sectionIds.about}`,
+          spy: [sectionIds.about],
+          hint: "Geschichte und Team",
+        },
+        { label: "Hanoi", href: "/dia-diem/ha-noi", hint: "Adresse des Standorts" },
+        {
+          label: "Ho-Chi-Minh-Stadt",
+          href: "/dia-diem/ho-chi-minh",
+          hint: "Adresse des Standorts",
+        },
+        { label: "Karriere", href: "/tuyen-dung", hint: "Offene Stellen" },
+      ],
+    },
+    { label: "FAQ", href: `/#${sectionIds.faq}`, spy: [sectionIds.faq] },
+  ],
 );
 
 export const contactHref = `/#${sectionIds.contact}`;

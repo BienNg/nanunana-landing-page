@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, m } from "motion/react";
-import { ChevronRight, Phone, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Phone, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 import { useLocale } from "@/components/i18n/LocaleProvider";
@@ -26,7 +26,7 @@ function useIsClient() {
   );
 }
 
-/** Full-height drawer for < xl. Rendered in a portal (header has backdrop-filter). */
+/** Full-height drawer for < lg. Rendered in a portal (header has backdrop-filter). */
 export function MobileNav({
   open,
   onClose,
@@ -42,6 +42,7 @@ export function MobileNav({
   const site = siteFor(locale);
   const copy = ui[locale];
   const panelRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   // Escape to close, focus trap, scroll lock.
   useEffect(() => {
@@ -79,7 +80,7 @@ export function MobileNav({
   // Close if the viewport grows to desktop while open.
   useEffect(() => {
     if (!open) return;
-    const mq = window.matchMedia("(min-width: 80rem)");
+    const mq = window.matchMedia("(min-width: 64rem)");
     const onChange = () => mq.matches && onClose();
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
@@ -90,7 +91,7 @@ export function MobileNav({
   return createPortal(
     <AnimatePresence>
       {open ? (
-        <div className="fixed inset-0 z-[60] xl:hidden">
+        <div className="fixed inset-0 z-[60] lg:hidden">
           <m.div
             className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]"
             initial={{ opacity: 0 }}
@@ -128,26 +129,74 @@ export function MobileNav({
             <nav aria-label={copy.navMobile} className="flex-1 overflow-y-auto px-3 py-4">
               <ul className="flex flex-col">
                 {nav.map((item, i) => {
-                  const current = isActive(item.href, item.spy);
+                  const groupOpen = expanded === item.label;
+                  const current =
+                    isActive(item.href, item.spy) ||
+                    !!item.children?.some((child) => isActive(child.href, child.spy));
                   return (
                     <m.li
-                      key={item.href}
+                      key={item.label}
                       initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 + i * 0.03, duration: 0.25 }}
                     >
-                      <Link
-                        href={localePath(locale, item.href)}
-                        onClick={onClose}
-                        aria-current={current ? "location" : undefined}
-                        className={cn(
-                          "flex min-h-13 items-center justify-between rounded-control px-3 text-headline-sm transition-colors hover:bg-surface-container-low",
-                          current ? "text-brand-teal-dark" : "text-ink",
-                        )}
-                      >
-                        {item.label}
-                        <ChevronRight aria-hidden className="size-5 text-ink-subtle" />
-                      </Link>
+                      {item.children ? (
+                        <>
+                          <button
+                            type="button"
+                            aria-expanded={groupOpen}
+                            onClick={() => setExpanded(groupOpen ? null : item.label)}
+                            className={cn(
+                              "flex min-h-13 w-full items-center justify-between rounded-control px-3 text-left text-headline-sm transition-colors hover:bg-surface-container-low",
+                              current ? "text-brand-teal-dark" : "text-ink",
+                            )}
+                          >
+                            {item.label}
+                            <ChevronDown
+                              aria-hidden
+                              className={cn(
+                                "size-5 text-ink-subtle transition-transform duration-200",
+                                groupOpen && "rotate-180",
+                              )}
+                            />
+                          </button>
+                          {groupOpen ? (
+                            <ul className="mb-2 ml-3 border-l border-border-subtle pl-2">
+                              {item.children.map((child) => {
+                                const active = isActive(child.href, child.spy);
+                                return (
+                                  <li key={child.href}>
+                                    <Link
+                                      href={localePath(locale, child.href)}
+                                      onClick={onClose}
+                                      aria-current={active ? "page" : undefined}
+                                      className={cn(
+                                        "flex min-h-tap items-center rounded-control px-3 text-body-lg transition-colors hover:bg-surface-container-low",
+                                        active ? "text-brand-teal-dark" : "text-ink-muted",
+                                      )}
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          ) : null}
+                        </>
+                      ) : (
+                        <Link
+                          href={localePath(locale, item.href)}
+                          onClick={onClose}
+                          aria-current={current ? "location" : undefined}
+                          className={cn(
+                            "flex min-h-13 items-center justify-between rounded-control px-3 text-headline-sm transition-colors hover:bg-surface-container-low",
+                            current ? "text-brand-teal-dark" : "text-ink",
+                          )}
+                        >
+                          {item.label}
+                          <ChevronRight aria-hidden className="size-5 text-ink-subtle" />
+                        </Link>
+                      )}
                     </m.li>
                   );
                 })}
