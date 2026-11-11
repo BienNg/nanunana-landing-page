@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { PathwayDetail } from "@/components/sections/PathwayDetail";
 import { pathways } from "@/content/pathways";
 import { getLocale } from "@/lib/i18n/get-locale";
-import { pageAlternates } from "@/lib/i18n/locale";
+import { site } from "@/content/site";
+import { openGraphLocale, pageAlternates } from "@/lib/i18n/locale";
 
 const id = "du-hoc-dai-hoc" as const;
 
@@ -13,6 +14,20 @@ export async function generateMetadata(): Promise<Metadata> {
     title: pathway?.pageTitle,
     description: pathway?.pageDescription,
     alternates: pageAlternates(locale, "/du-hoc-duc"),
+    openGraph: {
+      type: "website",
+      locale: openGraphLocale(locale),
+      alternateLocale: [openGraphLocale(locale === "vi" ? "de" : "vi")],
+      siteName: site.name,
+      url: pageAlternates(locale, "/du-hoc-duc").canonical,
+      title: pathway?.pageTitle,
+      description: pathway?.pageDescription,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pathway?.pageTitle,
+      description: pathway?.pageDescription,
+    },
   };
 }
 

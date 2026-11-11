@@ -49,7 +49,7 @@ export const pathways = dictionary<Pathway[]>(
         "Với sự hỗ trợ của chúng tôi, bạn không chỉ tìm thấy chương trình học phù hợp mà còn được chúng tôi giải đáp các thắc mắc khi chuẩn bị hồ sơ du học cũng như hướng dẫn và đồng hành cùng bạn trên hành trình trước và sau khi sang Đức.",
         "Hãy cùng nhau biến ước mơ du học Đức của bạn thành hiện thực nha!",
       ],
-      highlight: ok("Miễn học phí tại hầu hết các bang"),
+      highlight: ok("Học phí tùy trường và chương trình"),
       bullets: [
         ok("Tìm chương trình học phù hợp với bạn"),
         ok("Giải đáp thắc mắc khi chuẩn bị hồ sơ du học"),
@@ -61,7 +61,7 @@ export const pathways = dictionary<Pathway[]>(
       cta: "Tư vấn du học đại học",
       pageTitle: "Du học đại học tại Đức",
       pageDescription:
-        "Tìm chương trình đại học phù hợp tại Đức, chuẩn bị hồ sơ, APS và Zulassung. NaNu NaNa đồng hành trước và sau khi bạn sang Đức.",
+        "Du học đại học Đức: điều kiện, APS, Studienkolleg, ngoại ngữ, học phí và hồ sơ. Hướng dẫn có nguồn chính thức cùng lộ trình hỗ trợ của NaNu NaNa.",
     },
     {
       id: "du-hoc-nghe",
@@ -96,7 +96,7 @@ export const pathways = dictionary<Pathway[]>(
         "Mit uns finden Sie nicht nur das passende Programm. Wir beantworten Ihre Fragen zur Bewerbung und begleiten Sie vor und nach der Ankunft in Deutschland.",
         "Lassen Sie uns Ihren Plan für ein Studium in Deutschland gemeinsam umsetzen.",
       ],
-      highlight: ok("Keine Studiengebühren in den meisten Bundesländern"),
+      highlight: ok("Studiengebühren je nach Hochschule und Programm"),
       bullets: [
         ok("Das passende Studienprogramm finden"),
         ok("Fragen zur Bewerbung klären"),
@@ -108,7 +108,7 @@ export const pathways = dictionary<Pathway[]>(
       cta: "Studium beraten lassen",
       pageTitle: "Studium in Deutschland",
       pageDescription:
-        "Passendes Studium in Deutschland finden, Unterlagen vorbereiten, APS und Zulassung. NaNu NaNa begleitet Sie vor und nach der Ankunft.",
+        "Studium in Deutschland: Zulassung, APS, Studienkolleg, Sprache, Kosten und Bewerbung. Ratgeber mit offiziellen Quellen und Begleitung durch NaNu NaNa.",
     },
     {
       id: "du-hoc-nghe",

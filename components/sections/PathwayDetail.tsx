@@ -1,3 +1,4 @@
+import { UniversityGuide } from "./UniversityGuide";
 import { AusbildungGuide } from "./AusbildungGuide";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { CircleCheck } from "lucide-react";
@@ -12,17 +13,11 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
-import { Faq } from "./Faq";
 import { Process } from "./Process";
 
 const trackId = {
   "du-hoc-dai-hoc": sectionIds.processUniversity,
   "du-hoc-nghe": sectionIds.processVocational,
-} as const;
-
-const faqIds = {
-  "du-hoc-dai-hoc": ["chi-phi-dai-hoc", "b1-hay-b2"],
-  "du-hoc-nghe": ["dieu-kien-du-hoc-nghe", "b1-hay-b2"],
 } as const;
 
 export async function PathwayDetail({ id }: { id: keyof typeof pathwayPath }) {
@@ -88,9 +83,12 @@ export async function PathwayDetail({ id }: { id: keyof typeof pathwayPath }) {
           </div>
         </div>
       </Section>
-      {id === "du-hoc-nghe" && <AusbildungGuide locale={locale} />}
+      {id === "du-hoc-nghe" ? (
+        <AusbildungGuide locale={locale} />
+      ) : (
+        <UniversityGuide locale={locale} />
+      )}
       <Process only={trackId[id]} />
-      {id !== "du-hoc-nghe" && <Faq ids={faqIds[id]} />}
     </>
   );
 }

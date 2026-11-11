@@ -31,7 +31,7 @@ export function shareImageAlt(locale: Locale) {
 
 export async function renderShareImage(
   locale: Locale,
-  topic?: { headline: string; subtitle: string },
+  topic?: { headline: string; subtitle: string; kicker?: string },
 ) {
   const copy = siteCopy[locale];
   const headline = (topic?.headline ?? copy.tagline).toLocaleUpperCase(
@@ -63,7 +63,7 @@ export async function renderShareImage(
             textTransform: "uppercase",
           }}
         >
-          {topic ? "Ausbildung · NaNu NaNa" : copy.ogKicker}
+          {topic ? (topic.kicker ?? "Ausbildung · NaNu NaNa") : copy.ogKicker}
         </div>
         <div
           style={{

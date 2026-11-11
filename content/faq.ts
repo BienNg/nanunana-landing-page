@@ -59,14 +59,14 @@ export const faqs = dictionary<FaqItem[]>(
       id: "chi-phi-dai-hoc",
       question: "Chi phí du học đại học ở Đức khoảng bao nhiêu?",
       answer: ok(
-        "Phần lớn trường công lập tại Đức không thu học phí (trừ một số bang), nhưng bạn cần tài khoản phong toả để chứng minh tài chính và chi phí sinh hoạt hằng tháng. Tư vấn viên sẽ giúp bạn ước tính cụ thể theo thành phố và chương trình học.",
+        "Nhiều chương trình cử nhân tại trường công không thu học phí, nhưng có ngoại lệ theo bang, trường và chương trình. Bạn vẫn cần dự trù khoản đóng góp học kỳ, bảo hiểm, sinh hoạt và chứng minh tài chính theo diện thị thực. Tư vấn viên sẽ giúp bạn ước tính theo thành phố và chương trình học.",
       ),
     },
     {
       id: "b1-hay-b2",
       question: "Cần tiếng Đức B1 hay B2 để du học?",
       answer: ok(
-        "Chứng chỉ B1 đã đủ để nộp hồ sơ vào một số trường đại học. Sau khi sang Đức, bạn sẽ theo học khóa dự bị một năm để đạt trình độ C1 trước khi bắt đầu chương trình đại học (Studium). Chúng tôi khuyến nghị bạn học đến B2: phần lớn các trường yêu cầu trình độ này, và B2 cũng giúp bạn chuẩn bị tốt hơn khi bắt đầu cuộc sống và học tập tại Đức.",
+        "Yêu cầu phụ thuộc trường, chương trình và lộ trình nhập học. Điều kiện cho dự bị hoặc thị thực không đồng nghĩa với điều kiện vào học chuyên ngành. Studienkolleg chuẩn bị cả kiến thức học thuật và ngoại ngữ, không chỉ là khóa học để đạt C1. Hãy kiểm tra chứng chỉ và mức điểm mà chương trình bạn chọn chấp nhận.",
       ),
     },
   ],
@@ -103,14 +103,14 @@ export const faqs = dictionary<FaqItem[]>(
       id: "chi-phi-dai-hoc",
       question: "Was kostet ein Studium in Deutschland ungefähr?",
       answer: ok(
-        "Die meisten staatlichen Hochschulen erheben keine Studiengebühren (mit Ausnahmen in einzelnen Ländern). Sie brauchen ein Sperrkonto als Finanzierungsnachweis und Geld für die Lebenshaltung. Wir schätzen die Kosten mit Ihnen nach Stadt und Programm.",
+        "Viele Bachelorprogramme an staatlichen Hochschulen sind ohne Studiengebühren; Ausnahmen hängen von Bundesland, Hochschule und Studiengang ab. Planen Sie Semesterbeitrag, Versicherung, Lebenshaltung und den Finanzierungsnachweis für Ihren Aufenthaltszweck ein. Wir schätzen die Kosten mit Ihnen nach Stadt und Programm.",
       ),
     },
     {
       id: "b1-hay-b2",
       question: "Brauche ich B1 oder B2 für das Studium?",
       answer: ok(
-        "B1 reicht für die Bewerbung an einigen Hochschulen. Nach der Ankunft folgt oft ein Studienkolleg, bis Sie C1 erreichen und das Studium beginnen. Wir empfehlen B2: Die meisten Hochschulen verlangen dieses Niveau, und B2 trägt Sie besser in den Alltag und ins Lernen in Deutschland.",
+        "Die Vorgaben hängen von Hochschule, Studiengang und Zugangsweg ab. Anforderungen für Vorbereitung oder Visum sind nicht automatisch die Zulassungsvoraussetzungen für das Fachstudium. Ein Studienkolleg bereitet fachlich und sprachlich vor und ist kein reiner C1-Kurs. Prüfen Sie die anerkannten Zertifikate und Ergebnisse beim gewählten Studiengang.",
       ),
     },
   ],

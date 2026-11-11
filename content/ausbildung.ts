@@ -1,3 +1,4 @@
+import type { StudyGuideContent } from "./study-guide";
 import type { Locale } from "@/lib/i18n/locale";
 
 export const ausbildungReviewed = "2026-11-11";
@@ -44,34 +45,7 @@ export const ausbildungSources = {
   },
 } as const;
 export type AusbildungSource = keyof typeof ausbildungSources;
-type Block = {
-  id: string;
-  title: string;
-  paragraphs: string[];
-  points?: string[];
-  sources: AusbildungSource[];
-};
-type Guide = {
-  title: string;
-  reviewed: string;
-  contents: string;
-  sourceLabel: string;
-  sourcesTitle: string;
-  intro: string;
-  comparisonTitle: string;
-  comparisonHeaders: string[];
-  comparisonRows: string[][];
-  sections: Block[];
-  faqTitle: string;
-  faqs: { id: string; question: string; answer: string; source: AusbildungSource }[];
-  relatedTitle: string;
-  coursesLabel: string;
-  universityLabel: string;
-  cta: string;
-  shareHeadline: string;
-  shareSubtitle: string;
-};
-export const ausbildungGuide: Record<Locale, Guide> = {
+export const ausbildungGuide: Record<Locale, StudyGuideContent<AusbildungSource>> = {
   vi: {
     title: "Du học nghề Đức: hiểu rõ trước khi chọn",
     reviewed: "Kiểm tra nguồn ngày",
@@ -191,7 +165,7 @@ export const ausbildungGuide: Record<Locale, Guide> = {
     ],
     relatedTitle: "Chuẩn bị bước tiếp theo",
     coursesLabel: "Khoá tiếng Đức A1–C1",
-    universityLabel: "So sánh với du học đại học",
+    alternativeLabel: "So sánh với du học đại học",
     cta: "Tư vấn lộ trình du học nghề",
     shareHeadline: "DU HỌC NGHỀ ĐỨC",
     shareSubtitle: "Điều kiện · Ngành nghề · Chi phí",
@@ -315,7 +289,7 @@ export const ausbildungGuide: Record<Locale, Guide> = {
     ],
     relatedTitle: "Den nächsten Schritt vorbereiten",
     coursesLabel: "Deutschkurse A1–C1",
-    universityLabel: "Mit einem Studium vergleichen",
+    alternativeLabel: "Mit einem Studium vergleichen",
     cta: "Zur Ausbildung beraten lassen",
     shareHeadline: "AUSBILDUNG IN DEUTSCHLAND",
     shareSubtitle: "Voraussetzungen · Berufe · Kosten",

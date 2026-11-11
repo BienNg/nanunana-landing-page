@@ -28,7 +28,7 @@ function sourcesFor(path: string): string[] {
   if (path === "/du-hoc-nghe")
     return ["content/ausbildung.ts", "content/pathways.ts", "content/process.ts"];
   if (path === "/du-hoc-duc") {
-    return ["content/pathways.ts", "content/process.ts", "content/faq.ts"];
+    return ["content/university.ts", "content/pathways.ts", "content/process.ts"];
   }
   if (path === "/chinh-sach-bao-mat") return ["content/privacy.ts"];
   if (path.startsWith("/tuyen-dung")) return ["content/careers.ts"];
