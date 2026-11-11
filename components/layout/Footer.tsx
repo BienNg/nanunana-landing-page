@@ -1,3 +1,4 @@
+import { PrivacySettingsButton } from "@/components/analytics/PrivacyPreferences";
 import Link from "next/link";
 import { Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { siteFor } from "@/content/site";
@@ -213,6 +214,9 @@ export async function Footer() {
             © {year} {site.fullName}. {site.rights}
           </p>
           <ul className="flex flex-wrap gap-x-5">
+            <li>
+              <PrivacySettingsButton className={`${linkClass} text-body-sm`} />
+            </li>
             <li>
               <Link href={localePath(locale, privacyHref)} className={`${linkClass} text-body-sm`}>
                 {copy.privacy}

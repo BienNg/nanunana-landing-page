@@ -72,8 +72,8 @@ export const siteCopy = dictionary(
     officeHanoi: "Hà Nội",
     /** Footer extras that are not confirmed yet. */
     license: verify("Giấy phép tư vấn du học", "Số giấy phép / link giấy phép tư vấn du học?"),
-    metaTitle: "NaNu NaNa – Du Học Đức | Tiếng Đức A1–C1, Du học đại học & Du học nghề",
-    metaTitleTemplate: "%s | NaNu NaNa – Du Học Đức",
+    metaTitle: "Tiếng Đức A1–C1 & Du học Đức | NaNu NaNa",
+    metaTitleTemplate: "%s | NaNu NaNa",
     metaDescription:
       "Nhắc đến du học Đức là nhắc đến NaNu NaNa — Chất lượng và sự tử tế. Khoá học tiếng Đức A1–C1, tư vấn du học đại học và du học nghề (Ausbildung) tại Đức.",
     homeLabel: "Trang chủ",
@@ -92,8 +92,8 @@ export const siteCopy = dictionary(
     officeHcm: "Ho-Chi-Minh-Stadt",
     officeHanoi: "Hanoi",
     license: verify("Lizenz für Studienberatung", "Số giấy phép / link giấy phép tư vấn du học?"),
-    metaTitle: "NaNu NaNa – Studium in Deutschland | Deutsch A1–C1, Studium & Ausbildung",
-    metaTitleTemplate: "%s | NaNu NaNa – Studium in Deutschland",
+    metaTitle: "Deutschkurse, Studium & Ausbildung | NaNu NaNa",
+    metaTitleTemplate: "%s | NaNu NaNa",
     metaDescription:
       "Wer an ein Studium in Deutschland denkt, denkt an NaNu NaNa — Qualität und Anstand. Deutschkurse A1–C1, Beratung zum Studium und zur Ausbildung in Deutschland.",
     homeLabel: "Startseite",

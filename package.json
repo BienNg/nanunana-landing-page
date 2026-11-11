@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check",
     "verify:content": "node scripts/verify-content.mjs",
-    "placeholders": "node scripts/make-placeholders.mjs"
+    "placeholders": "node scripts/make-placeholders.mjs",
+    "test": "node --import tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

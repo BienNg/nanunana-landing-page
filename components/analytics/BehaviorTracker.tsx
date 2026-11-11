@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { hasConsent } from "@/lib/consent";
 
 const VID_KEY = "nn_vid";
 const SID_KEY = "nn_sid";
@@ -46,6 +47,7 @@ function post(body: {
   clicks?: ClickEvent[];
   watch?: WatchEvent[];
 }) {
+  if (!hasConsent("analytics")) return;
   const json = JSON.stringify(body);
   try {
     if (document.visibilityState === "hidden" && navigator.sendBeacon) {
@@ -150,6 +152,7 @@ export function BehaviorTracker() {
   const pathname = usePathname() || "/";
 
   useEffect(() => {
+    if (!hasConsent("analytics")) return;
     if (pathname.startsWith("/admin")) return;
     if (lastPageview !== pathname) {
       lastPageview = pathname;
@@ -180,6 +183,7 @@ export function BehaviorTracker() {
     };
 
     const flush = () => {
+      if (!hasConsent("analytics")) return;
       const now = performance.now();
       tick(now);
       const watch: WatchEvent[] = [];
@@ -250,6 +254,7 @@ export function BehaviorTracker() {
     };
 
     const onClick = (event: MouseEvent) => {
+      if (!hasConsent("analytics")) return;
       if (event.type === "click" && event.button !== 0) return;
       const click = describeClick(event.target);
       if (!click) return;
@@ -264,6 +269,12 @@ export function BehaviorTracker() {
 
     return () => {
       flush();
+      if (!hasConsent("analytics")) {
+        lastPageview = "";
+        viewed.clear();
+        memoryIds.vid = "";
+        memoryIds.sid = "";
+      }
       observer.disconnect();
       mutations.disconnect();
       window.clearInterval(timer);

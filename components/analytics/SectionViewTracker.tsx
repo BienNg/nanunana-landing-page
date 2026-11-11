@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { trackSectionView } from "@/lib/analytics";
+import { hasConsent } from "@/lib/consent";
 
 const seen = new Set<string>();
 
@@ -48,6 +49,7 @@ export function SectionViewTracker() {
     mutations.observe(main, { childList: true, subtree: true });
 
     return () => {
+      if (!hasConsent("analytics")) seen.clear();
       observer.disconnect();
       mutations.disconnect();
     };

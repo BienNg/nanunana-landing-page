@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { CircleCheck } from "lucide-react";
 import { pathways as pathwaysByLocale } from "@/content/pathways";
 import { pathwayPath, sectionIds } from "@/content/nav";
@@ -30,6 +31,7 @@ export async function PathwayDetail({ id }: { id: keyof typeof pathwayPath }) {
 
   return (
     <>
+      <Breadcrumbs locale={locale} items={[{ name: pathway.pageTitle, path: pathwayPath[id] }]} />
       <Section id={id} tone="canvas">
         <div className="grid items-start gap-gutter-mobile lg:grid-cols-2 lg:gap-gutter">
           <SiteImage

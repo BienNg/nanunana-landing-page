@@ -1,6 +1,8 @@
 "use client";
 
 import { track } from "@vercel/analytics";
+import { hasConsent } from "./consent";
+import { canTrackGa, canTrackMeta } from "./tracking-consent";
 
 declare global {
   interface Window {
@@ -33,12 +35,12 @@ export function trackLead(props: { course?: string; goal?: string; channel?: str
     Object.entries(props).filter(([, v]) => typeof v === "string" && v !== ""),
   ) as Record<string, string>;
   try {
-    track("lead", clean);
+    if (hasConsent("analytics")) track("lead", clean);
   } catch {}
-  if (process.env.NEXT_PUBLIC_META_PIXEL_ID) {
+  if (process.env.NEXT_PUBLIC_META_PIXEL_ID && canTrackMeta()) {
     window.fbq?.("track", "Lead", { content_name: clean.course ?? clean.goal ?? "tu-van" });
   }
-  if (process.env.NEXT_PUBLIC_GA_ID) {
+  if (process.env.NEXT_PUBLIC_GA_ID && canTrackGa()) {
     window.gtag?.("event", "generate_lead", { ...clean, form: "tu-van" });
   }
 }
@@ -51,12 +53,12 @@ export function trackLead(props: { course?: string; goal?: string; channel?: str
 export function trackChatClick({ channel, placement }: ChatClick) {
   const props = { channel, placement };
   try {
-    track("chat_click", props);
+    if (hasConsent("analytics")) track("chat_click", props);
   } catch {}
-  if (process.env.NEXT_PUBLIC_GA_ID) {
+  if (process.env.NEXT_PUBLIC_GA_ID && canTrackGa()) {
     window.gtag?.("event", "chat_click", props);
   }
-  if (process.env.NEXT_PUBLIC_META_PIXEL_ID && channel !== "phone") {
+  if (process.env.NEXT_PUBLIC_META_PIXEL_ID && canTrackMeta() && channel !== "phone") {
     window.fbq?.("track", "Contact", { content_name: channel, content_category: placement });
   }
 }
@@ -75,12 +77,12 @@ export type ApplyClick = { role: string; placement: ApplyPlacement };
 export function trackApplyClick({ role, placement }: ApplyClick) {
   const props = { role, placement };
   try {
-    track("apply_click", props);
+    if (hasConsent("analytics")) track("apply_click", props);
   } catch {}
-  if (process.env.NEXT_PUBLIC_GA_ID) {
+  if (process.env.NEXT_PUBLIC_GA_ID && canTrackGa()) {
     window.gtag?.("event", "apply_click", props);
   }
-  if (process.env.NEXT_PUBLIC_META_PIXEL_ID) {
+  if (process.env.NEXT_PUBLIC_META_PIXEL_ID && canTrackMeta()) {
     window.fbq?.("track", "SubmitApplication", { content_name: role, content_category: placement });
   }
 }
@@ -88,9 +90,9 @@ export function trackApplyClick({ role, placement }: ApplyClick) {
 /** Fired once per section each time it reaches the middle of the viewport. */
 export function trackSectionView(section: string) {
   try {
-    track("section_view", { section });
+    if (hasConsent("analytics")) track("section_view", { section });
   } catch {}
-  if (process.env.NEXT_PUBLIC_GA_ID) {
+  if (process.env.NEXT_PUBLIC_GA_ID && canTrackGa()) {
     window.gtag?.("event", "section_view", { section_id: section });
   }
 }

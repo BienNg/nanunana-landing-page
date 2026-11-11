@@ -1,3 +1,4 @@
+import { officeAddresses } from "@/lib/seo/structured-data";
 import { site, siteFor } from "@/content/site";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { localePath } from "@/lib/i18n/locale";
@@ -33,6 +34,14 @@ export async function OrganizationJsonLd() {
           postalCode: site.address.postalCode,
           addressCountry: site.address.countryCode,
         },
+        department: officeAddresses().map((address, index) => ({
+          "@type": "EducationalOrganization",
+          "@id": `${base}/#office-${index === 0 ? "hcm" : "hanoi"}`,
+          name: `${site.name} – ${address.addressLocality}`,
+          address,
+          telephone: site.phone.e164,
+          parentOrganization: { "@id": `${base}/#organization` },
+        })),
         areaServed: ["VN", "DE"],
         knowsLanguage: ["vi", "de"],
         founder: { "@type": "Person", name: site.director },

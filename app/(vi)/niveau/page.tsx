@@ -1,3 +1,7 @@
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { courseListData } from "@/lib/seo/structured-data";
+import { getSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import { Courses } from "@/components/sections/Courses";
 import { coursesSection } from "@/content/courses";
@@ -14,6 +18,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function CoursesPage() {
-  return <Courses variant="full" />;
+export default async function CoursesPage() {
+  const locale = await getLocale();
+  return (
+    <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ name: coursesSection[locale].title, path: "/niveau" }]}
+      />
+      <JsonLd data={courseListData(locale, getSiteUrl().origin)} />
+      <Courses variant="full" />
+    </>
+  );
 }

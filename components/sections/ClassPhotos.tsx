@@ -57,7 +57,7 @@ function PhotoButton({
     <button
       type="button"
       onClick={(event) => onOpen(file, event.currentTarget)}
-      aria-label={`Xem ${label}`}
+      aria-label={label}
       className={
         fill
           ? "relative block min-h-0 flex-1 cursor-zoom-in overflow-hidden"
@@ -68,7 +68,7 @@ function PhotoButton({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
-        alt=""
+        alt={label}
         width={fill ? 640 : 48}
         height={fill ? 640 : 48}
         loading="lazy"

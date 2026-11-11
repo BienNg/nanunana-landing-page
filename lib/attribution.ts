@@ -1,5 +1,7 @@
 "use client";
 
+import { hasConsent } from "./consent";
+
 /** First-touch attribution for this browser session (sessionStorage). */
 export type Attribution = {
   utm_source: string;
@@ -14,6 +16,7 @@ export type Attribution = {
 const KEY = "nanunana:attribution";
 
 export function captureAttribution() {
+  if (!hasConsent("marketing")) return;
   try {
     if (sessionStorage.getItem(KEY)) return;
     const p = new URLSearchParams(location.search);
@@ -35,6 +38,7 @@ export function captureAttribution() {
 }
 
 export function readAttribution(): Partial<Attribution> {
+  if (!hasConsent("marketing")) return {};
   try {
     const raw = sessionStorage.getItem(KEY);
     return raw ? (JSON.parse(raw) as Partial<Attribution>) : {};

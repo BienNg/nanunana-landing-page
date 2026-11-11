@@ -148,7 +148,10 @@ export function StatsDashboard({ data }: { data: Dashboard }) {
               </div>
               <span className="text-right text-ink tabular-nums">
                 {nf.format(day.visits)}
-                <span className="text-ink-subtle"> · {counted(day.pageviews, "view", "views")}</span>
+                <span className="text-ink-subtle">
+                  {" "}
+                  · {counted(day.pageviews, "view", "views")}
+                </span>
               </span>
             </div>
           ))}

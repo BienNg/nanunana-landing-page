@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen, Check, Phone, ShieldCheck } from "lucide-react";
@@ -222,9 +223,12 @@ export default function DevUiPage() {
           </Field>
           <Checkbox id="demo-consent" className="md:col-span-2">
             Tôi đồng ý để NaNu NaNa liên hệ và xử lý thông tin theo{" "}
-            <a className="font-semibold text-brand-teal-dark underline" href="/chinh-sach-bao-mat">
+            <Link
+              className="font-semibold text-brand-teal-dark underline"
+              href="/chinh-sach-bao-mat"
+            >
               Chính sách bảo mật
-            </a>
+            </Link>
             .
           </Checkbox>
         </form>

@@ -1,3 +1,7 @@
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { jobPostingData } from "@/lib/seo/structured-data";
+import { getSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Briefcase, Check, Mail, MapPin, X } from "lucide-react";
@@ -42,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, careers, role } = await pageRole((await params).slug);
   if (!role) return {};
   return {
-    title: `${role.title} · ${careers.roleMeta}`,
+    title: role.title.replace(" (m/w/d)", ""),
     description: claimValue(role.summary, careers.intro),
     alternates: pageAlternates(locale, careerHref(role.slug)),
   };
@@ -115,11 +119,20 @@ export default async function CareerRolePage({ params }: Props) {
       <Mail aria-hidden /> {careers.sendCvEmail}
     </AnchorButton>
   );
+  const jobData = jobPostingData(role, locale, getSiteUrl().origin);
   const facts = role.facts?.filter((f) => isVisible(f.value)) ?? [];
   const faq = role.faq?.filter((f) => isVisible(f.a)) ?? [];
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { name: careers.title, path: "/tuyen-dung" },
+          { name: role.title, path: careerHref(role.slug) },
+        ]}
+      />
+      {jobData && <JsonLd data={jobData} />}
       <section className="border-b border-border-subtle bg-white">
         <div className="container-page py-14 md:py-20">
           <LinkButton href="/tuyen-dung" variant="ghost" size="sm">

@@ -12,7 +12,7 @@ export const privacyCopy = dictionary(
     sections: [
       {
         title: "1. Thông tin chúng tôi thu thập",
-        body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu). Khi bạn xem trang, trang tự ghi số lần ghé, nút bạn bấm, thời gian từng mục nằm trên màn hình, và thành phố cùng quốc gia suy ra từ mạng của máy chủ. Phần này không lưu địa chỉ IP và không gắn với họ tên hay số điện thoại. Một mã ngẫu nhiên trong trình duyệt giúp đếm người xem khác nhau. Khi được cấu hình, Vercel Analytics, Google Analytics và Meta Pixel cũng ghi lượt xem và nút liên hệ. Chúng tôi không nhận nội dung tin nhắn bạn gửi trên Zalo, Messenger hay WhatsApp.",
+        body: "Khi bạn gửi yêu cầu tư vấn, chúng tôi nhận: họ và tên, số điện thoại/Zalo, khoá học và mục tiêu quan tâm, nội dung câu hỏi, cùng thông tin kỹ thuật về nguồn truy cập (ví dụ: UTM, trang giới thiệu) nếu bạn cho phép tiếp thị. Khi bạn cho phép thống kê, trang ghi số lần ghé, nút bạn bấm, thời gian từng mục nằm trên màn hình, và thành phố cùng quốc gia suy ra từ mạng của máy chủ. Phần này không lưu địa chỉ IP và không gắn với họ tên hay số điện thoại. Một mã ngẫu nhiên trong trình duyệt giúp đếm người xem khác nhau. Vercel Analytics, Speed Insights và Google Analytics (khi được cấu hình) chỉ hoạt động khi bạn cho phép thống kê. Meta Pixel chỉ hoạt động khi bạn cho phép tiếp thị. Chúng tôi không nhận nội dung tin nhắn bạn gửi trên Zalo, Messenger hay WhatsApp.",
       },
       {
         title: "2. Mục đích sử dụng",
@@ -24,7 +24,7 @@ export const privacyCopy = dictionary(
       },
       {
         title: "4. Quyền của bạn",
-        body: "Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xoá dữ liệu cá nhân của mình, và rút lại sự đồng ý bất cứ lúc nào bằng cách liên hệ với chúng tôi.",
+        body: "Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xoá dữ liệu cá nhân của mình, và rút lại sự đồng ý bất cứ lúc nào bằng cách liên hệ với chúng tôi. Đối với thống kê và tiếp thị, bạn có thể thay đổi hoặc rút lại lựa chọn bằng nút “Cài đặt quyền riêng tư” ở cuối trang. Lựa chọn được lưu trong trình duyệt trong 180 ngày; từ chối không ảnh hưởng đến việc xem trang hoặc gửi yêu cầu tư vấn.",
       },
       {
         title: "5. Liên hệ",
@@ -42,7 +42,7 @@ export const privacyCopy = dictionary(
     sections: [
       {
         title: "1. Welche Daten wir erhalten",
-        body: "Wenn Sie eine Beratung anfragen, erhalten wir: Name, Telefonnummer oder Zalo, den Kurs und das Ziel, das Sie interessiert, Ihre Frage sowie technische Angaben zur Herkunft des Besuchs (zum Beispiel UTM und die verweisende Seite). Beim Ansehen der Seite zählt die Seite Besuche, welche Schaltflächen Sie wählen, wie lange ein Abschnitt auf dem Bildschirm liegt, und Stadt sowie Land, abgeleitet aus dem Netz des Servers. Dabei speichern wir keine IP-Adresse und verknüpfen die Angaben nicht mit Name oder Telefonnummer. Ein zufälliger Code im Browser hilft, verschiedene Besucher zu zählen. Wenn sie eingerichtet sind, zeichnen Vercel Analytics, Google Analytics und das Meta-Pixel ebenfalls Aufrufe und Kontaktklicks auf. Den Inhalt Ihrer Nachrichten auf Zalo, Messenger oder WhatsApp erhalten wir nicht.",
+        body: "Wenn Sie eine Beratung anfragen, erhalten wir: Name, Telefonnummer oder Zalo, den Kurs und das Ziel, das Sie interessiert, Ihre Frage sowie technische Angaben zur Herkunft des Besuchs (zum Beispiel UTM und die verweisende Seite), wenn Sie Marketing erlauben. Wenn Sie Statistik erlauben, zählt die Seite Besuche, welche Schaltflächen Sie wählen, wie lange ein Abschnitt auf dem Bildschirm liegt, und Stadt sowie Land, abgeleitet aus dem Netz des Servers. Dabei speichern wir keine IP-Adresse und verknüpfen die Angaben nicht mit Name oder Telefonnummer. Ein zufälliger Code im Browser hilft, verschiedene Besucher zu zählen. Vercel Analytics, Speed Insights und Google Analytics (sofern eingerichtet) werden nur mit Ihrer Zustimmung zu Statistik aktiviert. Das Meta-Pixel wird nur mit Ihrer Zustimmung zu Marketing aktiviert. Den Inhalt Ihrer Nachrichten auf Zalo, Messenger oder WhatsApp erhalten wir nicht.",
       },
       {
         title: "2. Wozu wir sie nutzen",
@@ -54,7 +54,7 @@ export const privacyCopy = dictionary(
       },
       {
         title: "4. Ihre Rechte",
-        body: "Sie können Auskunft, Berichtigung oder Löschung Ihrer personenbezogenen Daten verlangen und Ihre Einwilligung jederzeit widerrufen, indem Sie uns kontaktieren.",
+        body: "Sie können Auskunft, Berichtigung oder Löschung Ihrer personenbezogenen Daten verlangen und Ihre Einwilligung jederzeit widerrufen, indem Sie uns kontaktieren. Ihre Auswahl für Statistik und Marketing können Sie jederzeit über „Datenschutzeinstellungen“ unten auf der Seite ändern oder widerrufen. Die Auswahl wird 180 Tage im Browser gespeichert. Auch bei Ablehnung können Sie die Website nutzen und Beratung anfragen.",
       },
       {
         title: "5. Kontakt",

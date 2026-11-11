@@ -1,11 +1,9 @@
+import { PrivacyPreferences } from "@/components/analytics/PrivacyPreferences";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
-import { AttributionCapture } from "@/components/analytics/AttributionCapture";
-import { BehaviorTracker } from "@/components/analytics/BehaviorTracker";
-import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 import { TrackingScripts } from "@/components/analytics/TrackingScripts";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
@@ -19,9 +17,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       </main>
       <Footer />
       <MobileCtaBar />
-      <AttributionCapture />
-      <SectionViewTracker />
-      <BehaviorTracker />
+      <PrivacyPreferences />
       <TrackingScripts />
       <OrganizationJsonLd />
     </LocaleProvider>

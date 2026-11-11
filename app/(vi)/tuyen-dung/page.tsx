@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Briefcase, Mail, MapPin } from "lucide-react";
@@ -32,6 +33,7 @@ export default async function CareersPage() {
 
   return (
     <>
+      <Breadcrumbs locale={locale} items={[{ name: careers.title, path: "/tuyen-dung" }]} />
       <section className="border-b border-border-subtle bg-white">
         <div className="container-page py-14 md:py-20">
           <Badge>

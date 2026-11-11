@@ -242,14 +242,11 @@
    * GSAP only adds the scroll parallax on [data-hero-parallax].
    */
   @media (prefers-reduced-motion: no-preference) {
-    [data-hero-item],
-    [data-hero-line] {
+    [data-hero-item] {
       animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
       animation-delay: calc(var(--i, 0) * 70ms);
     }
-    [data-hero-card] {
-      animation: hero-card 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-    }
+    /* Headline and main brand image stay visible at first paint. */
   }
   /* Process steps light up as the scroll-drawn line reaches them. */
   [data-process-step].is-active [data-process-dot] {
