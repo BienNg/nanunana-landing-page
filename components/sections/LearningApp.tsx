@@ -18,7 +18,6 @@ import { sectionIds } from "@/content/nav";
 import { PrefillLink } from "@/components/form/PrefillLink";
 import { Badge } from "@/components/ui/Badge";
 import { buttonClasses } from "@/components/ui/button-styles";
-import { CourseBadge } from "@/components/ui/CourseBadge";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 
@@ -96,13 +95,11 @@ function EarlyAccess({ offer }: { offer: (typeof learningAppByLocale)["vi"]["ear
           </span>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <CourseBadge level="A1" />
               <span className="text-label-sm text-coral-ink uppercase">{offer.kicker}</span>
             </div>
             <p className="mt-2 text-headline-sm text-balance text-ink">{offer.title}</p>
             <p className="mt-1 text-body-sm text-pretty text-ink-muted">{offer.text}</p>
             <PrefillLink
-              course="a1"
               message={offer.message}
               press
               className={buttonClasses({ size: "sm", className: "mt-4" })}
@@ -154,7 +151,6 @@ export async function LearningApp() {
         <div className="lg:col-span-6">
           <div className="flex flex-wrap items-center gap-2">
             <Badge>{learningAppSection.eyebrow}</Badge>
-            <Badge tone="coral">{learningAppSection.comingSoon}</Badge>
           </div>
           <h2
             id={`${sectionIds.learningApp}-title`}

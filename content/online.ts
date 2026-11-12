@@ -8,7 +8,10 @@
  * Group size, price and 1-on-1 lessons were confirmed by NaNu NaNa on 2026-11-11.
  */
 import { ok, type Claim } from "./verify";
-import { coursePrice } from "./pricing";
+import { courseFees, formatVnd } from "./pricing";
+
+const a1Fee = courseFees.a1.status === "ok" ? courseFees.a1.value : null;
+if (!a1Fee) throw new Error("A1 fee must be confirmed");
 import type { Locale } from "@/lib/i18n/locale";
 
 export const onlineHref = "/hoc-tieng-duc-online";
@@ -50,7 +53,6 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
     factsTitle: "Lớp online ở NaNu NaNa",
     facts: [
       { label: "Nền tảng", value: ok("Zoom") },
-      { label: "Thời lượng mỗi buổi", value: ok("90 phút") },
       { label: "Trình độ", value: ok("A1 đến C1") },
       { label: "Lịch học", value: ok("Buổi tối và cuối tuần") },
       {
@@ -59,7 +61,11 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       },
       {
         label: "Học phí",
-        value: ok(coursePrice.vi),
+        value: ok(`A1 cả khoá ${formatVnd(a1Fee.regular)}, đóng sớm ${formatVnd(a1Fee.early)}`),
+      },
+      {
+        label: "Cam kết",
+        value: ok("Hoàn 100% học phí nếu không hài lòng sau 2 buổi đầu"),
       },
     ],
     whoTitle: "Lớp online dành cho ai?",
@@ -83,7 +89,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
     ],
     howTitle: "Một buổi học online diễn ra thế nào",
     how: ok([
-      "Lớp học trực tiếp qua Zoom, mỗi buổi 90 phút.",
+      "Lớp học trực tiếp qua Zoom, giáo viên và học viên gặp nhau theo lịch cố định.",
       "Giáo viên dạy theo giáo trình NaNu NaNa đã soạn sẵn cho từng trình độ.",
       "Giáo viên đang sống và làm việc tại Đức, nên bạn học cả tiếng Đức dùng hằng ngày.",
     ]),
@@ -108,7 +114,6 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
     factsTitle: "Online-Kurse bei NaNu NaNa",
     facts: [
       { label: "Plattform", value: ok("Zoom") },
-      { label: "Dauer pro Einheit", value: ok("90 Minuten") },
       { label: "Niveau", value: ok("A1 bis C1") },
       { label: "Zeiten", value: ok("Abends und am Wochenende") },
       {
@@ -117,7 +122,11 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
       },
       {
         label: "Gebühr",
-        value: ok(coursePrice.de),
+        value: ok(`A1 komplett ${formatVnd(a1Fee.regular)}, bei früher Zahlung ${formatVnd(a1Fee.early)}`),
+      },
+      {
+        label: "Garantie",
+        value: ok("100 % Geld zurück, wenn Sie nach 2 Einheiten nicht zufrieden sind"),
       },
     ],
     whoTitle: "Für wen sind die Online-Kurse?",
@@ -143,7 +152,7 @@ export const onlineCopy: Record<Locale, OnlineCopy> = {
     ],
     howTitle: "So läuft eine Online-Einheit ab",
     how: ok([
-      "Live-Unterricht über Zoom, 90 Minuten pro Einheit.",
+      "Live-Unterricht über Zoom, zu festen Terminen mit Lehrkraft und Gruppe.",
       "Die Lehrkräfte unterrichten mit dem vorbereiteten NaNu-NaNa-Material für jedes Niveau.",
       "Die Lehrkräfte leben und arbeiten in Deutschland und bringen Alltagsdeutsch mit.",
     ]),

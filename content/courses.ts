@@ -147,7 +147,7 @@ export const courses = dictionary<Course[]>(
       description: ok(
         "Sử dụng tiếng Đức tự tin trong học tập và công việc: thảo luận, trình bày quan điểm và đọc hiểu văn bản chuyên sâu hơn.",
       ),
-      duration: ok("58 buổi"),
+      duration: ok("50 buổi"),
       bullets: ok(["Thảo luận & trình bày quan điểm", "Văn phong học thuật và công sở"]),
     },
     {
@@ -224,7 +224,7 @@ export const courses = dictionary<Course[]>(
       description: ok(
         "Sicher Deutsch in Studium und Beruf: diskutieren, eine Meinung begründen und anspruchsvollere Texte verstehen.",
       ),
-      duration: ok("58 Einheiten"),
+      duration: ok("50 Einheiten"),
       bullets: ok(["Diskutieren und Standpunkte vortragen", "Sprache für Studium und Büro"]),
     },
     {

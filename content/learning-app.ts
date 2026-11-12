@@ -1,6 +1,6 @@
 /**
  * The learning app included with every enrolled student's course.
- * It is not live yet: the section says so, and A1 sign-ups today get early access.
+ * Live since 2026-11 (confirmed by the owner on 2026-11-12); sold separately for 49 €.
  * Screenshots are placeholders until real captures replace them in images.ts.
  */
 import { dictionary } from "@/lib/i18n/dictionary";
@@ -24,22 +24,21 @@ export type LearningAppDevice = {
 export const learningAppSection = dictionary(
   {
     eyebrow: "Dành riêng cho học viên",
-    comingSoon: "Sắp ra mắt",
     title: "Ứng dụng học đi kèm khoá học",
     intro:
       "NaNu NaNa tự xây dựng ứng dụng để học viên ôn lại đúng bài đã học trên lớp — trên điện thoại, máy tính bảng hoặc máy tính.",
     earlyAccess: {
-      kicker: "Truy cập sớm",
-      title: "Đăng ký khoá A1 hôm nay",
-      text: "Bạn được dùng ứng dụng trước ngày ra mắt.",
-      cta: "Nhận quyền truy cập",
+      kicker: "Miễn phí cho học viên",
+      title: "Đăng ký khoá học, nhận app miễn phí",
+      text: "Mua riêng app có giá 49 € (khoảng 1.300.000 VND). Học viên NaNu NaNa được dùng miễn phí.",
+      cta: "Tư vấn khoá học",
       /** Dropped into the consultation message when this hint is followed. */
-      message: "Tôi muốn đăng ký khoá A1 để được dùng ứng dụng sớm.",
+      message: "Tôi muốn đăng ký khoá học và nhận app học tiếng Đức.",
     },
     unique: ok(
       "NaNu NaNa tự xây dựng ứng dụng này dành riêng cho học viên — để bạn ôn lại đúng bài đã học trên lớp.",
     ),
-    included: "Khi ra mắt, mọi học viên đang theo học đều được cấp tài khoản.",
+    included: "Mọi học viên đang theo học đều được cấp tài khoản miễn phí.",
     devicesLabel: "Điện thoại và máy tính",
     features: [
       {
@@ -67,21 +66,20 @@ export const learningAppSection = dictionary(
   },
   {
     eyebrow: "Nur für unsere Lernenden",
-    comingSoon: "Demnächst",
     title: "Die Lern-App zum Kurs",
     intro:
-      "NaNu NaNa baut eine eigene App, damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten — am Telefon, Tablet oder Computer.",
+      "NaNu NaNa hat eine eigene App gebaut, damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten — am Telefon, Tablet oder Computer.",
     earlyAccess: {
-      kicker: "Früher Zugang",
-      title: "Melden Sie sich heute für A1 an",
-      text: "Sie nutzen die App schon vor dem Start.",
-      cta: "Zugang sichern",
-      message: "Ich möchte den Kurs A1 buchen, um die App früh zu nutzen.",
+      kicker: "Kostenlos für Lernende",
+      title: "Kurs buchen, App gratis dazu",
+      text: "Einzeln kostet die App 49 € (ca. 1.300.000 VND). Lernende bei NaNu NaNa nutzen sie kostenlos.",
+      cta: "Kursberatung anfragen",
+      message: "Ich möchte einen Kurs buchen und die Lern-App dazu nutzen.",
     },
     unique: ok(
-      "NaNu NaNa baut diese App nur für die eigenen Lernenden — damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten.",
+      "NaNu NaNa hat diese App nur für die eigenen Lernenden gebaut — damit Sie genau die Stunde wiederholen, die Sie im Unterricht hatten.",
     ),
-    included: "Zum Start erhält jede Person, die gerade einen Kurs besucht, ein Konto.",
+    included: "Jede Person, die gerade einen Kurs besucht, erhält ein kostenloses Konto.",
     devicesLabel: "Telefon und Computer",
     features: [
       {

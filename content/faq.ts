@@ -3,6 +3,15 @@
  */
 import { dictionary } from "@/lib/i18n/dictionary";
 import { ok, type Claim } from "./verify";
+import { courseFees, formatVnd, type CourseFee } from "./pricing";
+
+const listedFees = (["a1", "a2", "b1", "b2"] as const).map((level) => {
+  const claim = courseFees[level];
+  if (claim.status !== "ok" || !claim.value) throw new Error(`${level} fee must be confirmed`);
+  return [level.toUpperCase(), claim.value] as [string, CourseFee];
+});
+const feeList = (key: keyof CourseFee) =>
+  listedFees.map(([level, fee]) => `${level} ${formatVnd(fee[key])}`).join(", ");
 
 export type FaqItem = { id: string; question: string; answer: Claim };
 
@@ -31,7 +40,14 @@ export const faqs = dictionary<FaqItem[]>(
       id: "hoc-phi",
       question: "Học phí các khoá tiếng Đức là bao nhiêu?",
       answer: ok(
-        "Học phí từ 5.900.000 VND, cho cả lớp online và lớp tại trung tâm. Hãy để lại thông tin, tư vấn viên sẽ gửi bạn bảng học phí chi tiết và lịch khai giảng gần nhất.",
+        `Học phí cả khoá: ${feeList("regular")}. Nếu đóng học phí trước ngày khai giảng ít nhất 1 tuần: ${feeList("early")}. Giá như nhau cho lớp online và lớp tại trung tâm, và học viên được tặng kèm app học tiếng Đức. Hãy để lại thông tin để nhận lịch khai giảng gần nhất.`,
+      ),
+    },
+    {
+      id: "hoan-hoc-phi",
+      question: "Nếu học thử không hợp thì có được hoàn học phí không?",
+      answer: ok(
+        "Với lớp online: có. NaNu NaNa hoàn lại 100% học phí nếu bạn không hài lòng sau 2 buổi học đầu.",
       ),
     },
     {
@@ -75,7 +91,14 @@ export const faqs = dictionary<FaqItem[]>(
       id: "hoc-phi",
       question: "Was kosten die Deutschkurse?",
       answer: ok(
-        "Die Kurse kosten ab 5.900.000 VND, online wie vor Ort. Hinterlassen Sie Ihre Daten, dann senden wir Ihnen die genaue Preisliste und den nächsten Starttermin.",
+        `Gebühr für den ganzen Kurs: ${feeList("regular")}. Wenn Sie mindestens 1 Woche vor Kursbeginn zahlen: ${feeList("early")}. Die Preise gelten online wie vor Ort, die Lern-App ist inklusive. Hinterlassen Sie Ihre Daten, dann senden wir Ihnen den nächsten Starttermin.`,
+      ),
+    },
+    {
+      id: "hoan-hoc-phi",
+      question: "Bekomme ich mein Geld zurück, wenn der Kurs nicht passt?",
+      answer: ok(
+        "Bei Online-Kursen ja: NaNu NaNa erstattet 100 % der Gebühr, wenn Sie nach den ersten 2 Einheiten nicht zufrieden sind.",
       ),
     },
     {
