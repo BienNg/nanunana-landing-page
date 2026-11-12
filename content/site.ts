@@ -12,7 +12,6 @@ export type Office = { id: "hcm" | "hanoi" | "stuttgart"; city: string; address?
 const hanoiAddress = ok(
   "Tầng 2, tòa Trung Yên 1, số 1 Vũ Phạm Hàm, Phường Yên Hòa, Thành phố Hà Nội",
 );
-const stuttgartAddress = verify("", "Địa chỉ văn phòng Stuttgart?");
 
 export const site = {
   name: "NaNu NaNa",
@@ -119,7 +118,7 @@ export function siteFor(locale: Locale) {
     offices: [
       { id: "hcm", city: copy.officeHcm },
       { id: "hanoi", city: copy.officeHanoi, address: hanoiAddress },
-      { id: "stuttgart", city: "Stuttgart", address: stuttgartAddress },
+      { id: "stuttgart", city: "Stuttgart" },
     ] satisfies Office[],
     license: copy.license,
     homeLabel: copy.homeLabel,
