@@ -93,6 +93,7 @@ export const ausbildungGuide: Record<Locale, StudyGuideContent<AusbildungSource>
         paragraphs: [
           "Bạn có thể tìm hiểu điều dưỡng, khách sạn–nhà hàng, vận tải–logistics, điện–cơ khí, xây dựng, bán lẻ và chế biến thực phẩm. Chọn theo công việc hằng ngày và khả năng của mình, rồi kiểm tra vị trí đang tuyển.",
         ],
+        links: [{ label: "Xem các ngành: học gì, hợp với ai", href: "/du-hoc-nghe/cac-nganh" }],
         sources: ["professions"],
       },
       {
@@ -102,15 +103,20 @@ export const ausbildungGuide: Record<Locale, StudyGuideContent<AusbildungSource>
           "Các hướng gồm nghiệp vụ khách sạn, phục vụ nhà hàng–sự kiện và đầu bếp. Thời gian thường là 2–3 năm tùy nghề. Công việc cần giao tiếp, phối hợp và sẵn sàng làm buổi tối hoặc cuối tuần.",
           "Lương ghi trong hợp đồng thường là gross (trước khấu trừ). Khi lập ngân sách, hãy xem số tiền net thực nhận và các khoản nhà ở, ăn uống do mình chi trả.",
         ],
+        links: [
+          { label: "Xem chi tiết: nghề khách sạn", href: "/du-hoc-nghe/khach-san" },
+          { label: "Xem chi tiết: nghề nhà hàng", href: "/du-hoc-nghe/nha-hang" },
+        ],
         sources: ["hospitality"],
       },
       {
         id: "dieu-duong",
         title: "Ausbildung điều dưỡng có gì khác?",
         paragraphs: [
-          "Đào tạo điều dưỡng chuyên nghiệp toàn thời gian kéo dài ba năm, kết hợp trường điều dưỡng với thực hành tại các cơ sở chăm sóc. Yêu cầu tiếng Đức có thể là B1 hoặc B2 tùy bang; còn có yêu cầu về bằng phổ thông, sức khỏe và lý lịch.",
+          "Đào tạo điều dưỡng chuyên nghiệp toàn thời gian kéo dài ba năm, kết hợp trường điều dưỡng với thực hành tại các cơ sở chăm sóc. Theo quy định, tiếng Đức là B1 hoặc B2 tùy bang; trên thực tế hầu hết nơi đào tạo yêu cầu B2. Còn có yêu cầu về bằng phổ thông, sức khỏe và lý lịch.",
           "Đừng nhầm chương trình điều dưỡng chuyên nghiệp với đào tạo trợ lý điều dưỡng: thời gian, yêu cầu và bằng cấp khác nhau.",
         ],
+        links: [{ label: "Xem chi tiết: du học nghề điều dưỡng", href: "/du-hoc-nghe/dieu-duong" }],
         sources: ["nursing"],
       },
       {
@@ -217,6 +223,7 @@ export const ausbildungGuide: Record<Locale, StudyGuideContent<AusbildungSource>
         paragraphs: [
           "Mögliche Bereiche sind Pflege, Hotellerie und Gastronomie, Transport und Logistik, Elektro- und Metallberufe, Bau, Handel und Lebensmittelhandwerk. Vergleichen Sie den Arbeitsalltag mit Ihren Interessen und recherchieren Sie konkrete Stellen.",
         ],
+        links: [{ label: "Ausbildungsberufe: Inhalte und Profil", href: "/du-hoc-nghe/cac-nganh" }],
         sources: ["professions"],
       },
       {
@@ -226,15 +233,20 @@ export const ausbildungGuide: Record<Locale, StudyGuideContent<AusbildungSource>
           "Beispiele sind Hotelfach, Restaurant- und Veranstaltungsgastronomie sowie Koch oder Köchin. Je nach Beruf dauert die Ausbildung zwei bis drei Jahre. Kommunikation, Teamarbeit und die Bereitschaft zu Abend- und Wochenenddiensten sind wichtig.",
           "Vergütungsangaben sind meist Bruttobeträge. Planen Sie mit dem Nettoverdienst und prüfen Sie, welche Wohn- und Verpflegungskosten Sie selbst tragen.",
         ],
+        links: [
+          { label: "Mehr zu Hotelfachmann/-frau", href: "/du-hoc-nghe/khach-san" },
+          { label: "Mehr zur Restaurantausbildung", href: "/du-hoc-nghe/nha-hang" },
+        ],
         sources: ["hospitality"],
       },
       {
         id: "dieu-duong",
         title: "Besonderheiten der Pflegeausbildung",
         paragraphs: [
-          "Die Vollzeitausbildung zur Pflegefachperson dauert drei Jahre und verbindet Pflegeschule und praktische Einsätze. Je nach Bundesland werden B1 oder B2 sowie Nachweise zu Schulabschluss, gesundheitlicher Eignung und Zuverlässigkeit verlangt.",
+          "Die Vollzeitausbildung zur Pflegefachperson dauert drei Jahre und verbindet Pflegeschule und praktische Einsätze. Vorgeschrieben ist je nach Bundesland B1 oder B2; in der Praxis verlangen fast alle Ausbildungsstellen B2. Dazu kommen Nachweise zu Schulabschluss, gesundheitlicher Eignung und Zuverlässigkeit.",
           "Die Ausbildung zur Pflegeassistenz ist ein anderer Bildungsgang mit abweichender Dauer, Zulassung und Qualifikation.",
         ],
+        links: [{ label: "Mehr zur Pflegeausbildung", href: "/du-hoc-nghe/dieu-duong" }],
         sources: ["nursing"],
       },
       {

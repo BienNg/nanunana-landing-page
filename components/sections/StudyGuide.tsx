@@ -160,6 +160,20 @@ export function StudyGuide({
                   ))}
                 </ul>
               )}
+              {section.links && (
+                <ul className="mt-4">
+                  {section.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={localePath(locale, link.href)}
+                        className="inline-flex min-h-tap items-center text-label-lg text-brand-teal-dark hover:underline"
+                      >
+                        {link.label} →
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <Sources sources={sources} ids={section.sources} label={copy.sourceLabel} />
             </section>
           ))}

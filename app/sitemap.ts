@@ -6,6 +6,10 @@ import { pathwayImageUrls } from "@/content/images";
 import { contentLastModified } from "@/lib/content-date";
 import { localePath, locales, pageAlternates } from "@/lib/i18n/locale";
 import { getSiteUrl } from "@/lib/site-url";
+import { guideHref, guideSlugs } from "@/content/guides";
+import { berufHref, berufSlugs, berufeListHref } from "@/content/ausbildung-berufe";
+
+const guidePaths = new Set<string>(guideSlugs.map(guideHref));
 
 const homeSources = [
   "content/hero.ts",
@@ -30,12 +34,14 @@ function sourcesFor(path: string): string[] {
     return ["content/courses.ts", "content/course-levels.ts"];
   if (path === "/du-hoc-nghe")
     return ["content/ausbildung.ts", "content/pathways.ts", "content/process.ts"];
+  if (path === "/du-hoc-nghe/dieu-duong") return ["content/ausbildung-pflege.ts"];
+  if (path.startsWith("/du-hoc-nghe/")) return ["content/ausbildung-berufe.ts"];
   if (path === "/du-hoc-duc") {
     return ["content/university.ts", "content/pathways.ts", "content/process.ts"];
   }
   if (path.startsWith("/dia-diem/")) return ["content/site.ts", "content/locations.ts"];
   if (path === "/lich-hoc") return ["content/classes.ts"];
-  if (path === "/thi-goethe" || path === "/chi-phi-du-hoc-duc") return ["content/guides.ts"];
+  if (guidePaths.has(path)) return ["content/guides.ts"];
   if (path === "/hoc-tieng-duc-online") return ["content/online.ts", "content/course-levels.ts"];
   if (path === "/chinh-sach-bao-mat") return ["content/privacy.ts"];
   if (path.startsWith("/tuyen-dung")) return ["content/careers.ts"];
@@ -45,7 +51,7 @@ function sourcesFor(path: string): string[] {
 function priorityFor(path: string): number {
   if (path === "/") return 1;
   if (path === "/niveau" || path === "/du-hoc-duc" || path === "/du-hoc-nghe") return 0.8;
-  if (path === "/thi-goethe" || path === "/chi-phi-du-hoc-duc") return 0.7;
+  if (guidePaths.has(path) || path.startsWith("/du-hoc-nghe/")) return 0.7;
   if (path.startsWith("/dia-diem/") || path === "/hoc-tieng-duc-online" || path === "/lich-hoc")
     return 0.7;
   if (path.startsWith("/niveau/")) return 0.7;
@@ -62,10 +68,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...courseLevels.map(courseHref),
     "/hoc-tieng-duc-online",
     "/lich-hoc",
-    "/thi-goethe",
-    "/chi-phi-du-hoc-duc",
+    ...guidePaths,
     "/du-hoc-duc",
     "/du-hoc-nghe",
+    berufeListHref,
+    ...berufSlugs.map(berufHref),
     ...locationSlugs.map(locationHref),
     "/tuyen-dung",
     ...openRoles("vi").map((role) => careerHref(role.slug)),

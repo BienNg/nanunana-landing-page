@@ -80,6 +80,11 @@ export const mainNav = dictionary<NavItem[]>(
         },
         { label: "Du học nghề", href: pathwayPath["du-hoc-nghe"], hint: "Ausbildung tại Đức" },
         {
+          label: "Các ngành học nghề",
+          href: "/du-hoc-nghe/cac-nganh",
+          hint: "Điều dưỡng, nhà hàng, khách sạn, làm bánh",
+        },
+        {
           label: "Chi phí & visa",
           href: "/chi-phi-du-hoc-duc",
           hint: "Tài khoản phong tỏa, lệ phí, bảo hiểm",
@@ -141,6 +146,11 @@ export const mainNav = dictionary<NavItem[]>(
           label: "Ausbildung in Deutschland",
           href: pathwayPath["du-hoc-nghe"],
           hint: "Berufsausbildung in Deutschland",
+        },
+        {
+          label: "Ausbildungsberufe",
+          href: "/du-hoc-nghe/cac-nganh",
+          hint: "Pflege, Restaurant, Hotel, Bäcker",
         },
         {
           label: "Kosten & Visum",

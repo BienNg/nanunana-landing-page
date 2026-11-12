@@ -6,7 +6,8 @@ import {
   guideLabels,
   guideSources,
   guides,
-  guidesReviewed,
+  guideReviewed,
+  type GuideContent,
   type GuideSlug,
 } from "@/content/guides";
 import { site } from "@/content/site";
@@ -25,8 +26,12 @@ import { buttonClasses } from "@/components/ui/button-styles";
 import { FaqList } from "./FaqList";
 
 export function guideMetadata(locale: Locale, slug: GuideSlug): Metadata {
-  const { metaTitle: title, description } = guides[slug][locale];
-  const alternates = pageAlternates(locale, guideHref(slug));
+  return guidePageMetadata(locale, guides[slug][locale], guideHref(slug));
+}
+
+export function guidePageMetadata(locale: Locale, copy: GuideContent, path: string): Metadata {
+  const { metaTitle: title, description } = copy;
+  const alternates = pageAlternates(locale, path);
   return {
     title,
     description,
@@ -44,21 +49,49 @@ export function guideMetadata(locale: Locale, slug: GuideSlug): Metadata {
   };
 }
 
-/** A sourced, dated guide page: quick answers, sections with sources, FAQ, CTA. */
 export function Guide({ locale, slug }: { locale: Locale; slug: GuideSlug }) {
-  const copy = guides[slug][locale];
+  return (
+    <GuidePage
+      locale={locale}
+      copy={guides[slug][locale]}
+      path={guideHref(slug)}
+      reviewedOn={guideReviewed[slug]}
+    />
+  );
+}
+
+/** A sourced, dated guide page: quick answers, sections with sources, FAQ, CTA. */
+export function GuidePage({
+  locale,
+  copy,
+  path,
+  reviewedOn,
+}: {
+  locale: Locale;
+  copy: GuideContent;
+  path: string;
+  /** The day the page's official sources were last read (YYYY-MM-DD). */
+  reviewedOn: string;
+}) {
+  const slug = path.split("/").filter(Boolean).join("-");
   const labels = guideLabels[locale];
   const reviewed = new Intl.DateTimeFormat(dateLocale(locale), {
     day: "numeric",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(new Date(`${guidesReviewed}T00:00:00Z`));
+  }).format(new Date(`${reviewedOn}T00:00:00Z`));
   const usedSources = [...new Set(copy.sections.flatMap((s) => s.sources))];
 
   return (
     <>
-      <Breadcrumbs locale={locale} items={[{ name: copy.title, path: guideHref(slug) }]} />
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          ...(copy.parents ?? []).map((p) => ({ name: p.label, path: p.href })),
+          { name: copy.title, path },
+        ]}
+      />
       <Section id={`${slug}-intro`}>
         <div className="mx-auto max-w-3xl">
           <p className="text-label-lg text-brand-teal-dark">{copy.eyebrow}</p>
@@ -66,7 +99,7 @@ export function Guide({ locale, slug }: { locale: Locale; slug: GuideSlug }) {
             {copy.title}
           </h1>
           <p className="mt-3 text-label-sm text-ink-subtle">
-            {labels.reviewed} <time dateTime={guidesReviewed}>{reviewed}</time>
+            {labels.reviewed} <time dateTime={reviewedOn}>{reviewed}</time>
           </p>
           <p className="mt-6 text-body-lg text-ink-muted">{copy.intro}</p>
           <div className="mt-8 rounded-card border border-border-subtle bg-white p-6 shadow-tier-1">

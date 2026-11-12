@@ -1,19 +1,26 @@
 /**
- * Standalone guides: the Goethe exam in Vietnam and the costs of a student visa.
+ * Standalone guides: the Goethe exam in Vietnam and the costs of a student
+ * visa. The Ausbildung job pages (content/ausbildung-berufe.ts) reuse the same
+ * page type and the source list below.
  *
- * Every fact comes from an official page that was read on the reviewed date:
- * the Goethe-Institut Hanoi and Ho Chi Minh City exam pages, and the German
- * embassy's student visa page (vietnam.diplo.de). Fees for the exams are left
- * out on purpose: Goethe Hanoi announces new fees from 2026.
+ * Every fact comes from an official page that was read on the guide's reviewed
+ * date: the Goethe-Institut Hanoi and Ho Chi Minh City exam pages, the German
+ * embassy's visa pages (vietnam.diplo.de), the Pflegeberufegesetz, BERUFENET,
+ * BIBB and Make it in Germany. Fees for the exams are left out on purpose: Goethe
+ * Hanoi announces new fees from 2026.
  */
 import type { GuideSource } from "./study-guide";
 import type { GoalValue } from "./form-options";
 import type { Locale } from "@/lib/i18n/locale";
 
-export const guidesReviewed = "2026-11-11";
-
 export const guideSlugs = ["thi-goethe", "chi-phi-du-hoc-duc"] as const;
 export type GuideSlug = (typeof guideSlugs)[number];
+
+/** The day the guide's official sources were last read. */
+export const guideReviewed: Record<GuideSlug, string> = {
+  "thi-goethe": "2026-11-11",
+  "chi-phi-du-hoc-duc": "2026-11-11",
+};
 export const guideHref = (slug: GuideSlug) => `/${slug}`;
 
 export const guideSources = {
@@ -29,8 +36,56 @@ export const guideSources = {
     title: "Deutsche Botschaft Hanoi · Visum für ein Studium",
     href: "https://vietnam.diplo.de/vn-de/service/2306542-2306542",
   },
+  embassyAusbildung: {
+    title: "Đại sứ quán Đức tại Hà Nội · Thị thực du học nghề",
+    href: "https://vietnam.diplo.de/vn-vi/dichvulanhsu/05-visaeinreise/2306816-2306816",
+  },
+  pflbg: {
+    title: "Pflegeberufegesetz (PflBG) §§ 6, 11, 19, 20, 24",
+    href: "https://www.gesetze-im-internet.de/pflbg/",
+  },
+  berufenetPflege: {
+    title: "Bundesagentur für Arbeit · BERUFENET Pflegefachmann/-frau",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/132173",
+  },
+  berufenetRestaurant: {
+    title: "BERUFENET · Fachmann/-frau – Restaurants und Veranstaltungsgastronomie",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/136125",
+  },
+  berufenetHotel: {
+    title: "BERUFENET · Hotelfachmann/-frau",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/10009",
+  },
+  berufenetBaecker: {
+    title: "BERUFENET · Bäcker/in",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/3626",
+  },
+  berufenetVerkaufBaeckerei: {
+    title: "BERUFENET · Fachverkäufer/in – Lebensmittelhandwerk (Bäckerei)",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/50920",
+  },
+  berufenetVerkaufFleischerei: {
+    title: "BERUFENET · Fachverkäufer/in – Lebensmittelhandwerk (Fleischerei)",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/50924",
+  },
+  berufenetFleischer: {
+    title: "BERUFENET · Fleischer/in",
+    href: "https://web.arbeitsagentur.de/berufenet/beruf/13804",
+  },
+  bibbMindestverguetung: {
+    title: "BIBB · Mindestausbildungsvergütung",
+    href: "https://www.bibb.de/de/199658.php",
+  },
+  makeItVisa: {
+    title: "Make it in Germany · Visa for vocational training",
+    href: "https://www.make-it-in-germany.com/en/visa-recognition/visa-types/training",
+  },
+  makeItNursing: {
+    title: "Make it in Germany · Nursing Professional",
+    href: "https://www.make-it-in-germany.com/en/study-vocational-training/training-in-germany/in-demand/nursing",
+  },
 } satisfies Record<string, GuideSource>;
-type SourceId = keyof typeof guideSources;
+export type GuideSourceId = keyof typeof guideSources;
 
 export type GuideContent = {
   eyebrow: string;
@@ -46,7 +101,7 @@ export type GuideContent = {
     title: string;
     paragraphs: string[];
     points?: string[];
-    sources: SourceId[];
+    sources: GuideSourceId[];
   }[];
   faqTitle: string;
   faqs: { id: string; question: string; answer: string }[];
@@ -55,6 +110,8 @@ export type GuideContent = {
   cta: string;
   message: string;
   goal?: GoalValue;
+  /** Breadcrumb levels between Home and this page. */
+  parents?: { label: string; href: string }[];
   related: { label: string; href: string }[];
   shareSubtitle: string;
 };
