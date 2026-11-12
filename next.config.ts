@@ -34,6 +34,28 @@ const nextConfig: NextConfig = {
       { source: "/about", destination: "/#ve-chung-toi", permanent: true },
       { source: "/ve-phuong", destination: "/#ve-phuong", permanent: true },
       { source: "/career", destination: "/tuyen-dung", permanent: true },
+      // Old Webflow URLs that Search Console reported as 404 (export 2026-11-12).
+      { source: "/bewerbung", destination: "/de/tuyen-dung", permanent: true },
+      { source: "/de/index", destination: "/de", permanent: true },
+      { source: "/privacy-policy", destination: "/chinh-sach-bao-mat", permanent: true },
+      { source: "/du-hoc-dai-hoc", destination: "/du-hoc-duc", permanent: true },
+      { source: "/trinh-do", destination: "/niveau", permanent: true },
+      {
+        source: "/trinh-do/trinh-do-:level(a1|a2|b1|b2|c1)",
+        destination: "/niveau/:level",
+        permanent: true,
+      },
+      {
+        source: "/blog-posts/tai-sao-nen-hoc-online",
+        destination: "/hoc-tieng-duc-online",
+        permanent: true,
+      },
+      {
+        source:
+          "/blog-posts/:slug(du-hoc-dai-hoc-hay-du-hoc-nghe|lo-trinh-den-voi-nuoc-duc|nhung-truong-dai-hoc-phai-dong-hoc-phi-tai-duc|truong-dai-hoc-duoc-cong-nhan-tai-duc|dieu-kien-du-hoc-duc)",
+        destination: "/du-hoc-duc",
+        permanent: true,
+      },
     ];
   },
 };
