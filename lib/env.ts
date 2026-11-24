@@ -20,6 +20,13 @@ export const serverEnv = {
     if (!webhookUrl.startsWith("https://hooks.zapier.com/")) return null;
     return { webhookUrl };
   },
+  /** Separate Zapier Catch Hook for job applications. Same https://hooks.zapier.com rule. */
+  applicationZapier: () => {
+    const webhookUrl = read("ZAPIER_APPLICATION_WEBHOOK_URL");
+    if (!webhookUrl) return null;
+    if (!webhookUrl.startsWith("https://hooks.zapier.com/")) return null;
+    return { webhookUrl };
+  },
   upstash: () => {
     const url = read("UPSTASH_REDIS_REST_URL");
     const token = read("UPSTASH_REDIS_REST_TOKEN");

@@ -63,16 +63,16 @@ export function trackChatClick({ channel, placement }: ChatClick) {
   }
 }
 
-/** Where on the careers pages the "Gửi CV" mailto control lives. */
+/** Where on the careers pages the "Ứng tuyển" button (scrolls to the form) lives. */
 export type ApplyPlacement =
   "role_list" | "role_header" | "role_contact" | "role_footer" | "general";
 
 export type ApplyClick = { role: string; placement: ApplyPlacement };
 
 /**
- * "Gửi CV" mailto tap. It opens the visitor's mail app, so this counts intent,
- * not sent emails — compare with CVs in the inbox. Meta optimises recruitment
- * ads on SubmitApplication.
+ * "Ứng tuyển" button tap. It only scrolls to the application form, so it is
+ * intent, not an application — Meta gets nothing here. SubmitApplication fires
+ * on the success page (trackApplicationSubmit).
  */
 export function trackApplyClick({ role, placement }: ApplyClick) {
   const props = { role, placement };
@@ -82,9 +82,32 @@ export function trackApplyClick({ role, placement }: ApplyClick) {
   if (process.env.NEXT_PUBLIC_GA_ID && canTrackGa()) {
     window.gtag?.("event", "apply_click", props);
   }
-  if (process.env.NEXT_PUBLIC_META_PIXEL_ID && canTrackMeta()) {
-    window.fbq?.("track", "SubmitApplication", { content_name: role, content_category: placement });
-  }
+}
+
+/**
+ * Conversion after a sent application, called once on the success page.
+ * Waits up to 10 s for GA/Meta scripts, which may still be loading after a
+ * full page load. Each channel fires at most once.
+ */
+export function trackApplicationSubmit(role: string) {
+  try {
+    if (hasConsent("analytics")) track("application_submit", { role });
+  } catch {}
+  let ga = !process.env.NEXT_PUBLIC_GA_ID;
+  let meta = !process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  const started = Date.now();
+  const attempt = () => {
+    if (!ga && canTrackGa()) {
+      ga = true;
+      window.gtag?.("event", "submit_application", { role });
+    }
+    if (!meta && canTrackMeta()) {
+      meta = true;
+      window.fbq?.("track", "SubmitApplication", { content_name: role });
+    }
+    if ((!ga || !meta) && Date.now() - started < 10_000) window.setTimeout(attempt, 250);
+  };
+  attempt();
 }
 
 /** Fired once per section each time it reaches the middle of the viewport. */

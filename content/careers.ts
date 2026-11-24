@@ -88,14 +88,14 @@ const teacherDutiesDe = [
 ];
 
 const teacherStepsVi = ok([
-  "Gửi CV qua email",
+  "Điền form ứng tuyển và gửi CV",
   "Trao đổi ngắn qua video",
   "Dạy thử một buổi",
   "Nhận lớp và bắt đầu dạy",
 ]);
 
 const teacherStepsDe = ok([
-  "Lebenslauf per E-Mail senden",
+  "Bewerbungsformular ausfüllen und Lebenslauf senden",
   "Kurzes Videogespräch",
   "Eine Probestunde geben",
   "Die Klasse übernehmen und unterrichten",
@@ -202,7 +202,7 @@ const rolesVi: Role[] = [
     application: {
       send: ok(["CV bằng tiếng Đức", "Ghi rõ bạn muốn dạy tại Sài Gòn hay Hà Nội"]),
       steps: ok([
-        "Gửi CV qua email",
+        "Điền form ứng tuyển và gửi CV",
         "Trao đổi ngắn persönlich vor Ort",
         "Dạy thử một buổi",
         "Nhận lớp và bắt đầu dạy",
@@ -348,7 +348,7 @@ const rolesVi: Role[] = [
         "CV bằng tiếng Việt",
         "Ghi rõ bạn muốn làm tại Sài Gòn hay Hà Nội, toàn thời gian hay bán thời gian",
       ]),
-      steps: ok(["Gửi CV qua email", "Phỏng vấn", "Nhận việc và bắt đầu"]),
+      steps: ok(["Điền form ứng tuyển và gửi CV", "Phỏng vấn", "Nhận việc và bắt đầu"]),
     },
     faq: [
       {
@@ -430,7 +430,7 @@ const rolesDe: Role[] = [
     application: {
       send: ok(["Lebenslauf auf Deutsch", "Bitte angeben, ob Sài Gòn oder Hanoi"]),
       steps: ok([
-        "Lebenslauf per E-Mail senden",
+        "Bewerbungsformular ausfüllen und Lebenslauf senden",
         "Kurzes Gespräch persönlich vor Ort",
         "Eine Probestunde geben",
         "Die Klasse übernehmen und unterrichten",
@@ -576,7 +576,11 @@ const rolesDe: Role[] = [
         "Lebenslauf auf Vietnamesisch",
         "Bitte angeben: Sài Gòn oder Hanoi, Vollzeit oder Teilzeit",
       ]),
-      steps: ok(["Lebenslauf per E-Mail senden", "Gespräch", "Zusage und Start"]),
+      steps: ok([
+        "Bewerbungsformular ausfüllen und Lebenslauf senden",
+        "Gespräch",
+        "Zusage und Start",
+      ]),
     },
     faq: [
       {
@@ -609,31 +613,54 @@ const pageCopy = {
     applySubjectPrefix: "[Ứng tuyển]",
     openApplication: "Ứng tuyển tự do",
     noOpenRoles:
-      "Hiện chưa có vị trí đang tuyển. Bạn vẫn có thể gửi CV để chúng tôi liên hệ khi có vị trí phù hợp.",
+      "Hiện chưa có vị trí đang tuyển. Bạn vẫn có thể ứng tuyển tự do qua form bên dưới, chúng tôi sẽ liên hệ khi có vị trí phù hợp.",
     applyHowTo:
-      "Gửi CV (tiếng Việt hoặc tiếng Đức) kèm vị trí bạn quan tâm qua email. Chúng tôi sẽ phản hồi các hồ sơ phù hợp.",
-    roleApplyHowTo:
-      "Gửi CV (tiếng Việt hoặc tiếng Đức) qua email. Tiêu đề email đã được điền sẵn theo vị trí này.",
+      "Điền tên, email và chọn vị trí. Chưa thấy vị trí phù hợp? Hãy chọn “Ứng tuyển tự do”. Bạn sẽ nhận email xác nhận kèm đường dẫn để gửi CV (tiếng Việt hoặc tiếng Đức).",
+    roleApplyHowTo: "Điền tên và email. Bạn sẽ nhận email xác nhận kèm đường dẫn để gửi CV.",
     aboutHeading: "Về NaNu NaNa",
     equalOpportunity:
       "NaNu NaNa chào đón mọi ứng viên, không phân biệt giới tính, nguồn gốc dân tộc, tôn giáo hay thế giới quan, khuyết tật, tuổi tác hay xu hướng tính dục.",
     joinBadge: "Gia nhập NaNu NaNa",
     openRoles: "Vị trí đang tuyển",
     viewRole: "Xem chi tiết",
-    sendCv: "Gửi CV",
+    sendCv: "Ứng tuyển",
     otherRole: "Chưa thấy vị trí phù hợp?",
     allRoles: "Tất cả vị trí",
     recruiting: "Tuyển dụng",
     contact: "Liên hệ",
     apply: "Ứng tuyển",
     documents: "Hồ sơ cần gửi",
-    sendTo: "Gửi đến",
-    subject: "Tiêu đề email",
     steps: "Quy trình",
     faq: "Câu hỏi thường gặp",
     applyRole: "Ứng tuyển vị trí này",
-    sendCvEmail: "Gửi CV qua email",
+    applyNow: "Ứng tuyển ngay",
     roleMeta: "Tuyển Dụng",
+    form: {
+      heading: "Ứng tuyển",
+      name: "Họ và tên",
+      namePlaceholder: "Nguyễn Văn A",
+      email: "Email",
+      emailPlaceholder: "ten@gmail.com",
+      role: "Vị trí ứng tuyển",
+      roleEmpty: "Chọn vị trí",
+      submit: "Gửi đơn ứng tuyển",
+      sending: "Đang gửi…",
+      privacyBefore: "Khi gửi đơn, bạn đồng ý với ",
+      privacyLink: "Chính sách bảo mật",
+      privacyAfter: " của NaNu NaNa.",
+      emailRequired: "Vui lòng nhập email của bạn.",
+      emailInvalid: "Email chưa đúng, ví dụ ten@gmail.com.",
+      roleRequired: "Vui lòng chọn vị trí ứng tuyển.",
+    },
+    success: {
+      metaTitle: "Đã gửi đơn ứng tuyển",
+      title: "Đơn ứng tuyển của bạn đã được gửi!",
+      roleLabel: "Vị trí:",
+      body: "Trong vài phút nữa, bạn sẽ nhận được email xác nhận kèm đường dẫn để gửi CV.",
+      spam: "Không thấy email? Hãy kiểm tra cả thư mục Spam hoặc Quảng cáo.",
+      fallback: "Vẫn chưa nhận được? Bạn có thể gửi email trực tiếp cho chúng tôi:",
+      back: "Xem các vị trí khác",
+    },
   },
   de: {
     title: "Karriere",
@@ -643,31 +670,55 @@ const pageCopy = {
     applySubjectPrefix: "Bewerbung:",
     openApplication: "Initiativbewerbung",
     noOpenRoles:
-      "Gerade ist keine Stelle ausgeschrieben. Sie können trotzdem einen Lebenslauf senden. Wir melden uns, wenn eine passende Stelle frei wird.",
+      "Gerade ist keine Stelle ausgeschrieben. Sie können sich trotzdem über das Formular unten initiativ bewerben. Wir melden uns, wenn eine passende Stelle frei wird.",
     applyHowTo:
-      "Senden Sie Ihren Lebenslauf (auf Vietnamesisch oder Deutsch) mit der Stelle, die Sie interessiert. Wir antworten auf passende Bewerbungen.",
+      "Tragen Sie Name und E-Mail ein und wählen Sie die Stelle. Keine passende dabei? Dann wählen Sie „Initiativbewerbung“. Sie bekommen eine Bestätigung mit einem Link, über den Sie Ihren Lebenslauf (auf Vietnamesisch oder Deutsch) senden.",
     roleApplyHowTo:
-      "Senden Sie Ihren Lebenslauf (auf Vietnamesisch oder Deutsch) per E-Mail. Der Betreff ist für diese Stelle schon gesetzt.",
+      "Tragen Sie Name und E-Mail ein. Sie bekommen eine Bestätigung mit einem Link, über den Sie Ihren Lebenslauf senden.",
     aboutHeading: "Über NaNu NaNa",
     equalOpportunity:
       "NaNu NaNa begrüßt alle Bewerbungen, unabhängig von Geschlecht, ethnischer Herkunft, Religion oder Weltanschauung, Behinderung, Alter oder sexueller Identität.",
     joinBadge: "Werden Sie Teil von NaNu NaNa",
     openRoles: "Offene Stellen",
     viewRole: "Details ansehen",
-    sendCv: "Lebenslauf senden",
+    sendCv: "Bewerben",
     otherRole: "Keine passende Stelle dabei?",
     allRoles: "Alle Stellen",
     recruiting: "Karriere",
     contact: "Kontakt",
     apply: "Bewerbung",
     documents: "Das senden Sie",
-    sendTo: "An",
-    subject: "Betreff",
     steps: "Ablauf",
     faq: "Häufige Fragen",
     applyRole: "Auf diese Stelle bewerben",
-    sendCvEmail: "Lebenslauf per E-Mail senden",
+    applyNow: "Jetzt bewerben",
     roleMeta: "Karriere",
+    form: {
+      heading: "Bewerbung",
+      name: "Vor- und Nachname",
+      namePlaceholder: "Anna Nguyen",
+      email: "E-Mail",
+      emailPlaceholder: "name@gmail.com",
+      role: "Stelle",
+      roleEmpty: "Stelle wählen",
+      submit: "Bewerbung absenden",
+      sending: "Wird gesendet…",
+      privacyBefore: "Mit dem Absenden stimmen Sie der ",
+      privacyLink: "Datenschutzerklärung",
+      privacyAfter: " von NaNu NaNa zu.",
+      emailRequired: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+      emailInvalid: "Diese E-Mail-Adresse stimmt nicht, zum Beispiel name@gmail.com.",
+      roleRequired: "Bitte wählen Sie eine Stelle.",
+    },
+    success: {
+      metaTitle: "Bewerbung gesendet",
+      title: "Ihre Bewerbung wurde gesendet!",
+      roleLabel: "Stelle:",
+      body: "In wenigen Minuten bekommen Sie eine Bestätigung per E-Mail mit einem Link, über den Sie Ihren Lebenslauf senden.",
+      spam: "Keine E-Mail da? Bitte sehen Sie auch im Spam-Ordner nach.",
+      fallback: "Immer noch nichts? Schreiben Sie uns direkt:",
+      back: "Weitere Stellen ansehen",
+    },
   },
 } as const;
 
@@ -692,13 +743,36 @@ export function careersContent(locale: Locale) {
 /** @deprecated Prefer careersContent(locale). Kept name for a short migration of call sites. */
 export const careers = careersContent("vi");
 
-export function applySubject(locale: Locale, role?: Role) {
+export function applySubject(locale: Locale, role?: Pick<Role, "title" | "applySubject">) {
   const copy = pageCopy[locale];
   return role?.applySubject ?? `${copy.applySubjectPrefix} ${role?.title ?? copy.openApplication}`;
 }
 
+/** Position value for an application without a specific role. */
+export const GENERAL_APPLICATION = "general";
+
+/** Dropdown options for the application form: open roles, then the general application. */
+export function applicationRoleOptions(locale: Locale) {
+  return [
+    ...openRoles(locale).map((role) => ({ value: role.slug, label: role.title })),
+    { value: GENERAL_APPLICATION, label: pageCopy[locale].openApplication },
+  ];
+}
+
+/** Label for a position value, or undefined if the value is not a current option. */
+export function applicationRoleLabel(locale: Locale, value: string | undefined) {
+  return applicationRoleOptions(locale).find((o) => o.value === value)?.label;
+}
+
+/** Success page after an application, with the position in the URL (never personal data). */
+export function applicationSuccessHref(role: string) {
+  return `/tuyen-dung/cam-on?vi-tri=${encodeURIComponent(role)}`;
+}
+
+export { APPLICATION_FORM_ID } from "./application-form";
+
 /** mailto link with the subject pre-filled for a role (or a general application). */
-export function applyHref(locale: Locale, role?: Role) {
+export function applyHref(locale: Locale, role?: Pick<Role, "title" | "applySubject">) {
   return `mailto:${site.email}?subject=${encodeURIComponent(applySubject(locale, role))}`;
 }
 

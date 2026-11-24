@@ -1,15 +1,12 @@
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Briefcase, Mail, MapPin } from "lucide-react";
-import {
-  applyHref,
-  careerHref,
-  careersContent,
-  openRoles as getOpenRoles,
-} from "@/content/careers";
+import { ArrowRight, Briefcase, MapPin, Send } from "lucide-react";
+import { careerHref, careersContent, openRoles as getOpenRoles } from "@/content/careers";
 import { isVisible } from "@/content/verify";
-import { AnchorButton, LinkButton } from "@/components/ui/Button";
+import { LinkButton } from "@/components/ui/Button";
+import { ApplyFormLink } from "@/components/form/ApplyFormLink";
+import { ApplicationSection } from "@/components/sections/ApplicationSection";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { VerifyMark } from "@/components/ui/VerifyMark";
@@ -82,36 +79,21 @@ export default async function CareersPage() {
                     <LinkButton href={careerHref(role.slug)} variant="outline">
                       {careers.viewRole} <ArrowRight aria-hidden />
                     </LinkButton>
-                    <AnchorButton
-                      href={applyHref(locale, role)}
+                    <ApplyFormLink
                       variant="primary"
                       apply={{ role: role.slug, placement: "role_list" }}
                     >
-                      <Mail aria-hidden /> {careers.sendCv}
-                    </AnchorButton>
+                      <Send aria-hidden /> {careers.sendCv}
+                    </ApplyFormLink>
                   </div>
                 </Card>
               </li>
             ))}
           </ul>
 
-          <Card
-            tier={2}
-            className="mt-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
-          >
-            <div>
-              <h2 className="text-headline-sm text-ink">{careers.otherRole}</h2>
-              <p className="mt-1 max-w-xl text-body-md text-ink-muted">{careers.applyHowTo}</p>
-            </div>
-            <AnchorButton
-              href={applyHref(locale)}
-              variant="primary"
-              className="shrink-0"
-              apply={{ role: "general", placement: "general" }}
-            >
-              <Mail aria-hidden /> {careers.applyEmail}
-            </AnchorButton>
-          </Card>
+          <div className="mt-10">
+            <ApplicationSection locale={locale} intro={careers.applyHowTo} />
+          </div>
         </div>
       </section>
     </>

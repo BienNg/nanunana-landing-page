@@ -4,10 +4,8 @@ import { jobPostingData } from "@/lib/seo/structured-data";
 import { getSiteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Briefcase, Check, Mail, MapPin, X } from "lucide-react";
+import { ArrowLeft, Briefcase, Check, MapPin, Send, X } from "lucide-react";
 import {
-  applyHref,
-  applySubject,
   careerHref,
   careersContent,
   openRoles,
@@ -17,12 +15,13 @@ import {
 import { claimValue, isVisible } from "@/content/verify";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { pageAlternates } from "@/lib/i18n/locale";
-import { AnchorButton, LinkButton } from "@/components/ui/Button";
+import { LinkButton } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { VerifyMark } from "@/components/ui/VerifyMark";
 import { FaqList } from "@/components/sections/FaqList";
-import { ApplyLink } from "@/components/analytics/ApplyLink";
+import { ApplyFormLink } from "@/components/form/ApplyFormLink";
+import { ApplicationSection } from "@/components/sections/ApplicationSection";
 import type { ApplyPlacement } from "@/lib/analytics";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -110,14 +109,9 @@ export default async function CareerRolePage({ params }: Props) {
   if (!role) notFound();
 
   const apply = (placement: ApplyPlacement) => (
-    <AnchorButton
-      href={applyHref(locale, role)}
-      variant="primary"
-      className="shrink-0"
-      apply={{ role: role.slug, placement }}
-    >
-      <Mail aria-hidden /> {careers.sendCvEmail}
-    </AnchorButton>
+    <ApplyFormLink variant="primary" className="shrink-0" apply={{ role: role.slug, placement }}>
+      <Send aria-hidden /> {careers.applyNow}
+    </ApplyFormLink>
   );
   const jobData = jobPostingData(role, locale, getSiteUrl().origin);
   const facts = role.facts?.filter((f) => isVisible(f.value)) ?? [];
@@ -170,16 +164,7 @@ export default async function CareerRolePage({ params }: Props) {
               ))}
               <div>
                 <dt className="text-label-md text-ink-subtle">{careers.contact}</dt>
-                <dd className="mt-1 text-body-md font-semibold text-ink">
-                  <ApplyLink
-                    href={applyHref(locale, role)}
-                    role={role.slug}
-                    placement="role_contact"
-                    className="underline underline-offset-2 hover:text-teal"
-                  >
-                    {careers.applyEmail}
-                  </ApplyLink>
-                </dd>
+                <dd className="mt-1 text-body-md font-semibold text-ink">{careers.applyEmail}</dd>
               </div>
             </dl>
           ) : null}
@@ -223,14 +208,6 @@ export default async function CareerRolePage({ params }: Props) {
                   </>
                 )}
               </VerifyMark>
-              <div className="mt-5 text-body-md text-ink">
-                <p className="text-label-md font-semibold text-ink-subtle">{careers.sendTo}</p>
-                <p className="mt-1">{careers.applyEmail}</p>
-                <p className="mt-3 text-label-md font-semibold text-ink-subtle">
-                  {careers.subject}
-                </p>
-                <p className="mt-1 font-mono text-body-sm">{applySubject(locale, role)}</p>
-              </div>
               <VerifyMark claim={role.application.steps} as="div" className="mt-5">
                 {(steps) => (
                   <>
@@ -248,22 +225,15 @@ export default async function CareerRolePage({ params }: Props) {
                   </>
                 )}
               </VerifyMark>
-              <div className="mt-6">{apply("role_footer")}</div>
             </Card>
-          ) : (
-            <Card
-              tier={2}
-              className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
-            >
-              <div>
-                <h2 className="text-headline-sm text-ink">{careers.applyRole}</h2>
-                <p className="mt-1 max-w-xl text-body-md text-ink-muted">
-                  {careers.roleApplyHowTo}
-                </p>
-              </div>
-              {apply("role_footer")}
-            </Card>
-          )}
+          ) : null}
+
+          <ApplicationSection
+            locale={locale}
+            heading={careers.applyRole}
+            intro={careers.roleApplyHowTo}
+            defaultRole={role.slug}
+          />
 
           {faq.length > 0 ? (
             <div>
