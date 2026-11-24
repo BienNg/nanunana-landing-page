@@ -22,7 +22,7 @@ function slideEls(track: HTMLElement) {
 }
 
 export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; label: string }) {
-  const trackRef = useRef<HTMLUListElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [pages, setPages] = useState(1);
   const [overflow, setOverflow] = useState(false);
@@ -82,12 +82,12 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={label}>
-      <ul
+      <div
         ref={trackRef}
         className="-mx-margin-mobile flex snap-x snap-mandatory scroll-px-margin-mobile [scrollbar-width:none] gap-gutter-mobile overflow-x-auto px-margin-mobile pb-2 contain-paint md:mx-0 md:scroll-px-0 md:gap-gutter md:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((slide, i) => (
-          <li
+          <div
             key={i}
             data-slide
             role="group"
@@ -96,9 +96,9 @@ export function TestimonialCarousel({ slides, label }: { slides: ReactNode[]; la
             className="w-[85%] shrink-0 snap-start md:w-[calc((100%-var(--spacing-gutter))/2)] lg:w-[calc((100%-2*var(--spacing-gutter))/3)]"
           >
             {slide}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {overflow ? (
         <div className="mt-6 flex items-center justify-center gap-4">

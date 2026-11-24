@@ -157,7 +157,7 @@ function AuthorName({
 function Stars({ rating, locale }: { rating: number; locale: "vi" | "de" }) {
   const filled = Math.max(0, Math.min(5, Math.round(rating)));
   return (
-    <div className="flex gap-0.5" aria-label={starsLabel(locale, filled)}>
+    <div className="flex gap-0.5" role="img" aria-label={starsLabel(locale, filled)}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}

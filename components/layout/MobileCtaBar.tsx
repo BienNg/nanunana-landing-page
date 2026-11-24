@@ -57,7 +57,7 @@ export function MobileCtaBar() {
                 size="sm"
                 fullWidth
                 track={{ channel: "messenger", placement: "mobile_bar" }}
-                aria-label={copy.messenger}
+                aria-label={`${copy.chat} Messenger`}
                 className="min-w-0 px-2"
               >
                 <MessengerIcon /> {copy.chat}

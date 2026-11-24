@@ -24,7 +24,6 @@ export function Logo({
   return (
     <Link
       href={localePath(locale, "/")}
-      aria-label={`${brand.fullName} — ${brand.homeLabel}`}
       className={cn("inline-flex min-h-tap items-center gap-2.5", className)}
     >
       <span

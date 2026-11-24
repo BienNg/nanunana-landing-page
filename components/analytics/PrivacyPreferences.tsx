@@ -11,6 +11,8 @@ import { PREFERENCES_EVENT, saveConsent, type Consent } from "@/lib/consent";
 const copy = {
   vi: {
     title: "Quyền riêng tư của bạn",
+    short: "Chúng tôi chỉ dùng thống kê và tiếp thị khi bạn cho phép.",
+    customize: "Tùy chỉnh",
     settings: "Cài đặt quyền riêng tư",
     intro:
       "Bạn chọn có cho phép thống kê và tiếp thị hay không. Bạn vẫn có thể xem trang, nhắn tin và gửi yêu cầu tư vấn khi từ chối. Có thể đổi lựa chọn ở cuối trang bất cứ lúc nào.",
@@ -30,6 +32,8 @@ const copy = {
   },
   de: {
     title: "Ihre Privatsphäre",
+    short: "Statistik und Marketing nutzen wir nur mit Ihrer Zustimmung.",
+    customize: "Anpassen",
     settings: "Datenschutzeinstellungen",
     intro:
       "Sie entscheiden über Statistik und Marketing. Auch ohne Zustimmung können Sie die Website nutzen, Nachrichten senden und Beratung anfragen. Ihre Auswahl können Sie jederzeit unten auf der Seite ändern.",
@@ -68,6 +72,7 @@ export function PrivacyPreferences() {
   const text = copy[locale];
   const consent = useConsent();
   const [editing, setEditing] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [draft, setDraft] = useState<Consent>({ analytics: false, marketing: false });
   const heading = useRef<HTMLHeadingElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -84,10 +89,11 @@ export function PrivacyPreferences() {
   }, [consent]);
 
   useEffect(() => {
-    if (editing) heading.current?.focus();
-  }, [editing]);
+    if (editing || expanded) heading.current?.focus();
+  }, [editing, expanded]);
   const close = () => {
     setEditing(false);
+    setExpanded(false);
     returnFocus.current?.focus();
   };
   const choose = (value: Consent) => {
@@ -98,6 +104,51 @@ export function PrivacyPreferences() {
   // LCP element for new visitors). Returning visitors never see it: the head
   // script hides it via data-consent before paint, and it unmounts on hydration.
   if (consent && !editing) return null;
+  const full = editing || expanded;
+
+  if (!full) {
+    return (
+      <section
+        aria-label={text.title}
+        data-stats-ignore
+        data-consent-banner=""
+        className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-w-2xl rounded-card border border-border-subtle bg-white p-4 text-ink shadow-tier-3 sm:p-5"
+      >
+        <p className="text-body-sm text-ink-muted">
+          {text.short}{" "}
+          <Link
+            href={localePath(locale, "/chinh-sach-bao-mat")}
+            className="text-brand-teal-dark underline"
+          >
+            {text.privacy}
+          </Link>
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            className={buttonClasses({ variant: "outline", size: "sm" })}
+            onClick={() => choose({ analytics: false, marketing: false })}
+          >
+            {text.reject}
+          </button>
+          <button
+            type="button"
+            className={buttonClasses({ variant: "outline", size: "sm" })}
+            onClick={() => choose({ analytics: true, marketing: true })}
+          >
+            {text.accept}
+          </button>
+        </div>
+        <button
+          type="button"
+          className="mt-1 min-h-tap w-full text-label-md text-brand-teal-dark underline"
+          onClick={() => setExpanded(true)}
+        >
+          {text.customize}
+        </button>
+      </section>
+    );
+  }
 
   return (
     <section
