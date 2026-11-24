@@ -24,6 +24,17 @@ export function locationFor(slug: LocationSlug) {
     fullAddress: `${source.street}, ${source.city}, Việt Nam`,
   };
 }
+/**
+ * Google Business Profile of each centre, by Knowledge Graph id (kgmid).
+ * Confirmed by the owner on 2026-11-24 via share.google links.
+ */
+const businessProfileIds: Record<LocationSlug, string> = {
+  "ho-chi-minh": "/g/11ssx5ydnm",
+  "ha-noi": "/g/11yct6qhk5",
+};
+export function locationProfileHref(slug: LocationSlug) {
+  return `https://www.google.com/search?kgmid=${businessProfileIds[slug]}`;
+}
 export function locationMapHref(slug: LocationSlug) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationFor(slug).fullAddress)}`;
 }

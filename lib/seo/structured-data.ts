@@ -1,4 +1,4 @@
-import { locationFor, locationHref, locationMapHref, type LocationSlug } from "@/content/locations";
+import { locationFor, locationHref, locationMapHref, locationProfileHref, type LocationSlug } from "@/content/locations";
 import { site } from "@/content/site";
 import { courses, type Course } from "@/content/courses";
 import { courseHref } from "@/content/course-levels";
@@ -158,6 +158,7 @@ export function locationData(locale: Locale, base: string, slug: LocationSlug) {
     telephone: site.phone.e164,
     email: site.email,
     hasMap: locationMapHref(slug),
+    sameAs: [locationProfileHref(slug)],
     parentOrganization: { "@id": `${base}/#organization` },
   };
 }

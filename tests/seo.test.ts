@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { openRoles } from "../content/careers";
 import { courseHref, courseLevels, isCourseSlug, levelCourse } from "../content/course-levels";
-import { locationSlugs, locationFor, isLocationSlug } from "../content/locations";
+import { locationSlugs, locationFor, isLocationSlug, locationProfileHref } from "../content/locations";
 import { site, siteCopy } from "../content/site";
 import {
   locationData,
@@ -93,6 +93,8 @@ test("location pages only describe confirmed addresses and share the central con
       assert.equal(map.origin, "https://www.google.com");
       assert.equal(map.searchParams.get("api"), "1");
       assert.equal(map.searchParams.get("query"), location.fullAddress);
+      assert.deepEqual(data.sameAs, [locationProfileHref(slug)]);
+      assert.match(data.sameAs[0], /^https:\/\/www\.google\.com\/search\?kgmid=\/g\/\w+$/);
       for (const unverified of ["openingHoursSpecification", "geo", "aggregateRating", "image"]) {
         assert.equal(unverified in data, false);
       }
