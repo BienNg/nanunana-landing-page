@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { sectionIds } from "@/content/nav";
 import { Hero } from "@/components/sections/Hero";
 import { Stats } from "@/components/sections/Stats";
+import { AboutSummary } from "@/components/sections/AboutSummary";
 import { Founder } from "@/components/sections/Founder";
 import { Courses } from "@/components/sections/Courses";
 import { LearningApp } from "@/components/sections/LearningApp";
@@ -40,6 +41,7 @@ export default function Home() {
         <Testimonials />
       </Suspense>
       <Gallery />
+      <AboutSummary />
       <Faq />
       <Contact form={<ConsultationForm turnstileSiteKey={serverEnv.turnstile()?.siteKey} />} />
       <MotionLoader />
