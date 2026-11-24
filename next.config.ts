@@ -45,6 +45,8 @@ const nextConfig: NextConfig = {
         destination: "/niveau/:level",
         permanent: true,
       },
+      { source: "/trinh-do/khoa-hoc-giao-tiep", destination: "/niveau", permanent: true },
+      { source: "/sign-up", destination: "/niveau", permanent: true },
       {
         source: "/blog-posts/tai-sao-nen-hoc-online",
         destination: "/hoc-tieng-duc-online",
