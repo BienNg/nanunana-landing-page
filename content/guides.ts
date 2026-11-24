@@ -145,9 +145,9 @@ export const guides: Record<GuideSlug, Record<Locale, GuideContent>> = {
     vi: {
       eyebrow: "Hướng dẫn · Thi Goethe",
       title: "Thi Goethe ở Việt Nam: cần mang gì, bao lâu có kết quả",
-      metaTitle: "Thi Goethe: cần mang gì, bao lâu có kết quả",
+      metaTitle: "Thi Goethe A1–C2: cần mang gì, bao lâu có kết quả",
       description:
-        "Thi chứng chỉ Goethe tại Hà Nội và TP. Hồ Chí Minh: giấy tờ cần mang, khi nào có kết quả, chứng chỉ điện tử, hủy hoặc đổi lịch thi. Theo trang chính thức của Viện Goethe.",
+        "Thi Goethe tại Hà Nội và TP. Hồ Chí Minh: mang hộ chiếu còn hạn, bản photo và ảnh 4x6 cm; kết quả thường sau 2–3 ngày làm việc trên my.goethe.de. Kèm cách hủy, đổi lịch thi.",
       intro:
         "Viện Goethe tại Hà Nội và TP. Hồ Chí Minh tổ chức thi tiếng Đức từ A1 đến C2. Trang này tóm tắt những điều thí sinh hay hỏi nhất, theo thông tin trên trang thi của hai viện. Quy định có thể thay đổi, nên hãy xem lại trang chính thức trước ngày thi.",
       quickTitle: "Trả lời nhanh",

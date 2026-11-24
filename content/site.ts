@@ -71,10 +71,10 @@ export const siteCopy = dictionary(
     officeHanoi: "Hà Nội",
     /** Footer extras that are not confirmed yet. */
     license: verify("Giấy phép tư vấn du học", "Số giấy phép / link giấy phép tư vấn du học?"),
-    metaTitle: "Tiếng Đức A1–C1 & Du học Đức | NaNu NaNa",
+    metaTitle: "NaNu NaNa – Trung tâm tiếng Đức & Du học Đức",
     metaTitleTemplate: "%s | NaNu NaNa",
     metaDescription:
-      "Nhắc đến du học Đức là nhắc đến NaNu NaNa — Chất lượng và sự tử tế. Khoá học tiếng Đức A1–C1, tư vấn du học đại học và du học nghề (Ausbildung) tại Đức.",
+      "NaNu NaNa là trung tâm tiếng Đức và tư vấn du học Đức tại Việt Nam: khoá học A1–C1, du học đại học và du học nghề (Ausbildung). Chất lượng và sự tử tế.",
     homeLabel: "Trang chủ",
     rights: "Bảo lưu mọi quyền.",
     directorLabel: "Giám đốc",
